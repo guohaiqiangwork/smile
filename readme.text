@@ -1,0 +1,26 @@
+项目结构及文件目录
+	1.页面资源目录 
+		1-1 css 
+			1-1.1 common.css 公共样式
+		1-2 imgage
+		1-3
+			1-3.1 js    公共资源目录
+		1-2 fonts字体图标文件
+	2.子页面目录pages 
+		2-1  
+	3.公共页面目录 views 
+		3-1 category.htnl  分类
+		3-2 homePage.html  首页
+		3-3 notNet.html  无网络
+		3-4 personalCenter 我的
+		3-5 shopCart 购物车
+	4.入口页index.html (为主窗口) 
+	5.登录页：longin.html
+	6.会话ID userSessionId
+	7.角色ID 
+	8.guide 引导页 
+	9.存储用户信息
+
+ 
+ 
+ 

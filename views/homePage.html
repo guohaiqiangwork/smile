@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			.content {
+				white-space: nowrap;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+				width: 6rem;
+				display: flex;
+
+				&::-webkit-scrollbar {
+					display: none;
+				}
+			}
+
+			.content div {
+				float: left;
+				padding-left: .3rem;
+				color: #FFFFFF;
+				line-height: 3.5;
+				font-size: .18rem;
+			}
+
+			.money_selected {
+				color: red !important;
+				font-size: .23rem !important;
+				line-height: 3 !important;
+			}
+
+			.money_selected span {
+				border-bottom: 2px solid red;
+				padding-bottom: 4px;
+			}
+
+			.capsule {
+				width: 1.4rem;
+				height: .6rem;
+				float: left;
+				margin-left: .4rem;
+				border-radius: .4rem;
+				border: 1px solid #222222;
+				text-align: center;
+				font-size: .24rem;
+				line-height: 1.5;
+				padding: .1rem;
+				margin-top: .1rem;
+			}
+
+			.capsuleSelection {
+				color: red;
+				border-color: red
+			}
+
+			.whole {
+				background-color: beige;
+				height: 4.5rem;
+				position: absolute;
+				width: 7.5rem;
+				display: none;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 头部导航 -->
+		<div id="heardD" style="background-color: #6C6C6C;display: flex;height: .72rem;">
+			<div class="content">
+				<div><span>热门</span></div>
+				<div><span>粮油</span></div>
+				<div><span>饮料</span> </div>
+				<div><span>酒水</span></div>
+				<div><span>速食</span></div>
+				<div><span>美妆</span></div>
+				<div><span>茶叶</span></div>
+				<div><span>母婴</span></div>
+				<div><span>美妆</span></div>
+				<div><span>茶叶</span></div>
+				<div><span>母婴</span></div>
+			</div>
+			<div class="allCategories">
+				<img src="image/icon_down_up.png" style="width: 30%;">
+			</div>
+		</div>
+		<!-- 全部分类区域 -->
+		<div class="whole">
+			<div style="width: 7.5rem;">
+				<div style="width:3.7rem;float: left;padding-left: .3rem;">
+					全部选项
+				</div>
+				<div id="jt" style="width:3.7rem;float: left;text-align:right;padding-right: .4rem;">
+					<!-- 箭头22 -->
+					<img src="image/icon_down_up.png" style="width: 30%;">
+				</div>
+			</div>
+			<div class="capsule">
+				热门
+			</div>
+			<div class="capsule">
+				熟食海鲜
+			</div>
+		</div>
+		<!-- 图片区域 -->
+		<div style="width: 7.5rem;height: 3.2rem;background-color: #E0E0E0;">
+
+		</div>
+		<!-- 产品展示区 -->
+		<div class="">
+			<div style="text-align: center;">
+				~产品展示~
+			</div>
+			<div style="display: flex;width: 7.5rem;overflow-x: scroll;">
+				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
+					<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+					<div id="">海南凤梨（1个）</div>
+					<div id="">极甜凤梨甜到心里</div>
+					<div id="">¥19.00 购物车</div>
+				</div>
+				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
+					<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+					<div id="">海南凤梨（1个）</div>
+					<div id="">极甜凤梨甜到心里</div>
+					<div id="">¥19.00 购物车</div>
+				</div>
+				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
+					<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+					<div id="">海南凤梨（1个）</div>
+					<div id="">极甜凤梨甜到心里</div>
+					<div id="">¥19.00 购物车</div>
+				</div>
+				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
+					<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+					<div id="">海南凤梨（1个）</div>
+					<div id="">极甜凤梨甜到心里</div>
+					<div id="">¥19.00 购物车</div>
+				</div>
+				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
+					<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+					<div id="">海南凤梨（1个）</div>
+					<div id="">极甜凤梨甜到心里</div>
+					<div id="">¥19.00 购物车</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- 广告 -->
+		<div style="height: 1.8rem;background-color: #007AFF;">
+
+		</div>
+		<!-- 分类 -->
+		<div style="height:.61rem ;background-color: #2AC845;">
+
+		</div>
+		<div style="height:2.4rem ;background-color: brown;">
+
+		</div>
+		<!-- 产品展示 -->
+		<div class="">
+			<div class="" style="width:3.5rem;background-color: #F4F4F4;padding:.19rem .17rem;float: left;margin-left: .2rem;">
+				<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+				<div id="">海南凤梨（1个）</div>
+				<div id="">极甜凤梨甜到心里</div>
+				<div id="">¥19.00 购物车</div>
+			</div>
+			<div class="" style="width:3.5rem;background-color: #F4F4F4;padding:.19rem .17rem;float: left;margin-left: .2rem;">
+				<div><img src="image/mu.jpg" style="width: 1.7rem;height: 1.75rem;"></div>
+				<div id="">海南凤梨（1个）</div>
+				<div id="">极甜凤梨甜到心里</div>
+				<div id="">¥19.00 购物车</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/rem_reset.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏		
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条			
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				var getOrderDetailWai = plus.nativeUI.showWaiting("信息加载中...");
+				var userSessionId = plus.storage.getItem('userSessionId');
+				// 获取二维码				
+				var keyword = {
+					userOrderId: '789687s'
+				}
+				getOrderDetailWai.close();
+				getUserOrderDetails($$, keyword, userSessionId, function(data) {
+					console.log(JSON.stringify(data) + '接口数据')
+					if (data.code == 0) {
+						console.log(JSON.stringify(data))
+						_self.carOwnerId = data.attributes.carOwnerId;
+						_self.free = data.attributes.free;
+						// 司机内容页面赋值			
+						if (data.attributes.sex == 2) {
+							data.attributes.sex = '女'
+							data.attributes.imgSrcHead = '../img/driverImg/womenAvator/' + data.attributes.headNum + '.png'
+						} else {
+							data.attributes.sex = '男'
+							data.attributes.imgSrcHead = '../img/driverImg/menAvator/' + data.attributes.headNum + '.png'
+						}
+						if (data.attributes.carOwner) {
+							$("#car").append('<div class="border-bottom">' + '<p>' + '<img class="avator" src=" ' + data.attributes.imgSrcHead +
+								' "/>' + '<span class="order_font_wieght">' + data.attributes.carNo + '</span>' +
+								'<span class="order_flot_right">' + data.obj.createTime + '</span></p>' + '<div><span>' + data.attributes.carOwner
+								.substring(0, 1) + "师傅" + '</span><span>' + data.attributes.sex + '</span><span>' + data.attributes.color +
+								'</span><span>' + data.attributes.brand + '</span></div>' + '</div>')
+						} else {
+							tipShow('数据有问题');
+							_self.close()
+						}
+						if (data.obj.message == null) {
+							$('.order_comment').text('')
+						} else {
+							$('.order_comment').text(data.obj.message)
+						}
+
+					} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
+						tipShow("请重新登录！");
+						clearStorage();
+						mui.openWindow({
+							url: "../login.html",
+							id: "login",
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						tipShow(data.msg);
+					}
+				})
+				// 去支付	
+				$("#goToPay").on("tap", function() {
+					$$.openWindow({
+						url: "orderPay.html",
+						id: "orderPay",
+						styles: {
+							statusbar: {
+								background: "#fff"
+							}
+						},
+						extras: {
+							"orderId": _self.orderId
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				});
+				// 点击导航栏
+				$('.content').on("tap", "div", function() {
+					var $this = $(this);
+					if ($(this).hasClass("money_selected")) {
+						return
+					} else {
+						$(this).addClass("money_selected").siblings("div").removeClass("money_selected");
+					}
+				})
+				// 全部分类展示
+				var a = [1, 2, 3, 4, 5, 6, 67, 5, 8]
+				$.each(a, function(index) {
+					// console.log(index);
+					$('.whole').append(
+						'<div  class="capsule" +  data-id=' + a[index] + '>' +
+						+a[index] +
+						'</div>'
+					)
+				});
+				// 点击选择全部分类
+				$(".whole").on("tap", ".capsule", function() {
+					var $this = $(this);
+					console.log($(this).attr("data-id"))
+					if ($(this).hasClass("capsuleSelection")) {
+						return
+					} else {
+						$(this).addClass("capsuleSelection").siblings("div").removeClass("capsuleSelection");
+					}
+					// console.log($(this).text())
+				});
+				// 点击展开全部选项栏
+				$(".allCategories").on("tap", function() {
+					// $('#heardD').css("display","none")
+					// $('.content').css("display","none")
+					// $('.allCategories').css("display","none")
+					$(".whole").css("display", "block")
+				})
+				// 关闭全部选项栏
+				$("#jt").on("tap", function() {
+					// $('.content').css("display","block")
+					// $('.allCategories').css("display","block")
+					// $('#heardD').css("display","block")
+					$(".whole").css("display", "none")
+				})
+			}
+		})(jQuery, document, mui);
+	</script>
