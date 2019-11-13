@@ -66,6 +66,10 @@
 				display: none;
 				top: 0;
 			}
+
+			.allCategories {
+				width: 1rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -85,7 +89,7 @@
 				<div><span>母婴</span></div>
 			</div>
 			<div class="allCategories">
-				<img src="image/icon_down_up.png" style="width: 30%;">
+				<img src="../image/icon_down_up.png" style="width: 30%;">
 			</div>
 		</div>
 		<!-- 全部分类区域 -->
@@ -96,7 +100,7 @@
 				</div>
 				<div id="jt" style="width:3.7rem;float: left;text-align:right;padding-right: .4rem;">
 					<!-- 箭头22 -->
-					<img src="image/icon_down_up.png" style="width: 30%;">
+					<img src="../image/icon_down_up.png" style="width: 30%;">
 				</div>
 			</div>
 			<div class="capsule">
@@ -110,10 +114,71 @@
 		<div style="width: 7.5rem;height: 3.2rem;background-color: #E0E0E0;">
 
 		</div>
+		<div class="mui-content">
+		<!-- 	<ul class="mui-table-view mui-table-view-chevron">
+				<li id="switch" class="mui-table-view-cell">
+					定时轮播
+					<div class="mui-switch">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+			</ul> -->
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/yuantiao.jpg">
+							<p class="mui-slider-title">静静看这世界</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/position.png">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/wx.png">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/position.png">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/mu.jpg">
+							<p class="mui-slider-title">静静看这世界</p>
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/icon_down_up.png">
+							<p class="mui-slider-title">幸福就是可以一起睡觉</p>
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator mui-text-right">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+		</div>
+			
 		<!-- 产品展示区 -->
 		<div class="">
 			<div style="text-align: center;">
 				~产品展示~
+			</div>
+			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='9'>
+				<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+				<input id="test" class="mui-input-numbox" type="number" value="5" />
+				<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
 			</div>
 			<div style="display: flex;width: 7.5rem;overflow-x: scroll;">
 				<div class="" style="width: 2.1rem;3.7rem;background-color: #F4F4F4;margin-left: .1rem;padding:.19rem .17rem">
@@ -202,6 +267,9 @@
 				_self = plus.webview.currentWebview();
 				var getOrderDetailWai = plus.nativeUI.showWaiting("信息加载中...");
 				var userSessionId = plus.storage.getItem('userSessionId');
+				//设置系统状态栏背景色
+				plus.navigator.setStatusBarBackground('#6495ED')
+
 				// 获取二维码				
 				var keyword = {
 					userOrderId: '789687s'
@@ -301,18 +369,21 @@
 				});
 				// 点击展开全部选项栏
 				$(".allCategories").on("tap", function() {
-					// $('#heardD').css("display","none")
-					// $('.content').css("display","none")
-					// $('.allCategories').css("display","none")
 					$(".whole").css("display", "block")
 				})
 				// 关闭全部选项栏
 				$("#jt").on("tap", function() {
-					// $('.content').css("display","block")
-					// $('.allCategories').css("display","block")
-					// $('#heardD').css("display","block")
 					$(".whole").css("display", "none")
 				})
+			
+				var slider = mui("#slider");
+				slider.slider({
+					interval: 3000
+				});
+				var testBox=document.getElementById("test");
+				testBox.addEventListener('change',function(){
+					console.log(testBox.value);
+				});
 			}
 		})(jQuery, document, mui);
 	</script>

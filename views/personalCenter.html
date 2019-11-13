@@ -1,16 +1,145 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="assets/css/mui.css">
-	</head>
-	<body>
-		我的11
-	</body>
-	<script src="../js/app.js"></script>
+
+<head>
+	<meta charset="utf-8">
+	<title>my_setting</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/mobileReset.css">
+	<link rel="stylesheet" href="../css/pages/mySetting.css">
+	<link rel="stylesheet" href="../css/mui.min.css">
+	<script src="../js/rem_reset.js"></script>
+</head>
+
+<body onselectstart="return false;">
+	<div class="content" style="background-color: #fff;">
+		<div class="settingList">
+			<ul>
+				<li class="settingPassword"><span>设置支付密码</span><i class="fa fa-angle-right"></i></li>
+				<li class="settingDelete"><span>清理缓存</span><i class="fa fa-angle-right"></i></li>
+				<li class="settingAgreement"><span>服务协议</span><i class="fa fa-angle-right"></i></li>
+				<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
+				<li class="settingPhone"><span>客服电话</span>
+					<a style="float: right;" href="tel:18048334993">180****4993</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 退出登录 -->
+		<div id="logout" class="bottomBtnMiddle" style="background-color: #008BD5;">
+			退出登录
+		</div>
+	</div>
+</body>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/commonFun.js"></script>
+<script src="../js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	(function ($, doc, $$, undefined) {
+		$$.init();
+		var _self;
+		if (window.plus) {
+			plusReady();
+		} else {
+			doc.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+			plus.navigator.setFullscreen(false);
+			//强制竖屏
+			plus.screen.lockOrientation("portrait-primary");
+			//强制隐藏滚动条
+			plus.webview.currentWebview().setStyle({
+				scrollIndicator: 'none'
+			});
+			_self = plus.webview.currentWebview();
+			var sessionId = plus.storage.getItem('userSessionId'),
+				faceId = plus.storage.getItem('idFace');
+			//退出登录
+			$('#logout').on('tap', function () {
+				logout($$, sessionId, function (data) {
+					if (data.code == 0) {
+						console.log("退出登录成功！");
+						mui.fire(plus.webview.getWebviewById("userIndex.html"), "menu:close");
+						clearStorage();
+						$$.openWindow({
+							url: '../login.html',
+							id: 'login',
+							extras:{
+								'onlyId':"setOutUser"
+							},
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						console.log("退出登录失败："+JSON.stringify(data));
+					}
+
+				});
+			});
+		
+		}
+		// 清除缓存
+		$(".settingList .settingDelete").on("tap", function () {
+			plus.cache.calculate(function (size) {
+				sizeCache = size;
+				var size_m = parseFloat(sizeCache / (1024 * 1024)).toFixed(2);
+				if (size_m > 1) {
+					mui.confirm("您目前的系统缓存为" + size_m + "M", "清除缓存", ["确认", "取消"], function (e) {
+						if (e.index == 1) { } else {
+							plus.cache.clear(function () {
+								alert("缓存清除完毕")
+							});
+						}
+					});
+				}else{
+					alert('暂无内存可清除')
+				}
+			});
+		});
+		// 去关于美好同乘
+		$(".settingList .settingAbout").on("tap", function () {
+			$$.openWindow({
+				url: "aboutGood.html",
+				id: "aboutGood",
+				styles: {
+					statusbar: {
+						background: "#fff"
+					}
+				}
+			});
+		});
+		// 去用户协议
+		$(".settingList .settingAgreement").on("tap", function () {
+			$$.openWindow({
+				url: "agreement.html",
+				id: "agreement",
+				styles: {
+					statusbar: {
+						background: "#fff"
+					}
+				}
+			});
+		});
+		// 去支付密码
+		$(".settingList .settingPassword").on("tap", function () {
+			$$.openWindow({
+				url: "payPassword.html",
+				id: "payPassword",
+				styles: {
+					statusbar: {
+						background: "#fff"
+					}
+				}
+			});
+		});
+	})(jQuery, document, mui);
+</script>
 
 </html>
