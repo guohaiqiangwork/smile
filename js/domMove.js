@@ -1,7 +1,6 @@
 	window.onload = function () {
 	    var flag = 0; //标记是拖曳还是点击
 	    var oDiv = document.getElementById('moveLocation');
-		console.log(JSON.stringify(oDiv))
 	    var disX, moveX, L, T, starX, starY, starXEnd, starYEnd;
 	    oDiv.addEventListener('touchstart', function (e) {
 	        flag = 0;

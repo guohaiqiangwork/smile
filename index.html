@@ -35,9 +35,7 @@
 		<script type="text/javascript" charset="utf-8">
 			//mui初始化			
 			mui.init();
-			var subpages = ['views/homePage.html', 'views/category.html',
-				'views/shopCart.html', 'views/personalCenter.html'
-			];
+			var subpages = ['views/homePage.html', 'views/category.html', 'views/shopCart.html', 'views/personalCenter.html'];
 			var subpage_style = {
 				top: '45px',
 				bottom: '51px'
@@ -55,7 +53,14 @@
 						temp[subpages[i]] = "true";
 						mui.extend(aniShow, temp);
 					}
-					self.append(sub);
+					isAndroid = (/android/gi).test(navigator.appVersion);
+					if (isAndroid) {
+						var sub =plus.webview.create(subpages[0], subpages[0], subpage_style)
+						self.append(sub);
+					}else {
+						self.append(sub);
+					}
+
 				}
 			});
 			//当前激活选项	
@@ -88,7 +93,7 @@
 			//自定义事件，模拟点击“首页选项卡”		
 			document.addEventListener('gohome', function() {
 				var defaultTab = document.getElementById("defaultTab");
-				//模拟首页点击				
+				//模拟首页点击		
 				mui.trigger(defaultTab, 'tap');
 				//切换选项卡高亮		
 				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");

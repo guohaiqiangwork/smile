@@ -117,20 +117,20 @@
 						});
 					}, false);
 				});
-			$("#money").on('DOMNodeInserted', function () {
-				$("#money").find(".recharge_money").eq(0).addClass("money_selected");
-				$(".recharge_btn").css("display","block");
-			});
-			// 点击改变
-			$(".money").on("tap", ".getMoney", function () {
-				var $this = $(this);
-				if ($(this).hasClass("money_selected")) {
-					return
-				} else {
-					$(this).addClass("money_selected").siblings("div").removeClass("money_selected");
-				}
-				// console.log($(this).text())
-			});
+			// $("#money").on('DOMNodeInserted', function () {
+			// 	$("#money").find(".recharge_money").eq(0).addClass("money_selected");
+			// 	$(".recharge_btn").css("display","block");
+			// });
+			// // 点击改变
+			// $(".money").on("tap", ".getMoney", function () {
+			// 	var $this = $(this);
+			// 	if ($(this).hasClass("money_selected")) {
+			// 		return
+			// 	} else {
+			// 		$(this).addClass("money_selected").siblings("div").removeClass("money_selected");
+			// 	}
+			// 	// console.log($(this).text())
+			// });
 			})(mui, document);
 		</script>
 	</body>
