@@ -8,6 +8,35 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
+			.locationBtn {
+				width: .8rem;
+				height: .8rem;
+				position: fixed;
+				right: 4%;
+				bottom: 30%;
+				background-color: #fff;
+				z-index: 999;
+				box-shadow: 0 0 10px rgb(218, 218, 218);
+				border-radius: 2px;
+				display: block;
+				text-align: center;
+				line-height: .8rem;
+				color: #959DAD;
+			}
+		
+			.locationBtn i {
+				display: inline-block;
+			}
+		
+			.locationBtn img {
+				width: .4rem;
+				height: .4rem;
+				position: absolute;
+				left: .2rem;
+				top: .2rem;
+			}
+		</style>
+		<style type="text/css">
 			.content {
 				white-space: nowrap;
 				overflow-x: auto;
@@ -70,11 +99,17 @@
 			.allCategories {
 				width: 1rem;
 			}
+			html,body{height: 100%;width: 100%;}  
+			    body{  
+			      background:url(../image/mu.jpg)no-repeat;   
+			      background-size:100% 100%;                  
+			        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../image/mu.jpg',sizingMethod='scale');  
+			    }  
 		</style>
 	</head>
 	<body>
 		<!-- 头部导航 -->
-		<div id="heardD" style="background-color: #6C6C6C;display: flex;height: .72rem;">
+		<div id="heardD" style="background-color: #6C6C6C;display: flex;height: .72rem;overflow-x: hidden;">
 			<div class="content">
 				<div><span>热门</span></div>
 				<div><span>粮油</span></div>
@@ -172,10 +207,10 @@
 			
 		<!-- 产品展示区 -->
 		<div class="">
-			<div style="text-align: center;">
+			<div style="text-align: center;" id="goToPay">
 				~产品展示~
 			</div>
-			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='9'>
+			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='99'>
 				<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
 				<input id="test" class="mui-input-numbox" type="number" value="5" />
 				<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
@@ -240,12 +275,16 @@
 				<div id="">¥19.00 购物车</div>
 			</div>
 		</div>
+		<div id="moveLocation" class="locationBtn">
+				<img src="../image/position.png">
+		</div> 
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/commonFun.js"></script>
 	<script src="../js/requestFun.js"></script>
 	<script src="../js/rem_reset.js"></script>
+	<script src="../js/domMove.js"></script>
 	<script>
 		(function($, doc, $$, undefined) {
 			$$.init();
@@ -268,8 +307,10 @@
 				var getOrderDetailWai = plus.nativeUI.showWaiting("信息加载中...");
 				var userSessionId = plus.storage.getItem('userSessionId');
 				//设置系统状态栏背景色
-				plus.navigator.setStatusBarBackground('#6495ED')
-
+				// plus.navigator.setStatusBarBackground('#6495ED')
+				$('#heardD').scroll({
+					indicators: false //是否显示滚动条
+				});
 				// 获取二维码				
 				var keyword = {
 					userOrderId: '789687s'
@@ -322,8 +363,8 @@
 				// 去支付	
 				$("#goToPay").on("tap", function() {
 					$$.openWindow({
-						url: "orderPay.html",
-						id: "orderPay",
+						url: "../login.html",
+						id: "../login",
 						styles: {
 							statusbar: {
 								background: "#fff"
@@ -375,11 +416,12 @@
 				$("#jt").on("tap", function() {
 					$(".whole").css("display", "none")
 				})
-			
+			// 轮播
 				var slider = mui("#slider");
 				slider.slider({
 					interval: 3000
 				});
+				// 加减
 				var testBox=document.getElementById("test");
 				testBox.addEventListener('change',function(){
 					console.log(testBox.value);

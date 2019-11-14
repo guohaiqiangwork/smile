@@ -25,8 +25,9 @@
 				line-height: 50px;
 				width: 100%;
 			}
-
-			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+				color: red;
+				border-left: 3px solid red;
 				background-color: #fff;
 			}
 		</style>
@@ -55,9 +56,9 @@
 			var i = 1,
 				j = 1,
 				m = 6, //左侧选项卡数量+1
-				n = 21; //每个选项卡列表数量+1
+				n = 9; //每个选项卡列表数量+1
 			for (; i < m; i++) {
-				html.push('<a class="mui-control-item" href="#content' + i + '">选项' + i + '</a>');
+				html.push('<a class="mui-control-item" href="#content' + i + '">选项舒适' + i + '</a>');
 			}
 			controls.innerHTML = html.join('');
 			html = [];

@@ -1,485 +1,477 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<title>login</title>
-		<link rel="stylesheet" type="text/css" href="css/mobileReset.css" />
-		<link rel="stylesheet" type="text/css" href="css/common.css" />
-		<link rel="stylesheet" type="text/css" href="css/login.css" />
-		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-		<style type="text/css">
-			.locationBtn {
-				width: .8rem;
-				height: .8rem;
-				position: fixed;
-				right: 4%;
-				bottom: 30%;
-				background-color: #fff;
-				z-index: 999;
-				box-shadow: 0 0 10px rgb(218, 218, 218);
-				border-radius: 2px;
-				display: block;
-				text-align: center;
-				line-height: .8rem;
-				color: #959DAD;
-			}
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>login</title>
+	<link rel="stylesheet" type="text/css" href="css/mobileReset.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+	<script src="js/rem_reset.js" type="text/javascript" charset="utf-8"></script>
+</head>
 
-			.locationBtn i {
-				display: inline-block;
-			}
-
-			.locationBtn img {
-				width: .4rem;
-				height: .4rem;
-				position: absolute;
-				left: .2rem;
-				top: .2rem;
-			}
-		</style>
-		<script src="js/public/rem_reset.js" type="text/javascript" charset="utf-8"></script>
-	</head>
-
-	<body>
-		<div id="login">
-			<div class="returnKey mui-action-back"><img src="img/return_key.png"></div>
-			<div class="car_logo">
-				<img src="img/logo.png">
-			</div>
-			<div class="car_desc">
-				<p>美好同乘，让人际关系更美好</p>
-				<p>MEIHAO COMMUTING TOGETHER</p>
-			</div>
-			<div class="user_login">
-				<input required="required" maxlength="11" class="user_phone word_close" type="text" placeholder="请输入手机号">
-				<a href="javascript:;" class="clear-input">
-					<img src="img/input_clear.png" class="clear-input-img" />
-				</a>
-			</div>
-			<div class="login_btn">
-				下一步
-			</div>
-			<div class="use_car_des">
-				<p>登录即代表同意<a href="#" data-index='0'>《隐私协议》</a>和<a href="#" data-index='1'>《服务协议》</a></p>
-			</div>
-			<div class="otherLogin">
-				<div class="otherWord">
-					<span></span>
-					<span class="otherName">第三方登录</span>
-					<span></span>
-				</div>
-				<ul class="other_login_icon oauth-area">
-					<!-- 	<li class="zfbLogin"><img src="img/zfb.png">
-		                <p>支付宝</p>
-		            </li>
-		            <li><img src="img/wx.png">
-		                <p>微信</p>
-		            </li>
-		            <li><img src="img/wb.png">
-		                <p>微博</p>
-		            </li> -->
-				</ul>
-			</div>
+<body onselectstart="return false;">
+	<div id="login">
+		<div class="returnKey mui-action-back"><img src="image/left@2x.png"></div>
+		<div class="car_logo">
+			<img src="image/log@2x.png">
 		</div>
-		<div id="moveLocation" class="locationBtn">
-			<img src="image/position.png">
+		<!-- 	<div class="user_login">
+				<input required="required" maxlength="11" class="user_phone" type="text" placeholder="">
+				<input required="required" maxlength="4" class="user_phone" type="text" placeholder="">
+			</div> -->
+		<div class="phone_input">
+			<i class="fa fa-tablet font_Typeface"></i>
+			<!-- <img src="image/left@2x.png" style="width: .27rem;height: .32rem;float: left;"> -->
+			<input class="entry" required="required" maxlength="11" type="text" placeholder="请输入手机号码">
 		</div>
+		<div class="code_input">
+			<i class="fa fa-tablet font_Typeface"></i>
+			<!-- <img src="image/left@2x.png" style="width: .27rem;height: .32rem;float: left;"> -->
+			<input required="required" maxlength="4" type="text" placeholder="请输入验证码" class="entry" style="width: 2.3rem;">
+			<span id="yzm">获取验证码</span>
+		</div>
+		<div class="login_btn">
+			登录
+		</div>
+		<div class="use_car_des">
+			<p>点击登录，即表示您同意<a href="#" data-index='0' style="color: red;">《笑容用户协议》</a></p>
+		</div>
+		<div class="otherLogin">
+			<div class="otherWord">
+				<span></span>
+				<span class="otherName">其他方式登录</span>
+				<span></span>
+			</div>
+			<ul class="other_login_icon oauth-area"></ul>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="UTF-8"></script>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/commonFun.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+<!-- 可移动图标 -->
+<script src="js/domMove.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	(function ($, doc, $$, undefined) {
+		$$.init()
+		if (window.plus) {
+			plusReady();
+		} else {
+			doc.addEventListener('plusready', plusReady, false);
+		};
 
-	</body>
-	<script src="js/public/jquery-1.11.2.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/public/mui.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/public/commonFun.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/public/requestFun.js"></script>
-	<script src="js/public/domMove.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-		(function($, doc, $$, undefined) {
-			$$.init()
-			if (window.plus) {
-				plusReady();
-			} else {
-				doc.addEventListener('plusready', plusReady, false);
-			};
-
-			// 5+环境引用
-			function plusReady() {
-				// 监听网络变化
-				document.addEventListener("netchange", function() {
-					alert('786876')
-					// 加延迟 防止页面不能及时加载
-					var addNetTimer = setTimeout(function() {
-						clearTimeout(addNetTimer);
-						onNetChange();
-					}, 100);
-				}, false);
-				// 扩展API加载完毕，现在可以正常调用扩展API
-				plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function(addressbook) {
-					addressbook.find(["displayName", "phoneNumbers"], function(contacts) {
-						for (var i = 0, len = contacts.length; i < len; i++) {
-							var li = document.getElementById("mode").cloneNode(true);
-							li.innerHTML = contacts[i].displayName + "<br/>手机：" + (contacts[i].phoneNumbers.length == 0 ? "" : contacts[
-								i].phoneNumbers[0].value);
-							document.getElementById("listArea").appendChild(li);
-						}
-					}, function() {
-						mui.toast("获取电话簿失败 ");
-					}, {
-						multiple: true
-					});
-				}, function(e) {
-					mui.toast("获取电话簿失败 " + e.message);
-				});
-				var _self = plus.webview.currentWebview();
-				var bindPhone = plus.webview.getWebviewById("bindPhone") || '';
-				bindPhone ? bindPhone.close() : '';
-				// 弹出软键盘时自动改变webview的高度 
-				if (mui.os.ios) {
-					plus.webview.currentWebview().setStyle({
-						softinputMode: "adjustResize"
-					});
-				}
-				// var phoneStatusHeight = plus.navigator.getStatusbarHeight();
-				// console.log(_self.onlyId);
-				// if (_self.onlyId == 'setOutDriver') {
-				// 	plus.webview.currentWebview().opener().hide();
-				// 	setTimeout(function() {
-				// 		plus.webview.currentWebview().opener().close();
-				// 	}, 200);
-				// }
-				// if (_self.onlyId == 'setOutUser') {
-				// 	plus.webview.currentWebview().opener().hide();
-				// 	setTimeout(function() {
-				// 		plus.webview.currentWebview().opener().close();
-				// 	}, 200);
-				// }
-
-				//调用软键盘导致高度变化bug:获取原始窗口的高度
-				var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
-				window.onresize = function() {
-					// 	//软键盘弹起与隐藏  都会引起窗口的高度发生变化
-					var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
-					//resizeHeight<originalHeight证明窗口被挤压了
-					if (resizeHeight * 1 < originalHeight * 1) {
-						$("#login").css("background-size", "100% 100%");
-						plus.webview.currentWebview().setStyle({
-							height: originalHeight
-						});
-					}
-				}
-				// 全屏
-				plus.navigator.setFullscreen(true);
-				//强制竖屏
-				plus.screen.lockOrientation("portrait-primary");
-				//强制隐藏滚动条
+		// 5+环境引用
+		function plusReady() {
+			// 监听网络变化
+			document.addEventListener("netchange", function () {
+				// 加延迟 防止页面不能及时加载
+				var addNetTimer = setTimeout(function () {
+					clearTimeout(addNetTimer);
+					onNetChange();
+				}, 100);
+			}, false);
+			// 扩展API加载完毕，现在可以正常调用扩展API
+			// plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function (addressbook) {
+			// 	addressbook.find(["displayName", "phoneNumbers"], function (contacts) {
+			// 		for (var i = 0, len = contacts.length; i < len; i++) {
+			// 			var li = document.getElementById("mode").cloneNode(true);
+			// 			li.innerHTML = contacts[i].displayName + "<br/>手机：" + (contacts[i].phoneNumbers.length == 0 ? "" : contacts[
+			// 				i].phoneNumbers[0].value);
+			// 			document.getElementById("listArea").appendChild(li);
+			// 		}
+			// 	}, function () {
+			// 		mui.toast("获取电话簿失败 ");
+			// 	}, {
+			// 			multiple: true
+			// 		});
+			// }, function (e) {
+			// 	mui.toast("获取电话簿失败 " + e.message);
+			// });
+			var _self = plus.webview.currentWebview();
+			var bindPhone = plus.webview.getWebviewById("bindPhone") || '';
+			bindPhone ? bindPhone.close() : '';
+			// 弹出软键盘时自动改变webview的高度 
+			if (mui.os.ios) {
 				plus.webview.currentWebview().setStyle({
-					scrollIndicator: 'none'
+					softinputMode: "adjustResize"
 				});
-				$('.use_car_des').on('tap', 'a', function() {
-					console.log($(this).attr('data-index'));
-					var caseProtocol = $(this).attr('data-index');
-					if (caseProtocol == 0) {
-						$$.openWindow({
-							url: "driverPages/privacyPolicy.html",
-							id: 'privacyPolicy',
-							styles: {
-								statusbar: {
-									background: "#fff"
-								}
-							}
-						})
-					} else {
-						$$.openWindow({
-							url: "driverPages/agreement.html",
-							id: "agreement",
-							styles: {
-								statusbar: {
-									background: "#fff"
-								}
-							}
-						})
-					}
-				})
+			}
 
-				function isInstalled(id) {
-					if (mui.os.android) {
-						var main = plus.android.runtimeMainActivity();
-						var packageManager = main.getPackageManager();
-						var PackageManager = plus.android.importClass(packageManager)
-						var packageName = {
-							"weixin": "com.tencent.mm",
-						}
-						try {
-							return packageManager.getPackageInfo(packageName[id], PackageManager.GET_ACTIVITIES);
-						} catch (e) {}
-					} else {
-						var WXApi = plus.ios.import("WXApi");
-						return WXApi.isWXAppInstalled()
-					}
+			//调用软键盘导致高度变化bug:获取原始窗口的高度
+			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			window.onresize = function () {
+				// 	//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				//resizeHeight<originalHeight证明窗口被挤压了
+				if (resizeHeight * 1 < originalHeight * 1) {
+					$("#login").css("background-size", "110% 100%");
+					plus.webview.currentWebview().setStyle({
+						height: originalHeight
+					});
 				}
-				//第三方登录
-				var authBtns = ['weixin']; //配置业务支持的第三方登录
-				var auths = {};
-				var oauthArea = doc.querySelector('.oauth-area');
-				var wxWaiting = plus.nativeUI.showWaiting();
-				plus.oauth.getServices(function(services) {
-					for (var i in services) {
-						var service = services[i];
-						auths[service.id] = service;
-						if (~authBtns.indexOf(service.id)) {
-							var isInstall = isInstalled(service.id);
-							var btn = document.createElement('div');
-							//如果微信未安装，则为不启用状态
-							btn.setAttribute('class', 'oauth-btn' + (!isInstall && service.id === 'weixin' ? (' disabled') : ''));
-							btn.authId = service.id;
-							btn.style.backgroundImage = 'url("image/wx.png")'
-							oauthArea.appendChild(btn);
-							wxWaiting.close();
-						} else {
-							wxWaiting.close();
+			}
+			//强制竖屏
+			plus.screen.lockOrientation("portrait-primary");
+			//强制隐藏滚动条
+			plus.webview.currentWebview().setStyle({
+				scrollIndicator: 'none'
+			});
+			$('.use_car_des').on('tap', 'a', function () {
+				console.log($(this).attr('data-index'));
+				var caseProtocol = $(this).attr('data-index');
+				if (caseProtocol == 0) {
+					$$.openWindow({
+						url: "driverPages/privacyPolicy.html",
+						id: 'privacyPolicy',
+						styles: {
+							statusbar: {
+								background: "#fff"
+							}
 						}
-
+					})
+				} else {
+					$$.openWindow({
+						url: "driverPages/agreement.html",
+						id: "agreement",
+						styles: {
+							statusbar: {
+								background: "#fff"
+							}
+						}
+					})
+				}
+			})
+			function isInstalled(id) {
+				if (mui.os.android) {
+					var main = plus.android.runtimeMainActivity();
+					var packageManager = main.getPackageManager();
+					var PackageManager = plus.android.importClass(packageManager)
+					var packageName = {
+						"weixin": "com.tencent.mm",
 					}
-					$(oauthArea).on('tap', '.oauth-btn', function() {
-						if (this.classList.contains('disabled')) {
-							plus.nativeUI.toast('微信尚未登录');
-							return;
-						}
-						var auth = auths[this.authId];
-						auth.login(function() {
-							plus.nativeUI.toast("登录认证成功");
-							auth.getUserInfo(function() {
-								// plus.nativeUI.toast("获取用户信息成功");
-								var name = auth.userInfo.nickname || auth.userInfo.name;
-								var obj = {
-									'openId': auth.userInfo.openid,
-									'nickName': name,
-									'headImgUrl': auth.userInfo.headimgurl,
-									'unionid': auth.userInfo.headimgurl.unionid || ''
-								};
-								console.log("微信返回信息：" + JSON.stringify(obj));
-								//请求sessionId
-								$$.ajax(requserUrl + '/user/weChatLogin', {
-									timeout: 20000,
-									type: 'post',
-									data: obj,
-									success: function(data) {
-										// console.log("微信登录返回数据："+JSON.stringify(data));
-										if (parseInt(data.code) == 0) {
-											if (_self.type == 'driver') {
-												$$.fire(plus.webview.getWebviewById('driverIndex.html'), 'menu:close')
-												plus.webview.getWebviewById('driverPages/driverSettings.html').close();
-											} else if (_self.type == 'customer') {
-												$$.fire(plus.webview.getWebviewById('userIndex.html'), 'menu:close');
-												plus.webview.getWebviewById('pages/mySetting.html').close();
-											}
-											if (data.obj) {
-												setTimeout(() => {
-													$$.openWindow({
-														url: "views/bindPhone.html",
-														id: "bindPhone",
-														styles: {
-															statusbar: {
-																background: '#fff'
-															}
-														},
-														extras: {
-															"powerId": data.obj,
-															'canshu': 'dfdfs'
-														},
-														show: {
-															aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					try {
+						return packageManager.getPackageInfo(packageName[id], PackageManager.GET_ACTIVITIES);
+					} catch (e) { }
+				} else {
+					var WXApi = plus.ios.import("WXApi");
+					return WXApi.isWXAppInstalled()
+				}
+			}
+			//第三方登录
+			var authBtns = ['weixin']; //配置业务支持的第三方登录
+			var auths = {};
+			var oauthArea = doc.querySelector('.oauth-area');
+			var wxWaiting = plus.nativeUI.showWaiting();
+			plus.oauth.getServices(function (services) {
+				for (var i in services) {
+					var service = services[i];
+					auths[service.id] = service;
+					if (~authBtns.indexOf(service.id)) {
+						var isInstall = isInstalled(service.id);
+						var btn = document.createElement('div');
+						//如果微信未安装，则为不启用状态
+						btn.setAttribute('class', 'oauth-btn' + (!isInstall && service.id === 'weixin' ? (' disabled') : ''));
+						btn.authId = service.id;
+						btn.style.backgroundImage = 'url("image/wx.png")'
+						oauthArea.appendChild(btn);
+						wxWaiting.close();
+					} else {
+						wxWaiting.close();
+					}
+
+				}
+				$(oauthArea).on('tap', '.oauth-btn', function () {
+					if (this.classList.contains('disabled')) {
+						plus.nativeUI.toast('微信尚未登录');
+						return;
+					}
+					var auth = auths[this.authId];
+					auth.login(function () {
+						plus.nativeUI.toast("登录认证成功");
+						auth.getUserInfo(function () {
+							// plus.nativeUI.toast("获取用户信息成功");
+							var name = auth.userInfo.nickname || auth.userInfo.name;
+							var obj = {
+								'openId': auth.userInfo.openid,
+								'nickName': name,
+								'headImgUrl': auth.userInfo.headimgurl,
+								'unionid': auth.userInfo.headimgurl.unionid || ''
+							};
+							console.log("微信返回信息：" + JSON.stringify(obj));
+							//请求sessionId
+							$$.ajax(requserUrl + '/user/weChatLogin', {
+								timeout: 20000,
+								type: 'post',
+								data: obj,
+								success: function (data) {
+									// console.log("微信登录返回数据："+JSON.stringify(data));
+									if (parseInt(data.code) == 0) {
+										if (_self.type == 'driver') {
+											$$.fire(plus.webview.getWebviewById('driverIndex.html'), 'menu:close')
+											plus.webview.getWebviewById('driverPages/driverSettings.html').close();
+										} else if (_self.type == 'customer') {
+											$$.fire(plus.webview.getWebviewById('userIndex.html'), 'menu:close');
+											plus.webview.getWebviewById('pages/mySetting.html').close();
+										}
+										if (data.obj) {
+											setTimeout(() => {
+												$$.openWindow({
+													url: "views/bindPhone.html",
+													id: "bindPhone",
+													styles: {
+														statusbar: {
+															background: '#fff'
 														}
-													});
-												}, 500);
-
-											} else {
-												var sessionId = data.attributes.sessionId,
-													verificationWait = plus.nativeUI.showWaiting();
-												plus.storage.setItem('userSessionId', sessionId);
-												plus.storage.setItem('userId', data.attributes.userId);
-												// 是否实名判断
-												isRealName(sessionId, function(data) {
-													if (verificationWait) {
-														verificationWait.close();
-													}
-													if (data.code == 0) {
-														if (data.obj.realName == 0) {
-															// 未实名
-															var verTimer = setTimeout(function() {
-																clearTimeout(verTimer);
-
-																// 必须去实名
-																$$.openWindow({
-																	url: "views/realName.html",
-																	id: "realName",
-																	styles: {
-																		statusbar: {
-																			background: '#008BD5'
-																		}
-																	},
-																	show: {
-																		aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-																	}
-																});
-															}, 100);
-														} else if (data.obj.realName == 1) {
-															// 存储用户实名信息
-															plus.storage.setItem('realName', data.obj.realName);
-															// 人脸识别判断
-															if (data.obj.idFace == null) {
-																// 必须去人脸识别
-																$$.openWindow({
-																	url: "views/faceDescerm.html",
-																	id: "faceDescerm",
-																	styles: {
-																		statusbar: {
-																			background: '#008BD5'
-																		}
-																	},
-																	show: {
-																		aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-																	}
-																});
-															} else {
-																// 存储用户人脸识别信息
-																// console.log(JSON.stringify(data));
-																plus.storage.setItem('idFace', data.obj.idFace);
-																if (plus.webview.getWebviewById("index-user-menu")) {
-																	plus.webview.getWebviewById("index-user-menu").reload();
-																}
-																if (plus.webview.getWebviewById("userIndex.html")) {
-																	plus.webview.getWebviewById("userIndex.html").close();
-																}
-																var verTimer = setTimeout(function() {
-																	clearTimeout(verTimer);
-																	plus.webview.getLaunchWebview().reload(); //首页窗口对象 
-																	_self.close();
-																}, 100);
-															}
-														} else {
-															console.log("实名状态异常：" + JSON.stringify(data));
-														}
-													} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
-														tipShow("请重新登录！");
-														clearStorage();
-													} else {
-														console.log("失败原因：" + JSON.stringify(data));
-
-														acceptDateErrorTip();
+													},
+													extras: {
+														"powerId": data.obj,
+														'canshu': 'dfdfs'
+													},
+													show: {
+														aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
 													}
 												});
-											}
+											}, 500);
 
 										} else {
-											console.log("失败:" + JSON.stringify(data));
+											var sessionId = data.attributes.sessionId,
+												verificationWait = plus.nativeUI.showWaiting();
+											plus.storage.setItem('userSessionId', sessionId);
+											plus.storage.setItem('userId', data.attributes.userId);
+											// 是否实名判断
+											isRealName(sessionId, function (data) {
+												if (verificationWait) {
+													verificationWait.close();
+												}
+												if (data.code == 0) {
+													if (data.obj.realName == 0) {
+														// 未实名
+														var verTimer = setTimeout(function () {
+															clearTimeout(verTimer);
+
+															// 必须去实名
+															$$.openWindow({
+																url: "views/realName.html",
+																id: "realName",
+																styles: {
+																	statusbar: {
+																		background: '#008BD5'
+																	}
+																},
+																show: {
+																	aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+																}
+															});
+														}, 100);
+													} else if (data.obj.realName == 1) {
+														// 存储用户实名信息
+														plus.storage.setItem('realName', data.obj.realName);
+														// 人脸识别判断
+														if (data.obj.idFace == null) {
+															// 必须去人脸识别
+															$$.openWindow({
+																url: "views/faceDescerm.html",
+																id: "faceDescerm",
+																styles: {
+																	statusbar: {
+																		background: '#008BD5'
+																	}
+																},
+																show: {
+																	aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+																}
+															});
+														} else {
+															// 存储用户人脸识别信息
+															// console.log(JSON.stringify(data));
+															plus.storage.setItem('idFace', data.obj.idFace);
+															if (plus.webview.getWebviewById("index-user-menu")) {
+																plus.webview.getWebviewById("index-user-menu").reload();
+															}
+															if (plus.webview.getWebviewById("userIndex.html")) {
+																plus.webview.getWebviewById("userIndex.html").close();
+															}
+															var verTimer = setTimeout(function () {
+																clearTimeout(verTimer);
+																plus.webview.getLaunchWebview().reload(); //首页窗口对象 
+																_self.close();
+															}, 100);
+														}
+													} else {
+														console.log("实名状态异常：" + JSON.stringify(data));
+													}
+												} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
+													tipShow("请重新登录！");
+													clearStorage();
+												} else {
+													console.log("失败原因：" + JSON.stringify(data));
+
+													acceptDateErrorTip();
+												}
+											});
 										}
-									},
-									error: function() {
-										acceptDateErrorTip();
-									}
-								})
-							}, function(e) {
-								plus.nativeUI.toast("获取用户信息失败：" + e.message);
-							});
-						}, function(e) {
-							waiting.close();
-							plus.nativeUI.toast("登录认证失败：" + e.message);
-						});
-					});
-				}, function(e) {
-					oauthArea.style.display = 'none';
-					plus.nativeUI.toast("获取登录认证失败：" + e.message);
-				});
-				// 跳转验证码页
-				$(".login_btn").on("tap", function() {
-					$(".user_login input").blur();
-					if (window.plus) {
-						plus.key.hideSoftKeybord();
-					}
-					if (navigator.onLine) {
-						var userPhone = $(".user_login input").val().replace(/[^0-9]/ig, ""); //用户手机号
-						getPhoneNum(userPhone, function() {
-							$(".user_login input").val(""); //登录后 清空输入内容 暂不清空 否则验证再次无法获取手机号
-							$(".clear-input").css("display", "none");
-							$("#login .login_btn").css({
-								"backgroundColor": "#3B434D",
-								"color": "#707580"
-							});
-							$$.openWindow({
-								url: "views/verification.html",
-								id: "verification",
-								styles: {
-									statusbar: {
-										background: '#fff'
+
+									} else {
+										console.log("失败:" + JSON.stringify(data));
 									}
 								},
-								extras: {
-									"userPhone": userPhone,
-									"type": _self.type
-								},
-								show: {
-									aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+								error: function () {
+									acceptDateErrorTip();
 								}
-							});
+							})
+						}, function (e) {
+							plus.nativeUI.toast("获取用户信息失败：" + e.message);
 						});
-					} else {
-						//执行离线状态时的任务
-						plus.nativeUI.toast("网络好像已断开，请重试", {
-							duration: "short",
-							verticalAlign: "top"
-						});
-						return false;
-					}
+					}, function (e) {
+						waiting.close();
+						plus.nativeUI.toast("登录认证失败：" + e.message);
+					});
 				});
-			}
-			// 监听输入框内容
-			$('.user_login input').bind('input propertychange', function() {
-				if ($(this).val().length > 0) {
-					$(".clear-input").css("display", "block");
-				} else {
-					$(".clear-input").css("display", "none");
+			}, function (e) {
+				oauthArea.style.display = 'none';
+				plus.nativeUI.toast("获取登录认证失败：" + e.message);
+			});
+			// 跳转验证码页
+			$(".login_btn").on("tap", function () {
+				$(".user_login input").blur();
+				if (window.plus) {
+					plus.key.hideSoftKeybord();
 				}
-				if ($(this).val().length == 11) {
-					$("#login .login_btn").css({
-						"backgroundColor": "#008BD5",
-						"color": "#fff"
+				if (navigator.onLine) {
+					var userPhone = $(".user_login input").val().replace(/[^0-9]/ig, ""); //用户手机号
+					getPhoneNum(userPhone, function () {
+						$(".user_login input").val(""); //登录后 清空输入内容 暂不清空 否则验证再次无法获取手机号
+						$(".clear-input").css("display", "none");
+						$("#login .login_btn").css({
+							"backgroundColor": "#3B434D",
+							"color": "#707580"
+						});
+						$$.openWindow({
+							url: "views/verification.html",
+							id: "verification",
+							styles: {
+								statusbar: {
+									background: '#fff'
+								}
+							},
+							extras: {
+								"userPhone": userPhone,
+								"type": _self.type
+							},
+							show: {
+								aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+							}
+						});
 					});
-					$(".user_login input").blur();
-					if (window.plus) {
-						plus.key.hideSoftKeybord();
-					}
 				} else {
-					$("#login .login_btn").css({
-						"backgroundColor": "#3B434D",
-						"color": "#707580"
+					//执行离线状态时的任务
+					plus.nativeUI.toast("网络好像已断开，请重试", {
+						duration: "short",
+						verticalAlign: "top"
 					});
+					return false;
 				}
 			});
-			$(".clear-input").on("tap", function() {
-				$(this).siblings(".word_close").val("");
-				$(this).css("display", "none");
+			//点击获取验证码
+			var yzm = document.getElementById('yzm')
+			//是否可以点击【获取验证码按钮开关】
+			var onOff = true;
+			var reg = new RegExp(/^\d{6}$/); //6位数字验证
+			console.log(reg)
+			//code_4用于注册信息时的验证，验证码，获取与输入的一致
+			var code_4 = '';
+			yzm.onclick = function () {
+				//如果onOff标志false则，不执行任何操作
+				if (!onOff)
+					return;
+				//循环周期60s
+				var times = 6;
+				//获取验证码
+				var code = '1234';
+				// getAuthenticationCode(plus.storage.getItem('phone'), function (data) {
+				// 	if (data.code == 0) {
+				// 		console.log('验证码获取成功' + data.msg)
+				// 	} else {
+				// 		console.log('验证码获取失败' + data.msg)
+				// 	}
+				// });
+				code_4 = code;
+				//模拟短信发送，以后需要改成短信发送，在这里修改
+				// mui.toast(code);
+				//使用定时器，一秒触发一次事件，如果结束，则关闭定时器
+				var timer = setInterval(function () {
+					//事件处理，一秒一次
+					times--;
+					if (times < 1) {
+						//执行结束，则可以再次点击
+						yzm.innerHTML = "重新获取";
+						onOff = true;
+						clearInterval(timer);
+					} else {
+						var text = times + 's';
+						yzm.innerHTML = text;
+						onOff = false;
+					}
+				}, 1000);
+			}
+		}
+		// 监听输入框内容
+		$('.user_login input').bind('input propertychange', function () {
+			if ($(this).val().length > 0) {
+				$(".clear-input").css("display", "block");
+			} else {
+				$(".clear-input").css("display", "none");
+			}
+			if ($(this).val().length == 11) {
+				$("#login .login_btn").css({
+					"backgroundColor": "#008BD5",
+					"color": "#fff"
+				});
+				$(".user_login input").blur();
+				if (window.plus) {
+					plus.key.hideSoftKeybord();
+				}
+			} else {
 				$("#login .login_btn").css({
 					"backgroundColor": "#3B434D",
 					"color": "#707580"
 				});
+			}
+		});
+		$(".clear-input").on("tap", function () {
+			$(this).siblings(".word_close").val("");
+			$(this).css("display", "none");
+			$("#login .login_btn").css({
+				"backgroundColor": "#3B434D",
+				"color": "#707580"
 			});
-			// 禁止回退 重写back
-			// var backButtonPress = 0;
-			// mui.back = function (event) {
-			//     backButtonPress++;
-			//     if (backButtonPress > 1) {
-			//         plus.runtime.quit();
-			//     } else {
-			//         plus.nativeUI.toast('再按退出应用');
-			//     }
-			//     setTimeout(function () {
-			//         backButtonPress = 0;
-			//     }, 1000);
-			//     return false;
-			// }
-		})(jQuery, document, mui);
-	</script>
+		});
+
+
+
+
+		// 禁止回退 重写back
+		// var backButtonPress = 0;
+		// mui.back = function (event) {
+		//     backButtonPress++;
+		//     if (backButtonPress > 1) {
+		//         plus.runtime.quit();
+		//     } else {
+		//         plus.nativeUI.toast('再按退出应用');
+		//     }
+		//     setTimeout(function () {
+		//         backButtonPress = 0;
+		//     }, 1000);
+		//     return false;
+		// }
+	})(jQuery, document, mui);
+</script>
 
 </html>

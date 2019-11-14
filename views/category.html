@@ -11,7 +11,9 @@
 		<link rel="stylesheet" type="text/css" href="../css/app.css" />
 		<link href="../css/mui.picker.css" rel="stylesheet" />
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pages/myWallet.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<script src="../js/rem_reset.js"></script>
 		<style>
 			.mui-btn {
 				font-size: 16px;
@@ -30,21 +32,52 @@
 				padding: 20px 10px;
 				font-size: 16px;
 			}
-			/* .mui-control-content {
-				background-color: white;
-				min-height: 215px;
+			/* tab */
+		/* 	.mui-card .mui-control-content {
+				padding: 10px;
+			} */
+			
+			.mui-control-content {
+				min-height: 750px;
 			}
-			.mui-control-content .mui-loading {
-				margin-top: 50px;
+			/* .recharge_money{
+				width: 1.5rem;float: left;margin-left: .2rem;
 			}
-			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
-				color: chartreuse;
+			.money_selected{
+				color: red !important;
+				border-bottom: 3px solid #0062CC;
+			}
+			.tab{
+				background-color: #FFFFFF;width: 7.5rem;float: left;padding: .2rem;
 			} */
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
+			<!-- tab切换 -->
+			<div class="money" id="money">
+				<div data-money='0.1' class='recharge_money getMoney money_selected'>0.1元/1币</div>
+				<div data-money='0.01' class='recharge_money getMoney'>0.01元/0.1币</div>
+				<div data-money='1' class='recharge_money getMoney'>1元/10币</div>
+				<div data-money='5' class='recharge_money getMoney'>5元/50币</div>
+			</div>
+			<!-- <div class="tab">
+				<div class="recharge_money getMoney">
+					都放假了
+				</div>
+				<div class="recharge_money getMoney">
+					都放假了
+				</div>
+				<div class="recharge_money getMoney">
+					都放假了
+				</div>
+				<div class="recharge_money getMoney">
+					都放假了
+				</div>
+				<div data-money='0.1' class='recharge_money getMoney money_selected'>0.1元/1币</div>
+			</div> -->
+			<!-- 地址选择 -->
 			<div class="mui-content-padded">
 				<button id='showCityPicker3' class="mui-btn mui-btn-block" type='button'>三级联动示例</button>
 				<div id='cityResult3' class="ui-alert"></div>
@@ -83,9 +116,21 @@
 							//return false;
 						});
 					}, false);
-
-					
 				});
+			$("#money").on('DOMNodeInserted', function () {
+				$("#money").find(".recharge_money").eq(0).addClass("money_selected");
+				$(".recharge_btn").css("display","block");
+			});
+			// 点击改变
+			$(".money").on("tap", ".getMoney", function () {
+				var $this = $(this);
+				if ($(this).hasClass("money_selected")) {
+					return
+				} else {
+					$(this).addClass("money_selected").siblings("div").removeClass("money_selected");
+				}
+				// console.log($(this).text())
+			});
 			})(mui, document);
 		</script>
 	</body>
