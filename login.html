@@ -52,8 +52,6 @@
 	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/commonFun.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/requestFun.js" type="text/javascript" charset="utf-8"></script>
-	<!-- 可移动图标 -->
-	<script src="js/domMove.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		(function($, doc, $$, undefined) {
 			$$.init()
@@ -102,6 +100,7 @@
 				plus.webview.currentWebview().setStyle({
 					scrollIndicator: 'none'
 				});
+				// 服务条例
 				$('.use_car_des').on('tap', 'a', function() {
 					console.log($(this).attr('data-index'));
 					var caseProtocol = $(this).attr('data-index');
@@ -165,128 +164,40 @@
 							plus.nativeUI.toast("登录认证成功");
 							auth.getUserInfo(function() {
 								var name = auth.userInfo.nickname || auth.userInfo.name;
+								// 存储微信openid
+								plus.storage.setItem('userOpenId',auth.userInfo.openid);
 								var obj = {
 									'openId': auth.userInfo.openid,
 									'nickName': name,
 									'headImgUrl': auth.userInfo.headimgurl,
-									'unionid': auth.userInfo.headimgurl.unionid || ''
+									// 'unionid': auth.userInfo.headimgurl.unionid || ''
 								};
-								console.log("微信返回信息：" + JSON.stringify(obj));
-								//请求sessionId
-								$$.ajax(requserUrl + '/user/weChatLogin', {
+								//请求获取用户数据
+								$$.ajax(requserUrl + 'wx/weixin/login', {
 									timeout: 20000,
 									type: 'post',
 									data: obj,
 									success: function(data) {
-										// console.log("微信登录返回数据："+JSON.stringify(data));
-										if (parseInt(data.code) == 0) {
-											if (_self.type == 'driver') {
-												$$.fire(plus.webview.getWebviewById('driverIndex.html'), 'menu:close')
-												plus.webview.getWebviewById('driverPages/driverSettings.html').close();
-											} else if (_self.type == 'customer') {
-												$$.fire(plus.webview.getWebviewById('userIndex.html'), 'menu:close');
-												plus.webview.getWebviewById('pages/mySetting.html').close();
-											}
-											if (data.obj) {
-												setTimeout(() => {
-													$$.openWindow({
-														url: "views/bindPhone.html",
-														id: "bindPhone",
-														styles: {
-															statusbar: {
-																background: '#fff'
-															}
-														},
-														extras: {
-															"powerId": data.obj,
-															'canshu': 'dfdfs'
-														},
-														show: {
-															aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+										if (data.code == 200) {
+											//存储用户id
+											plus.storage.setItem('userId',data.data.id);
+											setTimeout(() => {
+												$$.openWindow({
+													url: "views/bindPhone.html",
+													id: "bindPhone",
+													styles: {
+														statusbar: {
+															background: '#fff'
 														}
-													});
-												}, 500);
-
-											} else {
-												var sessionId = data.attributes.sessionId,
-													verificationWait = plus.nativeUI.showWaiting();
-												plus.storage.setItem('userSessionId', sessionId);
-												plus.storage.setItem('userId', data.attributes.userId);
-												// 是否实名判断
-												isRealName(sessionId, function(data) {
-													if (verificationWait) {
-														verificationWait.close();
-													}
-													if (data.code == 0) {
-														if (data.obj.realName == 0) {
-															// 未实名
-															var verTimer = setTimeout(function() {
-																clearTimeout(verTimer);
-
-																// 必须去实名
-																$$.openWindow({
-																	url: "views/realName.html",
-																	id: "realName",
-																	styles: {
-																		statusbar: {
-																			background: '#008BD5'
-																		}
-																	},
-																	show: {
-																		aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-																	}
-																});
-															}, 100);
-														} else if (data.obj.realName == 1) {
-															// 存储用户实名信息
-															plus.storage.setItem('realName', data.obj.realName);
-															// 人脸识别判断
-															if (data.obj.idFace == null) {
-																// 必须去人脸识别
-																$$.openWindow({
-																	url: "views/faceDescerm.html",
-																	id: "faceDescerm",
-																	styles: {
-																		statusbar: {
-																			background: '#008BD5'
-																		}
-																	},
-																	show: {
-																		aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-																	}
-																});
-															} else {
-																// 存储用户人脸识别信息
-																// console.log(JSON.stringify(data));
-																plus.storage.setItem('idFace', data.obj.idFace);
-																if (plus.webview.getWebviewById("index-user-menu")) {
-																	plus.webview.getWebviewById("index-user-menu").reload();
-																}
-																if (plus.webview.getWebviewById("userIndex.html")) {
-																	plus.webview.getWebviewById("userIndex.html").close();
-																}
-																var verTimer = setTimeout(function() {
-																	clearTimeout(verTimer);
-																	plus.webview.getLaunchWebview().reload(); //首页窗口对象 
-																	_self.close();
-																}, 100);
-															}
-														} else {
-															console.log("实名状态异常：" + JSON.stringify(data));
-														}
-													} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
-														tipShow("请重新登录！");
-														clearStorage();
-													} else {
-														console.log("失败原因：" + JSON.stringify(data));
-
-														acceptDateErrorTip();
+													},
+													extras: {
+														"powerId": data.obj,
+														'canshu': 'dfdfs'
 													}
 												});
-											}
-
+											}, 500);
 										} else {
-											console.log("失败:" + JSON.stringify(data));
+											tipShow(JSON.stringify(data));
 										}
 									},
 									error: function() {
@@ -327,7 +238,9 @@
 					var data1 = {
 						phone: $('#phone').val()
 					};
+					var getCodeWati = plus.nativeUI.showWaiting("获取中...");
 					getCode(mui, data1, function(data) {
+						getCodeWati.close();
 						if (data.code == 200) {
 							console.log('验证码获取成功' + data.data)
 						} else {
@@ -351,6 +264,26 @@
 					}, 1000);
 				}
 			}
+			// 点击跳转
+			$(".login_btn_X").on("tap", function() {
+				var keyword = {
+					phone:$("#phone").val(),
+					phoneCode:$("#code").val()
+				};
+				var gotoLoginWati = plus.nativeUI.showWaiting("登录中...");
+				gotoLogin(mui, keyword, function(data) {
+					gotoLoginWati.close()
+					console.log(JSON.stringify(data))
+					if (data.code == 200) {
+						tipShow(data.message)
+						var ws=plus.webview.currentWebview();
+						plus.webview.close(ws);
+					} else {
+						tipShow(data.message)
+						$("#code").val('') 
+					}
+				});
+			});
 			// 监听验证码输入框内容
 			$('.code_input input').bind('input propertychange', function() {
 				if ($(this).val().length == 6) {
@@ -358,24 +291,6 @@
 					$('.login_btn').css('display', 'none')
 				}
 			});
-				// 点击跳转
-				$(".login_btnX").on("tap", function() {
-					$$.openWindow({
-						url: "views/bindPhone.html",
-						id: "bindPhone",
-						styles: {
-							statusbar: {
-								background: '#fff'
-							}
-						},
-						extras: {
-							'canshu': 'dfdfs'
-						},
-						show: {
-							aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-						}
-					});
-				});
 			// 禁止回退 重写back
 			// var backButtonPress = 0;
 			// mui.back = function (event) {

@@ -16,10 +16,11 @@
 		3-5 shopCart 购物车
 	4.入口页index.html (为主窗口) 
 	5.登录页：longin.html
-	6.会话ID userSessionId
-	7.角色ID 
-	8.guide 引导页 
-	9.存储用户信息
+	6.会话ID 
+	7.角色ID userId
+	8.微信id  userOpenId
+	9.guide 引导页 
+	10.存储用户信息
 
  
  

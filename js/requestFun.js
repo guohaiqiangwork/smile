@@ -9,7 +9,7 @@ window.requserUrl = 'http://192.168.1.10/'; //接口请求地址 http://192.168.
 
 
 /**
- * 获取验证码
+ * 正常登录获取验证码
  */
 function getCode(mui, dataBase, callback) {
 	console.log(JSON.stringify(dataBase))
@@ -18,6 +18,30 @@ function getCode(mui, dataBase, callback) {
 		type: 'post',
 		data: dataBase,
 		success: function(data) {
+			console.log(JSON.stringify(data))
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+/**
+ * 微信绑定获取验证码
+ */
+function getWXCode(mui, dataBase, callback) {
+	console.log(JSON.stringify(dataBase))
+	mui.ajax(requserUrl + "wx/weixin/messages", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		success: function(data) {
+			console.log(JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -33,7 +57,8 @@ function getCode(mui, dataBase, callback) {
  * 去登录
  */
 function gotoLogin(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase))
+	// var getCodeWati = plus.nativeUI.showWaiting("登录中...");
+	console.log(JSON.stringify(dataBase) + '登录')
 	mui.ajax(requserUrl + "wx/send/login", {
 		timeout: 20000,
 		type: 'post',
@@ -42,6 +67,7 @@ function gotoLogin(mui, dataBase, callback) {
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
+				callback && callback(data);
 				tipShow(data.message);
 			}
 		},

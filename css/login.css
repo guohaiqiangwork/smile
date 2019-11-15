@@ -132,11 +132,11 @@ input::-webkit-input-placeholder {
 	background-size: 100% 100%;
 	display: none;
 }
-.login_btn:active {
+/* .login_btn:active {
 	background: url(../image/btnred@2x.png);
 	background-size: 100% 100%;
 	color: #FFFFFF;
-}
+} */
 
 /* 第三方登录 */
 #login .otherLogin {

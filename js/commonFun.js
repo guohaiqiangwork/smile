@@ -18,7 +18,7 @@ function tipShow(str) {
  * 接口异常 用户提示
  */
 function acceptDateErrorTip() {  
-	mui.alert('777遇到了未知错误，请联系管理人员', '错误提示', function() {
+	mui.alert('遇到了未知错误，请联系管理人员', '错误提示', function() {
 		// info.innerText = '你刚关闭了警告框';
 		plus.runtime.quit();
 	});

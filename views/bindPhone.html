@@ -21,19 +21,19 @@
 		</header>
 		<div class="content" style="background-color: #FFFFFF;">
 			<div class="" id="bindPhone" style="margin-left: .72rem;">
-				<div class="bind_title" >
+				<div class="bind_title">
 					绑定手机号
 				</div>
-				<div class="ipt-style" style="border-bottom: 1px solid #707070;width: 80%;margin-top: 1.2rem;">
-					<img src="../image/position.png" style="width: .24rem;height: .35rem;">
+				<div class="ipt-style bindPhone_phone">
+					<img src="../image/position.png" class="bindPhone_I">
 					<input type="number" id="tel" maxlength="11" placeholder="请输入手机号" />
 				</div>
-				<div class="ipt-style" style="border-bottom: 1px solid #707070;width: 80%;margin-top: .7rem;">
-					<img src="../image/position.png" style="width: .24rem;height: .35rem;">
-					<input type="number" name="" id="" value="" placeholder="请输入手机号码" style="width: 64%;" />
+				<div class="ipt-style bindPhone_code">
+					<img src="../image/position.png" class="bindPhone_I">
+					<input type="number" id="code" maxlength="6" placeholder="请输入验证码" style="width: 64%;" />
 					<span class="getcode" style="font-size: .3rem;color: #0C0C0C;">获取验证码</span>
 				</div>
-				<div class="bind_btn">
+				<div class="bind_btn submit">
 					确认绑定
 				</div>
 			</div>
@@ -58,8 +58,14 @@
 				plus.navigator.setFullscreen(false);
 				//强制竖屏
 				plus.screen.lockOrientation("portrait-primary");
+				// 关闭上一个页面
+				if (plus.webview.currentWebview().opener()) {
+					plus.webview.currentWebview().opener().close();
+				}
 				//强制隐藏滚动条
-				// plus.webview.currentWebview().setStyle({ scrollIndicator: 'none' });
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
 				_self = plus.webview.currentWebview();
 				//是否可以点击【获取验证码按钮开关】
 				var onOff = true,
@@ -78,21 +84,19 @@
 					//模拟短信发送，以后需要改成短信发送，在这里修改
 					//发送短信验证码
 					if (telReg.test(tel)) {
-						// $$.ajax(requserUrl + '/user/getSmsCode', {
-						// 	timeout: 20000,
-						// 	type: 'post',
-						// 	headers: {},
-						// 	data: {
-						// 		phone: tel,
-						// 	},
-						// 	success: function (data) {
-
-						// 	},
-						// 	error: function () {
-						// 		console.log('接口完成')
-						// 	}
-						// })
-
+						var getCodeWati = plus.nativeUI.showWaiting("获取中...");
+						var keyword = {
+							openId: plus.storage.getItem('userOpenId'),
+							phone: tel
+						};
+						getWXCode(mui, keyword, function(data) {
+							getCodeWati.close();
+							if (data.code == 200) {
+								console.log('验证码获取成功' + data.data)
+							} else {
+								console.log('验证码获取失败' + data.message)
+							}
+						});
 						//使用定时器，一秒触发一次事件，如果结束，则关闭定时器
 						timer = setInterval(function() {
 							//事件处理，一秒一次
@@ -112,160 +116,43 @@
 						$$.toast('请输入正确的手机号码')
 						return
 					}
-
-					// mui.toast(code);
-
 				});
 				//点击提交按钮跳转实名认证页
 				$('.submit').on('tap', function() {
 					var tel = $('#tel').val(),
+						telCode = $('#code').val(),
 						telReg = /^1[3,4,5,6,7,8,9]\d{9}$/,
 						code = $('#code').val();
 					if (!telReg.test(tel)) {
 						$$.toast('请输入正确的手机号码')
 						return
-					} else if (code.length != 4) {
+					} else if (code.length != 6) {
 						$$.toast('请输入正确的验证码')
 						return
 					}
-					$$.ajax(requserUrl + '/user/bindPhone', {
-						timeout: 20000,
-						type: 'post',
-						data: {
-							phone: tel,
-							smsCode: code,
-							appWeChatId: _self.powerId
-						},
-						success: function(data) {
-							// console.log(JSON.stringify(data) + '看空间')
-							if (data.code == 0) {
-								if (data.attributes.sessionId) {
-									plus.storage.setItem('userSessionId', data.attributes.sessionId + '');
-									plus.storage.setItem('userId', data.attributes.userId + '');
-								}
-							} else {
-								$$.toast(data.msg);
-							}
-
-							var verificationWait = plus.nativeUI.showWaiting();
-							if (data.code == 0) {
-								// 是否实名判断
-								isRealName(data.attributes.sessionId, function(data) {
-									console.log("成功:" + JSON.stringify(data));
-									if (data.code == 0) {
-										// plus.storage.setItem('userSessionId', data.attributes.sessionId);
-										verificationWait.close();
-										if (data.obj.realName == 0) {
-											// 未实名
-											var verTimer = setTimeout(function() {
-												clearTimeout(verTimer);
-												if (verificationWait) {
-													verificationWait.close();
-												}
-												// 必须去实名
-												$$.openWindow({
-													url: "realName.html",
-													id: "realName",
-													styles: {
-														statusbar: {
-															background: '#008BD5'
-														}
-													},
-													extras: {
-														"onlyId": "1"
-													},
-													show: {
-														aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-													}
-												});
-											}, 100);
-										} else if (data.obj.realName == 1) {
-											// 存储用户实名信息
-											plus.storage.setItem('realName', data.obj.realName);
-											// 人脸识别判断
-											if (data.obj.idFace == null) {
-												if (verificationWait) {
-													verificationWait.close();
-												}
-												$$.openWindow({
-													url: "faceDescerm.html",
-													id: "faceDescerm",
-													styles: {
-														statusbar: {
-															background: '#008BD5'
-														}
-													},
-													extras: {
-														"onlyId": "2"
-													},
-													show: {
-														aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-													}
-												});
-											} else {
-												// 存储用户人脸识别信息
-												plus.storage.setItem('idFace', data.obj.idFace);
-												if (plus.webview.getWebviewById("index-user-menu")) {
-													plus.webview.getWebviewById("index-user-menu").close();
-												}
-												if (plus.webview.getWebviewById("userIndex.html")) {
-													plus.webview.getWebviewById("userIndex.html").close();
-												}
-												login ? login.close() : '';
-												verificationWait.close();
-												var verTimer = setTimeout(function() {
-													clearTimeout(verTimer);
-													if (verificationWait) {
-														plus.webview.currentWebview().close();
-													}
-													plus.webview.getLaunchWebview().reload(true); //首页窗口对象 
-													if (plus.webview.getWebviewById("userIndex.html")) {
-														plus.webview.getWebviewById("userIndex.html").reload(true);
-													}
-												}, 100);
-											}
-										} else {
-											if (verificationWait) {
-												verificationWait.close();
-											}
-											console.log("实名状态异常：" + JSON.stringify(data));
-											_self.close();
-										}
-										timer = null;
-									} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
-										if (verificationWait) {
-											verificationWait.close();
-										}
-										tipShow("请重新登录！");
-										clearStorage();
-										mui.openWindow({
-											url: "../login.html",
-											id: "login",
-											show: {
-												aniShow: "slide-in-right"
-											}
-										});
-									} else {
-										if (verificationWait) {
-											verificationWait.close();
-										}
-										console.log(data.msg);
-										_self.close();
-									}
-								});
-							} else {
-								if (verificationWait) {
-									verificationWait.close();
-								}
-								_self.close();
-							}
-						},
-						error: function(err) {
-							verificationWait.close();
-							acceptDateErrorTip();
+					var getoLogin = plus.nativeUI.showWaiting("登录中...");
+					var keyword = {
+						phone: tel,
+						phoneCode: telCode
+					}
+					// 去登录
+					gotoLogin(mui, keyword, function(data) {
+						getoLogin.close();
+						if (data.code == 200) {
+							console.log('登录成功' + data.data)
+						} else {
+							console.log('登录失败' + data.message)
 						}
-					})
-
+					});
+				});
+				// 监听验证码输入框内容
+				$('.bindPhone_code input').bind('input propertychange', function() {
+					if ($(this).val().length == 6) {
+						$(".login_btn").css({
+							"backgroundColor": "#FF373D",
+							"border": "#FF373D"
+						});
+					}
 				});
 			}
 
