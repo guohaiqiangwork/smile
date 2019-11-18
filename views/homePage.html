@@ -150,17 +150,20 @@
 
 		</div>
 		<div class="mui-content">
-		<!-- 	<ul class="mui-table-view mui-table-view-chevron">
-				<li id="switch" class="mui-table-view-cell">
-					定时轮播
-					<div class="mui-switch">
-						<div class="mui-switch-handle"></div>
-					</div>
-				</li>
-			</ul> -->
-			<div id="slider" class="mui-slider">
+			<div class="lunbo">
+			      <!--<img class="lunbo-img" src="img/shouye1.png" />-->
+			      <div class="mui-slider">
+			           <div class="mui-slider-group mui-slider-loop">
+			                            
+			           </div>
+			           <div class="mui-slider-indicator">
+			                            
+			           </div>
+			       </div>
+			</div>
+			
+			<!-- <div id="slider" class="mui-slider">
 				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
 							<img src="../images/yuantiao.jpg">
@@ -188,7 +191,6 @@
 							<p class="mui-slider-title">静静看这世界</p>
 						</a>
 					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
 							<img src="../image/icon_down_up.png">
@@ -203,6 +205,7 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
+		 -->
 		</div>
 			
 		<!-- 产品展示区 -->
@@ -421,6 +424,69 @@
 				slider.slider({
 					interval: 3000
 				});
+				
+				function getImage (){
+					var dataList = [
+						{src:'../image/position.png'},
+						{	src:'../image/mu.jpg'},
+						{src:'../image/wx.png'},
+						{src:'../image/position.png'},
+						{src:'../image/mu.jpg'}
+					];
+					var length = dataList.length
+					if(length == 1) {
+					    console.log(data.data.list[0].src)
+					    $('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + dataList[0].src + '" /></div>');
+					} else {
+					    $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + dataList[length - 1].src + '" /></div>');
+					    $('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+					    for(var i = 0; i < length; i++) {
+					        $('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + dataList[i].src + '" /></div>');
+					    }
+					    $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + dataList[0].src + '" /></div>');
+					    for(var i = 0; i < length - 1; i++) {
+					        $('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+					    }
+					}
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+					    interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}
+				getImage();//获取
+				function hotList() {
+				            $.ajax({
+				                type: "post",
+				                url: IP + "/mobile/ad/hotList.html",
+				                dataType: "json",
+				                success: function(data) {
+				                    console.log(JSON.stringify(data));
+				                    $('.mui-slider-group').empty();
+				                    $('.mui-slider-indicator').empty();
+				                    var length = data.data.list.length;
+				                    if(length == 1) {
+				                        console.log(data.data.list[0].src)
+				                        $('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + data.data.list[0].src + '" /></div>');
+				                    } else {
+				                        $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + data.data.list[length - 1].src + '" /></div>');
+				                        $('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+				                        for(var i = 0; i < length; i++) {
+				                            $('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + data.data.list[i].src + '" /></div>');
+				                        }
+				                        $('.mui-slider-group').append('<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + data.data.list[0].src + '" /></div>');
+				                        for(var i = 0; i < length - 1; i++) {
+				                            $('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+				                        }
+				                    }
+				                    var gallery = mui('.mui-slider');
+				                    gallery.slider({
+				                        interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+				                    });
+				                }
+				            });
+				        }
+				
+				
 				// 加减
 				var testBox=document.getElementById("test");
 				testBox.addEventListener('change',function(){

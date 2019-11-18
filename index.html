@@ -7,6 +7,11 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/mui.min.css">
+		<style type="text/css">
+			.mui-bar-tab .mui-tab-item.mui-active{
+				color: red !important; 
+			}
+		</style>
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav"> <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -24,7 +29,10 @@
 			</a>
 			<a class="mui-tab-item" href="views/shopCart.html">
 				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">购物车</span>
+				<!-- <div id="tubiao">
+					<img src="image/icon_down_up.png" width="20%">
+				</div> -->
+				<span class="mui-tab-label"> 购物车 </span>
 			</a>
 			<a class="mui-tab-item" href="views/personalCenter.html">
 				<span class="mui-icon mui-icon-gear"></span>
@@ -32,6 +40,7 @@
 			</a>
 		</nav>
 		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			//mui初始化			
 			mui.init();
@@ -55,9 +64,9 @@
 					}
 					isAndroid = (/android/gi).test(navigator.appVersion);
 					if (isAndroid) {
-						var sub =plus.webview.create(subpages[0], subpages[0], subpage_style)
+						var sub = plus.webview.create(subpages[0], subpages[0], subpage_style)
 						self.append(sub);
-					}else {
+					} else {
 						self.append(sub);
 					}
 
@@ -67,8 +76,13 @@
 			var activeTab = subpages[0];
 			var title = document.getElementById("title");
 			//选项卡点击事件		
+			
 			mui('.mui-bar-tab').on('tap', 'a', function(e) {
 				var targetTab = this.getAttribute('href');
+				// 切换判断
+				// if(targetTab == 'views/shopCart.html'){
+				// 	$('#tubiao').css('display','none')
+				// }
 				if (targetTab == activeTab) {
 					return;
 				}
@@ -76,20 +90,51 @@
 				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 				//显示目标选项卡				//若为iOS平台或非首次显示，则直接显示			
 				if (mui.os.ios || aniShow[targetTab]) {
-					plus.webview.show(targetTab);
+					if (activeTab == 'views/personalCenter.html') {
+						plus.webview.show(targetTab);
+					} else {
+						plus.webview.show(targetTab);
+					if(!plus.storage.getItem('memberId')){
+							mui.openWindow({
+								url: "login.html",
+								id: "login",
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+						}
+					}
 				} else {
-					//否则，使用fade-in动画，且保存变量			
-					var temp = {};
-					temp[targetTab] = "true";
-					mui.extend(aniShow, temp);
-					plus.webview.show(targetTab, "fade-in", 300);
+					if (targetTab == 'views/homePage.html') {
+						//否则，使用fade-in动画，且保存变量
+						var temp = {};
+						temp[targetTab] = "true";
+						mui.extend(aniShow, temp);
+						plus.webview.show(targetTab, "fade-in", 300);
+					} else {
+						if(!plus.storage.getItem('memberId')){
+							mui.openWindow({
+								url: "login.html",
+								id: "login",
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+						}else{
+							//否则，使用fade-in动画，且保存变量
+							var temp = {};
+							temp[targetTab] = "true";
+							mui.extend(aniShow, temp);
+							plus.webview.show(targetTab, "fade-in", 300);
+						}
+						
+					}
 				}
-				//隐藏当前;			
+				//隐藏当前;	
 				plus.webview.hide(activeTab);
 				//更改当前活跃的选项卡			
 				activeTab = targetTab;
 			});
-
 			//自定义事件，模拟点击“首页选项卡”		
 			document.addEventListener('gohome', function() {
 				var defaultTab = document.getElementById("defaultTab");

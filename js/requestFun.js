@@ -5,7 +5,7 @@
  * @return {object}
  */
 // 全局变量定义
-window.requserUrl = 'http://192.168.1.10/'; //接口请求地址 http://192.168.3.5:8087/app 
+window.requserUrl = 'http://192.168.1.169/'; //接口请求地址 http://192.168.3.5:8087/app 
 
 
 /**
@@ -13,6 +13,7 @@ window.requserUrl = 'http://192.168.1.10/'; //接口请求地址 http://192.168.
  */
 function getCode(mui, dataBase, callback) {
 	console.log(JSON.stringify(dataBase))
+	console.log(requserUrl + "wx/send/messages")
 	mui.ajax(requserUrl + "wx/send/messages", {
 		timeout: 20000,
 		type: 'post',
@@ -57,13 +58,42 @@ function getWXCode(mui, dataBase, callback) {
  * 去登录
  */
 function gotoLogin(mui, dataBase, callback) {
-	// var getCodeWati = plus.nativeUI.showWaiting("登录中...");
 	console.log(JSON.stringify(dataBase) + '登录')
 	mui.ajax(requserUrl + "wx/send/login", {
 		timeout: 20000,
 		type: 'post',
 		data: dataBase,
 		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+/**
+ * 获取会员信息
+ */
+function getUserDetail(mui, dataBase, callback) {
+	// var getCodeWati = plus.nativeUI.showWaiting("登录中...");
+	http://192.168.1.12/mb/find/{id
+	console.log(JSON.stringify(dataBase) + '登录')
+	console.log(requserUrl + "mb/find/" + dataBase)
+	console.log(plus.storage.getItem('Token') + 'to0ok')
+	mui.ajax(requserUrl + "mb/find/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'AuthorizationKey': plus.storage.getItem('Token'),
+			 'client' :'APP'
+		},
+		success: function(data) {
+			console.log(JSON.stringify(data) + '返回问题')
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
