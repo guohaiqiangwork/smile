@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/myAddress.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			地址编辑
+		</header>
+		<div class="content">
+			<div id="addressEditor">
+				<div class="_one">
+					<div class="_left">收货人</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写收货人姓名">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">手机号码</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写收货人手机号码">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">所在地区</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写收货人手机号码">
+						<img src="../image/icon_down_up.png" >
+						<button id='showCityPicker3' class="mui-btn mui-btn-block" type='button'>三级联动示例</button>
+						<div id='cityResult3' class="ui-alert"></div>
+					</div>
+				</div>
+				<div class="_address_text">
+					详细地址
+					<textarea id="textarea" rows="5" placeholder="街道、楼牌号等"></textarea>
+				</div>
+				<div class="_one">
+					<div class="_left">设置默认地址</div>
+					<div class="_right">
+						<div class="mui-switch mui-switch-blue mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom_btn">
+				保存
+			</div>
+		</div>
+		
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					var cityResult3 = doc.getElementById('cityResult3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							cityResult3.innerText = "你选择的城市是:" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') +
+								" " + _getParam(items[2], 'text');
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

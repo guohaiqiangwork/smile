@@ -264,6 +264,7 @@
 					}, 1000);
 				}
 			}
+		
 			// 点击跳转
 			$(".login_btn_X").on("tap", function() {
 				var keyword = {
@@ -273,13 +274,13 @@
 				var gotoLoginWati = plus.nativeUI.showWaiting("登录中...");
 				gotoLogin(mui, keyword, function(data) {
 					gotoLoginWati.close()
-					console.log(JSON.stringify(data) + '接口连接离开')
 					if (data.code == 200) {
 						tipShow(data.message);
 						plus.storage.setItem('memberId', data.data.id);
 						plus.storage.setItem('Token', data.data.token + "")
 						var ws = plus.webview.currentWebview();
-						plus.webview.close(ws);
+						plus.webview.close(ws);		
+						plus.webview.getWebviewById('HBuilder').reload()
 					} else {
 						tipShow(data.message)
 						$("#code").val('')

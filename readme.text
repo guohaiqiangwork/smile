@@ -7,17 +7,19 @@
 			1-3.1 js    公共资源目录
 		1-2 fonts字体图标文件
 	2.子页面目录pages 
-		2-1  
+		2-1 myAddress.html  收获地址
+		2-2 realName.html 	实名认证
+		2-3 bankCard.html 	银行卡
+		2-4 setUp.htmnl		设置
+		2-5 goodFriend		我的好友
+		2-6 helpCenter		帮助中心
+		2-7 addressEditor	地址编辑
 	3.公共页面目录 views 
-		3-1 category.htnl  分类
-		3-2 homePage.html  首页
-		3-3 notNet.html  无网络
-		3-4 personalCenter 我的
-		3-5 shopCart 购物车
+		
 	4.入口页index.html (为主窗口) 
-	5.登录页：longin.html
+	5.登录页 longin.html
 	6.角色ID memberId
-	7.token:Token 
+	7.token Token 
 	8.微信id userOpenId
 	9.guide 引导页 
 	10.存储用户信息

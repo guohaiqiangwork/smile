@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/myAddress.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			我的地址
+		</header>
+		<div class="content">
+			<div id="myAddress">
+				<div class="address_moduel">
+					<div class="_left">
+						<div class="_one">
+							<span>刘一手</span>
+							<span>188****1357</span>
+							<span class="_falge">默认</span>
+						</div>
+						<div class="_two">
+							内蒙古自治区 包头市 昆都仑区 友谊大街18栋2号
+							西门左转
+						</div>
+						<div class="_three"></div>
+					</div>
+					<div class="_right">
+						编辑
+					</div>
+				</div>
+			</div>
+			<div class="bottom_btn">
+				添加新地址
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				// 获取地址列表
+				// var getUserAddressWati = plus.nativeUI.showWaiting("获取中...");
+				getUserAddress(mui, plus.storage.getItem('memberId'), function(data) {
+					// getUserAddressWati().close()
+					if (data.code == 200) {
+						tipShow(data.message);
+					} else {
+						tipShow(data.message)
+					}
+				});
+			}
+			
+			// 去编辑地址
+			$('.bottom_btn').on('tap',function(){
+				$$.openWindow({
+					url: 'addressEditor.html',
+					id: 'addressEditor',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+		})(jQuery, document, mui);
+	</script>
+
+</html>

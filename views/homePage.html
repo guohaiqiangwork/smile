@@ -99,12 +99,12 @@
 			.allCategories {
 				width: 1rem;
 			}
-			html,body{height: 100%;width: 100%;}  
+		/*s	html,body{height: 100%;width: 100%;}  
 			    body{  
 			      background:url(../image/mu.jpg)no-repeat;   
 			      background-size:100% 100%;                  
 			        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../image/mu.jpg',sizingMethod='scale');  
-			    }  
+			    } */ 
 		</style>
 	</head>
 	<body>
@@ -210,7 +210,7 @@
 			
 		<!-- 产品展示区 -->
 		<div class="">
-			<div style="text-align: center;" id="goToPay">
+			<div style="text-align: center;line-height: 3;background-color: red;" id="goToPay">
 				~产品展示~
 			</div>
 			<div class="mui-numbox" data-numbox-min='1' data-numbox-max='99'>
@@ -319,50 +319,51 @@
 					userOrderId: '789687s'
 				}
 				getOrderDetailWai.close();
-				getUserOrderDetails($$, keyword, userSessionId, function(data) {
-					console.log(JSON.stringify(data) + '接口数据')
-					if (data.code == 0) {
-						console.log(JSON.stringify(data))
-						_self.carOwnerId = data.attributes.carOwnerId;
-						_self.free = data.attributes.free;
-						// 司机内容页面赋值			
-						if (data.attributes.sex == 2) {
-							data.attributes.sex = '女'
-							data.attributes.imgSrcHead = '../img/driverImg/womenAvator/' + data.attributes.headNum + '.png'
-						} else {
-							data.attributes.sex = '男'
-							data.attributes.imgSrcHead = '../img/driverImg/menAvator/' + data.attributes.headNum + '.png'
-						}
-						if (data.attributes.carOwner) {
-							$("#car").append('<div class="border-bottom">' + '<p>' + '<img class="avator" src=" ' + data.attributes.imgSrcHead +
-								' "/>' + '<span class="order_font_wieght">' + data.attributes.carNo + '</span>' +
-								'<span class="order_flot_right">' + data.obj.createTime + '</span></p>' + '<div><span>' + data.attributes.carOwner
-								.substring(0, 1) + "师傅" + '</span><span>' + data.attributes.sex + '</span><span>' + data.attributes.color +
-								'</span><span>' + data.attributes.brand + '</span></div>' + '</div>')
-						} else {
-							tipShow('数据有问题');
-							_self.close()
-						}
-						if (data.obj.message == null) {
-							$('.order_comment').text('')
-						} else {
-							$('.order_comment').text(data.obj.message)
-						}
+			// 	getUserOrderDetails($$, keyword, userSessionId, function(data) {
+			// 		console.log(JSON.stringify(data) + '接口数据')
+			// 		if (data.code == 0) {
+			// 			console.log(JSON.stringify(data))
+			// 			_self.carOwnerId = data.attributes.carOwnerId;
+			// 			_self.free = data.attributes.free;
+			// 			// 司机内容页面赋值			
+			// 			if (data.attributes.sex == 2) {
+			// 				data.attributes.sex = '女'
+			// 				data.attributes.imgSrcHead = '../img/driverImg/womenAvator/' + data.attributes.headNum + '.png'
+			// 			} else {
+			// 				data.attributes.sex = '男'
+			// 				data.attributes.imgSrcHead = '../img/driverImg/menAvator/' + data.attributes.headNum + '.png'
+			// 			}
+			// 			if (data.attributes.carOwner) {
+			// 				$("#car").append('<div class="border-bottom">' + '<p>' + '<img class="avator" src=" ' + data.attributes.imgSrcHead +
+			// 					' "/>' + '<span class="order_font_wieght">' + data.attributes.carNo + '</span>' +
+			// 					'<span class="order_flot_right">' + data.obj.createTime + '</span></p>' + '<div><span>' + data.attributes.carOwner
+			// 					.substring(0, 1) + "师傅" + '</span><span>' + data.attributes.sex + '</span><span>' + data.attributes.color +
+			// 					'</span><span>' + data.attributes.brand + '</span></div>' + '</div>')
+			// 			} else {
+			// 				tipShow('数据有问题');
+			// 				_self.close()
+			// 			}
+			// 			if (data.obj.message == null) {
+			// 				$('.order_comment').text('')
+			// 			} else {
+			// 				$('.order_comment').text(data.obj.message)
+			// 			}
 
-					} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
-						tipShow("请重新登录！");
-						clearStorage();
-						mui.openWindow({
-							url: "../login.html",
-							id: "login",
-							show: {
-								aniShow: "slide-in-right"
-							}
-						});
-					} else {
-						tipShow(data.msg);
-					}
-				})
+			// 		} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
+			// 			tipShow("请重新登录！");
+			// 			clearStorage();
+			// 			mui.openWindow({
+			// 				url: "../login.html",
+			// 				id: "login",
+			// 				show: {
+			// 					aniShow: "slide-in-right"
+			// 				}
+			// 			});
+			// 		} else {
+			// 			tipShow(data.msg);
+			// 		}
+			// 	})
+			
 				// 去支付	
 				$("#goToPay").on("tap", function() {
 					$$.openWindow({
@@ -453,6 +454,7 @@
 					    interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
 					});
 				}
+			
 				getImage();//获取
 				function hotList() {
 				            $.ajax({
