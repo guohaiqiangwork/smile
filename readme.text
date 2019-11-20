@@ -12,8 +12,13 @@
 		2-3 bankCard.html 	银行卡
 		2-4 setUp.htmnl		设置
 		2-5 goodFriend		我的好友
-		2-6 helpCenter		帮助中心
-		2-7 addressEditor	地址编辑
+		2-6 addressEditor	地址编辑
+		2-7  pSetting		个人资料设置
+		2-8 aboutUs			关于我们
+		2-9 Agreement		协议
+		2-10 cashMoney		提现
+		2-11 myIntegral		我的积分
+		2-12 myRecommend	推荐
 	3.公共页面目录 views 
 		
 	4.入口页index.html (为主窗口) 

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/reaiName.css" />
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
@@ -18,11 +19,82 @@
 			银行卡
 		</header>
 		<div class="content">
-			<div style="background-color: red;height: 3rem;">
-				
+			<!-- 银行卡添加 -->
+			<div id="realNameTwo">
+				<div class="_one">
+					<div class="_left">持卡人</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写姓名">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">卡号</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写身份证号">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">银行</div>
+					<div class="_right" style="font-size: .3rem;color: #303030;line-height: 2;">
+						中国银行（自动判断）
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">卡类型</div>
+					<div class="_right" style="font-size: .3rem;color: #303030;line-height: 2;">
+						储蓄卡/信用卡(自动判断）
+					</div>
+				</div>
+				<div style="background-color: #F5F8FF;height: .2rem;float: left;width: 7.5rem;"></div>
+				<div class="_one">
+					<div class="_left">手机号</div>
+					<div class="_right">
+						<input type="text" placeholder="请输入银行预留手机号">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left_y">验证码</div>
+					<div class="_right_i">
+						<input type="text" placeholder="请填写验证码">
+					</div>
+					<div class="_right_yb">
+						发送验证码
+					</div>
+				</div>
+				<div class="bottom_btn" id="btnTwo">
+					完成
+				</div>
+			</div>
+			<!-- 银行卡列表 -->
+			<div id="bankCard">
+				<div class="bank_moudel">
+					<div class="_left">
+						<div>
+							<img src="../image/left@2x.png" width="100%">
+						</div>
+					</div>
+					<div class="_right">
+						<div class="_Bone">
+							<div class="_Bone_name">
+								中国工商银行
+							</div>
+							<div class="_Bone_number">
+								**** 6241
+							</div>
+						</div>
+						<div class="_Bone">
+							<div class="_Bone_name" style="font-size: .28rem;">
+								储蓄卡
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bottom_btn">
+					<i class="">+</i><span>添加银行卡</span>
+				</div>
 			</div>
 		</div>
-		
+
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
@@ -47,6 +119,14 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				var bankFalg = '2'
+				if (bankFalg == 'one') {
+					$('#realNameTwo').css('display', 'block')
+					$('#banCard').css('display', 'none')
+				} else {
+					$('#banCard').css('display', 'block')
+					$('#realNameTwo').css('display', 'none')
+				}
 			}
 		})(jQuery, document, mui);
 	</script>

@@ -31,19 +31,21 @@
 					</div>
 				</div>
 				<div class="header_money">
-					<div id="money">
-						678688
+					<div id="myWallet">
+						<div id="money">
+							678688
+						</div>
+						<div style="margin-top: .2rem;">
+							我的余额
+						</div>
 					</div>
-					<div id="integral">
-						678688
-					</div>
-				</div>
-				<div class="header_money_font">
-					<div>
-						我的余额
-					</div>
-					<div>
-						我的笑容
+					<div id="goIntegral">
+						<div id="integral">
+							678688
+						</div>
+						<div style="margin-top: .2rem;">
+							我的笑容
+						</div>
 					</div>
 				</div>
 			</div>
@@ -120,7 +122,7 @@
 					<div class="service_mouder">
 						<div class="service_img"></div>
 						<div class="service_img_font">
-							客服
+							<a  href="tel:18048334993">客服</a>
 						</div>
 					</div>
 				</div>
@@ -129,12 +131,6 @@
 						<div class="service_img"></div>
 						<div class="service_img_font">
 							我的好友
-						</div>
-					</div>
-					<div class="service_mouder" href="../pages/helpCenter.html" data-id='helpCenter'>
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							帮助中心
 						</div>
 					</div>
 				</div>
@@ -248,16 +244,44 @@
 						show: {
 							aniShow: "slide-in-right"
 						}
-					});
-								
+					});			
 				}else{
-					tipShow('缺少页面路径')
+					console.log('缺少页面路径')
 				}
 				
 			});
-
-
-
+			
+			// 去我的钱包 
+			$('#myWallet').on('tap',function(){
+				$$.openWindow({
+					url: '../pages/cashMoney.html',
+					id: 'cashMoney',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			// 去我的积分
+			$('#goIntegral').on('tap',function(){
+				$$.openWindow({
+					url: '../pages/myIntegral.html',
+					id: 'myIntegral',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			
+			// 去我的推荐
+			$('.recomment_btn').on('tap',function(){
+				$$.openWindow({
+					url: '../pages/myRecommend.html',
+					id: 'myRecommend',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
 		})(jQuery, document, mui);
 	</script>
 

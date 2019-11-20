@@ -172,30 +172,37 @@
 									'headImgUrl': auth.userInfo.headimgurl,
 									// 'unionid': auth.userInfo.headimgurl.unionid || ''
 								};
-								//请求获取用户数据
-								$$.ajax(requserUrl + 'wx/weixin/login', {
+								//判断微信是否绑定手机号
+								$$.ajax(requserUrl + '/wx/havePhone', {
 									timeout: 20000,
 									type: 'post',
 									data: obj,
 									success: function(data) {
 										if (data.code == 200) {
-											//存储用户id
-											plus.storage.setItem('memberId', data.data.id);
-											setTimeout(() => {
-												$$.openWindow({
-													url: "views/bindPhone.html",
-													id: "bindPhone",
-													styles: {
-														statusbar: {
-															background: '#fff'
+											alert(JSON.stringify(data.data))
+											if (!data.data) {
+												setTimeout(() => {
+													$$.openWindow({
+														url: "views/bindPhone.html",
+														id: "bindPhone",
+														styles: {
+															statusbar: {
+																background: '#fff'
+															}
+														},
+														extras: {
+															"powerId": data.obj,
+															'canshu': 'dfdfs'
 														}
-													},
-													extras: {
-														"powerId": data.obj,
-														'canshu': 'dfdfs'
-													}
-												});
-											}, 500);
+													});
+												}, 500);
+											} else {
+												console.log(JSON.stringify(data))
+												plus.storage.setItem('Token', data.data.id);
+												var ws = plus.webview.currentWebview();
+												plus.webview.close(ws);
+												plus.webview.getWebviewById('HBuilder').reload()
+											}
 										} else {
 											tipShow(JSON.stringify(data));
 										}
@@ -204,6 +211,9 @@
 										acceptDateErrorTip();
 									}
 								})
+
+
+
 							}, function(e) {
 								plus.nativeUI.toast("获取用户信息失败：" + e.message);
 							});
@@ -264,12 +274,13 @@
 					}, 1000);
 				}
 			}
-		
+
 			// 点击跳转
 			$(".login_btn_X").on("tap", function() {
 				var keyword = {
 					phone: $("#phone").val(),
-					phoneCode: $("#code").val()
+					phoneCode: $("#code").val(),
+					openId: plus.storage.getItem('userOpenId') || ''
 				};
 				var gotoLoginWati = plus.nativeUI.showWaiting("登录中...");
 				gotoLogin(mui, keyword, function(data) {
@@ -279,7 +290,7 @@
 						plus.storage.setItem('memberId', data.data.id);
 						plus.storage.setItem('Token', data.data.token + "")
 						var ws = plus.webview.currentWebview();
-						plus.webview.close(ws);		
+						plus.webview.close(ws);
 						plus.webview.getWebviewById('HBuilder').reload()
 					} else {
 						tipShow(data.message)

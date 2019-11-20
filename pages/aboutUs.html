@@ -10,27 +10,32 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
-		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			设置
+			关于我们
 		</header>
 		<div class="content">
-			<div class="settingList">
-				<ul>
-					<li class="settingPassword"><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
-				</ul>
+			<div style="text-align: center;">
+				<div style="margin-top: 2rem;">
+					<img src="../image/log@2x.png" style="width:2.3rem" >
+				</div>
+				<div style="font-size: .56rem;color: #333333;margin-top: .2rem;">
+						笑容
+				</div>
+				<div style="color: #999999;font-size: .3rem;margin-top: .2rem">
+					版本：V1.0.1 
+				</div>
+				<div id="goToAgreement" style="font-size: .32rem;color: #666666;margin-top: 7rem;">
+					《笑容用户协议》
+				</div>
+						
 			</div>
-			<div class="bottom_btn">
-				退出当前账号
-			</div>
-
+			
 		</div>
-
+		
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
@@ -55,21 +60,10 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				// 去个人设置
-				$('.settingPassword').on('tap',function(){
+				$('#goToAgreement').on('tap',function(){
 					$$.openWindow({
-						url: 'pSetting.html',
-						id:'pSetting',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
-				// 去个人设置
-				$('.settingAbout').on('tap',function(){
-					$$.openWindow({
-						url: 'aboutUs.html',
-						id:'aboutUs',
+						url: 'agreement.html',
+						id:'agreement',
 						show: {
 							aniShow: "slide-in-right"
 						}

@@ -10,25 +10,27 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
-		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
+		
+		<link rel="stylesheet" type="text/css" href="../css/pages/personalCenter.css"/>
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			设置
+			我的余额
 		</header>
 		<div class="content">
-			<div class="settingList">
-				<ul>
-					<li class="settingPassword"><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
-				</ul>
+			<div class="cashMoney">
+				<div>
+					可用余额
+				</div>
+				<div style="text-align: right;margin-right: .6rem;">
+					提现
+				</div>
+				<div style="font-size: .36rem;">
+					XX.XX
+				</div>
 			</div>
-			<div class="bottom_btn">
-				退出当前账号
-			</div>
-
 		</div>
 
 	</body>
@@ -55,26 +57,6 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				// 去个人设置
-				$('.settingPassword').on('tap',function(){
-					$$.openWindow({
-						url: 'pSetting.html',
-						id:'pSetting',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
-				// 去个人设置
-				$('.settingAbout').on('tap',function(){
-					$$.openWindow({
-						url: 'aboutUs.html',
-						id:'aboutUs',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
 			}
 		})(jQuery, document, mui);
 	</script>

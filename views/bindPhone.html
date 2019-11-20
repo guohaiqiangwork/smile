@@ -132,7 +132,8 @@
 					var getoLogin = plus.nativeUI.showWaiting("登录中...");
 					var keyword = {
 						phone: tel,
-						phoneCode: telCode
+						phoneCode: telCode,
+						openId:plus.storage.getItem('userOpenId') || ''
 					}
 					// 去登录
 					gotoLogin(mui, keyword, function(data) {

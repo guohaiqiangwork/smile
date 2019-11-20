@@ -90,3 +90,20 @@
 	color: #A1A1A1;
 	font-size: .28rem;
 }
+
+.bottom_btn {
+	height: .8rem;
+	width: 7rem;
+	margin-left: .3rem;
+	border-radius: .4rem;
+	text-align: center;
+	line-height: 2.5;
+	background-color: red;
+	color: #FFFFFF;
+	font-size: .32rem;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	bottom: 0.2rem;
+	z-index: 999;
+}

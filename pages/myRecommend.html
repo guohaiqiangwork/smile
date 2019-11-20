@@ -10,25 +10,18 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
-		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
+		
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			设置
+			推荐给好友
 		</header>
 		<div class="content">
-			<div class="settingList">
-				<ul>
-					<li class="settingPassword"><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
-				</ul>
+			<div id="">
+				<img src="../image/mu.jpg" >
 			</div>
-			<div class="bottom_btn">
-				退出当前账号
-			</div>
-
 		</div>
 
 	</body>
@@ -45,7 +38,6 @@
 			} else {
 				doc.addEventListener('plusready', plusReady, false);
 			}
-
 			function plusReady() {
 				plus.navigator.setFullscreen(false);
 				//强制竖屏
@@ -55,26 +47,6 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				// 去个人设置
-				$('.settingPassword').on('tap',function(){
-					$$.openWindow({
-						url: 'pSetting.html',
-						id:'pSetting',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
-				// 去个人设置
-				$('.settingAbout').on('tap',function(){
-					$$.openWindow({
-						url: 'aboutUs.html',
-						id:'aboutUs',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
 			}
 		})(jQuery, document, mui);
 	</script>

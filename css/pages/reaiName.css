@@ -1,0 +1,136 @@
+#realNameOne ._left{
+	width: 3.3rem;
+	height: 2.1rem;
+	border: 1px dashed red;
+	margin-top: 1.2rem;
+	margin-left: .3rem;
+	overflow: hidden;
+	float: left;
+	text-align: center;
+}
+#realNameOne ._left div{
+	font-size: .3rem;
+	padding-top: .5rem;
+}
+
+/* 信息确认 */
+
+._one {
+	float: left;
+	height: 1rem;
+	margin-top: .2rem;
+	border-bottom: 1px solid #F5F8FC;
+	width: 7.5rem;
+}
+
+ ._one ._left {
+	width: 2rem;
+	text-align: left;
+	float: left;
+	font-size: .3rem;
+	padding-left: .4rem;
+	color: #303030;
+	line-height: 2;
+}
+
+._one ._right {
+	width: 5rem;
+	float: left;
+}
+ ._one ._right input {
+	border: none;
+}
+.bottom_btn {
+	height: .8rem;
+	width: 7rem;
+	margin-left: .3rem;
+	border-radius: .4rem;
+	text-align: center;
+	line-height: 2.5;
+	background-color: red;
+	color: #FFFFFF;
+	font-size: .32rem;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	bottom: 0.2rem;
+	z-index: 999;
+}
+/* 信息录入 */
+ ._one ._left_y {
+	width: 2rem;
+	text-align: left;
+	float: left;
+	font-size: .3rem;
+	padding-left: .4rem;
+	color: #303030;
+	line-height: 2;
+}
+
+._one ._right_i {
+	width: 2.7rem;
+	float: left;
+}
+ ._one ._right_i input {
+	border: none;
+}
+._right_yb{
+	float: left;
+	font-size: .3rem;
+	color: #A0A0A0;
+	border: none;
+	width: 2.3rem;
+	padding-top: .4rem;
+	text-align: center;
+	border-left: 1px solid #E6E6E6;
+	height: 1.2rem;
+	margin-top: -.2rem;
+}
+
+
+/* 银行卡 */
+#bankCard {
+	
+} 
+#bankCard  .bank_moudel{
+	width: 6.9rem;
+	height: 2.2rem;
+	border: 1px solid red;
+	border-radius: .1rem;
+	margin-left: .3rem;
+	float: left;
+	margin-top: .3rem;
+}
+#bankCard  .bank_moudel  ._left{
+	width: 1.2rem;
+	float: left;
+}
+#bankCard  .bank_moudel  ._left div{
+	width: .8rem;
+	height: .8rem;
+	border-radius: 50%;
+	border: 1px solid red;
+	overflow: hidden;
+	margin-top: .54rem;
+	margin-left: .34rem;
+}
+#bankCard  .bank_moudel  ._right{
+	width: 5.6rem;
+	float: left;
+	margin-top: .5rem;
+}
+
+#bankCard  .bank_moudel  ._right ._Bone{
+	width: 100%;
+	float: left;
+}
+._Bone_number{
+	font-size: .34rem;
+	float: left;
+	margin-left: 1.4rem;
+}
+._Bone_name{
+	font-size: .34rem;
+	float: left;
+	margin-left: .24rem;
+}

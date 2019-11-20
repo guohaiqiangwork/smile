@@ -55,7 +55,8 @@
 	font-size: .2rem;
 	margin-left: .3rem;
 }
-.bottom_btn{
+
+.bottom_btn {
 	height: .8rem;
 	width: 7rem;
 	margin-left: .3rem;
@@ -65,21 +66,23 @@
 	background-color: red;
 	color: #FFFFFF;
 	font-size: .32rem;
-	transform:translateZ(0);
+	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 	position: fixed;
 	bottom: 0.2rem;
 	z-index: 999;
 }
+
 /* 地址保存 */
-#addressEditor ._one{
+#addressEditor ._one {
 	float: left;
 	height: 1rem;
 	margin-top: .2rem;
 	border-bottom: 1px solid #F5F8FC;
 	width: 7.5rem;
 }
-#addressEditor ._one ._left{
+
+#addressEditor ._one ._left {
 	width: 2rem;
 	text-align: center;
 	float: left;
@@ -87,13 +90,29 @@
 	color: #303030;
 	line-height: 2;
 }
-#addressEditor ._one ._right{
+
+#addressEditor ._one ._right {
 	width: 5rem;
 	float: left;
 }
-#addressEditor ._one ._right input{
+
+#addressEditor ._one ._right input {
 	border: none;
 }
-._address_text{
-	
+
+._address_text textarea {
+	padding-left: 2.2rem;
+	padding-top: .2rem;
+	border: none;
+}
+
+._address_text ._text_title {
+	font-size: .3rem;
+	color: #303030;
+	position: absolute;
+	float: left;
+	top: 4.5rem;
+	z-index: 9999;
+	margin-left: .3rem;
+	padding-top: .2rem;
 }

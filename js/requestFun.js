@@ -5,7 +5,7 @@
  * @return {object}
  */
 // 全局变量定义
-window.requserUrl = 'http://192.168.1.169'; //接口请求地址 http://192.168.3.5:8087/app 
+window.requserUrl = 'http://192.168.1.160'; //接口请求地址 http://192.168.3.5:8087/app 
 
 
 /**

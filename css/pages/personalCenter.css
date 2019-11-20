@@ -38,7 +38,7 @@
 	width: .4rem;
 	height: .4rem;
 }
-
+/* 我的余额 */
 .header_money {
 	margin-top: .87rem;
 	color: #FFFFFF;
@@ -187,4 +187,11 @@
 	width: 1rem;
 	float: left;
 	margin-left: .2rem;
+}
+/* 我的钱包 */
+.cashMoney{
+	margin-top: .37rem;
+	margin-left: .8rem;
+	color: #9B9B9B;
+	font-size: .24rem;
 }

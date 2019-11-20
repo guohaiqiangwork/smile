@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/reaiName.css" />
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
@@ -18,11 +19,87 @@
 			实名认证
 		</header>
 		<div class="content">
-			<div style="background-color: red;height: 3rem;">
-				
+			<!-- 图像识别别 -->
+			<div id="realNameOne" style="display: none;">
+				<div class="_left">
+					<img src="">
+					<div>点击上传人像面</div>
+				</div>
+				<div class="_left">
+					<img src="">
+					<div>点击上传国徽面</div>
+				</div>
+				<div class="bottom_btn" id="btnOne">
+					下一步
+				</div>
 			</div>
+			<!-- 信息确认 -->
+			<div id="realNameTwo" style="display: none;">
+				<div class="_one">
+					<div class="_left">姓名</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写姓名">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">身份证号</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写身份证号">
+					</div>
+				</div>
+				<div class="bottom_btn"  id="btnTwo">
+					下一步
+				</div>
+			</div>
+			<!-- 信息录入 -->
+			<div id="realNameThree" >
+				<div class="_one">
+					<div class="_left">持卡人</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写姓名">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">卡号</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写身份证号">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">银行</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写姓名">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left">卡类型</div>
+					<div class="_right">
+						<input type="text" placeholder="请填写身份证号">
+					</div>
+				</div>
+				<div style="background-color: #F5F8FF;height: .2rem;float: left;width: 7.5rem;"></div>
+				<div class="_one">
+					<div class="_left">手机号</div>
+					<div class="_right">
+						<input type="text" placeholder="请输入银行预留手机号">
+					</div>
+				</div>
+				<div class="_one">
+					<div class="_left_y">验证码</div>
+					<div class="_right_i">
+						<input type="text" placeholder="请填写验证码">
+					</div>
+					<div class="_right_yb">
+						发送验证码
+					</div>
+				</div>
+				<div class="bottom_btn" id="btnthree">
+					完成
+				</div>
+			</div>
+			
 		</div>
-		
+
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
