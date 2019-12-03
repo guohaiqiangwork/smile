@@ -1,0 +1,424 @@
+<!-- 商品详情页 -->
+
+<!-- 搜索后来这个页面 -->
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/view/seavhPage.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pages/cashMoney.css" />
+		<!-- 引用外部css -->
+		<link rel="stylesheet" type="text/css" href="../css/view/homePage.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+	</head>
+	<body>
+
+		<!-- 隐藏的头部标题 -->
+		<div class="details_title">
+			<i id="returnTopPage_detail"><img src="../image/returnButton.png"></i>
+			<span>商品详情</span>
+		</div>
+
+		<!-- 中间滚动部分 -->
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!-- 返回按钮 -->
+				<div class="returnPage" id="returnPage_id">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<!-- 分享按钮 -->
+				<div class="fxTwo" id="fx_id">
+					<i class="fa fa-share-alt"></i>
+				</div>
+				<!-- 轮播图 -->
+				<div class="lobotuTitleDetails">
+					<div class="lunbo">
+						<div class="mui-slider">
+							<div class="mui-slider-group mui-slider-loop">
+
+							</div>
+							<div class="mui-slider-indicator">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="countOne">
+					<p class="spanOneClass">进口海外丹麦三文鱼500g</p>
+					<p class="spanTwoClass">eat！大厨经典之作，复购最高。经不容错过</p>
+					<p class="spanThreeClass">￥38.20</p>
+					<div class="buttCla" id="buttCla_oneId">
+						<div class="buttCla_one">规格：</div>
+						<!-- 	<div class="buttCla_div buttCla_active">250g／切片</div>
+						<div class="buttCla_div">350g／切片</div>
+						<div class="buttCla_div">450g／切片</div> -->
+					</div>
+				</div>
+
+				<div id="ycd_id">
+					<div id="ycd_id_one">
+
+						<!-- <div id="">
+							<span style="font-weight:bold">保质期 &nbsp;&nbsp;&nbsp;</span>
+							<span style="color: ##666666;">3天冷藏（建议收货当天食用）</span>
+						</div>
+						<div id="">
+							<span style="font-weight:bold">储藏温度</span>
+							<span style="color: ##666666;">0 C - 5 C</span>
+						</div> -->
+					</div>
+				</div>
+
+				<!-- 商品详情图 -->
+				<div id="detailsImg">
+					<div id="imgUrlD">
+
+					</div>
+					<div id="bottonCount">
+						<span>
+							以上图片仅供参考，请以收到实物为准
+						</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<div id="bottomNav">
+			<div class="bottomNav_one">
+				<div id="shopNumber">0</div>
+				<!-- 购物车图标 -->
+				<i class="fa fa-shopping-cart"></i>
+			</div>
+			<div class="div_backgroun_jb" id="addShop">加入购物车</div>
+		</div>
+
+
+		<!-- 点击分享后的弹框-->
+		<div id="fenxiangId" class="fenxiangCla">
+			<div style="border-bottom: solid 1px #D8D8D8;">
+				<span>分享到</span>
+				<i id="gb_id" class="fa fa-times"></i>
+			</div>
+			<div>
+				<div class="iocClass">
+					<div>
+						<img src="../image/wx.png" />
+					</div>
+					<div>
+						<span>微信</span>
+					</div>
+				</div>
+
+				<div class="iocClassTwo">
+					<div>
+						<img src="../image/wx.png" />
+					</div>
+					<div>
+						<span>QQ</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/commonFun.js" type="text/javascript"></script>
+
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				_self.shopId = '1198857198152024066'
+				// var shopId = _self.shopId;
+				// console.log("我穿过来的商品id=="+shopId);
+				/* 默认隐藏头部标题栏 */
+				$(".details_title").css("display", "none");
+				//->解决安卓手机无法滚动
+				$$(".mui-scroll-wrapper").scroll({
+					bounce: false, //滚动条是否有弹力默认是true
+					indicators: true, //是否显示滚动条,默认是true
+					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+
+
+				//监听滚动条高度,显示或者隐藏
+				var scroll = $$('.mui-scroll-wrapper').scroll();
+				doc.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
+
+					if (scroll.y < -100) {
+						$(".details_title").fadeIn(1000);
+					}
+
+					if (scroll.y > -10) {
+						$(".details_title").fadeOut();
+					}
+				});
+				// 获取商品详情
+				getImage(_self.shopId);
+				var slider = mui("#slider");
+				slider.slider({
+					interval: 3000
+				});
+				// 获取商品详情
+				function getImage(shopId) {
+					getCommodityD(mui, shopId, function(data) {
+						if (data.code == 200) {
+							$(".spanOneClass").text(data.data.goodsName) // 商品名称
+							$(".spanTwoClass").text(data.data.title) //副标题
+							$('.spanThreeClass').text(data.data.specification[0].price) //商品价格
+							_self.specification = data.data.specification
+							// 规格处理
+							var specif = document.createDocumentFragment();
+							$.each(data.data.specification, function(index) {
+								if (index == 0) {
+									_self.specificationId = data.data.specification[index].id
+									var specifLi = '<div data-id=' + data.data.specification[index].id +
+										' class="buttCla_div buttCla_active"> ' + data.data.specification[
+											index].NAME + '</div>';
+								} else {
+									var specifLi = '<div data-id=' + data.data.specification[index].id + ' class="buttCla_div"> ' + data.data
+										.specification[
+											index].NAME + '</div>';
+								}
+								$(specif).append(specifLi);
+							});
+							$("#buttCla_oneId").append($(specif));
+
+							// 属性处理
+							var property = document.createDocumentFragment();
+							$.each(data.data.propertyList, function(index) {
+								var propertyLi = '<div>' +
+									'<span style="font-weight:bold">' + data.data.propertyList[index].pname + '</span>' +
+									'<span style="color: ##666666;">' + data.data.propertyList[index].pvalue + '</span>' +
+									'</div>';
+								$(property).append(propertyLi);
+							});
+							$("#ycd_id_one").append($(property));
+							// 详情轮播图
+							if (data.data.pictureUrlList.length > 0) {
+								var dataList = data.data.pictureUrlList;
+								var length = dataList.length
+								if (length == 1) {
+									$('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-imgDetails" src="' + dataList[
+											0] +
+										'" /></div>');
+								} else {
+									$('.mui-slider-group').append(
+										'<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-imgDetails" src="' + dataList[
+											length - 1] +
+										'" /></div>');
+									$('.mui-slider-indicator').append('<div class="mui-indicator mui-active"></div>');
+									for (var i = 0; i < length; i++) {
+										$('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-imgDetails" src="' +
+											dataList[
+												i] +
+											'" /></div>');
+									}
+									$('.mui-slider-group').append(
+										'<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-imgDetails" src="' + dataList[0] +
+										'" /></div>');
+									for (var i = 0; i < length - 1; i++) {
+										$('.mui-slider-indicator').append('<div class="mui-indicator"></div>');
+									}
+								}
+								var gallery = mui('.mui-slider');
+								gallery.slider({
+									interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+								});
+
+							} else {
+								tipShow('详情轮播图为空');
+							}
+							// 详情图片
+							var detailsImg = document.createDocumentFragment();
+							$.each(data.data.detailsList, function(index) {
+								var detailsImgLi = '<img src="' + data.data.detailsList[index] + '"/>';
+								$(detailsImg).append(detailsImgLi);
+							});
+							$("#imgUrlD").append($(detailsImg));
+
+						} else {
+							tipShow(data.message);
+							gotoLoginIn();
+						}
+					});
+
+				};
+
+				// 获取购物车数量
+				getShoppingCart(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						$('#shopNumber').text(data.data)
+					} else {
+						tipShow(data.message)
+					}
+				});
+				// 添加购物车
+				$('#addShop').on('tap', function() {
+					var keyword = {
+						goodsId: _self.shopId,
+						pecificationId: _self.specificationId,
+						userId: plus.storage.getItem('memberId')
+					}
+					addShoppingCart(mui, keyword, function(data) {
+						if (data.code == 200) {
+							var totalNum = parseInt($("#shopNumber").text());
+							totalNum++
+							$('#shopNumber').text(totalNum)
+						} else {
+							tipShow(data.message)
+						}
+					});
+
+				})
+
+				var returnPage_id = doc.getElementById("returnPage_id");
+				returnPage_id.onclick = function() {
+					mui.currentWebview.close();
+				}
+				//分享操作
+				var shares = {};
+				plus.share.getServices(function (s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+					}
+				}, function () {
+					// console.log("获取分享服务列表失败");
+				});
+				userId = plus.storage.getItem('memberId');
+				/* 点击分享按钮事件 */
+				$(".fxTwo").on("tap", function() {
+					if (plus.runtime.isApplicationExist({
+							pname: 'com.tencent.mm',
+							action: 'weixin://'
+						})) {
+						console.log("微信应用已安装");
+					} else {
+						$$.toast("微信应用未安装");
+						setTimeout(function() {
+							toCurrentPage();
+						}, 1500);
+						return false;
+					}
+					var shareJson = {
+						"title": "笑容",
+						"desc": "笑容app你好！"
+					};
+					var lineEndId = ['lineEnd'];
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession"
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline"
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信朋友圈"
+						}];
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: bts
+					}, function(e) {
+						alert(JSON.stringify(e))
+						var i = e.index;
+						if (i > 0) {
+							var s_id = ids[i - 1].id;
+							var share = shares[s_id];
+							if (share) {
+								if (share.authenticated) {
+									shareMessage(share, ids[i - 1].ex, shareJson, userId, lineEndId);
+									mui.fire(plus.webview.getWebviewById("userIndex.html"), "menu:close");
+									setTimeout(function() {
+										toCurrentPage();
+									}, 5000);
+								} else {
+									share.authorize(function() {
+										shareMessage(share, ids[i - 1].ex, shareJson, userId, lineEndId);
+										mui.fire(plus.webview.getWebviewById("userIndex.html"), "menu:close");
+										setTimeout(function() {
+											toCurrentPage();
+										}, 5000);
+									}, function(e) {
+										console.log("认证授权失败：" + e.code + " - " + e.message);
+									});
+								}
+							} else {
+								$$.toast("分享失败，请重试");
+							}
+						}
+					});
+
+					// $(".fenxiangCla").css("display", "block");
+				})
+				/* 点击分享按钮事件 */
+				$("#gb_id").on("tap", function() {
+					$(".fenxiangCla").css("display", "none");
+				})
+
+				/* 规格选项卡点击转换样式 */
+				var buttCla_oneId = doc.getElementById("buttCla_oneId");
+				$("#buttCla_oneId").on('tap', '.buttCla_div', function() {
+					_self.specificationId = $(this).attr("data-id")
+					$.each(_self.specification, function(index) {
+						if (_self.specification[index].id == _self.specificationId) {
+							$('.spanThreeClass').text(_self.specification[index].price) //商品价格
+						}
+					});
+					if ($(this).hasClass("buttCla_active")) {
+						return
+					} else {
+						$(this).addClass("buttCla_active").siblings().removeClass("buttCla_active");
+					}
+					// var info = $(this).html();
+					// console.log("我是点击的选项卡" + info);
+					// $(this).addClass("buttCla_active").siblings().removeClass("buttCla_active");
+				})
+				/* 返回上一页 */
+				var returnTopPage_detail = doc.getElementById("returnTopPage_detail");
+				returnTopPage_detail.onclick = function() {
+					mui.back();
+				}
+
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

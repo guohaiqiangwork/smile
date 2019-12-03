@@ -4,7 +4,7 @@
  * @param  //参数
  * @Date //2019-06-24
  */
-// 同城---------------------------------------------start----
+// ---------------------------------------------start----
 /**
  * 用户提示
  */
@@ -409,7 +409,7 @@ function compressImage(imgUrl, dom, callback) {
  * @param {object} dom 上传节点
  */
 function upImg(event, dom, callback) {
-	var server = requserUpImg;
+	var server = 'http://49.232.97.190:8080/mb/verificNegative';
 	var wt = plus.nativeUI.showWaiting("上传中...");
 	// console.log(event);
 	var uploaderDown = plus.uploader.createUpload(server, {
@@ -418,7 +418,6 @@ function upImg(event, dom, callback) {
 		function (t, status) {
 			console.log(status)
 			if (status == 200) {
-
 				// 插入已选择节点
 				var resultData = t.responseText;
 				// console.log(resultData);
@@ -620,9 +619,9 @@ function shareMessage(share, ex, shareJson, userId, lineEndId) {
 		}
 	};
 	if (lineEndId && lineEndId[0] != 'lineEnd') {
-		msg.href = requserShare + "/web/appShare/travalShare?orderId=" + lineEndId[0] + "";//分享地址
+		msg.href = "http://49.232.97.190:8080" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + "";//分享地址
 	} else {
-		msg.href = requserShare + "/web/appShare/goRegister?shareId=" + userId + "";//分享地址
+		msg.href = "http://49.232.97.190:8080" + "/web/appShare/goRegister?shareId=" + userId + "";//分享地址
 	}
 	msg.title = shareTitle;
 	msg.content = shareContentReg;
@@ -781,29 +780,29 @@ function toCurrentPage() {
  * 保存图片到本地
  * @param 
  */
-function save_img(picurl) {
+// function save_img(picurl) {
+// 	var bitmap = new plus.nativeObj.Bitmap();
+// 	bitmap.loadBase64Data(picurl, function() {
+// 		// console.log('加载图片成功');
+// 		bitmap.save("_doc/mhtcImg.png", {
+// 			overwrite: true,
+// 			quality: 10
+// 		}, function(i) {
+// 			console.log('保存图片成功：'+JSON.stringify(i));
+// 			mui.toast("保存成功");
+// 			plus.gallery.save(i.target, () => {
+// 				plus.io.resolveLocalFileSystemURL(i.filename, (entry) => {
+// 					entry.remove();
+// 				});
+// 			});
+// 		}, function(e) {
+// 			console.log('保存图片失败：' + JSON.stringify(e));
+// 		});
+// 	}, function(e) {
+// 		console.log('加载图片失败：' + JSON.stringify(e));
+// 	});
+// }
 
-	var bitmap = new plus.nativeObj.Bitmap();
-	bitmap.loadBase64Data(picurl, function() {
-		// console.log('加载图片成功');
-		bitmap.save("_doc/mhtcImg.png", {
-			overwrite: true,
-			quality: 10
-		}, function(i) {
-			console.log('保存图片成功：'+JSON.stringify(i));
-			mui.toast("保存成功");
-			plus.gallery.save(i.target, () => {
-				plus.io.resolveLocalFileSystemURL(i.filename, (entry) => {
-					entry.remove();
-				});
-			});
-		}, function(e) {
-			console.log('保存图片失败：' + JSON.stringify(e));
-		});
-	}, function(e) {
-		console.log('加载图片失败：' + JSON.stringify(e));
-	});
-}
 // 判断IOS 还是苹果
 function IOSAnd() {
 	var u = navigator.userAgent, app = navigator.appVersion;
@@ -823,4 +822,16 @@ function setWakelock(){
 // 关闭应用保持唤醒（屏幕常亮）状态
 function closeWakelock(){
 	plus.device.setWakelock(false);
+}
+
+// 到登录页面
+function gotoLoginIn(){
+	clearStorage();
+	mui.openWindow({
+		url: "../login.html",
+		id: "login",
+		show: {
+			aniShow: "slide-in-right"
+		}
+	});
 }

@@ -1,14 +1,92 @@
-#realNameOne ._left{
-	width: 3.3rem;
-	height: 2.1rem;
-	border: 1px dashed red;
-	margin-top: 1.2rem;
-	margin-left: .3rem;
+.reaiName_card_title {
+	font-size: .28rem;
+	display: flex;
+	padding-top: .7rem;
+}
+
+.reaiName_card_signL {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-right: .2rem;
+	margin-left: 1.1rem;
+}
+
+.reaiName_card_signR {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-left: .2rem;
+}
+
+.reaiName_division_signL {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-right: .2rem;
+	margin-left: 1.8rem;
+}
+
+.reaiName_division_signR {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-left: .2rem;
+}
+
+.font_size26 {
+	font-size: .26rem;
+	text-align: center;
+	color: #999999;
+}
+
+.font_margin {
+	margin-top: .6rem;
+}
+
+.font_size26 span {
+	color: #FEAE11;
+}
+
+.tips_moudel {
+	border: 1px dashed #333333;
+	width: 7rem;
+	height: 1.8rem;
 	overflow: hidden;
-	float: left;
+	margin-top: .45rem;
+	margin-left: .25rem;
+}
+
+#realNameOne ._left {
+	width: 3.5rem;
+	height: 2.3rem;
+	border: 1px dashed #333333;
+	margin-top: .3rem;
+	margin-left: .2rem;
+	overflow: hidden;
 	text-align: center;
 }
-#realNameOne ._left div{
+
+#realNameOne .font {
+	width: 3.5rem;
+	margin-top: .1rem;
+	margin-left: .2rem;
+	text-align: center;
+	font-size: .24rem;
+	font-weight: 800;
+}
+
+.division {
+	background-color: #F3F5F8;
+	height: .2rem;
+	margin-top: 1.2rem;
+}
+
+#realNameOne ._left div {
 	font-size: .3rem;
 	padding-top: .5rem;
 }
@@ -23,7 +101,7 @@
 	width: 7.5rem;
 }
 
- ._one ._left {
+._one ._left {
 	width: 2rem;
 	text-align: left;
 	float: left;
@@ -37,27 +115,26 @@
 	width: 5rem;
 	float: left;
 }
- ._one ._right input {
+
+._one ._right input {
 	border: none;
+	height: .3rem;
 }
+
 .bottom_btn {
-	height: .8rem;
-	width: 7rem;
-	margin-left: .3rem;
-	border-radius: .4rem;
+	height: 1rem;
+	width: 7.5rem;
 	text-align: center;
-	line-height: 2.5;
-	background-color: red;
 	color: #FFFFFF;
-	font-size: .32rem;
-	transform: translateZ(0);
-	-webkit-transform: translateZ(0);
+	font-size: .3rem;
+	padding-top: .28rem;
 	position: fixed;
-	bottom: 0.2rem;
-	z-index: 999;
+	bottom: 0;
+	background: linear-gradient(to right, #FF342D, #FF5882);
 }
+
 /* 信息录入 */
- ._one ._left_y {
+._one ._left_y {
 	width: 2rem;
 	text-align: left;
 	float: left;
@@ -71,10 +148,12 @@
 	width: 2.7rem;
 	float: left;
 }
- ._one ._right_i input {
+
+._one ._right_i input {
 	border: none;
 }
-._right_yb{
+
+._right_yb {
 	float: left;
 	font-size: .3rem;
 	color: #A0A0A0;
@@ -89,48 +168,108 @@
 
 
 /* 银行卡 */
-#bankCard {
-	
-} 
-#bankCard  .bank_moudel{
+#bankCard {}
+
+#bankCard .bank_moudel {
 	width: 6.9rem;
 	height: 2.2rem;
-	border: 1px solid red;
 	border-radius: .1rem;
 	margin-left: .3rem;
 	float: left;
 	margin-top: .3rem;
+	color: #FFFFFF;
+	/* background: linear-gradient(to right, #FF7366, #FE5262); */
 }
-#bankCard  .bank_moudel  ._left{
+
+.bank_bgColor_zgp{
+	/* red */
+	background: linear-gradient(to right, #FF7066,#FC484E);
+}
+.bank_bgColor_ny{
+	/* blue */
+	background: linear-gradient(to right, #01A99C, #028DAE);
+}
+.bank_bgColor_jj{
+	/* greet */
+	background: linear-gradient(to right, #498ACE, #4063BF);
+}
+
+
+#bankCard .bank_moudel ._left {
 	width: 1.2rem;
 	float: left;
 }
-#bankCard  .bank_moudel  ._left div{
+
+#bankCard .bank_moudel ._left div {
 	width: .8rem;
 	height: .8rem;
 	border-radius: 50%;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	overflow: hidden;
 	margin-top: .54rem;
 	margin-left: .34rem;
 }
-#bankCard  .bank_moudel  ._right{
+
+#bankCard .bank_moudel ._right {
 	width: 5.6rem;
 	float: left;
 	margin-top: .5rem;
 }
 
-#bankCard  .bank_moudel  ._right ._Bone{
+#bankCard .bank_moudel ._right ._Bone {
 	width: 100%;
 	float: left;
 }
-._Bone_number{
+
+._Bone_number {
 	font-size: .34rem;
 	float: left;
 	margin-left: 1.4rem;
 }
-._Bone_name{
+
+._Bone_name {
 	font-size: .34rem;
 	float: left;
 	margin-left: .24rem;
+}
+
+/* 弹出框 */
+.order_change_model {
+	width: 5.5rem;
+	height: 3rem;
+	background: #FFFFFF;
+	position: fixed;
+	top: 4rem;
+	left: .9rem;
+	z-index: 999999;
+	border-radius: 0.1rem;
+	box-sizing: border-box;
+	padding: .5rem 0 .5rem 0;
+	margin: 0 auto;
+
+}
+
+.orderChange_moudel {
+	border-bottom: 1px solid #CBCBCB;
+	height: 1.5rem;
+	text-align: center;
+}
+
+.orderChange_moudel_btn div {
+	width: 50%;
+	text-align: center;
+	color: #0076FF;
+	font-size: .34rem;
+	line-height: 2;
+}
+
+.orderChange_moudel_btn div:nth-child(1) {
+	border-right: 1px solid #4D4D4D;
+}
+
+.success_img{
+	width: 3.7rem;
+	height: 2rem;
+	margin-left: 1.9rem;
+	margin-top: 3rem;
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>my_setting</title>
@@ -11,53 +12,84 @@
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
 		<link rel="stylesheet" href="../css/pages/reaiName.css" />
+		<style>
+			.mui-numbox {
+			position: relative;
+			display: inline-block;
+			overflow: hidden;
+			width: 1.8rem;
+			height: .45rem;
+			padding: 0 !important;
+			vertical-align: top;
+			vertical-align: middle;
+			border: none !important;
+			border-radius: 3px;
+			background-color: #F4F4F4;
+		}
+
+		.mui-checkbox input[type=checkbox]:checked:before,
+		.mui-radio input[type=radio]:checked:before {
+			background: #FFFFFF;
+			-webkit-background-clip: text;
+			color: transparent;
+		}
+	</style>
+
 		<script src="../js/rem_reset.js"></script>
 	</head>
+
 	<body onselectstart="return false;">
-		<header class="header_white">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			银行卡
+		<header class="header_white div_display">
+			<div class="" style="width: 1rem;">
+				<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			</div>
+			<div style="width: 4rem;display: none;" id="myBank">我的银行卡</div>
+			<div style="width: 4rem;display: none;" id="binBank">绑定银行卡</div>
+			<div style="width: 2rem;" id="untying">解除绑定</div>
 		</header>
 		<div class="content">
-			<!-- 银行卡添加 -->
-			<div id="realNameTwo">
+			<!-- 银行卡添加-->
+			<div id="realNameTwo" style="display: none;">
 				<div class="_one">
 					<div class="_left">持卡人</div>
 					<div class="_right">
-						<input type="text" placeholder="请填写姓名">
+						<input type="text" placeholder="请填写姓名" id="name">
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left">卡号</div>
 					<div class="_right">
-						<input type="text" placeholder="请填写身份证号">
+						<input type="number" placeholder="请填写卡号" id="bankCardNumber">
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left">银行</div>
 					<div class="_right" style="font-size: .3rem;color: #303030;line-height: 2;">
-						中国银行（自动判断）
+						<input type="" name="" id="bankName" value="" />
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left">卡类型</div>
 					<div class="_right" style="font-size: .3rem;color: #303030;line-height: 2;">
-						储蓄卡/信用卡(自动判断）
+						<input type="" name="" id="cardType" value="" />
 					</div>
+				</div>
+				<div class="_right" style="display: none;">
+					<input type="" name="" id="bankCode" value="" />
 				</div>
 				<div style="background-color: #F5F8FF;height: .2rem;float: left;width: 7.5rem;"></div>
 				<div class="_one">
 					<div class="_left">手机号</div>
 					<div class="_right">
-						<input type="text" placeholder="请输入银行预留手机号">
+						<input type="text" placeholder="请输入银行预留手机号" id="bankPhone" maxlength="11">
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left_y">验证码</div>
 					<div class="_right_i">
-						<input type="text" placeholder="请填写验证码">
+						<input type="text" id="cardCode" placeholder="请填写验证码" maxlength="6">
 					</div>
-					<div class="_right_yb">
+					<div class="_right_yb" id="bankYzm">
 						发送验证码
 					</div>
 				</div>
@@ -65,9 +97,10 @@
 					完成
 				</div>
 			</div>
+
 			<!-- 银行卡列表 -->
-			<div id="bankCard">
-				<div class="bank_moudel">
+			<div id="bankCard" style="display: none;">
+				<!-- 	<div class="bank_moudel">
 					<div class="_left">
 						<div>
 							<img src="../image/left@2x.png" width="100%">
@@ -86,12 +119,36 @@
 							<div class="_Bone_name" style="font-size: .28rem;">
 								储蓄卡
 							</div>
+							<div class="untyingI" style=" margin-top: -.5rem;display: none;">
+								<div class="mui-checkbox">
+									<input name="commodity" value="Item 1" type="checkbox" style="margin-top: 1rem;padding-left: .2rem;">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="bottom_btn">
-					<i class="">+</i><span>添加银行卡</span>
+ -->
+				<div class="bottom_btn " id="addBankCard">
+					<span>添加银行卡</span>
 				</div>
+				<!-- 删除提示 -->
+				<div id="orderChange" style="display: none;" class="order_change_model">
+					<div class="orderChange_moudel">
+						<div class="font_size32 font_color33" style="margin-top: .3rem;">
+							确定解绑银行卡吗？
+						</div>
+					</div>
+					<div class="orderChange_moudel_btn div_display">
+						<div class="moudel-close">
+							取消
+						</div>
+						<div>
+							确定
+						</div>
+
+					</div>
+				</div>
+
 			</div>
 		</div>
 
@@ -100,6 +157,8 @@
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/commonFun.js"></script>
 	<script src="../js/requestFun.js"></script>
+	<script src="../js/variousMethods.js"></script>
+	<script src="../js/bankType.js"></script>
 	<script>
 		(function($, doc, $$, undefined) {
 			$$.init();
@@ -119,14 +178,234 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				var bankFalg = '2'
-				if (bankFalg == 'one') {
-					$('#realNameTwo').css('display', 'block')
-					$('#banCard').css('display', 'none')
-				} else {
-					$('#banCard').css('display', 'block')
-					$('#realNameTwo').css('display', 'none')
+				//点击获取验证码
+				var yzm = document.getElementById('bankYzm')
+				//是否可以点击【获取验证码按钮开关】
+				var onOff = true;
+				var reg = new RegExp(/^\d{6}$/); //6位数字验证
+				//code_4用于注册信息时的验证，验证码，获取与输入的一致
+				var code_4 = '';
+				yzm.onclick = function() {
+					if ($('#bankPhone').val() < 11) {
+						tipShow('请输入正确手机号')
+						return
+					}
+					//如果onOff标志false则，不执行任何操作
+					if (!onOff)
+						return;
+					//循环周期60s
+					var times = 60;
+					//获取验证码
+					var data1 = {
+						phone: $('#bankPhone').val()
+					};
+					getCode(mui, data1, function(data) {
+						if (data.code == 200) {
+							console.log('验证码获取成功' + data.data)
+						} else {
+							clearInterval(timer)
+							console.log('验证码获取失败' + data.message)
+						}
+					});
+					//使用定时器，一秒触发一次事件，如果结束，则关闭定时器
+					var timer = setInterval(function() {
+						//事件处理，一秒一次
+						times--;
+						if (times < 1) {
+							//执行结束，则可以再次点击
+							yzm.innerHTML = "重新获取";
+							onOff = true;
+							clearInterval(timer);
+						} else {
+							var text = times + 's';
+							yzm.innerHTML = text;
+							onOff = false;
+						}
+					}, 1000);
 				}
+				// 获取用户信息 判断是否实名认证
+				getUserList(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						if (!data.data.idcard) {
+							$$.openWindow({
+								url: '../pages/realName.html',
+								id: 'realName',
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+						} else {
+							// 获取银行卡列表
+							getBankList()
+						}
+					} else {
+						tipShow(data.message);
+					}
+				})
+				// 获取银行卡列表
+				function getBankList() {
+					// 查询银行卡列表
+					getBankFindAll(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							if (data.data.length > 0) {
+								var fragmentplanList = document.createDocumentFragment();
+								$.each(data.data, function(index) {
+									// 银行卡
+									console.log(JSON.stringify(bankCardAttribution("6226800036677779")))
+									data.data[index].bankCard = "****" + data.data[index].bankCard.substr(-4);
+									console.log(JSON.stringify(data.data[index]))
+									switch (data.data[index].bankCode) {
+										case 'ICBC':
+											data.data[index].bankBColor = 'bank_bgColor_zgp'
+											data.data[index].imgUrl = '../image/bank/gsy.png';
+											break;
+										case 'ABC':
+											data.data[index].bankBColor = 'bank_bgColor_ny'
+											data.data[index].imgUrl = '../image/bank/nyy.png';
+											break;
+										case 'CBC':
+											data.data[index].bankBColor = 'bank_bgColor_jj'
+											data.data[index].imgUrl = '../image/bank/jsy.png';
+											break;
+										case 'BC':
+											data.data[index].bankBColor = 'bank_bgColor_zgp'
+											data.data[index].imgUrl = '../image/bank/zgy.png';
+											break;
+										case 'COMM':
+											data.data[index].bankBColor = 'bank_bgColor_jj'
+											data.data[index].imgUrl = '../image/bank/jty.png';
+											break;
+										case 'SPDB':
+											data.data[index].bankBColor = 'bank_bgColor_zgp'
+											data.data[index].imgUrl = '../image/bank/qty.png';
+											break;
+										default:
+											data.data[index].bankBColor = 'bank_bgColor_zgp'
+											data.data[index].imgUrl = '../image/bank/qty.png';
+											break;
+									}
+
+									var orderLi =
+										'<div class="bank_moudel  ' + data.data[index].bankBColor + '">' +
+										'<div class="_left">' +
+										'<div>' +
+										'<img src="' + data.data[index].imgUrl + '" width="100%">' +
+										'</div>' +
+										'</div>' +
+										'<div class="_right">' +
+										'<div class="_Bone">' +
+										'<div class="_Bone_name">' +
+										data.data[index].bankName +
+										'</div>' +
+										'<div class="_Bone_number">' +
+										data.data[index].bankCard +
+										'</div>' +
+										'</div>' +
+										'<div class="_Bone">' +
+										'<div class="_Bone_name" style="font-size: .28rem;">' +
+										data.data[index].bankType +
+										'</div>' +
+										'<div class="untyingI" style=" margin-top: -.5rem;display: none;">' +
+										'<div class="mui-checkbox">' +
+										'<input name="commodity" value="Item 1" type="checkbox" style="margin-top: 1rem;padding-left: .2rem;">' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'</div>';
+									$(fragmentplanList).append(orderLi);
+								});
+								$("#bankCard").append($(fragmentplanList));
+								$('#bankCard').css('display', 'block');
+								$('#myBank').css('display', 'block');
+								$('#realNameTwo').css('display', 'none');
+							} else {
+								$('#realNameTwo').css('display', 'block')
+								$('#bankCard').css('display', 'none')
+							}
+						} else {
+							tipShow(data.message)
+						}
+					});
+
+				}
+				// 切换银行卡保存
+				$('#addBankCard').on('tap', function() {
+					$('#untying').css('display', 'none');
+					$('#myBank').css('display', 'none');
+					$('#binBank').css('display', 'block');
+					$('#realNameTwo').css('display', 'block');
+					$('#bankCard').css('display', 'none')
+				})
+				// 添加银行卡保存
+				$('#btnTwo').on('tap', function() {
+					alert($('#bankCardNumber').val())
+					alert(luhnCheck($('#bankCardNumber').val()))
+					if (!$('#name').val()) {
+						tipShow('请检查姓名')
+						return;
+					} else if (!luhnCheck($('#bankCardNumber').val())) {
+						tipShow('请检查银行卡')
+						return;
+					} else if (!$('#bankPhone').val()) {
+						tipShow('请检查预留手机号')
+						return;
+					}
+					var keyword = {
+						name: $('#name').val(),
+						bankCard: $('#bankCardNumber').val(), //银行卡
+						bankName: $('#bankName').val(), //银行开户行名称
+						bankType: $('#cardType').val(), //	银行卡类型
+						memberId: plus.storage.getItem('memberId'), //
+						reservedMobile: $('#bankPhone').val(), //银行预留手机号
+						bankCode: $('#bankCode').val()
+					}
+					getBankSave(mui, keyword, $('#cardCode').val(), function(data) {
+						if (data.code == 200) {
+							location.reload();
+						} else if (data.code == 401 || data.code == 1500) {
+							gotoLoginIn()
+						} else {
+							tipShow(data.message)
+						}
+					})
+				})
+				// 点击解绑银行卡
+				$('#untying').on('tap', function() {
+					$('.untyingI').css('display', 'block')
+				})
+				//遮罩
+				var orderChange = mui.createMask(function() {
+					$(".order_change_model").css("display", "none");
+					return;
+				});
+				//解绑银行卡弹窗
+				$('#bankCard .untyingI').on('tap', function() {
+					// 显示提示
+					alert(00)
+					orderChange.show();
+					$(".order_change_model").css("display", "block");
+				})
+				// 关闭
+				$("#orderChange .moudel-close").on("tap", function() {
+					$(".order_change_model").css("display", "none");
+					orderChange.close();
+				});
+
+				// 监听银行卡号
+				$('#bankCardNumber').bind('input propertychange', function() {
+					if ($(this).val().length == 16 || $(this).val().length == 19) {
+						if (luhnCheck($(this).val())) {
+							$('#bankName').val(bankCardAttribution($(this).val()).bankName)
+							$('#cardType').val(bankCardAttribution($(this).val()).cardTypeName)
+							$('#bankCode').val(bankCardAttribution($(this).val()).bankCode)
+						} else {
+							tipShow('请检查银行卡号')
+							$('#bankName').val()
+							$('#cardType').val()
+						}
+					}
+				});
 			}
 		})(jQuery, document, mui);
 	</script>

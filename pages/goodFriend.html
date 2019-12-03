@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
-		<title>my_setting</title>
+		<title>my_order</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -10,26 +11,111 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
-		
 		<script src="../js/rem_reset.js"></script>
 	</head>
+
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-		我的好友
+			我的好友
 		</header>
 		<div class="content">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ghq
+			
+			<div id="orderList" class="content mui-fullscreen">
+				
+				<div class="mui-content mui-scroll-wrapper">
+					<div id="goToActivityRules">
+						活动规则
+					</div>
+					<div class="mui-scroll">
+						<ul id="container"></ul>
+					</div>
+				</div>
+			</div>
+			<!-- 空页面 -->
+			<div class="nothing" style="display: none;">
+				<img src="../img/userImg/no_order.png">
+				<p>您当前没有订单哦~</p>
+			</div>
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< Updated upstream
 			<div id="">
 				<img src="../image/mu.jpg" >
 			</div>
+=======
+			<!-- 上面部分 -->
+			<div>
+				<div id="login">
+					<div id="" style="margin-top: .3rem;">
+						邀请好友
+					</div>
+					<div id="">
+						好友和自己可得到笑容积分
+					</div>
+					<div id="" style="margin-left: 2.8rem;">
+						<div class="" style="background-color: #575757;font-size: .22rem;text-align: center;border: 2px solid #FFFFFF;width: 1.8rem;height: .44rm;border-radius: .3rem;">
+							活动规则
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div id="" style="color: #333333;height: 1.3rem;background-color: red;text-align:center
+			;font-size: .26rem;">
+				<div id="">
+					邀请记录
+				</div>
+				<div id="">
+
+					活动累计已获得奖励
+
+				</div>
+			</div>
+			<!-- 列表部分 -->
+			<div id="">
+				<div id="" style="display: flex;font-size: .22rem;">
+					<div id="" style="width: .6rem;overflow: hidden;">
+						<img src="../image/icon_down_up.png" width="100%">
+					</div>
+					<div id="">
+						fa发烧
+					</div>
+					<div id="">
+						169^-^9900
+					</div>
+					<div id="">
+						05.04 13:28
+					</div>
+				</div>
+			</div>
+>>>>>>> Stashed changes
+>>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
+>>>>>>> ghq
 		</div>
 
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/commonFun.js"></script>
+<<<<<<< HEAD
+	<script src='../js/requestFun.js'></script>
+=======
+<<<<<<< HEAD
+	<script src='../js/requestFun.js'></script>
+=======
+=======
+>>>>>>> Stashed changes
 	<script src="../js/requestFun.js"></script>
+>>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
+>>>>>>> ghq
 	<script>
+		;
 		(function($, doc, $$, undefined) {
 			$$.init();
 			var _self;
@@ -38,6 +124,7 @@
 			} else {
 				doc.addEventListener('plusready', plusReady, false);
 			}
+
 			function plusReady() {
 				plus.navigator.setFullscreen(false);
 				//强制竖屏
@@ -47,8 +134,119 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ghq
+				var userSessionId = plus.storage.getItem('userSessionId');
+				mui(".mui-scroll-wrapper").pullRefresh({
+					up: {
+						contentrefresh: '加载中...',
+						contentnomore: '我也是有底线滴',
+						auto: true,
+						callback: pullupRefresh
+					}
+				});
+				$('#goToActivityRules').on('tap', function() {
+					$$.openWindow({
+						url: 'activityRules.html',
+						id: 'activityRules',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				})
+
+				/**
+				 * 我的订单
+				 *   @param counter 当前页数
+				 *   @param pageSize 每页显示条数
+				 */
+				var lastPage;
+				var pageSize = 10,
+					counter = 1;
+
+				function pullfresh() {
+					return
+					$$.ajax(requserUrl + '/userOrder/getUserOrderAllList', {
+						type: 'post',
+						timeout: 20000,
+						data: {
+							'current': counter,
+							'size': pageSize
+						},
+						headers: {
+							'AuthorizationKey': userSessionId
+						},
+						success: function(data) {
+							// console.log(JSON.stringify(data))
+							if (data.code == 0 && data.msg == 'success') {
+								counter++;
+								lastPage = !data.attributes.hasNext;
+								if (data.obj.length == 0 && $('#container').text() == '') {
+									$(".nothing").css("display", "block");
+									$('#orderList').css("display", "none");
+								} else {
+									var fragementList = document.createDocumentFragment(),
+										list = $('#container');
+									data.obj.forEach(e => {
+										$(
+											'<li data-id="' + e.id + '">' +
+											'<p class="orderTime"><span>' + e.createTime + '</span><span>' + obj[e.state][0] +
+											'<i class="fa fa-angle-right"></i></span></p>' +
+											'<h5 class="lineStart clearfix"><img style="position:absolute;" src="../img/driverImg/icon_crleStart.png"><span style="padding-left:0.4rem;display:inline-block;">' +
+											e.startName +
+											'</span></h5>' +
+											'<h5 class="lineEnd clearfix"><img style="position:absolute;" src="../img/icon_input.png"><span style="padding-left:0.4rem;display:inline-block;">' +
+											e.endName +
+											'</span></h5>' +
+											'</li>').appendTo(fragementList).data('id', e.id);
+										list.append(fragementList);
+									});
+								
+								}
+							} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
+								tipShow("请重新登录！");
+								clearStorage();
+								mui.openWindow({
+									url: "../login.html",
+									id: "login",
+									show: {
+										aniShow: "slide-in-right"
+									}
+								});
+							} else {
+								console.log("失败：" + JSON.stringify(data));
+								_self.close();
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							// $$.toast("服务异常，请稍后重试！");
+							acceptDateErrorTip();
+							return false;
+						}
+					});
+
+				}
+
+				function pullupRefresh() {
+					var timer = setTimeout(function() {
+						clearTimeout(timer);
+						pullfresh();
+						mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh((lastPage)); //参数为true代表没有更多数据了。
+					}, 500);
+				}
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< Updated upstream
+=======
+				
+				
+>>>>>>> Stashed changes
+>>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
+>>>>>>> ghq
 			}
 		})(jQuery, document, mui);
 	</script>
-
 </html>

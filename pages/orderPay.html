@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/confirmOrder.css" />
+
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			支付订单
+		</header>
+		<div class="content">
+			<div class="orderpay_time">
+				剩余时间 15:00
+			</div>
+			<div class="orderpay_money font_color33">
+				需支付：<span class="font_colorf4">100.00元</span>
+			</div>
+			<!-- 支付方式 -->
+			<div class="orderpay_money_list font_size30 font_color33">
+				<div class="orderpay_list_title">
+					选择支付方式
+				</div>
+				<div class="div_display orderpay_list_title" style="border: none;">
+					<div class="orderpay_left_img">
+						<img src="../image/mu.jpg" width="100%">
+					</div>
+					<div class="orderpay_left_font" style="width: 5rem;">
+						余额支付
+					</div>
+					<div class="" style="width: 2rem;margin-top: -1.5%;">
+						<div class=" mui-radio">
+							<label></label>
+							<input name="radio1" type="radio">
+						</div>
+					</div>
+				</div>
+				<div class="div_display orderpay_list_title" style="border: none;">
+					<div class="orderpay_left_img">
+						<img src="../image/mu.jpg" width="100%">
+					</div>
+					<div class="orderpay_left_font" style="width: 5rem;">
+						微信支付
+					</div>
+					<div class="" style="width: 2rem;margin-top: -1.5%;">
+						<div class=" mui-radio">
+							<label></label>
+							<input name="radio1" type="radio">
+						</div>
+					</div>
+				</div>
+				<div class="div_display orderpay_list_title" style="border: none;">
+					<div class="orderpay_left_img">
+						<img src="../image/mu.jpg" width="100%">
+					</div>
+					<div class="orderpay_left_font" style="width: 5rem;">
+						支付宝支付
+					</div>
+					<div class="" style="width: 2rem;margin-top: -1.5%;">
+						<div class=" mui-radio">
+							<label></label>
+							<input name="radio1" type="radio">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 支付按钮 -->
+			<div class="next_btn div_backgroun_jb" id="goPayment">
+				确认付款
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				// 获取当前时间
+				 var date1= '2019-12-04 11:20:00';  //开始时间
+				        var date2 = new Date();    //结束时间
+				        var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数    
+				//计算出相差天数
+				        var days=Math.floor(date3/(24*3600*1000))
+				 
+				        //计算出小时数
+				        var leave1=date3%(24*3600*1000)    //计算天数后剩余的毫秒数
+				        var hours=Math.floor(leave1/(3600*1000))
+				        //计算相差分钟数
+				        var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数
+				        var minutes=Math.floor(leave2/(60*1000))
+				        //计算相差秒数
+				        var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+				        var seconds=Math.round(leave3/1000)
+				        alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
+			}
+			// 去支付
+			$('#goPayment').on('tap',function(){
+				$$.openWindow({
+					url: "payResult.html",
+					id: "payResult",
+					styles: {
+						statusbar: {
+							background: "#fff"
+						}
+					}
+				});
+			})
+		})(jQuery, document, mui);
+	</script>
+
+</html>

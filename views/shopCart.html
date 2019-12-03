@@ -1,80 +1,374 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/shopCart.css" />
 		<style>
-			.mui-row.mui-fullscreen>[class*="mui-col-"] {
-				height: 100%;
+			.mui-numbox {
+			    position: relative;
+			    display: inline-block;
+			    overflow: hidden;
+			    width: 1.8rem;
+			    height: .45rem;
+			    padding: 0 !important;
+			    vertical-align: top;
+			    vertical-align: middle;
+			    border: none!important;
+			    border-radius: 3px;
+			    background-color: #F4F4F4;
 			}
-
-			.mui-col-xs-3,
-			.mui-control-content {
-				overflow-y: auto;
-				height: 100%;
-			}
-
-			.mui-segmented-control .mui-control-item {
-				line-height: 50px;
-				width: 100%;
-			}
-			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
-				color: red;
-				border-left: 3px solid red;
-				background-color: #fff;
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+				background: linear-gradient(to right, #FF342D, #FF5882);
+				-webkit-background-clip: text;
+				color: transparent;
 			}
 		</style>
+		<script src="../js/rem_reset.js"></script>
 	</head>
-
-	<body>
-		<div class="mui-content mui-row mui-fullscreen">
-			<div class="mui-col-xs-3">
-				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<div class="div_display">
+				<div class="font_size36 font_color99" style="margin-left: 3rem;">
+					购物车
+				</div>
+				<div class="font_size30 font_color08" style="margin-left: 2.5rem;">
+					编辑
 				</div>
 			</div>
-			<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
-				<div id="item1" class="mui-control-content mui-active"></div>
-				<div id="item2" class="mui-control-content"></div>
-				<div id="item3" class="mui-control-content"></div>
-			</div>
-		</div>
-		<script src="../js/mui.min.js"></script>
-		<script>
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
-			});
-			var controls = document.getElementById("segmentedControls");
-			var contents = document.getElementById("segmentedControlContents");
-			var html = [];
-			var i = 1,
-				j = 1,
-				m = 6, //左侧选项卡数量+1
-				n = 9; //每个选项卡列表数量+1
-			for (; i < m; i++) {
-				html.push('<a class="mui-control-item" href="#content' + i + '">选项舒适' + i + '</a>');
-			}
-			controls.innerHTML = html.join('');
-			html = [];
-			for (i = 1; i < m; i++) {
-				html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
-				for (j = 1; j < n; j++) {
-					html.push('<li class="mui-table-view-cell">第' + i + '个选项卡子项-' + j + '</li>');
-				}
-				html.push('</ul></div>');
-			}
-			contents.innerHTML = html.join('');
-			//默认选中第一个
-			controls.querySelector('.mui-control-item').classList.add('mui-active');
-			contents.querySelector('.mui-control-content').classList.add('mui-active');
-		</script>
+		</header>
+		<div class="content" style="margin-top: 1rem;">
+			<!-- 商品块 -->
+			<div class="" id="shopList">
+				<div class="shopCart_moudel div_display">
+					<div class="shopCart_moudel_left">
+						<div class="mui-checkbox">
+							<input name="commodity" value="Item 1" type="checkbox" style="margin-top: 1rem;padding-left: .2rem;">
+						</div>
+					</div>
+					<div class="shopCart_moudel_right">
+						<div class="div_display">
+							<div class="shopCart_img">
+								<img src="../image/mu.jpg" class="shopCart_img_width">
+							</div>
+							<div class="shopCart_product">
+								<div class="shopCart_product_title">
+									原麦山丘－芋之心
+								</div>
+								<div class="shopCart_product_g">
+									规格: 450g/袋
+								</div>
+								<div class="div_display">
+									<div class="shopCart_price">¥</div><span class="goods_price shopCart_price">10</span>
+									<div class="num " style="display: flex;margin-top: .3rem;">
+										<div class="minus" style="width: .3rem;margin-left: 1.5rem;">-</div>
+										<input type="" name="" id="" value="0" style="width: .4rem;text-align: center;" maxlength="2" />
+										<div class="plus" style="width: .3rem;">+</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
+					</div>
+				</div>
+				<div class="shopCart_moudel div_display">
+					<div class="shopCart_moudel_left">
+						<div class="mui-checkbox">
+							<input name="commodity" value="Item 1" type="checkbox" style="margin-top: 1rem;padding-left: .2rem;">
+						</div>
+					</div>
+					<div class="shopCart_moudel_right">
+						<div class="div_display">
+							<div class="shopCart_img">
+								<img src="../image/mu.jpg" class="shopCart_img_width">
+							</div>
+							<div class="shopCart_product">
+								<div class="shopCart_product_title">
+									原麦山丘－芋之心
+								</div>
+								<div class="shopCart_product_g">
+									规格: 450g/袋
+								</div>
+								<div class="div_display">
+									<div class="shopCart_price">¥</div><span class="goods_price shopCart_price">10</span>
+									<div class="num " style="display: flex;margin-top: .3rem;">
+										<div class="minus" style="width: .3rem;margin-left: 1.5rem;">-</div>
+										<input type="" name="" id="" value="0" style="width: .4rem;text-align: center;" maxlength="2" />
+										<div class="plus" style="width: .3rem;">+</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+			<!-- 失效商品 -->
+			<div class="" style="margin-bottom: 1.5rem;">
+				<div class="div_display" style="margin-top: .43rem;margin-left: .3rem;">
+					<div class="shopCart_Invalid">
+						失效
+					</div>
+					<div class="shopCart_Invalid_font">
+						失效商品
+					</div>
+				</div>
+				<div class="shopCart_moudel div_display" style="margin-top: .2rem;">
+					<div class="shopCart_moudel_left">
+						<div class="shopCart_Invalid" style="margin-top: 1rem;margin-left: .05rem;">
+							失效
+						</div>
+					</div>
+					<div class="shopCart_moudel_right">
+						<div class="div_display">
+							<div class="shopCart_img">
+								<img src="../image/mu.jpg" class="shopCart_img_width">
+							</div>
+							<div class="shopCart_product font_color99 font_size28">
+								<div class="shopCart_product_title">
+									原麦山丘－芋之心
+								</div>
+								<div class="shopCart_product_g">
+									规格: 450g/袋
+								</div>
+								<div class="font_size32 font_color33 margin_top2">
+									不好意思，该商品已售罄
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- 底部操作栏结算 -->
+			<div class="div_display bootom_title">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input id="checkboxAll" value="Item 2" type="checkbox">
+					</div>
+				</div>
+				<div class="bootom_price">
+					合计：<span class="bootom_price_font"> ¥ <span class="totalPrice">0</span> </span>
+					<div style="color: #999999;font-size: .18rem;margin-left: 1rem;">
+						（含运费）
+					</div>
+				</div>
+				<div class="bootom_right">
+					<div class="bootom_right_width">去结算
+						<span class="totalNumF" style="display:none"> <span>（</span><span class="totalNum">3</span> <span>）</span></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 编辑 -->
+			<div class="div_display bootom_title" style="display: none;">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input name="checkbox2" value="Item 2" type="checkbox">
+					</div>
+				</div>
+
+				<div class="bootom_editor bootom_editor_border">
+					取消操作
+				</div>
+				<div class="bootom_editor bootom_editor_border1">
+					确认删除
+				</div>
+
+			</div>
+
+		</div>
 	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				// 购物车数据
+				var keywordData = [{
+					price: '20',
+					number: '2',
+					name: '原麦山丘－芋之心'
+				}, {
+					price: '5',
+					number: '2',
+					name: '麦之心'
+				}, {
+					price: '10',
+					number: '20',
+					name: '原芋之心'
+				}]
+				var fragmentplanList = document.createDocumentFragment();
+				$.each(keywordData, function(index) {
+					var orderLi =
+						'<div class="shopCart_moudel div_display">' +
+						'<div class="shopCart_moudel_left">' +
+						'<div class="mui-checkbox">' +
+						'<input name="commodity"  value=' + keywordData[index] +
+						' type="checkbox" class="res" data-price=' + keywordData[index].price + ' data-index=' + [index] +
+						' style="margin-top: 1rem;padding-left: .2rem;">' +
+						'</div>' +
+						'</div>' +
+						'<div class="shopCart_moudel_right">' +
+						'<div class="div_display">' +
+						'<div class="shopCart_img">' +
+						'<img src="../image/mu.jpg" class="shopCart_img_width">' +
+						'</div>' +
+						'<div class="shopCart_product">' +
+						'<div class="shopCart_product_title">' +
+						keywordData[index].name +
+						'</div>' +
+						'<div class="shopCart_product_g">' +
+						'规格: 450g/袋' +
+						'</div>' +
+						'<div class="div_display">' +
+						'<div class="shopCart_price">' +
+						'¥234.3' +
+						'</div>' +
+						'<div class="shopCart_number" id="data ' + index + ' ">' +
+						'<div class="mui-numbox num-btn" data-numbox-step="1" data-numbox-min="1" data-numbox-max="99" id="box ' +
+						index + '" >' +
+						<!-- "-"按钮，点击可减小当前数值 --> 																			
+						'<button class="mui-btn mui-numbox-btn-minus" type="button" data-price=' + keywordData[index].price +
+						' >-</button>' +
+						'<input class="mui-numbox-input" type="number" value="" />' +
+						<!-- "+"按钮，点击可增大当前数值 -->
+						'<button class="mui-btn mui-numbox-btn-plus" type="button" data-price=' + keywordData[index].price +
+						'>+</button>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>';
+					$(fragmentplanList).append(orderLi);
+				});
+				$("#shopList").append($(fragmentplanList));
+				// 获取复选框的value 值
+				function getRadioRes(className) {
+					var rdsObj = document.getElementsByClassName(className); /*获取值*/
+					/*alert(rdsObj.length);测试一下找到几个节点*/
+					var checkVal = new Array();
+					var k = 0;
+					for (i = 0; i < rdsObj.length; i++) {
+						if (rdsObj[i].checked) {
+							checkVal[k] = rdsObj[i].value;
+							k++;
+						}
+					}
+					return checkVal;
+				}
+				// 全选
+				$("#checkboxAll").click(function() {
+					$('input[name="commodity"]').prop("checked", this.checked);
+					// var res = getRadioRes('res');
+					// res.forEach(e => {
+					// 	alert(keywordData[e])
+					// });
+				});
+				// 单选input[name='commodity']
+				var $checkbox = $("input[name='commodity']");
+				$checkbox.click(function() {
+					// var res = getRadioRes('res');
+					// res.forEach(e => {
+					// 	alert(e)
+					// });
+					alert($(this).attr("data-price"));
+					$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
+						false);
+				});
+				// mui组件 监听加减
+				mui('.mui-numbox').on('tap', '.mui-numbox-btn-minus', function() {
+					alert(00)
+					alert($(this).attr("data-price"));
+					alert($(this).attr("data-number"))
+				});
+				mui('.mui-numbox').on('tap', '.mui-numbox-btn-plus', function() {
+					alert("222");
+					alert($(this).attr("data-price"));
+				});
+				//点击增加按钮触发事件
+				$(".plus").click(function() {
+					var num = $(this).parent().children("input");
+					//单品数量增加
+					num.val(parseInt(num.val()) + 1);
+					//商品总数增加
+					var totalNum = parseInt($(".totalNum").text());
+					totalNum++
+					$(".totalNum").text(totalNum);
+					if (totalNum > 0) {
+						$('.totalNumF').show();
+					}
+					//计算总价
+					var goods_price = parseInt($(this).parent().parent().children(".goods_price").text());
+					alert(goods_price + '加减' + $(".totalPrice").text())
+					$(".totalPrice").text(parseInt($(".totalPrice").text()) + goods_price);
+				});
+
+				//点击减少按钮触发事件
+				$(".minus").click(function() {
+					var num = $(this).parent().children("input");
+					if (parseInt(num.val())) {
+						num.val(parseInt(num.val()) - 1);
+						var totalNum = parseInt($(".totalNum").text());
+						totalNum--
+						$(".totalNum").text(totalNum);
+						var goods_price = parseInt($(this).parent().parent().children(".goods_price").text());
+						$(".totalPrice").text(parseInt($(".totalPrice").text()) - goods_price);
+					} else {
+						num.text("0");
+					}
+				})
+
+				// 去订单确认
+				$('.bootom_right_width').on('tap', function() {
+					$$.openWindow({
+						url: '../pages/confirmOrder.html',
+						id: 'confirmOrder',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				})
+
+
+			}
+		})(jQuery, document, mui);
+	</script>
 
 </html>

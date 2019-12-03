@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/confirmOrder.css" />
+
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			商品清单
+		</header>
+		<div class="content" style="margin-top: 1rem;">
+			<div class="commodities_moudel">
+				<div class="div_display" style="display: none;">
+					<div class="product_imgList_left div_display">
+						<div>
+							<div class="product_number">
+								33+
+							</div>
+							<div class="product_img_w ">
+								<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+							</div>
+							<div class=" img_w_m font_color66 font_size22 ">
+								¥25.00
+							</div>
+						</div>
+					</div>
+					<div class="product_imgList_right font_size24 font_color33">
+						共9种
+						<i class="fa fa-angle-right  font_colorcb" style="font-size: .32rem;margin-left: .03rem;"></i>
+					</div>
+				</div>
+				<!-- 单个产品 -->
+				<div class="div_display">
+					<div class="product_imgList_leftd">
+						<div class="product_img_wd ">
+							<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+						</div>
+					</div>
+					<div class="product_imgList_rightd">
+						<div class="font_size26 font_color33">
+							每日维C-奇异果口味
+						</div>
+						<div class="font_size26 font_color99">
+							规格: 450g/袋
+						</div>
+						<div class="font_size26 font_colorf4">
+							¥45.90
+						</div>
+					</div>
+					<div class="product_rightd_number font_size28 font_color99">
+						*2
+					</div>
+				</div>
+			</div>
+			<div class="commodities_moudel">
+				<!-- 单个产品 -->
+				<div class="div_display">
+					<div class="product_imgList_leftd">
+						<div class="product_img_wd ">
+							<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+						</div>
+					</div>
+					<div class="product_imgList_rightd">
+						<div class="font_size26 font_color33">
+							每日维C-奇异果口味
+						</div>
+						<div class="font_size26 font_color99">
+							规格: 450g/袋
+						</div>
+						<div class="font_size26 font_colorf4">
+							¥45.90
+						</div>
+					</div>
+					<div class="product_rightd_number font_size28 font_color99">
+						*2
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

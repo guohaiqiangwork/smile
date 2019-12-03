@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>my_setting</title>
@@ -12,102 +13,82 @@
 		<link rel="stylesheet" href="../css/mobileReset.css">
 		<link rel="stylesheet" href="../css/pages/myAddress.css" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
-		<script src="../js/rem_reset.js"></script>	
+		<script src="../js/rem_reset.js"></script>
 	</head>
+
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			地址编辑
+			收货地址
 		</header>
 		<div class="content">
 			<div id="addressEditor">
 				<div class="_one">
 					<div class="_left">收货人</div>
 					<div class="_right">
-						<input type="text" placeholder="请填写收货人姓名">
+						<input type="text" placeholder="请填写收货人姓名" id="name" maxlength="6">
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left">手机号码</div>
 					<div class="_right">
-						<input type="text" placeholder="请填写收货人手机号码">
+						<input type="text" required="required" maxlength="11" placeholder="请填写收货人手机号码" id="phone">
 					</div>
 				</div>
 				<div class="_one">
 					<div class="_left">所在地区</div>
 					<div class="_right">
-						<input type="text" placeholder="请填写收货人手机号码">
-						<img id='showCityPicker3' src="../image/icon_down_up.png" style="position: absolute;float: left;right: .1rem; width: 11%;">
+						<div class="div_display">
+							<input type="text" placeholder="" id="address" disabled="disabled">
+							<img id='showCityPicker3' src="../image/icon_down_up.png" style="position: absolute;float: left;right: .3rem; width: 11%;">
+						</div>
+
 					</div>
 				</div>
-				<div class="_address_text">
+				<!-- <div class="_address_text">
 					<div class="_text_title">详细地址</div>
-					<textarea id="textarea" rows="5" placeholder="街道、楼牌号等"></textarea>
+					<textarea rows="5" placeholder="街道、楼牌号等" id="addressD"></textarea>
 				</div>
-				<div style="background-color: #F5F8FC;height: .2rem;"></div>
-				<div class="_one">
-					<div class="_left">设置默认地址</div>
+				 -->
+				<div class="_one" style="border: none;">
+					<div class="_left">详细地址</div>
 					<div class="_right">
-						<div class="mui-switch mui-switch-blue mui-switch-mini" style="float: right;">
+						<input type="text" placeholder="街道、楼牌号等" id="addressD">
+					</div>
+				</div>
+				<div class="_one" style="background-color: #F5F8FC;height: .2rem;margin-top: 0;"></div>
+				<div class="_one">
+					<div class="_left" style="padding-left: .4rem;">设置默认地址</div>
+					<div class="_right">
+						<div class="mui-switch mui-switch-blue mui-switch-mini" id="mySwitch" style="float: right;">
 							<div class="mui-switch-handle"></div>
 						</div>
 					</div>
 				</div>
-				<div id='cityResult3' class="ui-alert"></div>
+				<div class="_one" style="background-color: #F5F8FC;height: .2rem;margin-top: 0;"></div>
+				<div class="_one" id="delete" style="display: none;">
+					<div class=" _left font_colorf4">删除地址</div>
+				<div class="_right"></div>
 			</div>
-			<div class="bottom_btn">
-				保存
-			</div>
+			<div id='cityResult3' class="ui-alert"></div>
+		</div>
+		<div class="bottom_btn">
+			保存
+		</div>
 
 		</div>
 
 	</body>
-
-
-
-	<script src="../js/mui.min.js"></script>
 	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.picker.min.js"></script>
 	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.dtpicker.js"></script>
 	<script src="../js/mui.poppicker.js"></script>
-	<script src="../js/city.data.js"></script>
-	<script src="../js/city.data-3.js"></script>
-	<script src="../js/commonFun.js"></script>
+	<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/requestFun.js"></script>
-
-	<script>
-		(function($, doc) {
-			$.init();
-			$.ready(function() {
-				/**
-				 * 获取对象属性的值
-				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
-				 * @param {Object} obj 对象
-				 * @param {String} param 属性名
-				 */
-				var _getParam = function(obj, param) {
-					return obj[param] || '';
-				};
-				//级联示例
-				var cityPicker3 = new $.PopPicker({
-					layer: 3
-				});
-				cityPicker3.setData(cityData3);
-				var showCityPickerButton = doc.getElementById('showCityPicker3');
-				var cityResult3 = doc.getElementById('cityResult3');
-				showCityPickerButton.addEventListener('tap', function(event) {
-					cityPicker3.show(function(items) {
-						cityResult3.innerText = "你选择的城市是:" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') +
-							" " + _getParam(items[2], 'text');
-						//返回 false 可以阻止选择框的关闭
-						//return false;
-					});
-				}, false);
-
-			});
-
-		})(mui, document);
-	</script>
-
+	<script src="../js/commonFun.js"></script>
 	<script>
 		(function($, doc, $$) {
 			$$.init();
@@ -127,15 +108,146 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				/**
-				 * 获取对象属性的值
-				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
-				 * @param {Object} obj 对象
-				 * @param {String} param 属性名
-				 */
-				var _getParam = function(obj, param) {
-					return obj[param] || '';
-				};
+				_self.addressfalgId = 2
+				if (_self.addressId) {
+					$('#delete').css('display', 'block')
+					getAddressD(mui, _self.addressId, function(data) {
+						if (data.code == 200) {
+							if (data.data.isDefault == 2) {
+								$(".mui-switch").removeClass("mui-active"); //默认关闭
+							} else {
+								$(".mui-switch").addClass("mui-active") //默认打开
+							}
+							_self.addressfalgId = data.data.isDefault;
+							$('#name').val(data.data.receiver)
+							$('#phone').val(data.data.mobile)
+							$('#address').val(data.data.province + ',' + data.data.city + ',' + data.data.area)
+							$('#addressD').val(data.data.address)
+						} else if (data.code == 401 || data.code == 1500) {
+							gotoLoginIn()
+						} else {
+							tipShow(data.message)
+						}
+					});
+				}
+
+				// 处理是否默认
+				document.getElementById("mySwitch").addEventListener("toggle", function(event) {
+					if (event.detail.isActive) {
+						_self.addressfalgId = 1
+					} else {
+
+						_self.addressfalgId = 2
+					}
+				});
+				// 修改地址保存
+				$('.bottom_btn').on('tap', function() {
+					if (!$('#name').val()) {
+						tipShow('请检查你的姓名')
+						return
+					} else if (!$('#phone').val()) {
+						tipShow('请检查你的手机号')
+						return
+					} else if (!(/^1[3456789]\d{9}$/.test($('#phone').val()))) {
+						tipShow('请检查你的手机号')
+						return
+					} else if (!$('#address').val()) {
+						tipShow('请检查你的地区')
+						return
+					} else if (!$('#addressD').val()) {
+						tipShow('请检查你的详情地址')
+						return
+					}
+
+
+					// 判断是新增还是修改
+					if (_self.addressId) {
+						var str = $('#address').val(); //这是一字符串
+						var strs = new Array(); //定义一数组
+						strs = str.split(","); //字符分
+						var keyword = {
+							address: $('#addressD').val(), //具体地址
+							area: strs[2] || '', //区域
+							city: strs[1], //城市
+							id: _self.addressId, //地址主键id
+							isDefault: _self.addressfalgId, //	是否默认
+							memberId: plus.storage.getItem('memberId'), //会员主键id
+							mobile: $('#phone').val(), //收货人联系电话
+							province: strs[0], //省
+							receiver: $('#name').val() //收货人
+						}
+						var getUpdateAddressWati = plus.nativeUI.showWaiting("获取中...");
+						getUpdateAddress(mui, keyword, function(data) {
+							if (data.code == 200) {
+								getUpdateAddressWati.close();
+								var ws = plus.webview.currentWebview();
+								plus.webview.close(ws);
+								plus.webview.getWebviewById('myAddress').reload()
+								tipShow('修改成功')
+							} else if (data.code == 401 || data.code == 1500) {
+								gotoLoginIn()
+							} else {
+								tipShow(data.message)
+							}
+						});
+
+					} else {
+						var str = $('#address').val(); //这是一字符串
+						var strs = new Array(); //定义一数组
+						strs = str.split(","); //字符分
+						var keyword = {
+							address: $('#addressD').val(), //具体地址
+							area: strs[2] || '', //区域
+							city: strs[1], //城市
+							isDefault: _self.addressfalgId, //	是否默认
+							memberId: plus.storage.getItem('memberId'), //会员主键id
+							mobile: $('#phone').val(), //收货人联系电话
+							province: strs[0], //省
+							receiver: $('#name').val() //收货人
+						}
+						var getAddressSaveWati = plus.nativeUI.showWaiting("保存中...");
+						getAddressSave(mui, keyword, function(data) {
+							getAddressSaveWati.close();
+							if (data.code == 200) {
+								var ws = plus.webview.currentWebview();
+								plus.webview.close(ws);
+								plus.webview.getWebviewById('myAddress').reload()
+								tipShow('新增成功')
+							} else if (data.code == 401 || data.code == 1500) {
+								gotoLoginIn()
+							} else {
+								tipShow(data.message)
+							}
+						});
+					}
+
+				})
+				// 删除地址
+				$('#delete').on('tap', function() {
+					var deleteAddressSaveWati = plus.nativeUI.showWaiting("删除中...");
+					deleteAddress(mui, _self.addressId, function(data) {
+						if (data.code == 200) {
+							deleteAddressSaveWati.close();
+							tipShow('删除成功')
+							var ws = plus.webview.currentWebview();
+							plus.webview.close(ws);
+							plus.webview.getWebviewById('myAddress').reload()
+						} else if (data.code == 401 || data.code == 1500) {
+							gotoLoginIn()
+						} else {
+							tipShow(data.message)
+						}
+					});
+				})
+			}
+		})($, document, mui);
+	</script>
+
+	<!-- 地址选择 -->
+	<script>
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
 				//级联示例
 				var cityPicker3 = new $.PopPicker({
 					layer: 3
@@ -143,16 +255,21 @@
 				cityPicker3.setData(cityData3);
 				var showCityPickerButton = doc.getElementById('showCityPicker3');
 				var cityResult3 = doc.getElementById('cityResult3');
+				var cityAddress = doc.getElementById('address');
+				console.log(JSON.stringify(cityAddress))
 				showCityPickerButton.addEventListener('tap', function(event) {
 					cityPicker3.show(function(items) {
-						cityResult3.innerText = "你选择的城市是:" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') +
-							" " + _getParam(items[2], 'text');
+						if (items[2].text == undefined) {
+							items[2].text = ''
+						}
+						cityAddress.value = items[0].text + ',' + items[1].text + ',' + items[2].text;
 						//返回 false 可以阻止选择框的关闭
 						//return false;
 					});
 				}, false);
-			}
-		})($, document, mui);
+			});
+
+		})(mui, document);
 	</script>
 
 </html>

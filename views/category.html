@@ -3,67 +3,165 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<!--App自定义的css-->
-		<link rel="stylesheet" type="text/css" href="../css/app.css" />
-		<link href="../css/mui.picker.css" rel="stylesheet" />
-		<link href="../css/mui.poppicker.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/pages/myWallet.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
 		<script src="../js/rem_reset.js"></script>
-	
-	
+		<!-- 引入外部css 设置分类首页-->
+		<link rel="stylesheet" type="text/css" href="../css/category/categoryHome.css" />
+		<link rel="stylesheet" type="text/css" href="../css/view/homePage.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
 	</head>
 
 	<body>
-		<div class="mui-content">
-			<!-- 地址选择 -->
-			<div class="mui-content-padded">
-				<button id='showCityPicker3' class="mui-btn mui-btn-block" type='button'>三级联动示例</button>
-				<div id='cityResult3' class="ui-alert"></div>
+		<header class="header_white" style="height:1rem ;">
+			<div class="div_display margin_top3">
+				<!-- 消息 -->
+				<div class="header_title_left" id="messageId">
+					<div class="div_backgroun_jb header_title_leftT"></div>
+					<img src="../image/news@2x.png" class="header_title_leftI">
+				</div>
+				<!-- log -->
+				<div class="header_title_center">
+					<img src="../image/headerT.png" class="header_title_centerI">
+				</div>
+				<!-- 搜索 -->
+				<div class="header_title_right" >
+					<img src="../image/search@2x.png" class="header_title_rightI">
+				</div>
+			</div>
+		</header>
+		<div class="" style="background-color: #ece8e8;height: .1rem;position: absolute;width: 100%;top:1rem"></div>
+		<div class="mui-content mui-row mui-fullscreen" style="touch-action: none;top: 1.2rem;">
+			<div class="mui-col-xs-3">
+				<!-- 主选项卡 -->
+				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical  maiTAB">
+				</div>
+			</div>
+			<!-- 子选项卡 -->
+			<div id="segmentedControlContents" class="mui-col-xs-9">	
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/mui.picker.js"></script>
-		<script src="../js/mui.poppicker.js"></script>
-		<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
-					/**
-					 * 获取对象属性的值
-					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
-					 * @param {Object} obj 对象
-					 * @param {String} param 属性名
-					 */
-					var _getParam = function(obj, param) {
-						return obj[param] || '';
-					};
-					//级联示例
-					var cityPicker3 = new $.PopPicker({
-						layer: 3
-					});
-					cityPicker3.setData(cityData3);
-					var showCityPickerButton = doc.getElementById('showCityPicker3');
-					var cityResult3 = doc.getElementById('cityResult3');
-					showCityPickerButton.addEventListener('tap', function(event) {
-						cityPicker3.show(function(items) {
-							cityResult3.innerText = "你选择的城市是:" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') +
-								" " + _getParam(items[2], 'text');
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-				
-				});
-			})(mui, document);
-		</script>
-	
+		<script src="../js/jquery-1.11.2.min.js"></script>
+		<script src="../js/requestFun.js" type="text/javascript"></script>
 	</body>
+		
+		
+		    <script>
+		        (function($, doc, $$) {
+		            $$.init();
+		            var _self;
+					
+					/* 主分类名称 */
+					var zfl = "001";
+					
+		            if (window.plus) {
+		                plusReady();
+		            } else {
+		                doc.addEventListener('plusready', plusReady, false);
+		            }
+		
+		            function plusReady() {
+		                plus.navigator.setFullscreen(false);
+		                //强制竖屏
+		                plus.screen.lockOrientation("portrait-primary");
+		                //强制隐藏滚动条
+		                plus.webview.currentWebview().setStyle({
+		                    scrollIndicator: 'none'
+		                });
+		                _self = plus.webview.currentWebview();
+		                
+		                
+		                // 分类数据获取
+		                var controls = document.getElementById("segmentedControls");
+		                var contents = document.getElementById("segmentedControlContents");
+		                var html = [];
+		                var i = 1,
+		                    j = 1,
+		                    m = 6, //左侧选项卡数量+1
+		                    n = 9; //每个选项卡列表数量+1 
+		
+		                /* 获取主分类 */
+		                getCategoryList(mui, plus.storage.getItem('memberId'), function(data) {
+		                    if (data.code == 200) {
+		                        var dataArr = data.data;
+		                        for(j = 0;j<dataArr.length;j++){
+		                            console.log("123"+dataArr[j].code)
+		                            $('#segmentedControls').append('<a id = ""  data-id= '+dataArr[j].code + ' class="mui-control-item" href="#content' + i + '">' + dataArr[j].name + '</a>');
+		                        }
+		                        
+		                        /* 主选项卡 点击事件 */
+		                        $("#segmentedControls").on("tap", "a", function() {
+		                            var aa = $(this).attr("data-id");
+									zfl = aa;
+		                             /* 获取子分类列表 */
+		                             getSonCategoryList(mui, aa, function(data) {
+		                                 if (data.code == 200) {
+		                                     html = [];
+		                                     var dataParaTwo = data.data;
+		                                     for(f = 0; f<dataParaTwo.length;f++){
+		                                        html.push('<li id="sonCountent">');
+												html.push('<img src="'+ dataParaTwo[f].picture +'"/><span class="namePara">'+ dataParaTwo[f].name +'</span>');
+		                                        html.push('</li>')
+		                                     }
+		                                     contents.innerHTML = html.join('');
+		                                 } else {
+		                                     tipShow(data.message);
+		                                 }
+		                             })
+		                        })
+		                        
+		                        /*默认加载 获取子分类列表 */
+		                        getSonCategoryList(mui, dataArr[0].code, function(data) {
+		                            console.log("aa"+JSON.stringify(data))
+		                            if (data.code == 200) {
+		                                html = [];
+		                                var dataParaTwo = data.data;
+		                                for(f = 0; f<dataParaTwo.length;f++){
+											html.push('<li id="sonCountent">');
+											html.push('<img src="'+ dataParaTwo[f].picture +'"/><span id="namePara">'+ dataParaTwo[f].name +'</span>');
+											html.push('</li>')
+		                                }
+		                                contents.innerHTML = html.join('');
+		                            } else {
+		                                tipShow(data.message);
+		                            }
+		                        })
+		                        
+		                        controls.querySelector('.mui-control-item').classList.add('mui-active'); /* 主选项 */
+								if(contents.querySelector('.mui-control-content')){
+									contents.querySelector('.mui-control-content').classList.add('mui-active'); /* 子选项 */
+								}
+		                        
+		                    } else {
+		                        tipShow(data.message);
+		                    }
+		                });
+		            }
+					
+					/* 二级分类点击事件 */
+					mui("#segmentedControlContents").on('tap', '#sonCountent', function(event){
+						var info=$(this).html();
+						var infoT=info.match(/[\u4e00-\u9fa5]/g).join("");
+						alert("子分类名称="+infoT +",,,主分类名称="+zfl )
+						
+						$$.openWindow({
+							url: 'more.html',
+							id:'more',
+							extras: {
+								"code": zfl,
+								"goodsName": infoT,
+							},
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					});
+		        })(jQuery, document, mui);
+		    </script>
 
 </html

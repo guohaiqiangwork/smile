@@ -16,14 +16,15 @@
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			我的地址
+			收货地址
 		</header>
-		<div class="content">
+		<div class="contentA">
 			<div id="myAddress">
-				<div class="address_moduel">
+				<!-- 暂无地址 -->
+				<!-- <div class="address_moduel">
 					<div class="_left">
 						<div class="_one">
-							<span>刘一手</span>
+							<span style="color: #5A5A5A;">刘一手</span>
 							<span>188****1357</span>
 							<span class="_falge">默认</span>
 						</div>
@@ -31,12 +32,14 @@
 							内蒙古自治区 包头市 昆都仑区 友谊大街18栋2号
 							西门左转
 						</div>
-						<div class="_three"></div>
+						
 					</div>
+					<div class="_three"></div>
 					<div class="_right">
 						编辑
 					</div>
 				</div>
+ -->
 			</div>
 			<div class="bottom_btn">
 				添加新地址
@@ -71,23 +74,82 @@
 				getUserAddress(mui, plus.storage.getItem('memberId'), function(data) {
 					// getUserAddressWati().close()
 					if (data.code == 200) {
-						tipShow(data.message);
+						if (data.data.length == 10) {
+							$('.bottom_btn').css('display', 'none')
+						}
+						list = $('#myAddress');
+						data.data.forEach(e => {
+							if (e.isDefault == 1) {
+								$(
+									'<div class="address_moduel">' +
+									'<div class="_left">' +
+									'<div class="_one">' +
+									'<span style="color: #5A5A5A;">' + e.receiver + '</span>' +
+									'<span>' + e.mobile + '</span>' +
+									'<span class="_falge">默认</span>' +
+									'</div>' +
+									'<div class="_two">' +
+									e.province + e.city + e.area + e.address +
+									'</div>' +
+									'</div>' +
+									'<div class="_three"></div>' +
+									'<div class="_right" id="goToEdit"  data-id="' + e.id + '">编辑</div>' +
+									'</div>'
+								).appendTo(list)
+							} else {
+								$(
+									'<div class="address_moduel">' +
+									'<div class="_left">' +
+									'<div class="_one">' +
+									'<span style="color: #5A5A5A;">' + e.receiver + '</span>' +
+									'<span>' + e.mobile + '</span>' +
+									'</div>' +
+									'<div class="_two">' +
+									e.province + e.city + e.area + e.address +
+									'</div>' +
+									'</div>' +
+									'<div class="_three"></div>' +
+									'<div class="_right" id="goToEdit"  data-id="' + e.id + '">编辑</div>' +
+									'</div>'
+								).appendTo(list)
+							}
+
+						});
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
 					} else {
 						tipShow(data.message)
 					}
 				});
 			}
-			
+
 			// 去编辑地址
-			$('.bottom_btn').on('tap',function(){
+			$('.bottom_btn').on('tap', function() {
 				$$.openWindow({
 					url: 'addressEditor.html',
 					id: 'addressEditor',
+					extras: {
+						"orderId": '3243242'
+					},
 					show: {
 						aniShow: "slide-in-right"
 					}
 				});
 			})
+			// 新增地址
+			$('#myAddress').on('tap', '#goToEdit', function() {
+				$$.openWindow({
+					url: 'addressEditor.html',
+					id: 'addressEditor',
+					extras: {
+						"addressId": $(this).attr('data-id')
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+
 		})(jQuery, document, mui);
 	</script>
 

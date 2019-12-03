@@ -2,6 +2,13 @@
 	1.页面资源目录 
 		1-1 css 
 			1-1.1 common.css 公共样式
+			1-1.2 category 分类样式
+				1-1.2-1 categoryHome.css 分类首页样式
+			1-1.3 pages	
+				1-1.3-1 cashMoney.css 我的余额样式
+				1-1.3-2 pSetting.css 我的——设置——个人资料设置样式
+				1-1.3-3 updatePhone.css 我的——设置——个人资料设置——更换手机号样式
+				1-1.3-4 updateName.css 我的——设置——个人资料设置——设置用户名样式
 		1-2 imgage
 		1-3
 			1-3.1 js    公共资源目录
@@ -11,6 +18,8 @@
 		2-2 realName.html 	实名认证
 		2-3 bankCard.html 	银行卡
 		2-4 setUp.htmnl		设置
+		2-4.1 updateName.html 设置用户名
+		2-4.2 updatePhone.html 更换手机号
 		2-5 goodFriend		我的好友
 		2-6 addressEditor	地址编辑
 		2-7  pSetting		个人资料设置
@@ -19,6 +28,16 @@
 		2-10 cashMoney		提现
 		2-11 myIntegral		我的积分
 		2-12 myRecommend	推荐
+		2-13 cashPassword	提现密码
+		2-14 activityRules	活动规则
+		2-15 confirmOrder 	订单确认
+		2-16 commodities 	商品清单
+		2-17 orderPay		支付订单
+		2-18 payResult		支付结果页面
+		2-19 myOrder		我的订单
+		2-20 orderDetails	订单详情
+		2-12 orderLogistics	物流信息
+		2-20 setPassword    设置提现密码
 	3.公共页面目录 views 
 		
 	4.入口页index.html (为主窗口) 

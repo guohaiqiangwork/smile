@@ -1,288 +1,289 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>my_setting</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/common.css">
-		<link rel="stylesheet" href="../css/mobileReset.css">
-		<link rel="stylesheet" href="../css/pages/mySetting.css">
-		<link rel="stylesheet" href="../css/mui.min.css">
 
-		<link rel="stylesheet" type="text/css" href="../css/pages/personalCenter.css" />
-		<script src="../js/rem_reset.js"></script>
-	</head>
-	<body onselectstart="return false;">
-		<div style="background-color: #fff;">
-			<div class="header_top">
-				<div id="" class="header_img">
+<head>
+	<meta charset="utf-8">
+	<title>my_setting</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/mobileReset.css">
+	<link rel="stylesheet" href="../css/pages/mySetting.css">
+	<link rel="stylesheet" href="../css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/pages/personalCenter.css" />
+	<script src="../js/rem_reset.js"></script>
+</head>
+
+<body onselectstart="return false;">
+	<div style="background-color: #fff;">
+		<div class="header_top">
+			<img class="imgBground" id="bgImg" src="../image/mu.jpg">
+			<div style="position: absolute;top: .1rem;">
+				<div class="" id="useReal">
+					<div>
+						<div class="div_backgroun_jb header_title_leftT"></div>
+						<img src="../image/news@2x.png" class="header_title_leftI">
+					</div>
 					<div class="header_img_border">
-						<img src="../image/log@2x.png" class="header_img_width">
+						<img src="../image/log@2x.png" id="hederImg" class="header_img_width">
 					</div>
 					<div class="header_img_font">
-						昵称
+						刘易反
 					</div>
-					<div class="header_code">
-						<div><img src="../image/icon_down_up.png" class="code_img_size"></div>
-						<div>会员码</div>
+					<div class="whether_name">
+						已实名认证
 					</div>
+					<div class="whether_name_border"></div>
+				</div>
+				<div id="useLogin"
+					style="text-align: center;color: #FFFFFF;padding-top: 2rem;padding-left: .3rem;display: none;">
+					登录/注册
+					<div class="whether_name_border" style="margin-top: 1.5rem;"></div>
 				</div>
 				<div class="header_money">
 					<div id="myWallet">
 						<div id="money">
-							678688
+							0
 						</div>
-						<div style="margin-top: .2rem;">
-							我的余额
+						<div style="margin-top: .2rem;font-size: .26rem;">
+							余额
 						</div>
 					</div>
 					<div id="goIntegral">
 						<div id="integral">
-							678688
+							0
 						</div>
-						<div style="margin-top: .2rem;">
-							我的笑容
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="personal_order_frame">
-				<div class="order_frame_title">
-					<div class="order_title_font">
-						我的订单
-					</div>
-					<div class="order_title_right">
-						查看所以订单》
-					</div>
-				</div>
-				<div id="" style="float: left;margin-top: .4rem;padding-bottom: .2rem;">
-					<div class="order_title">
-						<div class="order_frame_img"></div>
-						<div class="order_frame_font">
-							待付款
-						</div>
-					</div>
-					<div class="order_title">
-						<div class="order_frame_img"></div>
-						<div class="order_frame_font">
-							待发货
-						</div>
-					</div>
-					<div class="order_title">
-						<div class="order_frame_img"></div>
-						<div class="order_frame_font">
-							待收货
-						</div>
-					</div>
-					<div class="order_title">
-						<div class="order_frame_img"></div>
-						<div class="order_frame_font">
-							待分享
+						<div style="margin-top: .2rem;font-size: .26rem;">
+							金币
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="recomment_btn">
-				推荐入口
-			</div>
-
-			<div class="service_title_content">
-				<div class="service_title">
-					<div class="service_font">
-						我的服务
-					</div>
-				</div>
-				<div id="serviceModuer" style=" float: left;margin-top: .2rem;">
-					<div class="service_mouder"  href="../pages/myAddress.html" data-id='myAddress'>
-						<div class="service_img" ></div>
-						<div class="service_img_font">收货地址</div>
-					</div>
-					<div class="service_mouder" href="../pages/realName.html" data-id='realName'>
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							实名认证
-						</div>
-					</div>
-					<div class="service_mouder" href="../pages/bankCard.html" data-id='bankCard'>
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							银行卡
-						</div>
-					</div>
-					<div class="service_mouder" href="../pages/setUp.html" data-id='setUp'>
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							设置
-						</div>
-					</div>
-					<div class="service_mouder">
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							<a  href="tel:18048334993">客服</a>
-						</div>
-					</div>
-				</div>
-				<div id="" style=" float: left;margin-top: .2rem;padding-bottom: .2rem;">
-					<div class="service_mouder" href="../pages/goodFriend.html" data-id='goodFriend'>
-						<div class="service_img"></div>
-						<div class="service_img_font">
-							我的好友
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- <div class="settingList">
-				<ul>
-					<li class="settingPassword"><span>设置支付密码</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingDelete"><span>清理缓存</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAgreement"><span>服务协议</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingPhone"><span>客服电话</span>
-						<a style="float: right;" href="tel:18048334993">180****4993</a>
-					</li>
-				</ul>
-			</div>
-		 -->
-
-			<!-- 退出登录 -->
-			<!-- 	<div id="logout" class="bottomBtnMiddle" style="background-color: #008BD5;">
-				退出登录
-			</div> -->
 		</div>
-	</body>
-	<script src="../js/jquery-1.11.2.min.js"></script>
-	<script src="../js/mui.min.js"></script>
-	<script src="../js/commonFun.js"></script>
-	<script src="../js/requestFun.js" type="text/javascript" charset="utf-8"></script>
-	<script>
-		(function($, doc, $$, undefined) {
-			$$.init();
-			var _self;
-			if (window.plus) {
-				plusReady();
+		<div class="personal_order_frame">
+			<div class="order_frame_title">
+				<div class="title_left"></div>
+				<div class="order_title_font">
+					我的订单
+				</div>
+				<div class="order_title_right" id="goMyOrder">
+					查看所有订单>
+				</div>
+			</div>
+			<div id="" style="float: left;margin-top: .4rem;padding-bottom: .2rem;">
+				<div class="order_title">
+					<div class="order_frame_img"></div>
+					<div class="order_frame_font">
+						待付款
+					</div>
+				</div>
+				<div class="order_title">
+					<div class="order_frame_img"></div>
+					<div class="order_frame_font">
+						待发货
+					</div>
+				</div>
+				<div class="order_title">
+					<div class="order_frame_img"></div>
+					<div class="order_frame_font">
+						待收货
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="recomment_btn">
+			<img src="../image/recomment@2x.png" style="width: 99%;margin-top: .2rem;padding-left: .1rem;">
+		</div>
+
+		<div class="service_title_content">
+			<div class="service_title">
+				<div class="service_font">
+					<div class="title_left" style="float: left;"></div>
+					<div style="padding-left: .2rem;">我的服务 </div>
+				</div>
+			</div>
+			<div id="serviceModuer" style=" float: left;margin-top: .2rem;">
+				<div class="service_mouder" href="../pages/myAddress.html" data-id='myAddress'>
+					<div class="service_img"></div>
+					<div class="service_img_font">收货地址</div>
+				</div>
+				<div class="service_mouder" href="../pages/goodFriend.html" data-id='goodFriend'>
+					<div class="service_img"></div>
+					<div class="service_img_font">
+						我的好友
+					</div>
+				</div>
+				<div class="service_mouder" href="../pages/bankCard.html" data-id='bankCard'>
+					<div class="service_img"></div>
+					<div class="service_img_font">
+						银行卡
+					</div>
+				</div>
+				<div class="service_mouder" href="../pages/realName.html" data-id='realName'>
+					<div class="service_img"></div>
+					<div class="service_img_font">
+						实名认证
+					</div>
+				</div>
+				<div class="service_mouder" href="../pages/setUp.html" data-id='setUp'>
+					<div class="service_img"></div>
+					<div class="service_img_font">
+						设置
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/commonFun.js"></script>
+<script src="../js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	(function ($, doc, $$, undefined) {
+		$$.init();
+		var _self;
+		if (window.plus) {
+			plusReady();
+		} else {
+			doc.addEventListener('plusready', plusReady, false);
+		}
+
+		function plusReady() {
+			plus.navigator.setFullscreen(false);
+			//强制竖屏
+			plus.screen.lockOrientation("portrait-primary");
+			//强制隐藏滚动条
+			plus.webview.currentWebview().setStyle({
+				scrollIndicator: 'none'
+			});
+			_self = plus.webview.currentWebview();
+			if (!plus.storage.getItem('Token')) {
+				$('#useReal').css('display', 'none')
+				$('#useLogin').css('display', 'block')
+			}
+			// 获取个人信息
+			// if (plus.storage.getItem('Token')) {
+			getUserDetail(mui, plus.storage.getItem('memberId'), function (data) {
+				console.log("666==" + JSON.stringify(data))
+				if (data.code == 200) {
+					if (!data.data.name) {
+						$('.whether_name').css('display', 'none')
+					}
+					$('#bgImg').attr('src', data.data.avatar);
+					$('#hederImg').attr('src', data.data.avatar);
+					$('.header_img_font').text(data.data.name)
+					$('#useReal').css('display', 'block')
+					$('#useLogin').css('display', 'none')
+				} else if (data.code == 401 || data.code == 1500) {
+					gotoLoginIn()
+				} else {
+					tipShow(data.message)
+					$("#code").val('')
+				}
+			});
+			getUserMoney(mui, plus.storage.getItem('memberId'), function (data) {
+				if (data.code == 200) {
+					tipShow(data.message);
+					$("#money").text(data.data.balance)
+					$("#integral").text(data.data.integral)
+					$('#useReal').css('display', 'block')
+					$('#useLogin').css('display', 'none')
+				} else if (data.code == 401 || data.code == 1500) {
+					gotoLoginIn()
+				} else {
+					tipShow(data.message)
+				}
+			});
+			// }
+		};
+
+
+		/* 子页面调用父页面方法 */
+		window.addEventListener('refreshMajorGuestCount', function (event) {
+			plusReady();
+		});
+
+
+		// 去关于美好同乘
+		$(".settingList .settingAbout").on("tap", function () {
+			$$.openWindow({
+				url: "aboutGood.html",
+				id: "aboutGood",
+				styles: {
+					statusbar: {
+						background: "#fff"
+					}
+				}
+			});
+		});
+		//页面跳转serviceModuer
+		$('.service_mouder').on('tap', function (e) {
+			// 获取路径
+			var urlRout = this.getAttribute('href');
+			// 获取页面ID
+			var urlId = $(this).attr("data-id");
+			if (urlRout && urlId) {
+				$$.openWindow({
+					url: urlRout,
+					id: urlId,
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
 			} else {
-				doc.addEventListener('plusready', plusReady, false);
+				console.log('缺少页面路径')
 			}
 
-			function plusReady() {
-				plus.navigator.setFullscreen(false);
-				//强制竖屏
-				plus.screen.lockOrientation("portrait-primary");
-				//强制隐藏滚动条
-				plus.webview.currentWebview().setStyle({
-					scrollIndicator: 'none'
-				});
-				_self = plus.webview.currentWebview();
-				// 获取个人信息
-				if (plus.storage.getItem('memberId')) {
-					getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
-						if (data.code == 200) {
-							tipShow(data.message);
-							$(".header_img_font").text(data.data.avatar)
-							$(".header_img_font").text(data.data.nickname)
-						} else {
-							tipShow(data.message)
-							$("#code").val('')
-						}
-					});
-					getUserMoney(mui, plus.storage.getItem('memberId'), function(data) {
-						if (data.code == 200) {
-							tipShow(data.message);
-							$("#money").text(data.data.balance)
-							$("#integral").text(data.data.integral)
-						} else {
-							tipShow(data.message)
-						}
-					});
+		});
 
+		// 去我的钱包 
+		$('#myWallet').on('tap', function () {
+			$$.openWindow({
+				url: '../pages/cashMoney.html',
+				id: 'cashMoney',
+				show: {
+					aniShow: "slide-in-right"
 				}
-			}
-			// 清除缓存
-			$(".settingList .settingDelete").on("tap", function() {
-				plus.cache.calculate(function(size) {
-					sizeCache = size;
-					var size_m = parseFloat(sizeCache / (1024 * 1024)).toFixed(2);
-					if (size_m > 1) {
-						mui.confirm("您目前的系统缓存为" + size_m + "M", "清除缓存", ["确认", "取消"], function(e) {
-							if (e.index == 1) {} else {
-								plus.cache.clear(function() {
-									alert("缓存清除完毕")
-								});
-							}
-						});
-					} else {
-						alert('暂无内存可清除')
-					}
-				});
 			});
-			// 去关于美好同乘
-			$(".settingList .settingAbout").on("tap", function() {
-				$$.openWindow({
-					url: "aboutGood.html",
-					id: "aboutGood",
-					styles: {
-						statusbar: {
-							background: "#fff"
-						}
-					}
-				});
-			});
-			//页面跳转serviceModuer
-			$('.service_mouder').on('tap', function(e) {
-				// 获取路径
-				var urlRout =  this.getAttribute('href');
-				// 获取页面ID
-				var urlId = $(this).attr("data-id");
-				if(urlRout && urlId){
-					$$.openWindow({
-						url: urlRout,
-						id: urlId,
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});			
-				}else{
-					console.log('缺少页面路径')
+		})
+		// 去我的积分
+		$('#goIntegral').on('tap', function () {
+			$$.openWindow({
+				url: '../pages/myIntegral.html',
+				id: 'myIntegral',
+				show: {
+					aniShow: "slide-in-right"
 				}
-				
 			});
-			
-			// 去我的钱包 
-			$('#myWallet').on('tap',function(){
-				$$.openWindow({
-					url: '../pages/cashMoney.html',
-					id: 'cashMoney',
-					show: {
-						aniShow: "slide-in-right"
-					}
-				});
-			})
-			// 去我的积分
-			$('#goIntegral').on('tap',function(){
-				$$.openWindow({
-					url: '../pages/myIntegral.html',
-					id: 'myIntegral',
-					show: {
-						aniShow: "slide-in-right"
-					}
-				});
-			})
-			
-			// 去我的推荐
-			$('.recomment_btn').on('tap',function(){
-				$$.openWindow({
-					url: '../pages/myRecommend.html',
-					id: 'myRecommend',
-					show: {
-						aniShow: "slide-in-right"
-					}
-				});
-			})
-		})(jQuery, document, mui);
-	</script>
+		})
+		// 去我的推荐
+		$('.recomment_btn').on('tap', function () {
+			$$.openWindow({
+				url: '../pages/myRecommend.html',
+				id: 'myRecommend',
+				show: {
+					aniShow: "slide-in-right"
+				}
+			});
+		})
+		//去我的订单
+		$('#goMyOrder').on('tap', function () {
+			$$.openWindow({
+				url: '../pages/myOrder.html',
+				id: 'myOrder',
+				show: {
+					aniShow: "slide-in-right"
+				}
+			});
+		})
+	})(jQuery, document, mui);
+</script>
 
 </html>

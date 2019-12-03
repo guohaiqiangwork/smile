@@ -15,17 +15,20 @@
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i id="returnTopPage_set"><img src="../image/left@2x.png"></i>
 			设置
 		</header>
 		<div class="content">
 			<div class="settingList">
 				<ul>
-					<li class="settingPassword"><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
-					<li class="settingAbout"><span>关于我们</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/pSetting.html" data-id='pSetting'><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/cashPassword.html" data-id='cashPassword'><span>提现密码</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingDelete"><span>清理缓存</span><i class="fa fa-angle-right"></i></li>
+					<li id="service" data-id='aboutUs'><span>联系客服</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/aboutUs.html" data-id='aboutUs'><span>关于我们</span><i class="fa fa-angle-right"></i></li>
 				</ul>
 			</div>
-			<div class="bottom_btn">
+			<div class="bottom_btn" id="goOut">
 				退出当前账号
 			</div>
 
@@ -55,27 +58,104 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				// 去个人设置
-				$('.settingPassword').on('tap',function(){
-					$$.openWindow({
-						url: 'pSetting.html',
-						id:'pSetting',
-						show: {
-							aniShow: "slide-in-right"
+				// 清除缓存
+				$(".settingList .settingDelete").on("tap", function() {
+					plus.cache.calculate(function(size) {
+						sizeCache = size;
+						var size_m = parseFloat(sizeCache / (1024 * 1024)).toFixed(2);
+						if (size_m > 1) {
+							mui.confirm("您目前的系统缓存为" + size_m + "M", "清除缓存", ["确认", "取消"], function(e) {
+								if (e.index == 1) {} else {
+									plus.cache.clear(function() {
+										alert("缓存清除完毕")
+									});
+								}
+							});
+						} else {
+							alert('暂无内存可清除')
 						}
 					});
+				});
+
+				/* 联系客户 */
+				$("#service").on("tap", function() {
+					var phone = "18048334993";
+					if (plus.os.name == "Android") {
+						var btnArray = ['拨打', '取消'];
+						var phone = "18048334993";
+						mui.confirm(phone, '提示', btnArray, function(e) {
+							var Intent = plus.android.importClass("android.content.Intent");
+							var Uri = plus.android.importClass("android.net.Uri");
+							var main = plus.android.runtimeMainActivity();
+							var uri = Uri.parse("tel:" + phone);
+							var call = new Intent("android.intent.action.CALL", uri);
+							main.startActivity(call);
+						});
+					} else {
+						var UIAPP = plus.ios.importClass("UIApplication");
+						var NSURL = plus.ios.importClass("NSURL");
+						var app = UIAPP.sharedApplication();
+						app.openURL(NSURL.URLWithString("tel://" + phone));
+					}
+
 				})
-				// 去个人设置
-				$('.settingAbout').on('tap',function(){
-					$$.openWindow({
-						url: 'aboutUs.html',
-						id:'aboutUs',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
+
+
+				//页面跳转serviceModuer
+				$('.settingPassword').on('tap', function(e) {
+					// 获取路径
+					var urlRout = this.getAttribute('href');
+					// 获取页面ID
+					var urlId = $(this).attr("data-id");
+					if (urlRout && urlId) {
+						$$.openWindow({
+							url: urlRout,
+							id: urlId,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						console.log('缺少页面路径')
+					}
+				});
+
+				/* 返回上一页 */
+				var returnTopPage_set = doc.getElementById("returnTopPage_set");
+				returnTopPage_set.onclick = function() {
+
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					var list = plus.webview.currentWebview().opener();
+					mui.fire(list, 'refreshMajorGuestCount');
+
+				}
+
 			}
+			// 退出登录
+			$('#goOut').on('tap', function() {
+				getLogOut(mui, function (data) {
+					if(data.code == 200){
+						clearStorage(); //清空缓存数据
+						var list = plus.webview.currentWebview().opener();
+						mui.fire(list, 'refreshMajorGuestCount');
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+					}
+				});
+				
+				// // 回到tab页面
+				// var ws = plus.webview.currentWebview();
+				// plus.webview.close(ws);
+				// var _subWv = plus.webview.getWebviewById('personalCenter.html');
+				// //如果不存在则创建
+				// if(!_subWv) {
+				// 	_subWv = plus.webview.create("views/" + targetTab, targetTab, subpage_style);
+				// 	self.append(_subWv);
+				// }
+				// _subWv.show();
+				// plus.webview.getWebviewById('personalCenter.html').reload();
+			})
 		})(jQuery, document, mui);
 	</script>
 

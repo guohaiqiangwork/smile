@@ -179,28 +179,44 @@
 									data: obj,
 									success: function(data) {
 										if (data.code == 200) {
-											alert(JSON.stringify(data.data))
 											if (!data.data) {
-												setTimeout(() => {
-													$$.openWindow({
-														url: "views/bindPhone.html",
-														id: "bindPhone",
-														styles: {
-															statusbar: {
-																background: '#fff'
-															}
-														},
-														extras: {
-															"powerId": data.obj,
-															'canshu': 'dfdfs'
+												$$.openWindow({
+													url: "views/bindPhone.html",
+													id: "bindPhone",
+													styles: {
+														statusbar: {
+															background: '#fff'
 														}
-													});
-												}, 500);
+													},
+													extras: {
+														"powerId": data.obj,
+														'canshu': 'dfdfs'
+													}
+												});
+												// 		setTimeout(() => {
+												// 			$$.openWindow({
+												// 				url: "views/bindPhone.html",
+												// 				id: "bindPhone",
+												// 				styles: {
+												// 					statusbar: {
+												// 						background: '#fff'
+												// 					}
+												// 				},
+												// 				extras: {
+												// 					"powerId": data.obj,
+												// 					'canshu': 'dfdfs'
+												// 				}
+												// 			});
+												// 		}, 500);
+
 											} else {
 												console.log(JSON.stringify(data))
 												plus.storage.setItem('Token', data.data.id);
 												var ws = plus.webview.currentWebview();
 												plus.webview.close(ws);
+												// 监听个人中心
+												var list = plus.webview.currentWebview().opener();
+												mui.fire(list, 'refreshMajorGuestCount');
 												plus.webview.getWebviewById('HBuilder').reload()
 											}
 										} else {
@@ -235,10 +251,11 @@
 				//code_4用于注册信息时的验证，验证码，获取与输入的一致
 				var code_4 = '';
 				yzm.onclick = function() {
-					if ($('#phone').val() < 11) {
-						tipShow('请输入正确手机号')
+					if ($('#phone').val() < 11 || !(/^1[3456789]\d{9}$/.test($('#phone').val()))) {
+						tipShow('请输入正确手机号');
 						return
 					}
+
 					//如果onOff标志false则，不执行任何操作
 					if (!onOff)
 						return;
@@ -273,6 +290,24 @@
 						}
 					}, 1000);
 				}
+				// 禁止回退 重写back
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if (backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+						plus.webview.getWebviewById('HBuilder').reload()
+						// plus.nativeUI.toast('再按退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				}
+
 			}
 
 			// 点击跳转
@@ -287,8 +322,12 @@
 					gotoLoginWati.close()
 					if (data.code == 200) {
 						tipShow(data.message);
+						console.log(JSON.stringify(data) + 'dsfjlk ')
 						plus.storage.setItem('memberId', data.data.id);
 						plus.storage.setItem('Token', data.data.token + "")
+						// 登录成功后刷新
+						var list = plus.webview.currentWebview().opener();
+						mui.fire(list, 'refreshMajorGuestCount');
 						var ws = plus.webview.currentWebview();
 						plus.webview.close(ws);
 						plus.webview.getWebviewById('HBuilder').reload()
@@ -305,20 +344,7 @@
 					$('.login_btn').css('display', 'none')
 				}
 			});
-			// 禁止回退 重写back
-			// var backButtonPress = 0;
-			// mui.back = function (event) {
-			//     backButtonPress++;
-			//     if (backButtonPress > 1) {
-			//         plus.runtime.quit();
-			//     } else {
-			//         plus.nativeUI.toast('再按退出应用');
-			//     }
-			//     setTimeout(function () {
-			//         backButtonPress = 0;
-			//     }, 1000);
-			//     return false;
-			// }
+
 		})(jQuery, document, mui);
 	</script>
 

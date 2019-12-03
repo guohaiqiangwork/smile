@@ -1,0 +1,93 @@
+
+.iIoc i{
+	color: #C5C5C5;
+	float: left;
+	font-size: 0.5rem;
+	margin-left: 0.15rem;
+	padding: 10px;
+	padding-left: .4rem;
+}
+
+.iIoc img{
+	color: #C5C5C5;
+	margin-left: 0.15rem;
+	width: .85rem;
+	border-radius: 50%;
+	float: left;
+}
+
+.iIoc input{
+	float: left;
+	width: 80%;
+	text-align:right;
+}
+
+#phonePara{
+	width: 3rem;
+}
+
+
+.rowClass div:nth-child(1){
+	float: left;
+	margin-top: 0.14rem;
+	width: 1.5rem;
+}
+
+.contentList{
+	border-radius: 0.12rem;
+	margin-top: 80px;
+	height: 7.2rem;
+	width: 6.5rem;
+	background-color: #FFFFFF;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body{
+	background-color: #FAFAFA;
+}
+
+.title{
+	height: 1.26rem;
+	line-height: 1.26rem;
+}
+
+.title i img{
+	width: 22px;
+	height: 22px;
+}
+
+#imgPara{
+	width: 0.8rem;
+	height: 0.8rem;
+}
+
+#yzm{
+	font-size: 0.28rem;
+	height: .6rem;
+	width: 1.8rem;
+	float: right;
+	margin-right: 1.2rem;
+	border-radius: 1rem;
+	border:solid 1px #CBCBCB;
+	text-align: center;
+	line-height: .6rem;
+	margin-top: 0.15rem;
+}
+
+#insertName{
+	width: 7rem;
+	height: 0.9rem;
+	background-color: #A0A0A0;
+	border-radius:1rem;
+	color: #FFFFFF;
+	font-size: 0.32rem;
+	margin-top: .6rem;
+}
+
+#inserPassword{
+	position: fixed;
+	bottom: 0.4rem;
+	left: 0.25rem;
+	right: 0.25rem;
+}

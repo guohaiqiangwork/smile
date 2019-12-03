@@ -1,0 +1,130 @@
+/* 我的余额 */
+
+#segmentedControl{
+	text-align: center;
+}
+
+#segmentedControl div{
+	height: .78rem;
+	float: left;
+}
+
+#segmentedControl div:nth-child(1) div{
+	float: left;
+	margin-left: 0.5rem;
+	width: 1rem;
+}
+
+#segmentedControl div:nth-child(2) div{
+	float: left;
+	margin-left: 1.5rem;
+	width: 1rem;
+}
+
+#segmentedControl div:nth-child(3) div{
+	float: left;
+	margin-left: 1.8rem;
+	width: 1rem;
+}
+
+
+
+.cashMoney{
+	margin-top: 1rem;
+	height: 2rem;
+}
+
+.cashMoney div:nth-child(1){
+	width: 35%;
+	height: 2.3rem;
+	float: left;
+	text-align: center;
+}
+
+.cashMoney div:nth-child(1) h5{
+	margin-top: .62rem;
+	color: #FFFFFF;
+}
+
+.cashMoney div:nth-child(1) h4{
+	margin-top: .3rem;
+	color: #FFFFFF;
+}
+
+.cashMoney div:nth-child(2){
+	margin-right: .6rem;
+	font-size: 0.27rem;
+	color: #9B9B9B;
+	float: right;
+	margin-top: .36rem;
+}
+
+#txClick div{
+	margin-top: 30px;
+	width: 1.1rem;
+	height: 0.41rem;
+	border-radius: 0.3rem;
+	border: 1px solid #FFFFFF;
+	color: #FFFFFF;
+}
+
+#titleList{
+	background-color: #FFFFFF;
+	padding: 10px 10px;
+	height: 1.1rem;
+}
+
+/* 选择按钮样式 */
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+	color: #404040;
+	border-bottom: solid 3px #FF342D;
+}
+
+
+/* 未选择按钮样式 */
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+	color: #9B9B9B;
+}
+
+#bodyList div ul li{
+	height: 1rem;
+	list-style: none;
+	color: #000000;
+	font-size: .27rem;
+}
+
+#bodyList div ul li div{
+	float: left;
+}
+
+#bodyList div ul li div:nth-child(3){
+	text-align: right;
+	width: 1.5rem;
+}
+
+#bodyList div ul li div:nth-child(2){
+	width: 2.8rem;
+}
+
+#bodyList div ul li div:nth-child(1){
+	width: 1.5rem;
+}
+
+.content{
+	background: linear-gradient(to right, #FF342D , #FF5882);
+}
+
+.contentTwo{
+	background: linear-gradient(to right, #4D5157 , #333333);
+}
+
+
+/* 我的积分 */
+.ljjf{
+	line-height: 1.5rem;
+}
+
+.ljjf span{
+	color: #FFFFFF;
+	font-size: 0.22rem;
+}
