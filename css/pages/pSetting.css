@@ -21,6 +21,9 @@
 	width: 80%;
 	text-align:right;
 }
+#addressEditor ._one ._right input{
+	height: 0.9rem;
+}
 
 #phonePara{
 	width: 3rem;

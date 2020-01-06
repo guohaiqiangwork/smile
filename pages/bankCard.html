@@ -41,11 +41,11 @@
 	<body onselectstart="return false;">
 		<header class="header_white div_display">
 			<div class="" style="width: 1rem;">
-				<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+				<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
 			</div>
-			<div style="width: 4rem;display: none;" id="myBank">我的银行卡</div>
-			<div style="width: 4rem;display: none;" id="binBank">绑定银行卡</div>
-			<div style="width: 2rem;" id="untying">解除绑定</div>
+			<div style="width: 4rem;display: none;margin-left: .8rem;" id="myBank">我的银行卡</div>
+			<div style="width: 4rem;display: none;margin-left: .8rem;" id="binBank">绑定银行卡</div>
+			<div style="width: 2rem;display: none;" id="untying">解除绑定</div>
 		</header>
 		<div class="content">
 			<!-- 银行卡添加-->
@@ -142,13 +142,25 @@
 						<div class="moudel-close">
 							取消
 						</div>
-						<div>
+						<div class="getDeleteBank">
 							确定
 						</div>
 
 					</div>
 				</div>
 
+			</div>
+			<!-- 空白 -->
+			<div class="default" id="realNameONe" style="display: none;">
+				<div class="default_img">
+					<img src="../image/default/bank.png" class="width_height100">
+				</div>
+				<div class="text_center font_size26 margin_top10">
+					还没有添加银行卡
+				</div>
+				<div id="realNameONeBtn" class="default_img_btn div_backgroun_jb margin_top10">
+					立即添加
+				</div>
 			</div>
 		</div>
 
@@ -178,6 +190,7 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				var bankId;
 				//点击获取验证码
 				var yzm = document.getElementById('bankYzm')
 				//是否可以点击【获取验证码按钮开关】
@@ -252,7 +265,7 @@
 								$.each(data.data, function(index) {
 									// 银行卡
 									console.log(JSON.stringify(bankCardAttribution("6226800036677779")))
-									data.data[index].bankCard = "****" + data.data[index].bankCard.substr(-4);
+									var bankCard = "****" + data.data[index].bankCard.substr(-4);
 									console.log(JSON.stringify(data.data[index]))
 									switch (data.data[index].bankCode) {
 										case 'ICBC':
@@ -286,7 +299,7 @@
 									}
 
 									var orderLi =
-										'<div class="bank_moudel  ' + data.data[index].bankBColor + '">' +
+										'<div data-bankCard=' + data.data[index].bankCard + ' data-img=' + data.data[index].imgUrl + ' data-name=' + data.data[index].bankName + ' data-id='+data.data[index].id+'  bankCard_id=' + data.data[index].id + ' class="bank_moudel  ' + data.data[index].bankBColor + '">' +
 										'<div class="_left">' +
 										'<div>' +
 										'<img src="' + data.data[index].imgUrl + '" width="100%">' +
@@ -298,7 +311,7 @@
 										data.data[index].bankName +
 										'</div>' +
 										'<div class="_Bone_number">' +
-										data.data[index].bankCard +
+										bankCard +
 										'</div>' +
 										'</div>' +
 										'<div class="_Bone">' +
@@ -318,10 +331,13 @@
 								$("#bankCard").append($(fragmentplanList));
 								$('#bankCard').css('display', 'block');
 								$('#myBank').css('display', 'block');
+								$('#untying').css('display', 'block');
 								$('#realNameTwo').css('display', 'none');
 							} else {
-								$('#realNameTwo').css('display', 'block')
+								$('#realNameONe').css('display', 'block');
+								// $('#realNameTwo').css('display', 'block')
 								$('#bankCard').css('display', 'none')
+								$('#binBank').css('display', 'block')
 							}
 						} else {
 							tipShow(data.message)
@@ -329,6 +345,24 @@
 					});
 
 				}
+				// 点击银行卡
+				$('#bankCard').on('tap', '.bank_moudel', function() {
+					if(plus.webview.getWebviewById('balanceTix')){
+						var banKNameC =$(this).attr('data-name');//卡名
+						var imgUrlC =$(this).attr('data-img');//图片
+						var bankCardC =$(this).attr('data-bankCard');//卡名
+						var bankCardIdC =$(this).attr('data-id');//卡ID
+						mui.fire(plus.webview.getWebviewById('balanceTix'), "switchBankCard", {
+							imgUrl: imgUrlC,
+							bankName:banKNameC,
+							bankCard:bankCardC.substr(-4),
+							bankCardIdC:bankCardIdC
+						});
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+					}
+				
+				})
 				// 切换银行卡保存
 				$('#addBankCard').on('tap', function() {
 					$('#untying').css('display', 'none');
@@ -337,10 +371,14 @@
 					$('#realNameTwo').css('display', 'block');
 					$('#bankCard').css('display', 'none')
 				})
+				$('#realNameONeBtn').on('tap', function() {
+					$('#realNameONe').css('display', 'none');
+					$('#realNameTwo').css('display', 'block');
+				})
 				// 添加银行卡保存
 				$('#btnTwo').on('tap', function() {
-					alert($('#bankCardNumber').val())
-					alert(luhnCheck($('#bankCardNumber').val()))
+					// alert($('#bankCardNumber').val())
+					// alert(luhnCheck($('#bankCardNumber').val()))
 					if (!$('#name').val()) {
 						tipShow('请检查姓名')
 						return;
@@ -380,9 +418,8 @@
 					return;
 				});
 				//解绑银行卡弹窗
-				$('#bankCard .untyingI').on('tap', function() {
+				$('#bankCard').on('tap', '.untyingI', function() {
 					// 显示提示
-					alert(00)
 					orderChange.show();
 					$(".order_change_model").css("display", "block");
 				})
@@ -391,7 +428,19 @@
 					$(".order_change_model").css("display", "none");
 					orderChange.close();
 				});
-
+				// 确认删除
+				$("#orderChange .getDeleteBank").on("tap", function() {
+					var deleteAddressSaveWati = plus.nativeUI.showWaiting("删除中...");
+					getDeleteBank(mui, bankId, function(data) {
+						deleteAddressSaveWati.close();
+						if (data.code == 200) {
+							tipShow('删除成功')
+							orderChange.close();
+							$(".order_change_model").css("display", "none");
+							plus.webview.getWebviewById('bankCard').reload()
+						}
+					});
+				});
 				// 监听银行卡号
 				$('#bankCardNumber').bind('input propertychange', function() {
 					if ($(this).val().length == 16 || $(this).val().length == 19) {
@@ -405,6 +454,12 @@
 							$('#cardType').val()
 						}
 					}
+				});
+
+				/* 点击银行卡列表 */
+				$("#bankCard").on("tap", ".bank_moudel", function() {
+					bankId = $(this).attr("bankCard_id");
+					// alert("获取银行卡卡号="+ $(this).attr("bankCard_id"));
 				});
 			}
 		})(jQuery, document, mui);

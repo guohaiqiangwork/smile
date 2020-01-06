@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<data android:scheme="userapp"/>
+		<title></title>
+	</head>
+	<body>
+		<a id="openApp">点击唤醒app</a>
+		<!-- <a href="test://">点击唤醒app<a> -->
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script>
+		var u = navigator.userAgent.toLocaleLowerCase();
+		var isAndroid = u.indexOf('android') > -1 || u.indexOf('linux') > -1; //android终端或者uc浏览器
+		var isiOS = !!u.match(/(iphone|ipod|ipad|mac)/i);
+
+		// 第二种
+		document.getElementById('openApp').onclick = function(e) {
+			if (isiOS) {
+				alert("22taobao")
+				window.location.href = "test://";
+				// window.setTimeout(function() {
+				// 	window.location.href = "https://itunes.apple.com/cn/app/id477927812"; //打开app下载地址，有app同事提供
+				// }, 2000)
+			}
+			if (isAndroid) {
+				alert(11)
+				window.location.href = "test://index?id=123"; /***打开app的协议，有安卓同事提供***/
+				window.setTimeout(function() {
+					//window.location.href = "Android下载地址";/***Android移动端下载地址***/
+					window.location.href = 'https://service.dcloud.net.cn/build/download/ba4b9a40-1c90-11ea-9619-17cef83af6d8'; /***Android移动端下载地址***/
+				}, 2000);
+			}
+		};
+
+
+		// 第一种
+		// var download_schema = 'taobao://'; //app的协议有安卓同事提供，这里是用的淘宝
+		// var universal_link = 'ios下载地址'; //ios下载地址
+		// var getVersionUrl = 'Android下载地址'; //Android移动端下载地址
+		// var u = navigator.userAgent.toLocaleLowerCase();
+		// //console.log(u);
+		// var isWeixin = u.match(/MicroMessenger/i) == 'micromessenger'; //判断是不是微信浏览器
+		// var isAndroid = u.indexOf('android') > -1 || u.indexOf('linux') > -1; //android终端或者uc浏览器
+		// var isiOS = !!u.match(/(iphone|ipod|ipad|mac)/i);
+
+		// var messageId = document.getElementById('nihao');
+		// messageId.onclick = function() {
+
+		// };
+		// function openApp() {
+		// 	alert('1');
+		// 	//alert(isAndroid);
+		// 	//alert(isiOS);
+		// 	if (isAndroid) {
+		// 		android1();
+		// 	}
+		// 	if (isiOS) {
+		// 		ios();
+		// 	}
+
+		// 	//alert("调用下载失败"); //此处弹窗时，是没有version参数，如果在app中打开，是会有这个参数的
+		// }
+
+		// function android1() {
+		// 	//如果是微信,直接下载
+		// 	if (isWeixin) {
+		// 		window.location.href = "Android下载地址 "; /***Android移动端下载地址***/
+		// 	} else {
+		// 		window.location.href = download_schema; /***打开app的协议，有安卓同事提供***/
+		// 		window.setTimeout(function() {
+		// 			//window.location.href = "Android下载地址";/***Android移动端下载地址***/
+		// 			window.location.href = getVersionUrl; /***Android移动端下载地址***/
+		// 		}, 100);
+		// 	}
+		// }
+
+		// function ios() {
+		// 	window.location.href = universal_link + "?schema=" + encodeURIComponent(download_schema);
+		// }
+	</script>
+</html>

@@ -21,40 +21,22 @@
 		<div class="content">
 			<!-- 头部提示信息 -->
 			<div class="order_details_title div_backgroun_jb">
-				<!-- 订单超时 -->
-				<div class="font_colorff" style="display: none;">
-					<div class="font_size32">
-						超时未支付
-					</div>
-					<div class="font_size24">
-						订单取消成功(订单超时未支付，系统自动取消订单）
-					</div>
-				</div>
-				<!-- 已取消 -->
-				<div class="font_colorff" style="display: none;">
-					<div class="font_size32">
-						已取消
-					</div>
-					<div class="font_size24">
-						订单取消成功(其他理由）
-					</div>
-				</div>
 				<!-- 待支付 -->
-				<div class="font_colorff" style="display: none;">
+				<div class="font_colorff" id="statusOne" style="display: none;">
 					<div class="div_display">
 						<div class="font_size32" style="width: 5rem;">
-							超时未支付
+							待付款
 						</div>
 						<div class="font_size24">
-							剩余时间：15:00
+							剩余时间：<span id="payTime"></span>
 						</div>
 					</div>
 					<div class="font_size24 margin_top2">
-						订单取消成功(订单超时未支付，系统自动取消订单）
+						请在订单提交后，尽快支付超时将取消订单
 					</div>
 				</div>
 				<!-- 待发货 -->
-				<div class="font_colorff" style="display: none;">
+				<div class="font_colorff" id="statusTwo" style="display: none;">
 					<div class="font_size32">
 						待发货
 					</div>
@@ -63,19 +45,21 @@
 					</div>
 				</div>
 				<!-- 待收货 -->
-				<div class="font_colorff div_display" style="display: none;">
-					<div class="" style="width: 6rem;">
+				<div class="font_colorff div_display" id="statusThree" style="display: none;">
+					<div class="" style="width: 5rem;">
 						<div class="font_size32">
-							待收获货
+							待收货
 						</div>
 						<div class="font_size24 margin_top2">
-							已通知商家，等待商家发货
+							商家已发货，耐心等待收货
 						</div>
 					</div>
-					<i class="fa fa-angle-right  font_colorff margin_top3 "></i>
+					<div class="" style="float: right;margin-top: -.6rem;margin-right: .5rem;">
+						<i class="fa fa-angle-right"></i>
+					</div>
 				</div>
 				<!-- 已完成 -->
-				<div class="font_colorff div_display">
+				<div class="font_colorff div_display" id="statusFour" style="display: none;">
 					<div class="" style="width: 6rem;">
 						<div class="font_size32">
 							订单已完成
@@ -86,112 +70,77 @@
 					</div>
 					<i class="fa fa-angle-right  font_colorff margin_top3 "></i>
 				</div>
+				<!-- 已取消 -->
+				<div class="font_colorff" id="statusFive" style="display: none;">
+					<div class="font_size32">
+						已取消
+					</div>
+					<div class="font_size24" id="reason">
+					</div>
+				</div>
+
+				<!-- 订单超时 -->
+				<!-- 	<div class="font_colorff" id="overtime" style="display: none;">
+					<div class="font_size32">
+						超时未支付
+					</div>
+					<div class="font_size24">
+						订单取消成功(订单超时未支付，系统自动取消订单）
+					</div>
+				</div>
+ -->
 			</div>
 			<div class="details_moudel">
 				<!-- 地址块 -->
-				<div class="details_address" style="height: 2rem;">
-					<div class="div_display">
-						<div class="product_imgList_leftd">
-							<div class="details_name ">
-								刘一手
-							</div>
-						</div>
-						<div class="product_imgList_rightd">
-							<div class="font_size32 font_color33">
-								176^_^3978
-							</div>
-							<div class="font_size26 font_color99">
-								内蒙古包头市九原区华诚中心A座十三层南侧
-							</div>
-						</div>
-					</div>
+				<div class="details_address" id="addressContent" style="height: 2rem;">
+
 				</div>
+
 				<!-- 产品 -->
-				<div class="details_address" style="height: 2.2rem;">
-					<!-- 单个产品 -->
-					<div class="div_display padding_top1" id="bodyList">
-						<div class="product_imgList_leftd">
-							<div class="product_img_wd ">
-								<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
-							</div>
-						</div>
-						<div class="product_imgList_rightd">
-							<div class="font_size26 font_color33">
-								每日维C-奇异果口味
-							</div>
-							<div class="font_size26 font_color99">
-								规格: 450g/袋
-							</div>
-							<div class="font_size26 font_colorf4">
-								¥45.90
-							</div>
-						</div>
-						<div class="product_rightd_number font_size28 font_color99">
-							*2
-						</div>
-					</div>
+				<div class="" id="bodyList">
+
 				</div>
+
 				<!-- 操作块 -->
 				<div class="details_operation">
 					<div class="details_operation_top font_color33 font_size24">
 						<div class="div_display ">
 							<div class="">订单编号</div>
-							<div class="" style="margin-left: .5rem;">
-								1234567890
+							<div class="" id="orderNumber" style="margin-left: .5rem;">
+
 							</div>
 						</div>
 						<div class="div_display  margin_top2">
 							<div class="">下单时间</div>
-							<div class="" style="margin-left: .5rem;">
-								2019-11-12 12:00:00
+							<div class="" id="createTime" style="margin-left: .5rem;">
+
 							</div>
 						</div>
 						<div class="div_display  margin_top2">
 							<div class="">支付方式</div>
-							<div class="" style="margin-left: .5rem;">
-								微信支付
+							<div class="" id="paymentType" style="margin-left: .5rem;">
+
 							</div>
 						</div>
 					</div>
 					<div class="details_operation_bottom font_color33 font_size24">
 						<div class="div_display margin_top3">
-							<div class="">商品总额</div>
-							<div class="" style="margin-left: 4.5rem;">
-								¥4335.90
+							<div class="" style="width: 2rem;">商品总额</div>
+							<div class="" id="totalPrice" style="margin-left: 3.5rem;">
 							</div>
 						</div>
-						<div class="div_display margin_top3">
-							<div class="">商品总额</div>
-							<div class="" style="margin-left: 4.5rem;">
-								¥4335.90
-							</div>
-						</div>
-
 					</div>
-					<div class="text_right font_size26 font_color33 margin_top3" style="width: 6.5rem;">实付款 <span class="font_colorf4">¥50.90</span>
+					<div class="text_right font_size26 font_color33 margin_top3" style="width: 6.5rem;">实付款 <span class="font_colorf4"
+						 id="payment"></span>
 					</div>
 				</div>
-				<div class="margin_top3">
-					<div class="font_size28 font_colorf4 text_center details_btn" style="display: none;">
+				<div class="margin_top2 div_display margin_bot3" id="orderDetailsBtn">
+					<!-- <div class="font_size28 font_colorf4 text_center details_btn">
 						再次购买
-					</div>
-					<div class="">
-						<div class="font_size28 font_colorf4 text_center details_btn margin_left5">
-							去支付
-						</div>
-						<div class="font_size28 font_color99 text_center details_btn   div_bordder99">
-							取消支付
-						</div>
-					</div>
-					<div class="font_size28 font_colorf4 text_center details_btn" style="display: none;">
-						确认收货
-					</div>
+					</div> -->
 				</div>
 			</div>
-
 		</div>
-
-
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
@@ -218,19 +167,256 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				console.log("我是接收的id="+ _self.orderId)
+				// 获取订单详情
+				var keywords = {
+					orderId: _self.orderId
+				}
+				getOrderDetail(mui, keywords, function(data) {
+					if (data.code == 200) {
+						if (data.data.status == 1) {
+							$('#statusOne').css('display', 'block');
+							// 倒计时
+							var a = data.data.closeTime
+							var time = new Date(a.replace(/-/g, '/')).getTime();
+							function countTime(value) {
+								//获取当前时间
+								var date = new Date();
+								var now = date.getTime();
+								//移动端必须这样写，因为ios不支持日期中间是-链接，会报错
+								var endDate = new Date(value);
+								var end = endDate.getTime();
+								//时间差
+								var differTime = end - now;
+								var h, m, s;
+								if (differTime >= 0) {
+									h = Math.floor(differTime / 1000 / 60 / 60);
+									m = Math.floor(differTime / 1000 / 60 % 60);
+									s = Math.floor(differTime / 1000 % 60);
+									h = h < 10 ? ("0" + h) : h;
+									m = m < 10 ? ("0" + m) : m;
+									s = s < 10 ? ("0" + s) : s;
+									if (h < 1) {
+										if (m > 15) {
+											var timeDom = "00:00";
+											$("#payTime").text(timeDom);
+										} else {
+											var timeDom = m + ":" + s;
+											$("#payTime").text(timeDom);
+											//递归调用函数所以是延时器不是定时器
+											setTimeout(function() {
+												countTime(value)
+											}, 1000);
+										}
+									}
 
+								} else {
+									var timeDom = "00:00";
+								}
+							};
+							countTime(time);
+							//alert("items=="+  data.data.records[items].orderId)
+							var btn =
+								'<div class="order_btn_ff font_color99 div_border99" style="margin-left: 3.4rem;" data-type="cancel" data-id="' +
+								data.data.itemList[0].orderId + '">' +
+								'取消支付' +
+								'</div>' +
+								'<div class="order_btn_f4" data-money="' + data.data.payment + '" data-id="' + data.data
+								.orderId + '" data-createTime="' + data.data.closeTime + '">' +
+								'去支付' +
+								'</div>';
+							$("#orderDetailsBtn").append(btn);
+						} else if (data.data.status == 2) {
+							$('#statusTwo').css('display', 'block');
+							var btn =
+								'<div class="order_btn_ff"  style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data.orderId + '">' +
+								'再次购买2' +
+								'</div>';
+							$("#orderDetailsBtn").append(btn);
+
+						} else if (data.data.status == 3) {
+							$('#statusThree').css('display', 'block');
+							var btn =
+								'<div class="order_btn_ff" style="margin-left: 3.5rem;" data-type="logistics" data-id="' + data.data.orderId + '">' +
+								'查看物流' +
+								'</div>' +
+								'<div class="order_btn_ff margin_left3" data-type="harvest" data-id="' + data.data.orderId +
+								'" >' +
+								'确认收货' +
+								'</div>';
+							$("#orderDetailsBtn").append(btn);
+						} else if (data.data.status == 4) {
+							$('#statusFour').css('display', 'block');
+							var btn = '<div class="order_btn_ff" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data.oderId + '">再次购买</div>';
+							$("#orderDetailsBtn").append(btn);
+
+						} else if (data.data.status == 5) {
+							$('#statusFive').css('display', 'block');
+							$('#reason').text(data.data.remark);
+							var btn = '<div class="order_btn_ff" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data.orderId + '">再次购买</div>';
+							$("#orderDetailsBtn").append(btn);
+						}
+						// 地址块
+						var address =
+							'<div class="div_display">' +
+							'<div class="product_imgList_leftd">' +
+							'<div class="details_name ">' +
+							data.data.orderAddress.receiverName +
+							'</div>' +
+							'</div>' +
+							'<div class="product_imgList_rightd">' +
+							'<div class="font_size32 font_color33">' +
+							data.data.orderAddress.receiverMobile +
+							'</div>' +
+							'<div class="font_size26 font_color99">' +
+							data.data.orderAddress.receiverState + data.data.orderAddress.receiverCity + data.data.orderAddress.receiverDistrict +
+							data.data.orderAddress.receiverAddress +
+							'</div>' +
+							'</div>' +
+							'</div>';
+						$('#addressContent').append(address);
+						var fragmentplanList = document.createDocumentFragment();
+						$.each(data.data.itemList, function(items) {
+							var commodity =
+								'<div class="details_address"  style="height: 2.2rem;">' +
+								'<div class="div_display padding_top1" >' +
+								'<div class="product_imgList_leftd">' +
+								'<div class="product_img_wd ">' +
+								'<img src="' + data.data.itemList[items].picPath +
+								'" class="width_height100">' +
+								'</div>' +
+								'</div>' +
+								'<div class="product_imgList_rightd ">' +
+								'<div class="font_size26 font_color33">' +
+								data.data.itemList[items].title +
+								'</div>' +
+								'<div class="font_size26 font_color99">' +
+								"规格:" + data.data.itemList[items].skuName +
+								'</div>' +
+								'<div class="font_size26 font_colorf4">' +
+								"¥" + data.data.itemList[items].price +
+								'</div>' +
+								'</div>' +
+								'<div class="product_rightd_number font_size28 font_color99">' +
+								"*" + data.data.itemList[items].num +
+								'</div>' +
+								'</div>' +
+								'</div>';
+							$(fragmentplanList).append(commodity);
+							// $('#bodyList').append(commodity);
+						});
+						$("#bodyList").append($(fragmentplanList));
+						$('#orderNumber').text(data.data.orderNo);
+						$('#createTime').text(data.data.createTime)
+						$('#totalPrice').text(data.data.totalPrice)
+						$('#payment').text('¥' + data.data.payment)
+						var type ="";
+						if (data.data.paymentType == 1) {
+							type = '微信支付'
+						} else if (data.data.paymentType == 2) {
+							type = '支付宝支付'
+						} else if (data.data.paymentType == 3) {
+							type = '余额支付'
+						}
+						$('#paymentType').text(type)
+					}
+				});
 			}
 			// 去物流
-			$('.fa-angle-right').on('tap',function(){
+			$('.fa-angle-right').on('tap', function() {
 				$$.openWindow({
 					url: '../pages/orderLogistics.html',
 					id: 'orderLogistics',
+					extras: {
+						orderId: _self.orderId
+					},
 					show: {
 						aniShow: "slide-in-right"
 					}
 				});
-			})
+			});
 
+			
+			// 订单操作按钮
+			$("#orderDetailsBtn").on("tap", ".order_btn_ff", function() {
+				var keyword = {
+					orderId: '20191206141842720'
+				}
+				if ($(this).attr("data-type") == 'againBuy') {
+					// 再次购买
+					getBuyAgain(mui, keyword, function(data) {
+						alert(JSON.stringify(data))
+						if (data.code == 200) {
+							if (data.data.length > 0) {
+								tipShow("部分商品失效，无法加入再次购买")
+							}
+							setTimeout(function() {
+								// $$.openWindow({
+								// 	url: '../views/shopCartList.html',
+								// 	id: 'shopCartList',
+								// 	extras: {
+								// 		payMoney: $(this).attr("data-money"),
+								// 		orderId: $(this).attr("data-id")
+								// 	},
+								// 	show: {
+								// 		aniShow: "slide-in-right"
+								// 	}
+								// });
+							}, 2000)
+			
+						} else {
+							tipShow(data.message)
+						};
+			
+					});
+				} else if ($(this).attr("data-type") == 'cancel') {
+					// 取消支付
+					getCancelPay(mui, keyword, function(data) {
+						if (data.code == 200) {
+							tipShow('取消成功')
+							plus.webview.currentWebview().reload(true);
+						} else {
+							tipShow(data.message)
+						}
+					});
+				} else if ($(this).attr("data-type") == 'logistics') {
+					alert('物流')
+				} else if ($(this).attr("data-type") == 'harvest') {
+					// 确认收货
+					getConfirmReceipt(mui, keyword, function(data) {
+						if (data.code == 200) {
+							if (data.code == 200) {
+								tipShow('收货成功')
+								plus.webview.currentWebview().reload(true);
+							} else {
+								tipShow(data.message)
+							}
+						}
+					});
+				}
+			});
+			
+			// 去支付
+			$("#orderDetailsBtn").on("tap", ".order_btn_f4", function() {
+				// var keyword = {
+				// 	orderId: $(this).attr("data-id")
+				// }
+				$$.openWindow({
+					url: '../pages/orderPay.html',
+					id: 'orderPay',
+					extras: {
+						payMoney: $(this).attr("data-money"),
+						orderId: $(this).attr("data-id"),
+						createTime:$(this).attr("data-createTime")
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+				// $(this).attr("data-id")
+				// alert($(this).attr("data-type"))
+			});
+			
 
 
 

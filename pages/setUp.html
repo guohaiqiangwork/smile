@@ -15,7 +15,7 @@
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
-			<i id="returnTopPage_set"><img src="../image/left@2x.png"></i>
+			<i id="returnTopPage_set"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
 			设置
 		</header>
 		<div class="content">
@@ -84,12 +84,17 @@
 						var btnArray = ['拨打', '取消'];
 						var phone = "18048334993";
 						mui.confirm(phone, '提示', btnArray, function(e) {
-							var Intent = plus.android.importClass("android.content.Intent");
-							var Uri = plus.android.importClass("android.net.Uri");
-							var main = plus.android.runtimeMainActivity();
-							var uri = Uri.parse("tel:" + phone);
-							var call = new Intent("android.intent.action.CALL", uri);
-							main.startActivity(call);
+							if(e.index == 0){
+								/* var Intent = plus.android.importClass("android.content.Intent");
+								var Uri = plus.android.importClass("android.net.Uri");
+								var main = plus.android.runtimeMainActivity();
+								var uri = Uri.parse("tel:" + phone);
+								var call = new Intent("android.intent.action.CALL", uri);
+								main.startActivity(call); */
+								//window.location.href = 'tel:123456789';
+								plus.device.dial(phone,false);
+							}
+							
 						});
 					} else {
 						var UIAPP = plus.ios.importClass("UIApplication");
@@ -103,39 +108,53 @@
 
 				//页面跳转serviceModuer
 				$('.settingPassword').on('tap', function(e) {
-					// 获取路径
-					var urlRout = this.getAttribute('href');
 					// 获取页面ID
 					var urlId = $(this).attr("data-id");
-					if (urlRout && urlId) {
-						$$.openWindow({
-							url: urlRout,
-							id: urlId,
-							show: {
-								aniShow: "slide-in-right"
+					// 获取路径
+					var urlRout = this.getAttribute('href');
+				/* 	if (urlRout == "../pages/cashPassword.html") {
+						//判断是否有提现密码
+						isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
+							//console.log("判断是否有提现密码==" + JSON.stringify(data))
+							if (data.code == 500) {
+								$$.openWindow({
+									url: 'setPassword.html',
+									id: 'setPassword',
+									show: {
+										aniShow: "slide-in-right"
+									}
+								});
 							}
 						});
-					} else {
-						console.log('缺少页面路径')
-					}
+					} else { */
+						if (urlRout && urlId) {
+							$$.openWindow({
+								url: urlRout,
+								id: urlId,
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+						} else {
+							console.log('缺少页面路径')
+						}
+					//}
 				});
 
 				/* 返回上一页 */
 				var returnTopPage_set = doc.getElementById("returnTopPage_set");
 				returnTopPage_set.onclick = function() {
-
 					plus.nativeUI.closeWaiting();
 					mui.back();
 					var list = plus.webview.currentWebview().opener();
 					mui.fire(list, 'refreshMajorGuestCount');
-
 				}
 
 			}
 			// 退出登录
 			$('#goOut').on('tap', function() {
-				getLogOut(mui, function (data) {
-					if(data.code == 200){
+				getLogOut(mui, function(data) {
+					if (data.code == 200) {
 						clearStorage(); //清空缓存数据
 						var list = plus.webview.currentWebview().opener();
 						mui.fire(list, 'refreshMajorGuestCount');
@@ -143,7 +162,7 @@
 						plus.webview.close(ws);
 					}
 				});
-				
+
 				// // 回到tab页面
 				// var ws = plus.webview.currentWebview();
 				// plus.webview.close(ws);

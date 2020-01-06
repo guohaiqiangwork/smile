@@ -1,4 +1,4 @@
-<!-- 搜索 -->
+
 
 <!DOCTYPE html>
 <html>
@@ -18,60 +18,58 @@
 		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css"/>
 		
 		<link rel="stylesheet" type="text/css" href="../css/pages/newsPage.css"/>
+		
+		<link rel="stylesheet" href="../css/pages/shopCart.css" />
 	</head>
 	<body>
 		<header class="header_white title">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i id="returnTopPage_set"><img src="../image/left@2x.png" style="width: .22rem;height: .38rem;"></i>
 			消息通知
 		</header>
 		
 		<div style="height: 65px;"></div>
-		<div id="messageCount">
-			<div class="messageCount_divOne">
-				<div>
-					<span>05:41</span>
-				</div>
-			</div>
-			<div id="messageCount_divTwo">
-				<div class="messageCount_divThree">
-					<p style="color: #333333;font-weight:bold">
-						<i class="fa fa-search"></i>
-						新人消息通知
-					</p>
-					<p>客服在线时间：早8：00-晚18：00</p>
-				</div>
-				<div id="findMessageId">
-					<dd class="yuanq"></dd>
-					<dl>查看详情</dl>
-				</div>
-			</div>
-		</div>
 		
-		<div id="messageCount">
-			<div class="messageCount_divOne">
-				<div>
-					<span>2019-11-15 05:41</span>
+		<!-- 消息列表 -->
+		<div id="massageListId">
+			<!-- <div id="messageCount">
+				<div class="messageCount_divOne">
+					<div>
+						<span>05:41</span>
+					</div>
 				</div>
-			</div>
-			<div id="messageCount_divTwo">
-				<div class="messageCount_divThree">
-					<p style="color: #333333;font-weight:bold">
-						<i class="fa fa-search"></i>
-						新人消息通知
-					</p>
-					<p>客服在线时间：早8：00-晚18：00</p>
+				<div id="messageCount_divTwo">
+					<div class="messageCount_divThree">
+						<p style="color: #333333;font-weight:bold">
+							<i class="fa fa-search"></i>
+							新人消息通知
+						</p>
+						<p>客服在线时间：早8：00-晚18：00</p>
+					</div>
+					<div class="findMessageId">
+						<dd class="yuanq"></dd>
+						<dl>查看详情</dl>
+					</div>
 				</div>
-				<div id="findMessageId">
-					<dd></dd>
-					<dl>查看详情</dl>
-				</div>
-			</div>
+			</div> -->
+
 		</div>
 		
 		<!-- 最底部的已查看全部消息 -->
-		<div class="bottomClass">
+		<div class="bottomClass" style="display: none;">
 			<span>——  已查看完全部消息  ——</span>
 		</div>
+		
+		
+		<!-- 缺省页 -->
+		<div id="cartDefaultId" style="display: none;">
+			<div id="cartDefaultId_one">
+				<img src="../image/default/news.png" >
+			</div>
+			<div id="cartDefaultId_two">
+				<span>您暂时还没有任何消息哦~</span>
+			</div>
+		</div>
+		
 		
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
@@ -99,18 +97,86 @@
 				});
 				_self = plus.webview.currentWebview();
 				
-				var findMessageId = doc.getElementById("findMessageId");
-				findMessageId.onclick = function(){
+				//返回上一页
+				var returnTopPage_set = doc.getElementById("returnTopPage_set");
+				returnTopPage_set.onclick = function() {
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					var list = plus.webview.currentWebview().opener();
+					mui.fire(list, 'refreshHomeNews');
+				}
+				
+				//监听消息返回刷新消息
+				window.addEventListener('refreshHomeNewsTwo', function(event) {
+					getNewMessage()
+				});
+				
+				
+				getNewMessage();
+				/* 获取消息列表 */
+				function getNewMessage(){
+					messageList(mui,plus.storage.getItem('memberId'),function(data){
+						if (data.code == 200) {
+							var messageData = data.data;
+							if(messageData.length != 0){
+								$(".bottomClass").css("display","block");
+								$("#cartDefaultId").css("display","none");
+								var fragmentplanList = document.createDocumentFragment();
+								mui.each(messageData,function (index,row) {
+									var yuanqParams = "";
+									if(row.isRead == "0"){
+										yuanqParams = "yuanq";
+									}else{
+										yuanqParams = "";
+									}
+									var list = 
+									'<div id="messageCount">'+
+										'<div class="messageCount_divOne">'+
+											'<div>'+
+												'<span>'+row.createTime+'</span>'+
+											'</div>'+
+										'</div>'+
+										'<div id="messageCount_divTwo">'+
+											'<div class="messageCount_divThree">'+
+												'<p style="color: #333333;font-weight:bold">'+
+													'<i class="fa fa-search"></i>'+row.title+''+
+												'</p>'+
+												'<p>'+row.content+'</p>'+
+											'</div>'+
+											'<div style="touch-action: none;" id="findMessageId" messageId='+row.id+'>'+
+												'<dd class='+yuanqParams+'></dd>'+
+												'<dl>查看详情</dl>'+
+											'</div>'+
+										'</div>'+
+									'</div>';
+									$(fragmentplanList).append(list);
+								});
+								/* 删除子标签 */
+								$('#massageListId').empty();
+								$("#massageListId").append($(fragmentplanList));
+							}else{
+								$("#cartDefaultId").css("display","block");
+							}
+						} else {
+							tipShow(data.message);
+						}
+					});
+				};
+				
+				
+				/* 查看消息 */
+				$('#massageListId').on("tap","#findMessageId",function(){
 					$$.openWindow({
 						url: 'newsPageDetails.html',
 						id:'newsPageDetails',
+						extras: {
+							"messageId": $(this).attr('messageId')
+						},
 						show: {
 							aniShow: "slide-in-right"
 						}
 					});
-				}
-
-				
+				});
 				
 			}
 		})(jQuery, document, mui);

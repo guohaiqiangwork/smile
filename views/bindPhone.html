@@ -134,15 +134,19 @@
 					var getoLogin = plus.nativeUI.showWaiting("登录中...");
 					var keyword = {
 						phone: tel,
-						phoneCode: telCode,
-						openId:plus.storage.getItem('userOpenId') || ''
+						code: telCode,
+						openId:plus.storage.getItem('userOpenId') || '',
+						headImgUrl:plus.storage.getItem('wxHeadImg') || '',
+						nickName:plus.storage.getItem('wxNickName') || ''
 					}
 					// 去登录
-					gotoLogin(mui, keyword, function(data) {
+					getWXLogin(mui, keyword, function(data) {
 						getoLogin.close();
 						if (data.code == 200) {
 							var ws=plus.webview.currentWebview();
 							plus.webview.close(ws);
+							plus.storage.setItem('memberId', data.data.id);
+							plus.storage.setItem('Token', data.data.token + "")
 							console.log('登录成功' + JSON.stringify(data))
 						} else {
 							tipShow(data.message)

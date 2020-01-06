@@ -8,10 +8,71 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/mui.min.css">
+		<!-- <link rel="stylesheet" href="../css/mui.min.css"> -->
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/verification.css">
 		<script src="../js/rem_reset.js"></script>
+		<style type="text/css">
+			.top_img_width {
+				width: 7.5rem;
+				height: 3.6rem;
+				background: url("../image/friderBj.png") no-repeat;
+				background-size: 100% 100%;
+				/* background-attachment: fixed; */
+				text-align: center;
+			}
+
+			.top_img_btn {
+				width: 2rem;
+				height: .5rem;
+				text-align: center;
+				color: #FFFFFF;
+				border: 1px solid #FFFFFF;
+				border-radius: .3rem;
+				font-size: .28rem;
+				line-height: 2;
+				position: absolute;
+				top: 2.8rem;
+				margin-left: 1rem;
+			}
+
+			.center_share {
+				height: 2rem;
+				border-bottom: 1px solid #F0F0F0;
+				padding-bottom: .3rem;
+			}
+
+			.btn_height {
+				height: 1rem;
+				border-bottom: 1px solid #F0F0F0;
+			}
+
+			.bottom_btn {
+				width: 7rem;
+				height: .6rem;
+				border-radius: .5rem;
+				margin-left: .3rem;
+				text-align: center;
+				color: #FFFFFF;
+				margin-top: .4rem;
+				padding-top: .1rem;
+			}
+
+			.bottom_list {
+				width: 7rem;
+				margin-left: .3rem;
+			}
+
+			.bottom_list_img {
+				width: .8rem;
+				height: .8rem;
+				border-radius: 50%;
+				overflow: hidden;
+				border: 1px solid #FFFFFF;
+			}
+		</style>
+
 	</head>
 
 	<body onselectstart="return false;">
@@ -20,105 +81,66 @@
 			我的好友
 		</header>
 		<div class="content">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ghq
-			
-			<div id="orderList" class="content mui-fullscreen">
-				
-				<div class="mui-content mui-scroll-wrapper">
-					<div id="goToActivityRules">
-						活动规则
-					</div>
-					<div class="mui-scroll">
-						<ul id="container"></ul>
-					</div>
+			<div class="top_img_width">
+				<div class="top_img_btn">
+					查看活动规则
 				</div>
 			</div>
-			<!-- 空页面 -->
-			<div class="nothing" style="display: none;">
-				<img src="../img/userImg/no_order.png">
-				<p>您当前没有订单哦~</p>
-			</div>
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< Updated upstream
-			<div id="">
-				<img src="../image/mu.jpg" >
-			</div>
-=======
-			<!-- 上面部分 -->
-			<div>
-				<div id="login">
-					<div id="" style="margin-top: .3rem;">
-						邀请好友
-					</div>
-					<div id="">
-						好友和自己可得到笑容积分
-					</div>
-					<div id="" style="margin-left: 2.8rem;">
-						<div class="" style="background-color: #575757;font-size: .22rem;text-align: center;border: 2px solid #FFFFFF;width: 1.8rem;height: .44rm;border-radius: .3rem;">
-							活动规则
+			<!-- 分享 -->
+			<div class="center_share">
+				<div class="font_size26 font_color33 text_center margin_top2">
+					分享至
+				</div>
+				<div class="div_display">
+					<div class="margin_top5" style="margin-left: 2rem;" id="wxFX">
+						<div class="">
+							<img src="../image/wxf.png" style="width: .6rem;height: .6rem;">
 						</div>
-
+						<div class="font_size24 font_color33" style="margin-left: -.1rem;">
+							微信好友
+						</div>
 					</div>
+					<div class="margin_top5" style="margin-left: 1.5rem;" id="qqFX">
+						<div class="">
+							<img src="../image/qq.png" style="width: .6rem;height: .6rem;">
+						</div>
+						<div class="font_size24 font_color33">
+							QQ好友
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- 按钮展示 -->
+			<div class="btn_height">
+				<div class="div_backgroun_jb bottom_btn font_size26">
+					活动累计已获得奖励 <span class="font_size36" style="color: #FFF184" id="totalPrice">￥</span>
 				</div>
 			</div>
-			<div id="" style="color: #333333;height: 1.3rem;background-color: red;text-align:center
-			;font-size: .26rem;">
-				<div id="">
-					邀请记录
-				</div>
-				<div id="">
 
-					活动累计已获得奖励
+			<!-- 好友列表 -->
+			<div class="bottom_list" id="list">
 
-				</div>
 			</div>
-			<!-- 列表部分 -->
-			<div id="">
-				<div id="" style="display: flex;font-size: .22rem;">
-					<div id="" style="width: .6rem;overflow: hidden;">
-						<img src="../image/icon_down_up.png" width="100%">
-					</div>
-					<div id="">
-						fa发烧
-					</div>
-					<div id="">
-						169^-^9900
-					</div>
-					<div id="">
-						05.04 13:28
-					</div>
-				</div>
-			</div>
->>>>>>> Stashed changes
->>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
->>>>>>> ghq
 		</div>
 
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/commonFun.js"></script>
-<<<<<<< HEAD
 	<script src='../js/requestFun.js'></script>
-=======
-<<<<<<< HEAD
-	<script src='../js/requestFun.js'></script>
-=======
-=======
->>>>>>> Stashed changes
-	<script src="../js/requestFun.js"></script>
->>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
->>>>>>> ghq
+	<!-- 分享 -->
+	<script src="../js/share.js"></script>
 	<script>
-		;
 		(function($, doc, $$, undefined) {
 			$$.init();
 			var _self;
+			var mask = mui.createMask(function() {
+				$(".errorInput").css("display", "none");
+				return;
+			}); //遮罩蒙版
+			var timeOut = $(".verifitionRest .resetSend");
 			if (window.plus) {
 				plusReady();
 			} else {
@@ -134,118 +156,142 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ghq
-				var userSessionId = plus.storage.getItem('userSessionId');
-				mui(".mui-scroll-wrapper").pullRefresh({
-					up: {
-						contentrefresh: '加载中...',
-						contentnomore: '我也是有底线滴',
-						auto: true,
-						callback: pullupRefresh
+				var keyword = {
+					pageNum: 1,
+					pageSize: 100,
+					data: {
+						id: plus.storage.getItem('memberId')
 					}
-				});
-				$('#goToActivityRules').on('tap', function() {
+				}
+				getMyFirend(mui, keyword, function(data) {
+					var fragmentplanList = document.createDocumentFragment();
+					if (data.code == 200) {
+						console.log(JSON.stringify(data))
+						$.each(data.data.result.records, function(items) {
+							data.data.result.records[items].mobile = data.data.result.records[items].mobile.substring(3, 0) + "^_^" +
+								data.data.result.records[items].mobile.substring(7, 11);
+							var orderLiTwo =
+								'<div class="div_display margin_top2">' +
+								'<div class="bottom_list_img">' +
+								'<img src="' + data.data.result.records[items].avatar + '" class="width100">' +
+								'</div>' +
+								'<div class="margin_left2" style="width: 4.5rem;">' +
+								'<div class="div_display font_color33 font_size28">' +
+								'<div class="">' +
+								data.data.result.records[items].nickname +
+								'</div>' +
+								'<div class="margin_left2">' +
+								data.data.result.records[items].mobile +
+								'</div>' +
+								'</div>' +
+								'<div class="font_size24 font_color99">' +
+								data.data.result.records[items].createTime +
+								'</div>' +
+								'</div>' +
+								'<div class="font_color33 font_size30" style="margin-top: .13rem;">¥' +
+								data.data.result.records[items].amount +
+								'</div>' +
+								'</div>';
+							$(fragmentplanList).append(orderLiTwo);
+						});
+						$("#list").append($(fragmentplanList));
+						$('#totalPrice').text("¥" + data.data.totalPrice)
+					} else {
+						tipShow(data.message)
+					}
+
+				})
+				// 去活动规则
+				$('.top_img_btn').on('tap', function() {
 					$$.openWindow({
-						url: 'activityRules.html',
-						id: 'activityRules',
+						url: 'activityRule.html',
+						id: 'activityRule',
 						show: {
 							aniShow: "slide-in-right"
 						}
 					});
 				})
-
-				/**
-				 * 我的订单
-				 *   @param counter 当前页数
-				 *   @param pageSize 每页显示条数
-				 */
-				var lastPage;
-				var pageSize = 10,
-					counter = 1;
-
-				function pullfresh() {
-					return
-					$$.ajax(requserUrl + '/userOrder/getUserOrderAllList', {
-						type: 'post',
-						timeout: 20000,
-						data: {
-							'current': counter,
-							'size': pageSize
-						},
-						headers: {
-							'AuthorizationKey': userSessionId
-						},
-						success: function(data) {
-							// console.log(JSON.stringify(data))
-							if (data.code == 0 && data.msg == 'success') {
-								counter++;
-								lastPage = !data.attributes.hasNext;
-								if (data.obj.length == 0 && $('#container').text() == '') {
-									$(".nothing").css("display", "block");
-									$('#orderList').css("display", "none");
-								} else {
-									var fragementList = document.createDocumentFragment(),
-										list = $('#container');
-									data.obj.forEach(e => {
-										$(
-											'<li data-id="' + e.id + '">' +
-											'<p class="orderTime"><span>' + e.createTime + '</span><span>' + obj[e.state][0] +
-											'<i class="fa fa-angle-right"></i></span></p>' +
-											'<h5 class="lineStart clearfix"><img style="position:absolute;" src="../img/driverImg/icon_crleStart.png"><span style="padding-left:0.4rem;display:inline-block;">' +
-											e.startName +
-											'</span></h5>' +
-											'<h5 class="lineEnd clearfix"><img style="position:absolute;" src="../img/icon_input.png"><span style="padding-left:0.4rem;display:inline-block;">' +
-											e.endName +
-											'</span></h5>' +
-											'</li>').appendTo(fragementList).data('id', e.id);
-										list.append(fragementList);
-									});
-								
-								}
-							} else if (data.code == 300 || (data.code == 500 && data.msg == 'no_login')) {
-								tipShow("请重新登录！");
-								clearStorage();
-								mui.openWindow({
-									url: "../login.html",
-									id: "login",
-									show: {
-										aniShow: "slide-in-right"
-									}
-								});
-							} else {
-								console.log("失败：" + JSON.stringify(data));
-								_self.close();
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							// $$.toast("服务异常，请稍后重试！");
-							acceptDateErrorTip();
-							return false;
+				userId = plus.storage.getItem('memberId');
+				var shares = {};
+				plus.share.getServices(function(s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
 						}
-					});
+					}
+				}, function() {
+					console.log("获取分享服务列表失败");
+				});
+				/* 点击分享按钮事件 微信*/
+				$("#wxFX").on("tap", function() {
+					if (plus.runtime.isApplicationExist({
+							pname: 'com.tencent.mm',
+							action: 'weixin://'
+						})) {
+						console.log("微信应用已安装");
+					} else {
+						$$.toast("微信应用未安装");
+						setTimeout(function() {
+							toCurrentPage();
+						}, 1500);
+						return false;
+					}
+					var shareJson = {
+						"title": "笑容",
+						"desc": "笑容app你好！"
+					};
+					var lineEndId = ['lineEnd'];
+					var ids = [{
+						id: "weixin",
+						ex: "WXSceneSession"
+					}, {
+						id: "weixin",
+						ex: "WXSceneTimeline"
+					}];
+					var i = 1
+					if (i > 0) {
+						var s_id = ids[i - 1].id;
+						var share = shares[s_id];
+						if (share) {
+							if (share.authenticated) {
+								shareMessageShare(share, ids[i - 1].ex, shareJson, userId, lineEndId);
+								mui.fire(plus.webview.getWebviewById("index.html"));
+								setTimeout(function() {
+									toCurrentPage();
+								}, 5000);
+							} else {
+								share.authorize(function() {
+									shareMessageShare(share, ids[i - 1].ex, shareJson, userId, lineEndId);
+									mui.fire(plus.webview.getWebviewById("index.html"));
+									setTimeout(function() {
+										toCurrentPage();
+									}, 5000);
+								}, function(e) {
+									console.log("认证授权失败：" + e.code + " - " + e.message);
+								});
+							}
+						} else {
+							$$.toast("分享失败，请重试");
+						}
+					}
+				});
+				$("#qqFX").on("tap", function() {
+					sqq = shares['qq'];
+					var msg = {
+						type: 'text'
+					};
+					if (false) {
+						plus.nativeUI.alert('请输入要分享的内容!');
+						return;
+					}
+					msg.title = '快来吧';
+					msg.thumbs = ['../image/qq.png'];
+					msg.pictures = ['../image/qq.png'];
+					msg.href = 'http://www.baidu.com';
+					sqq ? shareShare(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
+				});
 
-				}
-
-				function pullupRefresh() {
-					var timer = setTimeout(function() {
-						clearTimeout(timer);
-						pullfresh();
-						mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh((lastPage)); //参数为true代表没有更多数据了。
-					}, 500);
-				}
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< Updated upstream
-=======
-				
-				
->>>>>>> Stashed changes
->>>>>>> 45e6202d905f133207ea7128ee97b61b62cfb5a8
->>>>>>> ghq
 			}
 		})(jQuery, document, mui);
 	</script>

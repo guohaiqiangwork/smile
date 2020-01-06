@@ -17,7 +17,7 @@ function tipShow(str) {
 /**
  * 接口异常 用户提示
  */
-function acceptDateErrorTip() {  
+function acceptDateErrorTip() {
 	mui.alert('遇到了未知错误，请联系管理人员', '错误提示', function() {
 		// info.innerText = '你刚关闭了警告框';
 		plus.runtime.quit();
@@ -37,7 +37,7 @@ function clearStorage() {
  * @param { number } num  毫秒数
  * @return { string } dateTime [dateTime = new Date(1550915906000).toLocaleString()] 返回日期 eg:2019.6.24
  */
-Date.prototype.toLocaleString = function () {
+Date.prototype.toLocaleString = function() {
 	function addZero(num) {
 		if (num < 10)
 			return "0" + num;
@@ -71,7 +71,7 @@ function numChange(num) {
  */
 function utf16toEntities(str) {
 	var patt = /[\ud800-\udbff][\udc00-\udfff]/g; // 检测utf16字符正则
-	str = str.replace(patt, function (char) {
+	str = str.replace(patt, function(char) {
 		var H, L, code;
 		if (char.length === 2) {
 			H = char.charCodeAt(0); // 取出高位
@@ -130,7 +130,7 @@ function onNetChange() {
 			break;
 		default:
 			// 延迟跳转
-			var layTimer = setTimeout(function () {
+			var layTimer = setTimeout(function() {
 				clearTimeout(layTimer);
 				goNoNet();
 			}, 3000);
@@ -195,18 +195,19 @@ function countdown(s, phone, currentDom) {
 	if (s == 0) {
 		currentDom.text('重新获取验证码');
 		currentDom.css("color", "#008BD5");
-		currentDom.on("tap", function () {
+		currentDom.on("tap", function() {
 			onGetCode(60, phone, currentDom);
 		});
 	} else {
 		currentDom.text(s + '秒后可重发');
 		currentDom.css("color", "#999999");
 		currentDom.off("tap");
-		timerTimer = setTimeout(function () {
+		timerTimer = setTimeout(function() {
 			countdown(s, phone, currentDom)
 		}, 1000)
 	}
 };
+
 function onGetCode(num, phone, currentDom) {
 	// 校验手机号
 	verPhoneNum(num, phone, currentDom);
@@ -217,11 +218,11 @@ function onGetCode(num, phone, currentDom) {
 }
 // 数字键盘
 function initNumKey(NumDom, showDom, callback) {
-	NumDom.on("tap", "li", function () {
+	NumDom.on("tap", "li", function() {
 		var _this_val = $(this).text();
 		var showDomC = showDom.find("div");
 		if (isNaN(_this_val) == false) {
-			showDomC.each(function () {
+			showDomC.each(function() {
 				if ($(this).text() == '') {
 					$(this).text(_this_val);
 					return false;
@@ -235,7 +236,7 @@ function initNumKey(NumDom, showDom, callback) {
 				showDomC.text("");
 			}
 			if ($(this).hasClass("numDelete")) {
-				showDomC.each(function (index, element) {
+				showDomC.each(function(index, element) {
 					if (showDomC.eq(0).text() == "") {
 						return false;
 					} else if (showDomC.eq(showDomC.length - 1).text() !== "") {
@@ -254,13 +255,13 @@ function initNumKey(NumDom, showDom, callback) {
 }
 // 数字键盘
 function initNumKeyPass(NumDom, showDom, callback) {
-	NumDom.on("tap", "li", function () {
+	NumDom.on("tap", "li", function() {
 		var _this_val = $(this).text();
 		var showDomC = showDom.find("div");
 		if (isNaN(_this_val) == false) {
-			showDomC.each(function () {
-				if ($(this).attr("data-num") == ''||$(this).attr("data-num") == undefined) {
-					$(this).attr("data-num",_this_val)
+			showDomC.each(function() {
+				if ($(this).attr("data-num") == '' || $(this).attr("data-num") == undefined) {
+					$(this).attr("data-num", _this_val)
 					$(this).text("*");
 					return false;
 				}
@@ -270,21 +271,21 @@ function initNumKeyPass(NumDom, showDom, callback) {
 			}
 		} else if (isNaN(_this_val) == true) {
 			if ($(this).hasClass("numClear")) {
-				showDomC.attr("data-num","");
+				showDomC.attr("data-num", "");
 				showDomC.text("");
 			}
 			if ($(this).hasClass("numDelete")) {
-				showDomC.each(function (index, element) {
-					if (showDomC.eq(0).attr("data-num") == ""|| $(this).attr("data-num") == undefined) {
+				showDomC.each(function(index, element) {
+					if (showDomC.eq(0).attr("data-num") == "" || $(this).attr("data-num") == undefined) {
 						return false;
 					} else if (showDomC.eq(showDomC.length - 1).attr("data-num")) {
 						showDomC.eq(showDomC.length - 1).text("");
-						showDomC.eq(showDomC.length - 1).attr("data-num","");
+						showDomC.eq(showDomC.length - 1).attr("data-num", "");
 						return false;
 					} else {
-						if ($(this).attr("data-num") == ''|| $(this).attr("data-num") == undefined) {
+						if ($(this).attr("data-num") == '' || $(this).attr("data-num") == undefined) {
 							showDomC.eq(index - 1).text("");
-							showDomC.eq(index - 1).attr("data-num","");
+							showDomC.eq(index - 1).attr("data-num", "");
 						}
 					}
 
@@ -318,7 +319,7 @@ function upImgFun(dom) {
 			title: "插入图片",
 			cancel: "取消",
 			buttons: a
-		}, function (b) {
+		}, function(b) {
 			switch (b.index) {
 				case 0:
 					break;
@@ -344,19 +345,19 @@ function getImage(dom, cameraIndex, callback) {
 	} else {
 		var c = plus.camera.getCamera();
 	}
-	c.captureImage(function (e) {
+	c.captureImage(function(e) {
 		// 读取本地文件中选取图片
-		plus.io.resolveLocalFileSystemURL(e, function (entry) {
+		plus.io.resolveLocalFileSystemURL(e, function(entry) {
 			// 执行上传操作
 			// console.log(entry.toLocalURL());
 			compressImage(entry.toLocalURL(), dom, callback)
-		}, function (e) {
+		}, function(e) {
 			plus.nativeUI.toast("读取拍照文件错误：" + e.message);
-			callback&&callback(500);
+			callback && callback(500);
 		});
-	}, function (s) {
+	}, function(s) {
 		console.log("error" + s);
-		callback&&callback(500);
+		callback && callback(500);
 	}, {
 		filename: "_doc/head.jpg"
 	})
@@ -366,14 +367,14 @@ function getImage(dom, cameraIndex, callback) {
  * @param {object} dom 上传节点
  */
 function galleryImg(dom) {
-	plus.gallery.pick(function (a) {
-		plus.io.resolveLocalFileSystemURL(a, function (entry) {
+	plus.gallery.pick(function(a) {
+		plus.io.resolveLocalFileSystemURL(a, function(entry) {
 			//entry为图片原目录（相册）的句柄
 			upImg(entry.toLocalURL(), dom);
-		}, function (e) {
+		}, function(e) {
 			console.log("读取图片错误：" + e.message);
 		});
-	}, function (a) { }, {
+	}, function(a) {}, {
 		filter: "image"
 	})
 }
@@ -384,13 +385,13 @@ function compressImage(imgUrl, dom, callback) {
 	plus.nativeUI.showWaiting();
 	// console.log(imgUrl);
 	plus.zip.compressImage({
-		src: imgUrl,
-		dst: imgUrl,
-		quality: 20,
-		overwrite: true,
-		width: '80%'
-	},
-		function (i) {
+			src: imgUrl,
+			dst: imgUrl,
+			quality: 20,
+			overwrite: true,
+			width: '80%'
+		},
+		function(i) {
 			plus.nativeUI.closeWaiting();
 			console.log("压缩图片成功：" + JSON.stringify(i));
 			imgUrlY = i.target
@@ -398,7 +399,7 @@ function compressImage(imgUrl, dom, callback) {
 			upImg(imgUrlY, dom, callback);
 			return
 		},
-		function (e) {
+		function(e) {
 			plus.nativeUI.closeWaiting();
 			console.log("压缩图片失败: " + JSON.stringify(e));
 
@@ -413,9 +414,9 @@ function upImg(event, dom, callback) {
 	var wt = plus.nativeUI.showWaiting("上传中...");
 	// console.log(event);
 	var uploaderDown = plus.uploader.createUpload(server, {
-		method: "post"
-	},
-		function (t, status) {
+			method: "post"
+		},
+		function(t, status) {
 			console.log(status)
 			if (status == 200) {
 				// 插入已选择节点
@@ -439,8 +440,10 @@ function upImg(event, dom, callback) {
 							"data-imgId": t.responseText
 						});
 						dom.append($("<img data-upImg='1' data-imgId=" + t.responseText + " src=" + requserTempUpImg + resultData + ">"));
-						dom.find("img").load(function () {
-							dom.css({ "background": "#F4F8FE" });
+						dom.find("img").load(function() {
+							dom.css({
+								"background": "#F4F8FE"
+							});
 							wt.close();
 						});
 						if (callback) {
@@ -491,11 +494,11 @@ function touchSlide(parentDom, callback) {
 	var parentDomWidth = parentDom.width();
 	var slideDom = parentDom.find(".fa-angle-double-right");
 	//手指接触屏幕
-	slideDom.on("touchstart", function (e) {
+	slideDom.on("touchstart", function(e) {
 		startx = e.originalEvent.targetTouches[0].pageX;
 		$(this).css("left", -450);
 	});
-	slideDom.on("touchmove", function (e) {
+	slideDom.on("touchmove", function(e) {
 		startx = e.originalEvent.targetTouches[0].pageX;
 		if (startx <= 0) {
 			startx = 0;
@@ -505,14 +508,18 @@ function touchSlide(parentDom, callback) {
 		}
 		$(this).css("left", startx - 450);
 	});
-	slideDom.on("touchend", function (e) {
+	slideDom.on("touchend", function(e) {
 		if (startx == parentDomWidth - 50) {
 			if (slideDom.siblings("span").hasClass("startDriver")) {
-				parentDom.css({ "width": "75%" });
+				parentDom.css({
+					"width": "75%"
+				});
 				parentDom.find(".fa-angle-double-right").css("display", "none");
 				parentDom.find("span").text("绘制起始线路");
 				$("#home .returnHome").css("display", "block");
-				$("#driverInput").animate({ "left": "4%" }, 'fast');
+				$("#driverInput").animate({
+					"left": "4%"
+				}, 'fast');
 			} else if (slideDom.siblings("span").hasClass("endDriver")) {
 				console.log("同城结束");
 			}
@@ -533,45 +540,49 @@ function touchSlide(parentDom, callback) {
  * @param { string } money 订单参数
  * @param { string } userSessionId 用户会话ID
  */
-function payFun(mui, url, dataBase, sessionId, callback) {
+function payFun(mui, url, dataBase, callback) {
+	console.log(JSON.stringify(url) + '路径')
+	console.log(JSON.stringify(dataBase) + '沧桑')
 	var payWaiting = plus.nativeUI.showWaiting("支付中...");
 	// 1.获取支付通道  
 	var channel = null;
-	plus.payment.getChannels(function (channels) {
+	plus.payment.getChannels(function(channels) {
 		for (var i = 0; i < channels.length; i++) {
 			if (channels[i].id == 'wxpay') {
 				channel = channels[i];
 			}
 		}
 		// mui.toast("使用支付方式：" + channel.id);
-	}, function (e) {
+	}, function(e) {
 		mui.toast("获取支付通道失败！");
 	});
 	// 2.发起支付参数请求
-	var WXPAYSERVER = url + "/recharge/rechargerOrder"; //微信支付url地址接口
+	var WXPAYSERVER = url + "/wxPay/unifiedOrder"; //微信支付url地址接口
 	mui.ajax(WXPAYSERVER, {
 		data: dataBase,
 		headers: {
-			'AuthorizationKey': sessionId
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
 		},
 		type: 'post',
-		success: function (data) {
+		success: function(data) {
 			// 获取支付参数成功回调地址
 			console.log("支付参数：" + JSON.stringify(data));
-			if (data.code == 0 && data.msg == 'success') {
-				var moneyDataBase = JSON.stringify(data.obj);
-				plus.payment.request(channel, moneyDataBase, function (data) {
-					callback && callback(data);
-				}, function (error) {
-					console.log("支付失败：" + JSON.stringify(error));
-					console.log(JSON.stringify(error));
-				});
-			}
+		// 	if (data.code == 0 && data.msg == 'success') {
+		// 		var moneyDataBase = JSON.stringify(data.obj);
+		// 		plus.payment.request(channel, moneyDataBase, function(data) {
+		// 			callback && callback(data);
+		// 		}, function(error) {
+		// 			console.log("支付失败：" + JSON.stringify(error));
+		// 			console.log(JSON.stringify(error));
+		// 		});
+		// 	}
+		
 		},
-		error: function (e) {
+		error: function(e) {
 			mui.toast("获取支付参数失败！");
 		},
-		complete: function () {
+		complete: function() {
 			payWaiting.close();
 		}
 	});
@@ -604,9 +615,9 @@ function appendHtml(str, dom, attr, val) {
  *  @param {object} share 分享平台
  * 	@param {object} ex 	 平台标识
  * */
-function shareMessage(share, ex, shareJson, userId, lineEndId) {
-	var shareTitle = shareJson.title;//分享标题
-	var shareContent = shareJson.desc;//分享简介
+function shareMessage(share, ex, shareJson, shareKeyword, lineEndId) {
+	var shareTitle = shareJson.title; //分享标题
+	var shareContent = shareJson.desc; //分享简介
 	// console.log("分享简介："+shareContent);
 	if (shareContent.length > 30) {
 		var shareContentReg = shareContent.substr(0, 30) + "...";
@@ -619,19 +630,20 @@ function shareMessage(share, ex, shareJson, userId, lineEndId) {
 		}
 	};
 	if (lineEndId && lineEndId[0] != 'lineEnd') {
-		msg.href = "http://49.232.97.190:8080" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + "";//分享地址
+		msg.href = "http://49.232.97.190/share" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
 	} else {
-		msg.href = "http://49.232.97.190:8080" + "/web/appShare/goRegister?shareId=" + userId + "";//分享地址
+		msg.href = "http://49.232.97.190/share" + "/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
+			""; //分享地址
 	}
 	msg.title = shareTitle;
 	msg.content = shareContentReg;
-	msg.thumbs = ["../img/share_logo.png"];//链接图片1张
-	share.send(msg, function () {
+	msg.thumbs = ["../img/share_logo.png"]; //链接图片1张
+	share.send(msg, function() {
 		// mui.toast("分享成功");
 		// console.log(JSON.stringify(share));
-		console.log("分享到\""+share.description+"\"成功!");
+		console.log("分享到\"" + share.description + "\"成功!");
 		// $$.toast("分享到\"" + share.description + "\"成功！ ");
-	}, function (e) {
+	}, function(e) {
 		// mui.toast("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
 		mui.toast("请查看是否安装微信并且已登录")
 	});
@@ -643,8 +655,8 @@ function shareMessage(share, ex, shareJson, userId, lineEndId) {
  * */
 function xfSpeech(str) {
 	var reg = /\d{4}/g;
-	if(reg.test(str)){
-		str  = str.split('');
+	if (reg.test(str)) {
+		str = str.split('');
 		// console.log(str);
 		str = str.join(' ');
 	}
@@ -684,13 +696,15 @@ function xfSpeech(str) {
  * */
 function bdSpeech() {
 	var tokenUrl = "https://openapi.baidu.com/oauth/2.0/token";
-	var client_id = "API Key";//此处为申请的API Key;
-	var client_secret = "Secret Key";//此处为申请的Secret Key;
+	var client_id = "API Key"; //此处为申请的API Key;
+	var client_secret = "Secret Key"; //此处为申请的Secret Key;
 	var access_token;
 	var data = "grant_type=client_credentials&client_id=" + client_id + "&client_secret=" + client_secret;
-	var p = document.createElement("audio");//创建一个潜在的audio播放器
+	var p = document.createElement("audio"); //创建一个潜在的audio播放器
 	var text = '这是一段要转成语音播放的文字，请认真翻译，翻译错了，不好意思，打死你。嘿嘿';
-	var a = 0, b = 0, c = 0;
+	var a = 0,
+		b = 0,
+		c = 0;
 	var contentArray = new Array();
 	if (text.length / 500 >= 0) {
 		for (var i = 0; i < tex.length / 500; i++) {
@@ -705,20 +719,20 @@ function bdSpeech() {
 		url: tokenUrl,
 		data: data,
 		async: true,
-		success: function (resp) {
+		success: function(resp) {
 			if (resp.access_token) {
 				access_token = resp.access_token;
 				var shibieUrl = "http://tsn.baidu.com/text2audio";
 				tex = encodeURI(encodeURI(contentArray[0]));
-				var data = "tex=" + tex + "&tok=" + access_token + "&cuid=00:00:00:00:00:00&ctp=1&lan=zh&spd=5&pit=5&vol=5&per=0&aue=3";
+				var data = "tex=" + tex + "&tok=" + access_token +
+					"&cuid=00:00:00:00:00:00&ctp=1&lan=zh&spd=5&pit=5&vol=5&per=0&aue=3";
 				p.controls = "controls";
 				p.src = shibieUrl + "?" + data;
 				p.play();
 				c++;
-			} else {
-			}
+			} else {}
 		},
-		error: function (error) {
+		error: function(error) {
 
 		}
 	});
@@ -749,7 +763,7 @@ function toTargetPage(targetId) {
 		if (opener == target) {
 			//获取到目标页面
 			target.reload();
-			pages.map(function (page) {
+			pages.map(function(page) {
 				page.close();
 			});
 			return;
@@ -805,7 +819,8 @@ function toCurrentPage() {
 
 // 判断IOS 还是苹果
 function IOSAnd() {
-	var u = navigator.userAgent, app = navigator.appVersion;
+	var u = navigator.userAgent,
+		app = navigator.appVersion;
 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
 	var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 	if (isAndroid) {
@@ -816,16 +831,16 @@ function IOSAnd() {
 	}
 }
 // 设置应用保持唤醒（屏幕常亮）状态
-function setWakelock(){
+function setWakelock() {
 	plus.device.setWakelock(true);
 }
 // 关闭应用保持唤醒（屏幕常亮）状态
-function closeWakelock(){
+function closeWakelock() {
 	plus.device.setWakelock(false);
 }
 
 // 到登录页面
-function gotoLoginIn(){
+function gotoLoginIn() {
 	clearStorage();
 	mui.openWindow({
 		url: "../login.html",
@@ -835,3 +850,22 @@ function gotoLoginIn(){
 		}
 	});
 }
+
+/**
+ * 跳转到首页
+ * 参数默认为0(首页tab bar 的第一个子页面)
+ * */
+function toIndex(i) {
+	//设置默认值为0
+	var i = i || 0;
+	var idArr = ["homePage", "category", "shopCart", "personalCenter"];
+
+	var main = plus.webview.getLaunchWebview();
+	//var main = plus.webview.getWebviewById("main"); //这里可能返回空；详见官方文档说明
+	//显示首页
+	//console.log("应用首页,并且切换到对应的选项卡=" + i);
+	mui.fire(main, 'tabSwith', {
+		id: idArr[i]
+	});
+	main.show();
+};

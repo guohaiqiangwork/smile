@@ -16,15 +16,15 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<script src="../js/rem_reset.js"></script>
-		
-		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css"/>
+
+		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css" />
 	</head>
 	<body>
 		<header class="header_white title">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
 			余额提现
 		</header>
-		
+
 		<div style="height: 65px;"></div>
 
 		<div id="balanceBody_id">
@@ -32,40 +32,43 @@
 				<li class="li_one">
 					<div>到账银行卡</div>
 					<div class="li_one_div">
-						<i></i>
-						<div style="color: #303030;margin-top: 15px;">工商银行 (3202)</div>
-						<div style="color: #A0A0A0;margin-left: 15px;">2小时内到账</div>
 					</div>
 					<div class="li_two_div">
 						<i class="fa fa-angle-right"></i>
 					</div>
 				</li>
-				
+
 				<li class="li_two">
 					<span>提现金额</span>
 				</li>
 				<li class="li_three">
 					<span>￥</span>
-					<span>100</span>
+					<span>
+						<input type="number" id="balbnce_money" />
+					</span>
 				</li>
 				<li class="li_four">
-					<span> 余额￥3142.51</span>
-					<span> 全部提现</span>
+					<span> 余额￥
+						<span id="li_four_money">
+
+						</span>
+					</span>
+					<span id="allBalance"> 全部提现</span>
 				</li>
 				<li class="li_five">
 					<span>提现</span>
 				</li>
 			</ul>
 		</div>
-		
-		
-		
+
+
+
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/requestFun.js"></script>
 	<script src="../js/commonFun.js" type="text/javascript"></script>
-	
+
 	<script>
 		(function($, doc, $$) {
 			$$.init();
@@ -85,8 +88,81 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-			
-				$(".li_two_div").on('tap',function(){
+
+				getBankFindAll(mui, plus.storage.getItem('memberId'), function(data) {
+					console.log("银行卡信息==" + JSON.stringify(data))
+					if (data.code == 200) {
+						if (data.data.length > 0) {
+							var fragmentplanList = document.createDocumentFragment();
+							// 银行卡
+							var bankCard = data.data[0].bankCard.substr(-4);
+							console.log(JSON.stringify(data.data[0]))
+							switch (data.data[0].bankCode) {
+								case 'ICBC':
+									data.data[0].bankBColor = 'bank_bgColor_zgp'
+									data.data[0].imgUrl = '../image/bank/gsy.png';
+									break;
+								case 'ABC':
+									data.data[0].bankBColor = 'bank_bgColor_ny'
+									data.data[0].imgUrl = '../image/bank/nyy.png';
+									break;
+								case 'CBC':
+									data.data[0].bankBColor = 'bank_bgColor_jj'
+									data.data[0].imgUrl = '../image/bank/jsy.png';
+									break;
+								case 'BC':
+									data.data[0].bankBColor = 'bank_bgColor_zgp'
+									data.data[0].imgUrl = '../image/bank/zgy.png';
+									break;
+								case 'COMM':
+									data.data[0].bankBColor = 'bank_bgColor_jj'
+									data.data[0].imgUrl = '../image/bank/jty.png';
+									break;
+								case 'SPDB':
+									data.data[0].bankBColor = 'bank_bgColor_zgp'
+									data.data[0].imgUrl = '../image/bank/qty.png';
+									break;
+								default:
+									data.data[0].bankBColor = 'bank_bgColor_zgp'
+									data.data[0].imgUrl = '../image/bank/qty.png';
+									break;
+							}
+
+							var orderLi = '<div class="bankCardClass" bankCard_Id = ' + data.data[0].id +
+								' style="width: 3rem;height: 0.9rem;"><img src="' + data.data[0].imgUrl +
+								'" style="width: 0.27rem;"><span style="color: #303030;font-size: 0.24rem;">' + data.data[0].bankName + ' (' +
+								bankCard + ')</span></div><div style="color: #A0A0A0;">2小时内到账</div>';
+							$(fragmentplanList).append(orderLi);
+							$(".li_one_div").append($(fragmentplanList));
+						}
+					} else {
+						tipShow(data.message)
+					}
+				});
+
+				/* 获取用户余额 */
+				getUserMoney(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						$("#li_four_money").text(data.data.balance);
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					} else {
+						tipShow(data.message)
+					}
+				});
+				/* 子页面调用父页面方法 */
+				window.addEventListener('switchBankCard', function(event) {
+					$(".li_one_div").html("")
+					var fragmentplanList = document.createDocumentFragment();
+					var orderLi = '<div class="bankCardClass" bankCard_Id = ' + event.detail.bankCardIdC +
+						' style="width: 3rem;height: 0.9rem;"><img src="' + event.detail.imgUrl +
+						'" style="width: 0.27rem;"><span style="color: #303030;font-size: 0.24rem;">' + event.detail.bankName + ' (' +
+						event.detail.bankCard + ')</span></div><div style="color: #A0A0A0;">2小时内到账</div>';
+					$(fragmentplanList).append(orderLi);
+					$(".li_one_div").append($(fragmentplanList));
+				});
+				// 更换银行卡
+				$(".li_two_div").on('tap', function() {
 					$$.openWindow({
 						url: 'bankCard.html',
 						id: 'bankCard',
@@ -94,11 +170,57 @@
 							aniShow: "slide-in-right"
 						}
 					});
-				})
-				
+				});
+
+				/* 提现点击事件 */
+				$(".li_five").on("tap", function() {
+					var balbnce_money = $("#balbnce_money").val().replace(/\s*/g, "");
+					if (Number(balbnce_money) < 10) {
+						tipShow("提现金额必须大于10元");
+					} else {
+						if (!balbnce_money) {
+							tipShow("请输入提现金额");
+						} else {
+							if (balbnce_money > $("#li_four_money").text()) {
+								tipShow("提现金额超出余额了");
+								$("#balbnce_money").val("")
+							} else {
+								var bankCard_Id = $(this).siblings(".li_one").children(".li_one_div").children(".bankCardClass").attr(
+									"bankCard_Id");
+								var dataBase = {
+									amount: balbnce_money,
+									bankId: bankCard_Id,
+									memberId: plus.storage.getItem('memberId'),
+								}
+								reflectBank(mui, dataBase, function(data) {
+									if (data.code == 200) {
+										var bankCIDD = data.data
+										$$.openWindow({
+											url: 'carryResult.html',
+											id: 'carryResult',
+											extras: {
+												"bankCId": bankCIDD
+											},
+											show: {
+												aniShow: "slide-in-right"
+											}
+										});
+									} else {
+										tipShow(data.message);
+									}
+								});
+							}
+						}
+					}
+				});
+
+				/* 全部提现点击事件 */
+				$("#allBalance").on("tap", function() {
+					$("#balbnce_money").val($("#li_four_money").text());
+				});
+
 			}
 		})(jQuery, document, mui);
 	</script>
 
 </html>
-

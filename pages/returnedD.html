@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>退换货</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/pages/returned.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+
+	<body onselectstart="return false;" style="background-color: #FAFAFA;">
+		<header class="header_white title">
+			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
+			退换货详情
+		</header>
+		<div class="margin_top10">
+			<div class="model_product_D">
+				<div class="model_product_DDiv">
+					<!-- 上半部分 -->
+					<div class="" id="topList" style="background-color: #FFFFFF;">
+						<!-- <div class="model_product_Dup">
+							<div class="margin_left3" style="width: 2rem;">
+								<img src="../image/mu.jpg" style="width: 1.4rem;height: 1.4rem;">
+							</div>
+							<div class="margin_left2" style="width: 4.5rem;">
+								<div class="font_size32 font_color33">
+									每日维C-奇异果口味
+								</div>
+								<div class="div_display font_size28 font_color99">
+									<div class="width60">
+										规格: 450g/袋
+									</div>
+									<div class="width50 text_right">
+										*1
+									</div>
+								</div>
+								<div class="font_colorf4 font_size26">
+									¥45.90
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<!-- 下半部分 -->
+					<div class="model_product_Ddown">
+						<!-- <div class="div_display margin_top2">
+							<div class="font_width700">
+								订单编号：
+							</div>
+							<div class="">
+								580683055038291001
+							</div>
+						</div>
+						
+						<div class="div_display margin_top2">
+							<div class="font_width700">
+								快递单号：
+							</div>
+							<div class=" ">
+								580683055038291001
+							</div>
+						</div>
+						<div class="div_display margin_top2">
+							<div class=" font_width700">
+								退款时间：
+							</div>
+							<div class="">
+								2019-12-04 13:45:44
+							</div>
+						</div>
+						<div class="div_display margin_top2">
+							<div class="font_width700">
+								退款金额：
+							</div>
+							<div class="">
+								￥45.90
+							</div>
+						</div>
+					 -->
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				keywords = {
+					pageNum: 1,
+					pageSize: 10,
+					data: {
+						status: '',
+						memberId: plus.storage.getItem('memberId') || '',
+						orderId: _self.orderId
+					}
+				}
+				getApplyRecordList(); //获取详情
+			};
+			// 获取申请记录
+			function getApplyRecordList() {
+				getApplyRecord(mui, keywords, function(data) {
+					console.log(JSON.stringify(data))
+					if (data.code == 200) {
+						var fragmentplanListTwo = document.createDocumentFragment();
+						$.each(data.data.records, function(items) {
+							$.each(data.data.records[items].returnItemList, function(item) {
+								// alert(data.data.records[items].returnItemList[item].num)
+								var detailList =
+									'<div class="model_product_Dup">' +
+									'<div class="margin_left3" style="width: 2rem;">' +
+									'  <img src = "' + data.data.records[items].returnItemList[item].picPath +
+									'"  style="width: 1.4rem;height: 1.4rem;"> ' +
+									'</div>' +
+									'<div class="margin_left2" style="width: 4.5rem;">' +
+									'<div class="font_size32 font_color33">' +
+									data.data.records[items].returnItemList[item].title +
+									'</div>' +
+									'<div class="div_display font_size28 font_color99">' +
+									'<div class="width50">规格:' +
+									data.data.records[items].returnItemList[item].skuName +
+									'</div>' +
+									'<div class="width50 text_right">*' +
+									data.data.records[items].returnItemList[item].num +
+									'</div>' +
+									'</div>' +
+									'<div class="font_colorf4 font_size26">¥' +
+									data.data.records[items].returnItemList[item].price +
+									'</div>' +
+									'</div>' +
+									'</div>';
+								$(fragmentplanListTwo).append(detailList);
+							})
+							// 待审核
+							if (data.data.records[items].retStatus == 1 && data.data.records[items].retStatus == 2) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+								// 3-5 
+							} else if (data.data.records[items].applyServer == 2 || data.data.records[items].applyServer == 4) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'未通过原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].remark + '</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+								// 4-6retStatus
+							} else if (data.data.records[items].applyServer == 1 || data.data.records[items].applyServer == 3) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].remark + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款金额:' +
+									'</div>' +
+									'<div class="margin_left2">¥' +
+									data.data.records[items].actualAmount + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款路径:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									'原路退回</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							}
+							$("#topList").append($(fragmentplanListTwo));
+						})
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					}
+
+				})
+			};
+
+
+		})(jQuery, document, mui);
+	</script>
+
+</html>

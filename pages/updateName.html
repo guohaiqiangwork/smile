@@ -10,15 +10,15 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<script src="../js/rem_reset.js"></script>
-		
-		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css"/>
+
+		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css" />
 	</head>
 	<body onselectstart="return false">
 		<header class="header_white title">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i class="mui-action-back" style="touch-action: none;"><img src="../image/left@2x.png" style="width: .22rem;height: .39rem;"></i>
 			设置用户名
 		</header>
-		
+
 		<div class="content">
 			<input id='result' type="text" placeholder="请输入喜爱的用户名">
 			<div>
@@ -34,7 +34,7 @@
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/requestFun.js"></script>
 	<script src="../js/commonFun.js" type="text/javascript"></script>
-	
+
 	<script>
 		(function($, doc, $$) {
 			$$.init();
@@ -54,46 +54,50 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				
+
 				/* 接收传过来的用户名，并且赋值 */
 				var result = doc.getElementById("result");
 				result.value = _self.namepara;
 				var id = _self.idPara;
-				if(!id){
+				if (!id) {
 					tipShow("缺少用户id");
 				}
-				
+
 				var insertName = doc.getElementById('insertName');
 				insertName.addEventListener('tap', function(event) {
-					if(result.value.length > 16){
+					var reg = /[^\a-\z\A-\Z0-9\u4E00-\u9FA5\@\.]/g;
+					if (reg.test(result.value)) {
+						tipShow("不允许输入特殊字符");
+						return
+					} else if (result.value.length > 16) {
 						tipShow("不能大于16位");
-					}else if(result.value === _self.namepara){
+					} else if (result.value === _self.namepara) {
 						tipShow("请修改后提交");
-					}else{
+					} else {
 						if (plus.storage.getItem('Token')) {
 							var dataBase = {
-								name: result.value.replace(/\s*/g,""),
+								nickname: result.value.replace(/\s*/g, ""),
 								id: id,
 							};
 							updateName(mui, dataBase, function(data) {
-							    if (data.code == 200) {
+								if (data.code == 200) {
 									mui.alert('保存成功！', '提示', function() {
 										plus.nativeUI.closeWaiting();
 										mui.back();
-									    var list = plus.webview.currentWebview().opener();　
-									    mui.fire(list, 'refreshMajorGuestCount');
+										var list = plus.webview.currentWebview().opener();
+										mui.fire(list, 'refreshMajorGuestCount');
 									});
 
-							    } else {
-							        tipShow(data.message);
-							    }
+								} else {
+									tipShow(data.message);
+								}
 							})
-						}else{
+						} else {
 							tipShow("您还没有登录");
 						}
 					}
 				}, false);
-				
+
 				/* $$.fire(plus.webview.getWebviewById('pSetting.html'), "aaa"); */
 			}
 		})(jQuery, document, mui);

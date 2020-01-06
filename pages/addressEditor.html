@@ -14,12 +14,19 @@
 		<link rel="stylesheet" href="../css/pages/myAddress.css" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
 		<script src="../js/rem_reset.js"></script>
+		
+		<style type="text/css">
+			.mui-switch-blue.mui-active {
+			    border: 2px solid #FF342D;
+			    background: linear-gradient(to right, #FF342D, #FF5882);
+			}
+		</style>
 	</head>
 
 	<body onselectstart="return false;">
 		<header class="header_white">
 			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
-			收货地址
+			<span class="addressType">收货地址</span>
 		</header>
 		<div class="content">
 			<div id="addressEditor">
@@ -39,7 +46,8 @@
 					<div class="_left">所在地区</div>
 					<div class="_right">
 						<div class="div_display">
-							<input type="text" placeholder="" id="address" disabled="disabled">
+							<div class="font_size30 margin_top2" id="address"></div>
+							<!-- <input type="text" placeholder="" id="address" disabled="disabled"> -->
 							<img id='showCityPicker3' src="../image/icon_down_up.png" style="position: absolute;float: left;right: .3rem; width: 11%;">
 						</div>
 
@@ -108,7 +116,23 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				//alert(_self.typeVal)
+				if(_self.typeVal == "编辑"){
+					$(".addressType").text("编辑收货地址");
+				}else{
+					$(".addressType").text("添加收货地址");
+				}
+				
 				_self.addressfalgId = 2
+				
+				
+				//手机键盘隐藏(简单粗暴版)
+				$('body').on('touchend', function(el) {
+					if(el.target.tagName != 'INPUT') {
+						$('input').blur()
+					}
+				});
+				
 				if (_self.addressId) {
 					$('#delete').css('display', 'block')
 					getAddressD(mui, _self.addressId, function(data) {
@@ -121,7 +145,7 @@
 							_self.addressfalgId = data.data.isDefault;
 							$('#name').val(data.data.receiver)
 							$('#phone').val(data.data.mobile)
-							$('#address').val(data.data.province + ',' + data.data.city + ',' + data.data.area)
+							$('#address').text(data.data.province + ',' + data.data.city + ',' + data.data.area)
 							$('#addressD').val(data.data.address)
 						} else if (data.code == 401 || data.code == 1500) {
 							gotoLoginIn()
@@ -151,7 +175,7 @@
 					} else if (!(/^1[3456789]\d{9}$/.test($('#phone').val()))) {
 						tipShow('请检查你的手机号')
 						return
-					} else if (!$('#address').val()) {
+					} else if (!$('#address').text()) {
 						tipShow('请检查你的地区')
 						return
 					} else if (!$('#addressD').val()) {
@@ -162,7 +186,7 @@
 
 					// 判断是新增还是修改
 					if (_self.addressId) {
-						var str = $('#address').val(); //这是一字符串
+						var str = $('#address').text(); //这是一字符串
 						var strs = new Array(); //定义一数组
 						strs = str.split(","); //字符分
 						var keyword = {
@@ -192,7 +216,7 @@
 						});
 
 					} else {
-						var str = $('#address').val(); //这是一字符串
+						var str = $('#address').text(); //这是一字符串
 						var strs = new Array(); //定义一数组
 						strs = str.split(","); //字符分
 						var keyword = {
@@ -262,7 +286,7 @@
 						if (items[2].text == undefined) {
 							items[2].text = ''
 						}
-						cityAddress.value = items[0].text + ',' + items[1].text + ',' + items[2].text;
+						cityAddress.innerHTML = items[0].text + ',' + items[1].text + ',' + items[2].text;
 						//返回 false 可以阻止选择框的关闭
 						//return false;
 					});

@@ -38,7 +38,18 @@
 		2-20 orderDetails	订单详情
 		2-12 orderLogistics	物流信息
 		2-20 setPassword    设置提现密码
+		2-21 newsPage       消息展示页
+		2-22 personalCenter	退换货
+		2-23 returnedDetails 退换货详情
+		2-24 activity		活动页面
+		2-25 serviceAgreement 服务协议
+		2-26 merchantInformation 商家信息
+		2-27 Privacy		隐私政策
+		2-28 carryResult 	提现结果页面
 	3.公共页面目录 views 
+		3-1 more             首页底部———更多显示页
+		3-2 searchPage       首页——搜索页
+		3-3 searchPageValue  首页——搜索后——搜索显示页
 		
 	4.入口页index.html (为主窗口) 
 	5.登录页 longin.html

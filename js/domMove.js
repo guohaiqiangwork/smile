@@ -14,26 +14,27 @@
 	    });
 	    oDiv.addEventListener('touchmove', function (e) {
 	        flag = 1;
-	        L = e.touches[0].clientX - disX;
+	        // L = e.touches[0].clientX - disX;
 	        T = e.touches[0].clientY - disY;
 	        //移动时 当前位置与起始位置之间的差值
-	        starXEnd = e.touches[0].clientX - starX;
+	        // starXEnd = e.touches[0].clientX - starX;
 	        starYEnd = e.touches[0].clientY - starY;
-	        //console.log(L);
-	        if (L < 0) {//限制拖拽的X范围，不能拖出屏幕
-	            L = 0;
-	        } else if (L > document.documentElement.clientWidth - this.offsetWidth) {
-	            L = document.documentElement.clientWidth - this.offsetWidth;
-	        }
+	        console.log(L);
+			
+	        // if (L < 0) {//限制拖拽的X范围，不能拖出屏幕
+	        //     L = 0;
+	        // } else if (L > document.documentElement.clientWidth - this.offsetWidth) {
+	        //     L = document.documentElement.clientWidth - this.offsetWidth;
+	        // }
 	        if (T < 0) {//限制拖拽的Y范围，不能拖出屏幕
 	            T = 0;
 	        } else if (T > document.documentElement.clientHeight - this.offsetHeight) {
 	            T = document.documentElement.clientHeight - this.offsetHeight;
 	        }
-	        moveX = L + 'px';
+	        // moveX = L + 'px';
 	        moveY = T + 'px';
 	        //console.log(moveX);
-	        this.style.left = moveX;
+	        // this.style.left = moveX;
 	        this.style.top = moveY;
 	    });
 	};

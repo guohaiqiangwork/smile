@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/shopCart.css" />
+		<style>
+			.mui-numbox {
+			    position: relative;
+			    display: inline-block;
+			    overflow: hidden;
+			    width: 2.5rem;
+			    height: .45rem;
+			    padding: 0 !important;
+			    vertical-align: top;
+			    vertical-align: middle;
+			    border: none!important;
+			    border-radius: 3px;
+			    background-color: #F4F4F4;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+				background: linear-gradient(to right, #FF342D, #FF5882);
+				-webkit-background-clip: text;
+				color: transparent;
+			}
+		</style>
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<div class="div_display">
+				<div class="font_size36 font_color99" style="margin-left: 3rem;">
+					购物车
+				</div>
+				<div class="font_size30 font_color08" style="margin-left: 2.5rem;">
+					编辑
+				</div>
+			</div>
+		</header>
+		<div class="content" style="margin-top: 1rem;">
+			<!-- 商品块 -->
+			<div class="" id="shopList">
+				
+			</div>
+
+			<!-- 失效商品 -->
+			<div class="nvalid">
+				<div>失效</div>
+				<div>失效商品</div>
+			</div>
+			
+			<div class="shopListTwo" style="margin-bottom: 1.5rem;">
+				
+			</div>
+
+
+
+			<!-- 底部操作栏结算 -->
+			<div class="div_display bootom_title">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input id="checkboxAll" value="Item 2" type="checkbox">
+					</div>
+				</div>
+				<div class="bootom_price">
+					合计：<span class="bootom_price_font"> ¥ <span class="totalPrice">0</span> </span>
+					<div style="color: #999999;font-size: .18rem;margin-left: 1rem;">
+						（含运费）
+					</div>
+				</div>
+				<div class="bootom_right">
+					<div class="bootom_right_width">去结算
+						<span class="totalNumF" style="display:none"> <span>（</span><span class="totalNum">0</span> <span>）</span></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 编辑 -->
+			<div class="div_display bootom_title" style="display: none;">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input name="checkbox2" value="Item 2" type="checkbox">
+					</div>
+				</div>
+
+				<div class="bootom_editor bootom_editor_border">
+					取消操作
+				</div>
+				<div class="bootom_editor bootom_editor_border1">
+					确认删除
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				//请求购物车列表数据  有效
+				cartList(mui,plus.storage.getItem('memberId'),function(data){
+					if (data.code == 200) {
+						var keywordData = data.data;
+						var fragmentplanList = document.createDocumentFragment();
+						$.each(keywordData, function(index) {
+							var orderLi =
+								'<div class="shopCart_moudel div_display">' +
+								'<div class="shopCart_moudel_left">' +
+								'<div class="mui-checkbox">' +
+								'<input data-Params="0" name="commodity"  value=' + keywordData[index] +
+								' type="checkbox" class="res" data-price=' + keywordData[index].price + ' data-index=' + [index] +
+								' style="margin-top: 1rem;padding-left: .2rem;">' +
+								'</div>' +
+								'</div>' +
+								'<div class="shopCart_moudel_right">' +
+								'<div class="div_display">' +
+								'<div class="shopCart_img">' +
+								'<img src="' + keywordData[index].picture + '" class="shopCart_img_width">' +
+								'</div>' +
+								'<div class="shopCart_product">' +
+								'<div class="shopCart_product_title">' +
+								keywordData[index].goodsName +
+								'</div>' +
+								'<div class="shopCart_product_g">' +
+								keywordData[index].pecificationName +
+								'</div>' +
+								'<div class="div_display">' +
+								'<div class="shopCart_price">￥' +
+								keywordData[index].price +
+								'</div>' +
+								'<div class="shopCart_number" id="data ' + index + ' ">' +
+								'<div class="mui-numbox num-btn" data-numbox-step="1" data-numbox-min="1" data-numbox-max="99" id="box ' +
+								index + '" >' +
+								//"-"按钮，点击可减小当前数值																		
+								'<button class="mui-btn mui-numbox-btn-minus" type="button" data-price=' + keywordData[index].price +
+								' >-</button>' +
+								'<input data-num=' + keywordData[index].num + ' class="mui-numbox-input" type="number" value="' + keywordData[index].num +
+								'" />' +
+								//"+"按钮，点击可增大当前数值
+								'<button class="mui-btn mui-numbox-btn-plus" type="button" data-price=' + keywordData[index].price +
+								'>+</button>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>';
+							$(fragmentplanList).append(orderLi);
+						});
+						$("#shopList").append($(fragmentplanList));
+					} else {
+						tipShow(data.message);
+					}
+				});
+				
+				
+				/* 购物车列表 失效 */
+				cartListNo(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						//console.log("2342---==="+JSON.stringify(data))
+						var fragmentplanListTwo = document.createDocumentFragment();
+						var keywordDataTwo = data.data;
+						$.each(keywordDataTwo, function(index) {
+							var orderLi ='<div class="div_display" style="margin-left: .3rem;">' +
+								'</div>' +
+								'<div class="shopCart_moudel div_display" style="margin-top: .2rem;">' +
+								'<div class="shopCart_moudel_left">' +
+								'<div class="shopCart_Invalid" style="margin-top: 1rem;margin-left: .05rem;">失效' +
+								'</div>' +
+								'</div>' +
+								'<div class="shopCart_moudel_right">' +
+								'<div class="div_display">' +
+								'<div class="shopCart_img">' +
+								'<img src="../image/mu.jpg" class="shopCart_img_width">' +
+								'</div>' +
+								'<div class="shopCart_product font_color99 font_size28">' +
+								'<div class="shopCart_product_title">'+keywordDataTwo[index].goodsName +
+								'</div>' +
+								'<div class="shopCart_product_g">'+keywordDataTwo[index].pecificationName +
+								'</div>' +
+								'<div class="font_size32 font_color33 margin_top2">不好意思，该商品已售罄' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>' +
+								'</div>';
+							
+							$(fragmentplanListTwo).append(orderLi);
+						});
+						
+						$(".shopListTwo").append($(fragmentplanListTwo));
+					} else {
+						tipShow(data.message);
+					}
+				});
+				
+				
+				
+				// 获取复选框的value 值
+				function getRadioRes(className) {
+					var rdsObj = document.getElementsByClassName(className); /*获取值*/
+					/*alert(rdsObj.length);测试一下找到几个节点*/
+					var checkVal = new Array();
+					var k = 0;
+					for (i = 0; i < rdsObj.length; i++) {
+						if (rdsObj[i].checked) {
+							checkVal[k] = rdsObj[i].value;
+							k++;
+						}
+					}
+					return checkVal;
+				}
+				// 全选
+				$("#checkboxAll").click(function() {
+					$('input[name="commodity"]').prop("checked", this.checked);
+					// var res = getRadioRes('res');
+					// res.forEach(e => {
+					// 	alert(keywordData[e])
+					// });
+				});
+				
+				
+				// 单选input[name='commodity']
+				var $checkbox = $("input[name='commodity']");
+				$("#shopList").on("tap","input[name='commodity']",function(){
+					//合计处的数量
+					var totalNum = parseInt($(".totalNum").text());
+					/* 从红点选项找到现在的商品数量--选中行数量 */
+					var redCircle = $(this).parent().parent().next().find("input").attr("data-num");
+					/**
+					 * 0：未选中
+					 * 1：选中
+					 * **/
+					var dataParams = $(this).attr("data-Params");
+					
+					//计算金额
+					var totalPrice = parseInt($(".totalPrice").text());
+					var danPrice = $(this).parent().parent().next().find(".shopCart_price").text();
+					danPrice = danPrice.replace("￥","");
+					
+					if(dataParams == 0){
+						//如果是选中  添加数量
+						$(".totalNum").text(Number(totalNum) + Number(redCircle));
+						$('.totalNumF').show();
+						//合计金额
+						$(".totalPrice").text(Number(totalPrice) + (Number(redCircle) * Number(danPrice)));
+						
+						$(this).attr("data-Params",1);
+					}else{
+						//如果是取消选中
+						$(".totalNum").text(Number(totalNum) - Number(redCircle));
+						//合计金额
+						$(".totalPrice").text(Number(totalPrice) - (Number(redCircle) * Number(danPrice)));
+						$(this).attr("data-Params",0);
+					}
+					
+					
+					if($checkbox.length == $("input[name='commodity']:checked").length){
+						$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
+							false);
+					}else{
+						if(dataParams != 0 && $("#shopList input[name='commodity']:checked").length == 1){
+							//如果取消最后一个选中,取消总选项
+							$("#checkboxAll").prop("checked", false);
+						}else{
+							$("#checkboxAll").prop("checked", $("input[name='commodity']:checked").length > 0 ? true :
+								false);
+						}
+					}
+					
+				});
+				$checkbox.click(function() {
+					alert($(this).attr("data-price"));
+					$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
+						false);
+				});
+				// mui组件 监听加减
+				mui('.mui-numbox').on('tap', '.mui-numbox-btn-minus', function() {
+					alert($(this).attr("data-price"));
+					alert($(this).attr("data-number"));
+				});
+				mui('.mui-numbox').on('tap', '.mui-numbox-btn-plus', function() {
+					alert("222");
+					alert($(this).attr("data-price"));
+				});
+				
+				/* 购物车数量 加 事件*/
+				$("#shopList").on("tap",".mui-numbox-btn-plus",function(){
+					var num = $(this).parent().children("input");
+					num.val(parseInt(num.val()) + 1);
+					$(this).prev().attr("data-num", parseInt($(this).prev().attr("data-num")) + 1)
+					
+					/**当前行是否选中，处理结算处数量
+					 * 
+					 * 0：未选中
+					 * 1：选中
+					 * 
+					 * **/
+					var dataParams = $(this).parents(".shopCart_moudel_right").siblings(".shopCart_moudel_left").find("input").attr("data-Params");
+					if(dataParams == 1){
+						var totalNum = parseInt($(".totalNum").text()) + 1;
+						$(".totalNum").text(totalNum);
+						
+						//合计金额
+						var totalPrice = parseInt($(".totalPrice").text());
+						var danPrice = $(this).parent().parent().prev(".shopCart_price").text();
+						danPrice = danPrice.replace("￥","");
+						if(Number(totalPrice) != 0){
+							$(".totalPrice").text(Number(totalPrice) + Number(danPrice));
+						}
+					}
+				})
+
+				/* 购物车数量 减 事件*/
+				$("#shopList").on("tap",".mui-numbox-btn-minus",function(){
+					var num = $(this).parent().children("input");
+					/* alert(parseInt(num.val())); */
+					if (parseInt(num.val()) > 1) {
+						num.val(parseInt(num.val()) - 1);
+						$(this).next().attr("data-num", parseInt($(this).next().attr("data-num")) - 1);
+						/**当前行是否选中，处理结算处数量
+						 * 
+						 * 0：未选中
+						 * 1：选中
+						 * 
+						 * **/
+						var dataParams = $(this).parents(".shopCart_moudel_right").siblings(".shopCart_moudel_left").find("input").attr("data-Params");
+						if(dataParams == 1){
+							var totalNum = parseInt($(".totalNum").text()) - 1;
+							$(".totalNum").text(totalNum);
+							
+							//合计金额
+							var totalPrice = parseInt($(".totalPrice").text());
+							var danPrice = $(this).parent().parent().prev(".shopCart_price").text();
+							danPrice = danPrice.replace("￥","");
+							if(Number(totalPrice) != 0){
+								$(".totalPrice").text(Number(totalPrice) - Number(danPrice));
+							}
+						}
+					} else {
+						tipShow("最少需要1件商品哦");
+					}
+				})
+
+				// 去订单确认
+				$('.bootom_right_width').on('tap', function() {
+					$$.openWindow({
+						url: '../pages/confirmOrder.html',
+						id: 'confirmOrder',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				})
+
+
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

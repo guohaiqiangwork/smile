@@ -16,27 +16,31 @@
 	</head>
 	<body onselectstart="return false;">	
 		<div class="content">
-				<div class="payResult_img">
-					<img src="../image/mu.jpg" width="100%" height="100%">
-				</div>
+				
 				<!-- 成功 -->
-				<div class="text_center" style="display: none;">
+				<div class="text_center paySucceed" style="display: none;">
+					<div class="payResult_img">
+						<img src="../image/paySure.png" width="100%" height="100%">
+					</div>
 					<div class="pay_Y font_size26 font_color33">
 						支付成功
 					</div>
-					<div class="pay_go_index div_backgroun_jb">
+					<div class="pay_go_index div_backgroun_jb gotoHomePage">
 						去首页逛逛
 					</div>
 				</div>
 				<!-- 失败 -->
-				<div class="text_center" >
+				<div class="text_center payError" >
+					<div class="payResult_img">
+						<img src="../image/payFail.png" width="100%" height="100%">
+					</div>
 					<div class="pay_Y font_size26 font_color33">
 						支付失败
 					</div>
-					<div class="pay_Y font_size26 font_color33">
-						银行卡余额不足
+					<div class="pay_Y font_size26 font_color33 payContent">
+						<!-- 银行卡余额不足 -->
 					</div>
-					<div class="pay_go pay_go_index div_backgroun_jb">
+					<div class="pay_go pay_go_index div_backgroun_jb returnPage">
 						重新支付
 					</div>
 				</div>
@@ -67,14 +71,32 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				var payParams = _self.payParams;
+				//alert("支付信息="+payParams);
+				if(payParams == "成功"){
+					$(".paySucceed").css("display", "block");
+					$(".payError").css("display", "none");
+				}else{
+					$(".paySucceed").css("display", "none");
+					$(".payError").css("display", "block");
+					$(".payContent").text(payParams);
+				}
+				
 			}
 			// 去首页
-			$('.pay_go_index').on('tap',function(){
-				plus.webview.currentWebview().close();
+			$('.gotoHomePage').on('tap',function(){
+				toIndex(0);
+				/* $$.openWindow({
+					url: '../index.html',
+					id: 'index',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				}); */
 			})
 			// 重新支付
-			$('.pay_go').on('tap',function(){
-				
+			$('.returnPage').on('tap',function(){
+				plus.webview.currentWebview().close();
 			})
 		})(jQuery, document, mui);
 	</script>

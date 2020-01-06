@@ -101,13 +101,11 @@
 }
 
 .bottom_btn {
-	height: .8rem;
+	height: 1.2rem;
 	width: 7.5rem;
-	/* margin-left: .3rem; */
-	/* border-radius: .4rem; */
 	background: linear-gradient(to right, #FF342D, #FF5882);
 	text-align: center;
-	line-height: 2.5;
+	line-height: 1.2rem;
 	background-color: red;
 	color: #FFFFFF;
 	font-size: .32rem;

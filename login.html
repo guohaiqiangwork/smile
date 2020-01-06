@@ -16,16 +16,18 @@
 
 	<body onselectstart="return false;">
 		<div id="login">
-			<div class="returnKey mui-action-back"><img src="image/left@2x.png" style="width: .6rem;height: .6rem;"></div>
+			<div class="returnKey mui-action-back"><img src="image/33@2x.png" style="width: .6rem;height: .6rem;"></div>
 			<div class="car_logo">
 				<img src="image/log@2x.png">
 			</div>
 			<div class="phone_input">
-				<i class="fa fa-tablet font_Typeface"></i>
+				<!-- <i class="fa fa-tablet font_Typeface"></i> -->
+				<img src="image/4538@2x.png" />
 				<input class="entry" id="phone" required="required" maxlength="11" type="text" placeholder="请输入手机号码">
 			</div>
 			<div class="code_input">
-				<i class="fa fa-tablet font_Typeface"></i>
+				<!-- <i class="fa fa-tablet font_Typeface"></i> -->
+				<img src="image/4539@2x.png" />
 				<input required="required" id="code" maxlength="6" type="text" placeholder="请输入验证码" class="entry" style="width: 2.3rem;">
 				<span id="yzm">获取验证码</span>
 			</div>
@@ -36,7 +38,7 @@
 				登录
 			</div>
 			<div class="use_car_des">
-				<p>点击登录，即表示您同意<a href="#" data-index='0' style="color: red;">《笑容用户协议》</a></p>
+				<p style="color: #8D8888;">点击登录，即表示您同意<a href="#" data-index='0' style="color: #FFFFFF;">《笑容用户协议》</a></p>
 			</div>
 			<div class="otherLogin">
 				<div class="otherWord">
@@ -52,6 +54,8 @@
 	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/commonFun.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/igexinTool.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		(function($, doc, $$, undefined) {
 			$$.init()
@@ -132,7 +136,7 @@
 					}
 				}
 				//第三方登录
-				var authBtns = ['weixin']; //配置业务支持的第三方登录
+				/* var authBtns = ['weixin']; //配置业务支持的第三方登录
 				var auths = {};
 				var oauthArea = doc.querySelector('.oauth-area');
 				var wxWaiting = plus.nativeUI.showWaiting();
@@ -166,6 +170,8 @@
 								var name = auth.userInfo.nickname || auth.userInfo.name;
 								// 存储微信openid
 								plus.storage.setItem('userOpenId', auth.userInfo.openid);
+								plus.storage.setItem('wxNickName', name);
+								plus.storage.setItem('wxHeadImg', auth.userInfo.headimgurl);
 								var obj = {
 									'openId': auth.userInfo.openid,
 									'nickName': name,
@@ -178,8 +184,8 @@
 									type: 'post',
 									data: obj,
 									success: function(data) {
-										if (data.code == 200) {
-											if (!data.data) {
+										console.log("11=" + JSON.stringify(data));
+										if (data.code == 500) {
 												$$.openWindow({
 													url: "views/bindPhone.html",
 													id: "bindPhone",
@@ -193,37 +199,29 @@
 														'canshu': 'dfdfs'
 													}
 												});
-												// 		setTimeout(() => {
-												// 			$$.openWindow({
-												// 				url: "views/bindPhone.html",
-												// 				id: "bindPhone",
-												// 				styles: {
-												// 					statusbar: {
-												// 						background: '#fff'
-												// 					}
-												// 				},
-												// 				extras: {
-												// 					"powerId": data.obj,
-												// 					'canshu': 'dfdfs'
-												// 				}
-												// 			});
-												// 		}, 500);
-
-											} else {
-												console.log(JSON.stringify(data))
-												plus.storage.setItem('Token', data.data.id);
-												var ws = plus.webview.currentWebview();
-												plus.webview.close(ws);
-												// 监听个人中心
-												var list = plus.webview.currentWebview().opener();
-												mui.fire(list, 'refreshMajorGuestCount');
-												plus.webview.getWebviewById('HBuilder').reload()
-											}
+											
 										} else {
-											tipShow(JSON.stringify(data));
+											console.log(JSON.stringify(data))
+											plus.storage.setItem('memberId', data.data.id);
+											plus.storage.setItem('Token', data.data.token + "")
+											// var ws = plus.webview.currentWebview();
+											// plus.webview.close(ws);
+											// // 监听个人中心
+											// var list = plus.webview.currentWebview().opener();
+											// mui.fire(list, 'refreshMajorGuestCount');
+											// plus.webview.getWebviewById('HBuilder').reload()
+											// tipShow(JSON.stringify(data));
+											
+											// 登录成功后刷新
+											var list = plus.webview.currentWebview().opener();
+											mui.fire(list, 'refreshMajorGuestCount');
+											var ws = plus.webview.currentWebview();
+											plus.webview.close(ws);
+											plus.webview.getWebviewById('HBuilder').reload()
 										}
 									},
 									error: function() {
+										console.log("22=" + JSON.stringify(data));
 										acceptDateErrorTip();
 									}
 								})
@@ -241,7 +239,7 @@
 				}, function(e) {
 					oauthArea.style.display = 'none';
 					plus.nativeUI.toast("获取登录认证失败：" + e.message);
-				});
+				}); */
 
 				//点击获取验证码
 				var yzm = document.getElementById('yzm')
@@ -322,15 +320,24 @@
 					gotoLoginWati.close()
 					if (data.code == 200) {
 						tipShow(data.message);
-						console.log(JSON.stringify(data) + 'dsfjlk ')
+						//console.log(JSON.stringify(data) + 'dsfjlk ')
 						plus.storage.setItem('memberId', data.data.id);
 						plus.storage.setItem('Token', data.data.token + "")
+						
+						//个推
+						//alert("已登录="+ plus.storage.getItem('memberId'));
+						var tool =	new igexinTool();
+						tool.bindAlias(plus.storage.getItem('memberId'));
+						
 						// 登录成功后刷新
 						var list = plus.webview.currentWebview().opener();
 						mui.fire(list, 'refreshMajorGuestCount');
 						var ws = plus.webview.currentWebview();
 						plus.webview.close(ws);
-						plus.webview.getWebviewById('HBuilder').reload()
+						if(plus.webview.getWebviewById('HBuilder')){
+							plus.webview.getWebviewById('HBuilder').reload()
+						}
+						
 					} else {
 						tipShow(data.message)
 						$("#code").val('')

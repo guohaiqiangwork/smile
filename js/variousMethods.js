@@ -69,25 +69,50 @@
  * data :后台返回的数据
  **/
 	function homePageBottomList(data){
+		//console.log("4444="+JSON.stringify(data))
 		if (data.code == 200) {
-		    var bottomListTwo = document.getElementById("bottomListTwo");
+		    var bottomAllList = document.getElementById("bottomAllList");
 		    var htmlThree = [];
 			var dataBottomLis = data.data;
-		    for(i=0;i<dataBottomLis.length;i++){
-		    	htmlThree.push('<div class="newShopingIDTwo" data-id='+dataBottomLis[i].id+'>');
-		    	htmlThree.push('<div><img src="'+dataBottomLis[i].pictureUrl+'"></div>');
-		    	htmlThree.push('<div>'+dataBottomLis[i].goodsName+'</div><div>'+dataBottomLis[i].title+'</div>');
-		    	htmlThree.push('<div><span>¥19.00</span><i class="fa fa-shopping-cart"></i></div></div>');
-		    }
-		    
-		    /* 如果是奇数 在最后加个查看更多的图片 */
-		    var num = dataBottomLis.length;
-		    if(num%2 !=0){
-		    	htmlThree.push('<div class="newShopingIDThree" id="gd">');
-		    	htmlThree.push('<div><img src="../image/log@2x.png"></div>');
-		    	htmlThree.push('</div>')
-		    }
-		    bottomListTwo.innerHTML = htmlThree.join('');
+			
+			
+			for(j=0;j<dataBottomLis.length;j++){
+				htmlThree.push('<div class="mdss" id="mdsc">');
+				htmlThree.push('<span class="hostClass" style="color: #707070;font-size:0.3rem">— '+ dataBottomLis[j].name +' —</span>');
+				htmlThree.push('</div>');
+				htmlThree.push('<div class="guanggTwo">');
+				htmlThree.push('<img id="imgParaTwo" src="'+dataBottomLis[j].picture+'"/>');
+				htmlThree.push('</div>');
+				htmlThree.push('<div class="bottomList" id="bottomListTwo">');
+				htmlThree.push('</div>');
+				
+				for(i=0;i<dataBottomLis[j].goodsList.length;i++){
+					var row = dataBottomLis[j].goodsList[i];
+					htmlThree.push('<div class="newShopingIDTwo" data-id='+row.id+'>');
+					htmlThree.push('<div class="gotoDitails data-inventory=' + row.inventory + ' soldOutDiv" data-id='+row.id+'>');
+					htmlThree.push('<img src="'+row.pictureUrl+'">');
+					if(row.rebate != 0){
+						htmlThree.push('<div class="fxzq" style="marring:0"><span class="fxzq_span">返</span><span>￥'+row.rebate+'</span></div>');
+					}
+					
+					if (row.inventory == 0) {
+						htmlThree.push('<img data-inventory=' + row.inventory + ' class="soldOutThree gotoDitails" src="../image/Group%20.png">');
+					}
+					htmlThree.push('</div>');
+					htmlThree.push('<div class="gotoDitails shopName" data-inventory=' + row.inventory + '  data-id='+row.id+'>'+row.goodsName+'</div><div>'+row.title+'</div>');
+					htmlThree.push('<div><span class="gotoDitails" data-inventory=' + row.inventory + '  data-id='+row.id+'>￥'+ row.price+'</span><image style="width: 0.46rem;height: 0.46rem;float: right;margin-right: 0.1rem;" src="../image/5232.png" class="fa fa-plus" spId='+ row.pecificationId+' data-idCart='+ row.id+'></div></div>');
+				}
+				//如果是奇数 在最后加个查看更多的图片
+				var num = dataBottomLis[j].goodsList.length;
+				//判断是奇数
+				if(num%2 !=0){
+					htmlThree.push('<div class="newShopingIDThree" code_id='+dataBottomLis[j].code+' name_id='+dataBottomLis[j].name+'>');
+					htmlThree.push('<div><img src="../image/selectgd.png"></div>');
+					htmlThree.push('</div>');
+				}
+			}
+			
+		    bottomAllList.innerHTML = htmlThree.join('');
 		}else {
 		    tipShow(data.message);
 		}

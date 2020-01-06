@@ -5,14 +5,14 @@
  * @return {object}
  */
 // 全局变量定义
-/* http://192.168.1.8 */
+/* http://192.168.1.17 */
 
-/* 服务器  ：http://49.232.97.190:8080 
+/* 服务器  ：http://49.232.97.190:8080   
 http://192.168.1.8
+http://service.bjxrkj.com
 */
-window.requserUrl = 'http://49.232.97.190:8080'; //接口请求地址 http://192.168.3.5:8087/app 
 
-
+window.requserUrl = 'http://service.bjxrkj.com'; //接口请求地址 http://192.168.3.5:8087/app 
 /**
  * 正常登录获取验证码
  */
@@ -22,7 +22,6 @@ function getCode(mui, dataBase, callback) {
 		type: 'post',
 		data: dataBase,
 		success: function(data) {
-			console.log(JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -37,20 +36,18 @@ function getCode(mui, dataBase, callback) {
 };
 
 /**
- * 微信绑定获取验证码
+ * 微信绑定获取验证码  
  */
 function getWXCode(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase))
-	mui.ajax(requserUrl + "/wx/weixin/messages", {
+	mui.ajax(requserUrl + "/wx/send/messages", {
 		timeout: 20000,
 		type: 'post',
 		data: dataBase,
 		success: function(data) {
-			console.log(JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
-				tipShow(data.message);
+				console.log(data.message);
 			}
 		},
 		error: function() {
@@ -59,10 +56,31 @@ function getWXCode(mui, dataBase, callback) {
 	});
 };
 /**
+ * 微信确认绑定 
+ */
+function getWXLogin(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/wx/weixin/messages", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				console.log(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+/**
  * 去登录
  */
 function gotoLogin(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase) + '登录')
+	//console.log("55=="+ JSON.stringify(dataBase));
 	mui.ajax(requserUrl + "/wx/send/login", {
 		timeout: 20000,
 		type: 'post',
@@ -84,6 +102,7 @@ function gotoLogin(mui, dataBase, callback) {
  * 获取会员昵称等
  */
 function getUserDetail(mui, dataBase, callback) {
+	//console.log("昵称=="+ dataBase);
 	mui.ajax(requserUrl + "/mb/find/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
@@ -92,6 +111,7 @@ function getUserDetail(mui, dataBase, callback) {
 			'client': 'APP',
 		},
 		success: function(data) {
+			//console.log("昵称返回参数=="+ JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -100,7 +120,7 @@ function getUserDetail(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！");
+			console.log("222服务异常，请稍后重试！");
 		}
 	});
 };
@@ -108,7 +128,6 @@ function getUserDetail(mui, dataBase, callback) {
  * 获取会员余额
  */
 function getUserMoney(mui, dataBase, callback) {
-	console.log(requserUrl + "/account/find/" + dataBase)
 	mui.ajax(requserUrl + "/account/find/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
@@ -160,7 +179,6 @@ function getUserAddress(mui, dataBase, callback) {
  * 获取地址详情
  */
 function getAddressD(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/address/findById/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
@@ -177,7 +195,7 @@ function getAddressD(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！9080");
+			console.log("服务异常，请稍后重试");
 		}
 	});
 };
@@ -185,7 +203,6 @@ function getAddressD(mui, dataBase, callback) {
  * 修改地址保存
  */
 function getUpdateAddress(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/address/updateAddress", {
 		timeout: 20000,
 		type: 'post',
@@ -204,7 +221,7 @@ function getUpdateAddress(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！9080");
+			console.log("服务异常，请稍后重试！");
 		}
 	});
 };
@@ -231,7 +248,7 @@ function getAddressSave(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！9080");
+			console.log("服务异常，请稍后重试！");
 		}
 	});
 };
@@ -257,7 +274,7 @@ function deleteAddress(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！9080");
+			console.log("服务异常，请稍后重试！");
 		}
 	});
 };
@@ -305,6 +322,7 @@ function getSonCategoryList(mui, dataBase, callback) {
  * 实名认证
  */
 function getSaveVerific(mui, dataBase, callback) {
+	console.log("dataBase111111111==" + JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/mb/saveVerific", {
 		timeout: 20000,
 		type: 'post',
@@ -323,7 +341,7 @@ function getSaveVerific(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！9080");
+			console.log("服务异常，请稍后重试！");
 		}
 	});
 };
@@ -338,11 +356,10 @@ function getUserList(mui, dataBase, callback) {
 			'client': 'APP',
 		},
 		success: function(data) {
-			console.log(JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
-				if(data.message == "当前用户未登录"){
+				if (data.message == "当前用户未登录") {
 					mui.openWindow({
 						url: '../login.html',
 						id: 'login',
@@ -390,7 +407,6 @@ function updateName(mui, dataBase, callback) {
  *获取绑定银行列表
  */
 function getBankFindAll(mui, dataBase, callback) {
-	console.log(requserUrl + "/bank/findAll/" + dataBase)
 	mui.ajax(requserUrl + "/bank/findAll/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
@@ -415,9 +431,7 @@ function getBankFindAll(mui, dataBase, callback) {
 /**
  *绑定银行卡
  */
-function getBankSave(mui, dataBase,code,callback) {
-	console.log(JSON.stringify(dataBase))
-	console.log(code)
+function getBankSave(mui, dataBase, code, callback) {
 	mui.ajax(requserUrl + "/bank/addBank/" + code, {
 		timeout: 20000,
 		type: 'post',
@@ -443,8 +457,7 @@ function getBankSave(mui, dataBase,code,callback) {
 
 /* 修改手机号 */
 function updateMobile(mui, dataBase, callback) {
-	console.log(JSON.stringify(dataBase))
-	mui.ajax(requserUrl + "/mb/updateMobile/"  + dataBase.memberId, {
+	mui.ajax(requserUrl + "/mb/updateMobile/" + dataBase.memberId, {
 		timeout: 20000,
 		type: 'post',
 		data: dataBase,
@@ -468,7 +481,6 @@ function updateMobile(mui, dataBase, callback) {
 
 /* 修改支付密码 */
 function updatePassword(mui, dataBase, callback) {
-	console.log("111"+JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/account/updatePassword/" + dataBase.memberId, {
 		timeout: 20000,
 		type: 'post',
@@ -519,7 +531,7 @@ function fallBankMassage(mui, dataBase, callback) {
 
 /* 判断会员是否绑定银行卡 */
 function slectCheckBank(mui, dataBase, callback) {
-	mui.ajax(requserUrl + "/bank/checkBank/"+ dataBase, {
+	mui.ajax(requserUrl + "/bank/checkBank/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
 		headers: {
@@ -543,6 +555,7 @@ function slectCheckBank(mui, dataBase, callback) {
 
 /* 获取首页轮播图片 */
 function getLB(mui, dataBase, callback) {
+	//console.log("11="+ JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/act/list", {
 		timeout: 20000,
 		type: 'get',
@@ -555,7 +568,7 @@ function getLB(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！");
+			console.log("111服务异常，请稍后重试！");
 		}
 	});
 };
@@ -576,7 +589,7 @@ function getBanner(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！");
+			console.log("1111服务异常，请稍后重试！");
 		}
 	});
 };
@@ -584,7 +597,7 @@ function getBanner(mui, dataBase, callback) {
 
 /* 判断是否设置 提现密码 */
 function isSetPassword(mui, dataBase, callback) {
-	mui.ajax(requserUrl + "/account/isSetPassword/"+ dataBase, {
+	mui.ajax(requserUrl + "/account/isSetPassword/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
 		headers: {
@@ -608,9 +621,13 @@ function isSetPassword(mui, dataBase, callback) {
 
 /* 支付密码设置*/
 function setPassword(mui, dataBase, callback) {
-	mui.ajax(requserUrl + "/account/isSetPassword/"+ dataBase.memberId, {
+	console.log("支付密码设置32=" + dataBase.password)
+	mui.ajax(requserUrl + "/account/setPassword/" + dataBase.memberId, {
 		timeout: 20000,
 		type: 'get',
+		data: {
+			"password": dataBase.password
+		},
 		headers: {
 			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
 			'client': 'APP',
@@ -636,6 +653,7 @@ function getHot(mui, dataBase, callback) {
 		timeout: 20000,
 		type: 'get',
 		success: function(data) {
+			//console.log("首页标题栏分类="+ JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -644,7 +662,7 @@ function getHot(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！");
+			console.log("1111服务异常，请稍后重试！");
 		}
 	});
 };
@@ -664,13 +682,13 @@ function getNewGoods(mui, dataBase, callback) {
 			}
 		},
 		error: function() {
-			console.log("服务异常，请稍后重试！");
+			console.log("1111服务异常，请稍后重试！");
 		}
 	});
 };
 
 /* 首页下方商品展示 */
-function getHomeGoodsBySort(mui, code_id, callback) {
+/* function getHomeGoodsBySort(mui, code_id, callback) {
 	mui.ajax(requserUrl + "/goods/getHomeGoodsBySort/" + code_id, {
 		timeout: 20000,
 		type: 'get',
@@ -686,7 +704,7 @@ function getHomeGoodsBySort(mui, code_id, callback) {
 			console.log("服务异常，请稍后重试！");
 		}
 	});
-};
+}; */
 
 
 /* 获取子分类 */
@@ -707,21 +725,19 @@ function selectSortC(mui, code_id, callback) {
 		}
 	});
 };
-
-
 /* 获取商品列表（分类中点击二级分类跳转页面后的商品列表，在这个页搜索页调用这个接口） */
 function getGoodsCondition(mui, dataBase, callback) {
-	console.log("code_id11111===="+JSON.stringify(dataBase));
+	console.log("11="+JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/goods/getGoodsCondition", {
 		timeout: 20000,
 		type: 'post',
 		data: JSON.stringify(dataBase),
+		contentType: 'application/json',
 		headers: {
 			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
 			'client': 'APP',
 		},
 		success: function(data) {
-			console.log("code_id3333=="+JSON.stringify(data));
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -734,10 +750,9 @@ function getGoodsCondition(mui, dataBase, callback) {
 		}
 	});
 };
-
 // 获取商品详情
 function getCommodityD(mui, dataBase, callback) {
-	mui.ajax(requserUrl + "/goods/getGoodsDetail/"+ dataBase, {
+	mui.ajax(requserUrl + "/goods/getGoodsDetail/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
 		headers: {
@@ -759,7 +774,7 @@ function getCommodityD(mui, dataBase, callback) {
 };
 
 // 退出登录
-function getLogOut(mui,callback) {
+function getLogOut(mui, callback) {
 	mui.ajax(requserUrl + "/wx/logout", {
 		timeout: 20000,
 		type: 'get',
@@ -783,7 +798,7 @@ function getLogOut(mui,callback) {
 
 // 获取详情购物车数量
 function getShoppingCart(mui, dataBase, callback) {
-	mui.ajax(requserUrl + "/shoppingCart/getNum/"+ dataBase, {
+	mui.ajax(requserUrl + "/shoppingCart/getNum/" + dataBase, {
 		timeout: 20000,
 		type: 'get',
 		headers: {
@@ -805,7 +820,760 @@ function getShoppingCart(mui, dataBase, callback) {
 };
 // 添加购物车
 function addShoppingCart(mui, dataBase, callback) {
+	//console.log("添加购物车="+ JSON.stringify(dataBase));
 	mui.ajax(requserUrl + "/shoppingCart/addCart", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+// 查询购物车列表 有效
+function cartList(mui, userId, callback) {
+	//console.log("555="+userId);
+	mui.ajax(requserUrl + "/shoppingCart/cartList/" + userId, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function(data1) {
+			console.log("333="+ JSON.stringify(data1));
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+// 查询购物车列表 已失效列表
+function cartListNo(mui, userId, callback) {
+	mui.ajax(requserUrl + "/shoppingCart/cartListNo/" + userId, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				//tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+// 获取我的订单
+function getMyOrder(mui, dataBase, callback) {
+	//console.log("11="+ JSON.stringify(dataBase));
+	mui.ajax(requserUrl + "/order/mb/list", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		contentType: 'application/json',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+//购物车数量加减接口
+function setCarttNum(mui, dataBase, callback) {
+	//console.log("减数量=" + JSON.stringify(dataBase));
+	mui.ajax(requserUrl + "/shoppingCart/setCarttNum", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			//console.log(JSON.stringify(data));
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 删除/批量删除 */
+function delCarts(mui, dataBase, callback) {
+	console.log("dataBase-----==" + JSON.stringify(dataBase))
+	mui.ajax(requserUrl + "/shoppingCart/delCarts", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			console.log(JSON.stringify(data));
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 提现到银行卡 */
+function reflectBank(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/account/reflectBank", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 去结算 */
+function settle(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/settle", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+
+/* 获取订单详情 */
+function getOrderDetail(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/detail", {
+		timeout: 20000,
+		type: 'get',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+/* 提交订单 */
+function placeAnOrder(mui, dataBase, callback) {
+	//console.log("提交订单 = " + JSON.stringify(dataBase));
+	mui.ajax(requserUrl + "/order/mb/placeAnOrder", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			//console.log("返回参数="+ JSON.stringify(data));
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 首页是否有未读信息 */
+function hasMessage(mui, userId, callback) {
+	mui.ajax(requserUrl + "/mbMessage/hasMessage/" + userId, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 获取当前登陆人所有消息 */
+function messageList(mui, userId, callback) {
+	mui.ajax(requserUrl + "/mbMessage/messageList/" + userId, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+/* 获取消息详情 */
+function MessageDetail(mui, Id, callback) {
+	mui.ajax(requserUrl + "/mbMessage/MessageDetail/" + Id, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+// 取消支付
+function getCancelPay(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/cancelPay", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 删除订单
+function getDelete(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/delete", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 确认收货
+function getConfirmReceipt(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/confirmReceipt", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+// 再次购买
+function getBuyAgain(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/buyAgain", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+// 解绑银行卡
+function getDeleteBank(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/bank/deleteBank/" + dataBase, {
+		timeout: 20000,
+		type: 'post',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 获取历史搜索
+function getSearchList(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/searchHistory/getList/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				// tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 清空历史信息
+function getSearchDelete(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/searchHistory/delete/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				// tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 查询热门搜索
+function getTopList(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/hotSearch/getTop", {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				// tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+// 余额支付
+function un_webPay(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/balance/pay", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+// 支付密码校验
+function passwordCheck(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/account/passwordCheck/" + dataBase.memberId, {
+		timeout: 20000,
+		type: 'post',
+		data: {
+			password: dataBase.password
+		},
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				//tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+// 获取可申请订单
+function getMyReturn(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/return/mb/apply", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		contentType: 'application/json',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 获取申请订单记录
+function getApplyRecord(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/return/mb/applyRecord", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		contentType: 'application/json',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+// 退款接口
+function getRefund(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/return/mb/refund", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase),
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		contentType: 'application/json',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//判断是否可退换货/return/mb/addLogistics
+function getIsLapse(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/order/mb/isLapse/" + dataBase, {
+		timeout: 20000,
+		type: 'post',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		contentType: 'application/json',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//填写物流单号
+function getAddLogistics(mui, dataBase, callback) {
+	alert(JSON.stringify(dataBase))
+	mui.ajax(requserUrl + "/return/mb/addLogistics", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			alert(JSON.stringify(data))
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//获取活动页图片
+function getFind(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/act/find/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//获取好友列表
+function getMyFirend(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/mb/myFirend", {
+		timeout: 20000,
+		type: 'post',
+		data: JSON.stringify(dataBase) ,
+		contentType: 'application/json',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//货物bar图
+function getContentI(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/banner/content/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//查询物流信息account/freezeAmount
+function getViewLogistics(mui, dataBase, callback) {
+	// var dataBase ={
+	// 	orderId:'1206440702800564225'
+	// }
+	mui.ajax(requserUrl + "/order/mb/viewLogistics", {
 		timeout: 20000,
 		type: 'post',
 		data:dataBase,
@@ -813,6 +1581,92 @@ function addShoppingCart(mui, dataBase, callback) {
 			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
 			'client': 'APP',
 		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//查询冻结金额
+function getFreezeAmount(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/account/freezeAmount/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//查询提现结果 
+function getAccountDe(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/account/accountDe/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+//查询绑定人关系
+function getShareId(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/share/getShareId", {
+		timeout: 20000,
+		type: 'get',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				//tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+//查询版本号  {version}
+function getVersion(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/appVersionNumber/getVersion/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
 		success: function(data) {
 			if (data.code == 200) {
 				callback && callback(data);

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
@@ -18,7 +19,14 @@
 			关于我们
 		</header>
 		<div class="content">
-			<div style="text-align: center;">
+			<div class="settingList">
+				<ul>
+					<li class="settingPassword" href="../pages/serviceAgreement.html" data-id='serviceAgreement'><span>用户协议</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/merchantInformation.html" data-id='merchantInformation'><span>商家信息</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/Privacy.html" data-id='Privacy'><span>隐私政策</span><i class="fa fa-angle-right"></i></li>
+				</ul>
+			</div>
+			<!-- <div style="text-align: center;">
 				<div style="margin-top: 2rem;">
 					<img src="../image/log@2x.png" style="width:2.3rem" >
 				</div>
@@ -33,9 +41,9 @@
 				</div>
 						
 			</div>
-			
+			 -->
 		</div>
-		
+
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
 	<script src="../js/mui.min.js"></script>
@@ -60,15 +68,35 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-				$('#goToAgreement').on('tap',function(){
-					$$.openWindow({
-						url: 'agreement.html',
-						id:'agreement',
-						show: {
-							aniShow: "slide-in-right"
-						}
-					});
-				})
+				// $('#goToAgreement').on('tap', function() {
+				// 	$$.openWindow({
+				// 		url: 'agreement.html',
+				// 		id: 'agreement',
+				// 		show: {
+				// 			aniShow: "slide-in-right"
+				// 		}
+				// 	});
+				// });
+				//页面跳转serviceModuer
+				$('.settingPassword').on('tap', function(e) {
+					// 获取页面ID
+					var urlId = $(this).attr("data-id");
+					// 获取路径
+					var urlRout = this.getAttribute('href');
+						//alert(urlRout)
+					if (urlRout && urlId) {
+						$$.openWindow({
+							url: urlRout,
+							id: urlId,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						console.log('缺少页面路径')
+
+					}
+				});
 			}
 		})(jQuery, document, mui);
 	</script>

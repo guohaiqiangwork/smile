@@ -1,3 +1,25 @@
+.titleName{
+	font-size: 0.28rem;
+	color: #000000;
+	font-weight:bold;
+}
+
+#priceIdTwo{
+	float: right;
+	width: 0.2rem;
+	margin-right: 0.5rem;
+}
+
+.mrys{
+	color: #999999;
+}
+
+.iocClass{
+	color: #F42300;
+}
+.iocClassTwo{
+	color: #F42300;
+}
 
 #titleAge{
 	text-align: center;
@@ -41,15 +63,36 @@
 	width: 5rem;
 	height: .6rem;
 	/* text-align: center; */
+	text-align: left;
 	margin-left: 5px;
 	color: #999999;
+}
+
+#shop_num_ioc{
+	margin: 0;
+	padding: 0;
+	width: 0.5rem;
+	height: 0.26rem;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+	border-radius: 0.12rem;
+	font-size: 0.24rem;
+	position: absolute;
+	left: 6.7rem;
+	top: 0.2rem;
+	text-align: center;
+	line-height: 0.26rem;
+	color: #FFFFFF;
 }
 
 #searchPageValueTiele_id{
 	background-color: #FFFFFF;
 }
 
-#titleAge span,
+#titleAge span{
+	color: #0C1934;
+	font-size: .26rem;
+}
+
 #titleAge_more span{
 	color: #DA2400;
 	font-size: .26rem;
@@ -99,6 +142,7 @@
 	float: left;
 	margin-top: 0.22rem;
 	margin-left: 0.22rem;
+	height: 5rem;
 }
 
 .newShopingIDTwo div:nth-child(2){
@@ -121,7 +165,7 @@
 	width: .5rem;
 	height: .5rem;
 	border-radius:0.6rem;
-	line-height: 0.5rem;
+	line-height: 0.55rem;
 	color: #FFFFFF;
 	text-align: center;
 }
@@ -142,4 +186,24 @@
 
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
 	color: #000000;
+}
+
+
+.seavhBtn{
+	width:1.4rem;
+	height: .56rem;
+	border-radius: .3rem;
+	text-align: center;
+	font-size: .26rem;
+	color: #000000;
+	line-height: 2;
+	margin-top: .2rem;
+	margin-left: .2rem;
+	background-color: #F5F8FB;
+	display: inline-block;
+}
+
+.soldOutThree{
+	position: absolute;
+	top: 2.15rem;
 }

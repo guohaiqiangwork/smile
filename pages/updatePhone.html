@@ -29,7 +29,7 @@
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white title">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i class="mui-action-back" style="touch-action: none;"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
 			更换手机号
 		</header>
 		<div class="content contentList">
@@ -46,7 +46,7 @@
 					<div type="button" id="yzm">获取验证码</div>
 				</div>
 				<div>
-					<button id="insertName" type="button">确认更换</button>
+					<button id="insertName" class="div_backgroun_jb" type="button">确认更换</button>
 				</div>
 			</div>
 		</div>
@@ -82,10 +82,6 @@
 				scrollIndicator: 'none'
 			});
 			_self = plus.webview.currentWebview();
-			
-			var phonePara = doc.getElementById('phonePara');
-			phonePara.value = _self.phonePara;
-			
 			//点击获取验证码
 			var yzm = document.getElementById('yzm');
 			//是否可以点击【获取验证码按钮开关】
@@ -133,7 +129,13 @@
 				}, 1000);
 			};
 			
-			
+			var phonePara = doc.getElementById('phonePara');
+			//传过来的手机号--完整
+			//var tele = _self.phonePara;
+			//phonePara.value = tele.substring(3, 0) + "^_^" + tele.substring(7, 11);
+			phonePara.value = "";
+					
+						
 			/* 更改手机号 */
 			var insertName = doc.getElementById("insertName");
 			var userResult = doc.getElementById("userResult");
@@ -142,7 +144,6 @@
 					tipShow("请填写手机号");
 					return;
 				}
-				alert("11="+phonePara.value.length )
 				if(phonePara.value.length < 11){
 					tipShow("请填写正确手机号");
 					return;

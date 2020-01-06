@@ -48,3 +48,7 @@ body{
 .contentList div div:nth-child(3){
 	text-align: center;
 }
+
+.mui-btn, button, input[type=button], input[type=reset], input[type=submit] {
+		border: 1px solid #FAFAFA;
+}

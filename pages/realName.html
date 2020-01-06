@@ -15,13 +15,13 @@
 	</head>
 	<body onselectstart="return false;">
 		<header class="header_white">
-			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
 			实名认证
 		</header>
 		<div class="content">
 			<div class="" id="successImg" style="display: none;">
 				<div class="success_img">
-					<img src="../image/nameSuccess.png" class="width100">
+					<img src="../image/default/nameSuccess.png" class="width100">
 				</div>
 				<div class="font_color99 font_size26" style="margin-top: .7rem;">
 					认证成功
@@ -36,10 +36,10 @@
 				</div>
 				<div style="display: flex;">
 					<div class="_left" data-id='z'>
-						<img src="../image/card@2x.png" style="width: 100%;" id="uploadImg1">
+						<img src="../image/card@2x.png" class="width_height100" id="uploadImg1">
 					</div>
 					<div class="_left">
-						<img src="../image/cardF@2x.png" style="width: 100%;" id="uploadImg2">
+						<img src="../image/cardF@2x.png" class="width_height100" id="uploadImg2">
 					</div>
 				</div>
 				<div style="display: flex;">
@@ -78,6 +78,12 @@
 					<div class="_left">身份证号</div>
 					<div class="_right">
 						<input type="text" placeholder="请填写身份证号" id="idCard">
+					</div>
+				</div>
+				<div class="_one" id="cardTimeF">
+					<div class="_left">证件有效期</div>
+					<div class="_right">
+						<input type="text" placeholder="证件有效期" id="cardTime">
 					</div>
 				</div>
 				<div class="bottom_btn" id="btnTwo">
@@ -141,179 +147,186 @@
 	<script src="../js/commonFun.js"></script>
 	<script>
 		(function($, doc, $$, undefined) {
-			$$.init();
-			var _self;
-			if (window.plus) {
-				plusReady();
-			} else {
-				doc.addEventListener('plusready', plusReady, false);
-			}
-
-			function plusReady() {
-				plus.navigator.setFullscreen(false);
-				//强制竖屏
-				plus.screen.lockOrientation("portrait-primary");
-				//强制隐藏滚动条
-				plus.webview.currentWebview().setStyle({
-					scrollIndicator: 'none'
-				});
-				_self = plus.webview.currentWebview();
-				// 获取父及页面
-				var openView = plus.webview.currentWebview().opener();
-				//判断是否存在父窗口,存在则关闭
-				if (openView.id == "bankCard") {
-					openView.hide();
-					openView.close();
+				$$.init();
+				var _self;
+				if (window.plus) {
+					plusReady();
+				} else {
+					doc.addEventListener('plusready', plusReady, false);
 				}
 
-				//查询是否实名认证
-				getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
-					if (data.code == 200) {
-						if (data.data.idcard) {
-							$('#successImg').css('display','block')
-						}else{
-							$('#realNameOne').css('display','block')
-						}
-					} else if (data.code == 401 || data.code == 1500) {
-						gotoLoginIn()
-					} else {
-						tipShow(data.message)
-						$("#code").val('')
-					}
-				});
+				function plusReady() {
+					plus.navigator.setFullscreen(false);
+					//强制竖屏
+					plus.screen.lockOrientation("portrait-primary");
+					//强制隐藏滚动条
+					plus.webview.currentWebview().setStyle({
+						scrollIndicator: 'none'
+					});
+					_self = plus.webview.currentWebview();
+					// 获取父及页面
+					var openView = plus.webview.currentWebview().opener();
 
-				/**
-				 * 上传图片操作列表
-				 * @param {object} dom 上传节点
-				 */
-				function upImgFun(dom) {
-					if (mui.os.plus) {
-						var a = [{
-							title: "拍照"
-						}, {
-							title: "从手机相册选择"
-						}];
-						plus.nativeUI.actionSheet({
-							title: "插入图片",
-							cancel: "取消",
-							buttons: a
-						}, function(b) {
-							switch (b.index) {
-								case 0:
-									break;
-								case 1:
-									getImage(dom); /*拍照*/
-									break;
-								case 2:
-									galleryImg(dom); /*打开相册*/
-									break;
-								default:
-									break;
+					//判断是否存在父窗口,存在则关闭
+					if (openView) {
+						if (openView.id == "bankCard") {
+							openView.hide();
+							openView.close();
+						}
+					}
+
+					//查询是否实名认证
+					getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							if (data.data.idcard) {
+								$('#successImg').css('display', 'block')
+							} else {
+								$('#realNameOne').css('display', 'block')
 							}
+						} else if (data.code == 401 || data.code == 1500) {
+							gotoLoginIn()
+						} else {
+							tipShow(data.message)
+							$("#code").val('')
+						}
+					});
+
+					/**
+					 * 上传图片操作列表
+					 * @param {object} dom 上传节点
+					 */
+					function upImgFun(dom) {
+						if (mui.os.plus) {
+							var a = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							plus.nativeUI.actionSheet({
+								title: "插入图片",
+								cancel: "取消",
+								buttons: a
+							}, function(b) {
+								switch (b.index) {
+									case 0:
+										break;
+									case 1:
+										getImage(dom); /*拍照*/
+										break;
+									case 2:
+										galleryImg(dom); /*打开相册*/
+										break;
+									default:
+										break;
+								}
+							})
+						}
+					}
+
+					/**
+					 * 拍照
+					 * @param {object} dom 上传节点
+					 */
+					function getImage(dom, cameraIndex, callback) {
+						if (cameraIndex) {
+							var c = plus.camera.getCamera(cameraIndex);
+						} else {
+							var c = plus.camera.getCamera();
+						}
+						c.captureImage(function(e) {
+							// 读取本地文件中选取图片
+							plus.io.resolveLocalFileSystemURL(e, function(entry) {
+								// 执行上传操作
+								// console.log(entry.toLocalURL());
+								compressImage(entry.toLocalURL(), dom, callback)
+							}, function(e) {
+								plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+								callback && callback(500);
+							});
+						}, function(s) {
+							console.log("error" + s);
+							callback && callback(500);
+						}, {
+							filename: "_doc/head.jpg"
 						})
 					}
-				}
-
-				/**
-				 * 拍照
-				 * @param {object} dom 上传节点
-				 */
-				function getImage(dom, cameraIndex, callback) {
-					if (cameraIndex) {
-						var c = plus.camera.getCamera(cameraIndex);
-					} else {
-						var c = plus.camera.getCamera();
+					/**
+					 * 手机相册选择
+					 * @param {object} dom 上传节点
+					 */
+					function galleryImg(dom) {
+						plus.gallery.pick(function(a) {
+							plus.io.resolveLocalFileSystemURL(a, function(entry) {
+								//entry为图片原目录（相册）的句柄
+								upImg(entry.toLocalURL(), dom);
+							}, function(e) {
+								console.log("读取图片错误：" + e.message);
+							});
+						}, function(a) {}, {
+							filter: "image"
+						})
 					}
-					c.captureImage(function(e) {
-						// 读取本地文件中选取图片
-						plus.io.resolveLocalFileSystemURL(e, function(entry) {
-							// 执行上传操作
-							// console.log(entry.toLocalURL());
-							compressImage(entry.toLocalURL(), dom, callback)
-						}, function(e) {
-							plus.nativeUI.toast("读取拍照文件错误：" + e.message);
-							callback && callback(500);
-						});
-					}, function(s) {
-						console.log("error" + s);
-						callback && callback(500);
-					}, {
-						filename: "_doc/head.jpg"
-					})
-				}
-				/**
-				 * 手机相册选择
-				 * @param {object} dom 上传节点
-				 */
-				function galleryImg(dom) {
-					plus.gallery.pick(function(a) {
-						plus.io.resolveLocalFileSystemURL(a, function(entry) {
-							//entry为图片原目录（相册）的句柄
-							upImg(entry.toLocalURL(), dom);
-						}, function(e) {
-							console.log("读取图片错误：" + e.message);
-						});
-					}, function(a) {}, {
-						filter: "image"
-					})
-				}
 
-				// 压缩图片
-				function compressImage(imgUrl, dom, callback) {
-					console.log("开始压缩图片：")
-					plus.nativeUI.showWaiting();
-					// console.log(imgUrl);
-					plus.zip.compressImage({
-							src: imgUrl,
-							dst: imgUrl,
-							quality: 20,
-							overwrite: true,
-							width: '80%'
-						},
-						function(i) {
-							plus.nativeUI.closeWaiting();
-							console.log("压缩图片成功：" + JSON.stringify(i));
-							imgUrlY = i.target
-							upImg(imgUrlY, dom, callback);
-							return
-						},
-						function(e) {
-							plus.nativeUI.closeWaiting();
-							console.log("压缩图片失败: " + JSON.stringify(e));
+					// 压缩图片
+					function compressImage(imgUrl, dom, callback) {
+						console.log("开始压缩图片：")
+						plus.nativeUI.showWaiting();
+						// console.log(imgUrl);
+						plus.zip.compressImage({
+								src: imgUrl,
+								dst: imgUrl,
+								quality: 20,
+								overwrite: true,
+								width: '80%'
+							},
+							function(i) {
+								plus.nativeUI.closeWaiting();
+								console.log("压缩图片成功：" + JSON.stringify(i));
+								imgUrlY = i.target
+								upImg(imgUrlY, dom, callback);
+								return
+							},
+							function(e) {
+								plus.nativeUI.closeWaiting();
+								console.log("压缩图片失败: " + JSON.stringify(e));
 
-						});
-				}
-				/**
-				 * 图片上传
-				 * @param {object} dom 上传节点
-				 */
-				function upImg(event, dom, callback) {
-					console.log(JSON.stringify(event))
-					if (_self.imgId == 'z') {
-						var server = requserUrl + '/mb/verificPositive';
-						$("#uploadImg1").attr("src", event);
-					} else {
-						var server = requserUrl + '/mb/verificNegative';
-						$("#uploadImg2").attr("src", event);
+							});
 					}
-					var wt = plus.nativeUI.showWaiting("上传中...");
-					var uploaderDown = plus.uploader.createUpload(server, {
-							method: "post"
-						},
-						function(t, status) {
-							wt.close();
-							var dataCode = eval("(" + t.responseText + ")")
-							console.log(JSON.stringify(dataCode))
-							if (dataCode.code == '200') {
-								if (_self.imgId == 'z') {
-									$('#name').val(dataCode.data.name)
-									$('#idCard').val(dataCode.data.idcard)
+					/**
+					 * 图片上传
+					 * @param {object} dom 上传节点
+					 */
+					function upImg(event, dom, callback) {
+						if (_self.imgId == 'z') {
+							var server = requserUrl + '/mb/verificPositive';
+							$("#uploadImg1").attr("src", event);
+						} else {
+							var server = requserUrl + '/mb/verificNegative';
+							$("#uploadImg2").attr("src", event);
+						}
+						var wt = plus.nativeUI.showWaiting("上传中...");
+						var uploaderDown = plus.uploader.createUpload(server, {
+								method: "post"
+							},
+							function(t, status) {
+								wt.close();
+								var dataCode = eval("(" + t.responseText + ")")
+								if (dataCode.code == '200') {
+									if (_self.imgId == 'z') {
+										$('#name').val(dataCode.data.name)
+										$('#idCard').val(dataCode.data.idcard)
+									} else {
+										$('#cardTime').val("123456")
+									}
+								} else {
+									tipShow(dataCode.message)
+									if (_self.imgId == 'z') {
+										$("#uploadImg1").attr("src", '../image/card@2x.png');
+									}else{
+										$("#uploadImg2").attr("src", '../image/cardF@2x.png');
+									}
+									
 								}
-
-							} else {
-								alert(dataCode.message)
-							}
-
 						});
 					uploaderDown.addFile(event, {
 						key: "file"
@@ -323,6 +336,8 @@
 					uploaderDown.addData("string_key", "string_value");
 					uploaderDown.start()
 				}
+
+
 				//提示
 				function tipShow(str) {
 					plus.nativeUI.toast(str, {
@@ -341,7 +356,15 @@
 				})
 				// 图像识别点击下一步
 				$('#btnOne').on('tap', function() {
-					$('#realNameOne').css('display', 'none')
+					if (!$('#idCard').val()) {
+						tipShow('请上传证件照')
+						return;
+					} else if (!$('#cardTime').val()) {
+						tipShow('请上传证件照')
+						return;
+					}
+					$('#realNameOne').css('display', 'none');
+					$('#cardTimeF').css('display', 'none');
 					$('#realNameTwo').css('display', 'block')
 				});
 				// 姓名识别点击下一步
@@ -351,7 +374,9 @@
 						idcard: $('#idCard').val(),
 						name: $('#name').val(),
 					}
+					console.log("姓名识别点击下一步==" + JSON.stringify(keyword))
 					getSaveVerific(mui, keyword, function(data) {
+						console.log("姓名识别点击下2222222==" + JSON.stringify(data))
 						if (data.code == 200) {
 							// 查询银行卡列表
 							getBankFindAll(mui, plus.storage.getItem('memberId'), function(data) {
@@ -378,10 +403,11 @@
 				})
 				// 添加银行卡保存
 				$('#btnthree').on('tap', function() {
+					console.log("银行卡信息11=" + $('#bankCardNumber').val());
 					if (!$('#name').val()) {
 						tipShow('请检查姓名')
 						return;
-					} else if (luhnCheck($('#bankCardNumber').val())) {
+					} else if (!luhnCheck($('#bankCardNumber').val())) {
 						tipShow('请检查银行卡')
 						return;
 					}

@@ -24,7 +24,7 @@ body{
 .content div button{
 	width: 5.2rem;
 	height: 0.9rem;
-	background-color: #A0A0A0;
+	background: linear-gradient(to right, #FF342D, #FF5882);
 	border-radius:1rem;
 	color: #FFFFFF;
 	font-size: 0.32rem;
@@ -181,3 +181,12 @@ li{
 	margin-top: 0.32rem;
 }
 
+#balbnce_money{
+	border: 0;
+	width: 80%;
+	
+}
+
+.mui-btn, button, input[type=button], input[type=reset], input[type=submit]{
+	border: 1px solid #FAFAFA;
+}

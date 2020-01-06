@@ -6211,6 +6211,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		element.addEventListener('tap', function(e) {
 			var popover = $.targets._popover;
 			if (popover) {
+				if(popover.getAttribute('data-disable-auto-close'))return;//阻止点击遮罩关闭弹窗 
 				popover.addEventListener('webkitTransitionEnd', onPopoverHidden);
 				popover.classList.remove(CLASS_ACTIVE);
 				removeBackdrop(popover);

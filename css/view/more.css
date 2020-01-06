@@ -1,3 +1,22 @@
+#priceIdTwo{
+	float: right;
+	width: 0.2rem;
+	margin-right: 0.5rem;
+}
+
+.iocClass{
+	color: #F42300;
+}
+.iocClassTwo{
+	color: #000000;
+}
+
+#searchPageValueTiele_id{
+	position: fixed;
+	top: 0;
+	z-index: 99;
+}
+
 body{
 	background-color: #FAFAFA;
 }
@@ -10,7 +29,7 @@ body{
 }
 
 #titleAge input{
-	margin-left: 0.5rem;
+	-margin-left: 0.5rem;
 	text-align: center;
 	color: #000000;
 	font-size: 0.36rem;
@@ -31,4 +50,44 @@ body{
 	width: 100%;
 	color: #999999;
 	font-size: 0.22rem;
+}
+
+.locationBtn {
+	width: .8rem;
+	height: .8rem;
+	position: fixed;
+	right: 4%;
+	bottom: 30%;
+	/* background-color: #fff; */
+	z-index: 999;
+	/* box-shadow: 0 0 10px rgb(218, 218, 218); */
+	/* border-radius: 2px; */
+	display: block;
+	text-align: center;
+	line-height: .8rem;
+	color: #959DAD;
+}
+
+.locationBtn i {
+	display: inline-block;
+}
+
+.locationBtn img {
+	/* width: .4rem;
+	height: .4rem; */
+	position: absolute;
+	left: .2rem;
+	top: .2rem;
+}
+
+.soldOutThree{
+	position: absolute;
+	top: 0.5rem;
+}
+
+.header_title_rightI {
+	position: relative;
+	top: 0.1rem;
+	width: .39rem;
+	height: .39rem;
 }

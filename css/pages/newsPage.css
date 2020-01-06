@@ -1,4 +1,10 @@
 /* 消息样式 */
+#returnTopPage_set img{
+	width: 0.5rem;
+	float: left;
+	margin-top: .4rem;
+	margin-left: 0.2rem;
+}
 
 #messageCount{
 	margin-top: .96rem;

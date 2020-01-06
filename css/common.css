@@ -1,157 +1,165 @@
 /* 清除部分mui默认样式 */
 
 body {
-    background: #fff;
+	background: #fff;
 	overflow-y: auto !important;
 }
 
 .mui-content {
-    background: #fff;
+	background: #fff;
 }
-.mui-table-view-cell{
-    padding: 0;
-    margin: 0;
+
+.mui-table-view-cell {
+	padding: 0;
+	margin: 0;
+	
 }
-.mui-table-view:before{
-    height: 0;
+
+.mui-table-view:before {
+	height: 0;
 }
-.mui-table-view:after{
-    height: 0;
+
+.mui-table-view:after {
+	height: 0;
 }
+
 /* 禁止iOS默认选中文字 */
-.ios_no_select{
-    user-select: none;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
+.ios_no_select {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
+
 /* 隐藏刷新或加载的滚动条 */
 
 .mui-scrollbar {
-    display: none;
+	display: none;
 }
 
 input::-webkit-input-placeholder {
-    color: #aaa9a9;
-    font-size: 14px;
+	color: #aaa9a9;
+	font-size: 14px;
 }
 
 /* 滑块开关 */
 
 .checke {
-    position: absolute;
-    right: 4%;
-    -webkit-appearance: none;
-    width: 45px;
-    height: 24px;
-    line-height: 24px;
-    background: #959DAD;
-    border-radius: 30px;
-    outline: none;
+	position: absolute;
+	right: 4%;
+	-webkit-appearance: none;
+	width: 45px;
+	height: 24px;
+	line-height: 24px;
+	background: #959DAD;
+	border-radius: 30px;
+	outline: none;
 }
 
 .checke:before {
-    position: absolute;
-    left: 1px;
-    top: 1px;
-    content: '';
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0px 0px 5px #ddd;
-    transition: all 0.2s linear;
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	content: '';
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0px 0px 5px #ddd;
+	transition: all 0.2s linear;
 }
 
 .checke:checked {
-    background: #008BD5;
+	background: #008BD5;
 }
 
 .checke:checked:before {
-    left: 22px;
-    transition: all 0.2s linear;
+	left: 22px;
+	transition: all 0.2s linear;
 }
 
 /* 输入清空X */
 
 .clear-input {
-    font-size: 0;
-    position: absolute;
-    right: 0;
-    bottom: 0.1rem;
-    display: none;
+	font-size: 0;
+	position: absolute;
+	right: 0;
+	bottom: 0.1rem;
+	display: none;
 }
 
 .clear-input img {
-    width: .4rem;
-    height: .4rem;
+	width: .4rem;
+	height: .4rem;
 }
 
 /* 返回键 */
 
 #login .returnKey {
-    width: 0.5rem;
-    height: 0.5rem;
-    position: fixed;
-    left: 0.6rem;
-    top: .5rem;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    font-size: 0;
+	width: 0.5rem;
+	height: 0.5rem;
+	position: fixed;
+	left: 0.6rem;
+	top: .5rem;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.4);
+	font-size: 0;
 }
 
 #login .returnKey img {
-    display: inline-block;
-    width: .3rem;
-    height: .3rem;
-    margin-top: 0.1rem;
+	display: inline-block;
+	width: .3rem;
+	height: .3rem;
+	margin-top: 0.1rem;
 }
 
 /* 数字键盘 */
 
 #numKey {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    /* padding-bottom: 0.1rem; */
-    background: #D2D3D9;
-    box-shadow: 0 0 0.2rem #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	/* padding-bottom: 0.1rem; */
+	background: #D2D3D9;
+	box-shadow: 0 0 0.2rem #fff;
 }
 
 #numKey .numKeyWrap {
-    width: 100%;
-    display: flex;
+	width: 100%;
+	display: flex;
 }
 
 #numKey .numKeyWrap li {
-    font-size: .5rem;
-    flex: 1;
-    height: 1rem;
-    line-height: 1rem;
-    color: #0E0E0E;
-    border-bottom: 0;
-    border-left: 0;
-    font-weight: 700;
-    margin: .05rem;
-    background: #FFFFFF;
-    border-radius: .1rem;
+	font-size: .5rem;
+	flex: 1;
+	height: 1rem;
+	line-height: 1rem;
+	color: #0E0E0E;
+	border-bottom: 0;
+	border-left: 0;
+	font-weight: 700;
+	margin: .05rem;
+	background: #FFFFFF;
+	border-radius: .1rem;
+	text-align: center;
 }
 
 #numKey .numKeyWrap li:active {
-    background: #b8b8b9;
+	background: #b8b8b9;
 }
 
-#numKey .numKeyWrap .numDelete, #numKey .numKeyWrap .numClear {
-    font-size: .3rem;
-    background: none;
+#numKey .numKeyWrap .numDelete,
+#numKey .numKeyWrap .numClear {
+	font-size: .3rem;
+	background: none;
 }
 
 #numKey .numKeyWrap .numDelete img {
-    width: 0.47rem;
-    height: 0.34rem;
-    margin-top: .35rem;
+	width: 0.47rem;
+	height: 0.34rem;
+	margin-top: .35rem;
 }
 
 /* 定位按钮 */
@@ -159,255 +167,391 @@ input::-webkit-input-placeholder {
 /* 自定义定位按钮 */
 
 #home .locationBtn {
-    width: .8rem;
-    height: .8rem;
-    position: fixed;
-    right: 4%;
-    bottom: 30%;
-    background-color: #fff;
-    z-index: 999;
-    box-shadow: 0 0 10px rgb(218, 218, 218);
-    border-radius: 2px;
-    display: none;
-    text-align: center;
-    line-height: .8rem;
-    color: #959DAD;
+	width: .8rem;
+	height: .8rem;
+	position: fixed;
+	right: 4%;
+	bottom: 30%;
+	background-color: #fff;
+	z-index: 999;
+	box-shadow: 0 0 10px rgb(218, 218, 218);
+	border-radius: 2px;
+	display: none;
+	text-align: center;
+	line-height: .8rem;
+	color: #959DAD;
 }
 
 #home .locationBtn i {
-    display: inline-block;
+	display: inline-block;
 }
 
 #home .locationBtn img {
-    width: .4rem;
-    height: .4rem;
-    position: absolute;
-    left: .2rem;
-    top: .2rem;
+	width: .4rem;
+	height: .4rem;
+	position: absolute;
+	left: .2rem;
+	top: .2rem;
 }
 
 /* 遮罩蒙版 */
 
 .mui-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 998;
-    background-color: rgba(0, 0, 0, .3);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 998;
+	background-color: rgba(0, 0, 0, .3);
 }
 
 /* 页面回退箭头 */
 
 .mui-action-back {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0.88rem;
-    height: 0.88rem;
-    font-size: 0;
-    text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0.88rem;
+	height: 0.88rem;
+	font-size: 0;
+	text-align: center;
 }
 
 .mui-action-back img {
-    width: .35rem;
-    height: .25rem;
-    vertical-align: middle;
+	width: .22rem;
+	height: .38rem;
+	vertical-align: middle;
 }
 
 /* header 页面头部导航 */
 
 header {
-    width: 100%;
-    height: .88rem;
-    background: #008BD5;
-    text-align: center;
-    line-height: .88rem;
-    color: #fff;
-    font-size: .36rem;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
+	width: 100%;
+	height: .88rem;
+	background: #008BD5;
+	text-align: center;
+	line-height: .88rem;
+	color: #fff;
+	font-size: .36rem;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
 }
 
 .header_white {
-    background: #fff;
-    color: #000000;
+	background: #fff;
+	color: #000000;
 }
 
 .header_black {
-    background: #242E42;
-    color: #fff;
+	background: #242E42;
+	color: #fff;
 }
 
 /* 底部固定满宽按钮样式 */
 
 .next_btn {
-    width: 100%;
-    height: 1rem;
-    transform:translateZ(0);
-    -webkit-transform: translateZ(0);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: #008BD5;
-    font-size: .3rem;
-    color: #fff;
-    text-align: center;
-    line-height: 1rem;
-    z-index: 999;
+	width: 100%;
+	height: 1rem;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #008BD5;
+	font-size: .3rem;
+	color: #fff;
+	text-align: center;
+	line-height: 1rem;
+	z-index: 999;
 }
 
 .next_btn:active {
-    background: #0375B2;
+	background: #0375B2;
 }
 
 /* 底部固定间隙按钮 */
 
 .bottomBtnMiddle {
-    width: 6.7rem;
-    height: 1rem;
-    transform:translateZ(0);
-    -webkit-transform: translateZ(0);
-    position: fixed;
-    bottom: 0.46rem;
-    left: 0.4rem;
-    background: #242E42;
-    font-size: .32rem;
-    color: #fff;
-    text-align: center;
-    line-height: 1rem;
-    z-index: 999;
+	width: 6.7rem;
+	height: 1rem;
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	bottom: 0.46rem;
+	left: 0.4rem;
+	background: #242E42;
+	font-size: .32rem;
+	color: #fff;
+	text-align: center;
+	line-height: 1rem;
+	z-index: 999;
 }
 
 .bottomBtnMiddle:active {
-    background: #44567B;
+	background: #44567B;
 }
 
 /* 容器 */
 
 .content {
-    margin-top: .88rem;
+	margin-top: .88rem;
 }
+
 .contentA {
-    margin-top: 1.2rem;
+	margin-top: 1.2rem;
 }
 
 /* 空页面样式 */
 
 .nothing {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: .88rem;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: .88rem;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
 }
 
 .nothing img {
-    width: 4.2rem;
-    height: 2.6rem;
-    margin: 1.9rem auto 0rem;
+	width: 2.2rem;
+	height: 2.2rem;
+	margin: 1.9rem auto 0rem;
 }
 
 .nothing p {
-    font-size: .3rem;
-    color: #999999;
-    margin-top: 1rem;
+	font-size: .3rem;
+	color: #999999;
+	margin-top: 1rem;
 }
 
 /* ghq */
-.div_display{
+.div_display {
 	display: flex;
+	bottom: 0;
 }
-.font_size22{
+
+.font_size20 {
+	font-size: .2rem !important;
+}
+
+.font_size22 {
 	font-size: .22rem;
 }
-.font_size24{
+
+.font_size24 {
 	font-size: .24rem;
 }
-.font_size26{
+
+.font_size26 {
 	font-size: .26rem;
 }
-.font_size28{
+
+.font_size28 {
 	font-size: .28rem;
 }
-.font_size30{
+
+.font_size30 {
 	font-size: .3rem;
 }
-.font_size32{
+
+.font_size32 {
 	font-size: .32rem;
 }
-.font_size36{
+
+.font_size36 {
 	font-size: .36rem;
 }
-.font_size40{
+
+.font_size40 {
 	font-size: .40rem;
 }
 
-.font_colorff{
+.font_colorff {
 	color: #FFFFFF;
 }
-.font_color33{
+
+.font_color33 {
 	color: #333333;
 }
-.font_colorc1{
+
+.font_colorc1 {
 	color: #0C1934;
 }
-.font_color66{
+
+.font_color66 {
 	color: #666666;
 }
-.font_colorcb{
+
+.font_colorcb {
 	color: #CBCBCB;
 }
-.font_colorf4{
+
+.font_colorf4 {
 	color: #F42300 !important;
 }
-.font_color08{
+
+.font_color08 {
 	color: #080808;
 }
-.font_color99{
-	color: #999999;
+
+.font_color99 {
+	color: #999999 !important;
 }
-.margin_top2{
+.font_color6A{
+	color: #6A6A6A;
+}
+.font_color00{
+	color: #000000;
+}
+.font_color5c{
+	color: #C5C5C5;
+}
+.margin_top2 {
 	margin-top: .2rem;
 }
-.margin_top3{
+
+.margin_top3 {
 	margin-top: .3rem;
 }
-.margin_bot3{
+.margin_top4{
+	margin-top: .4rem;
+}
+.margin_top5{
+	margin-top: .5rem;
+}
+.margin_top10{
+	margin-top: 1rem;
+}
+.margin_bot3 {
 	margin-bottom: .3rem;
 }
-.margin_left5{
+.margin_left6 {
+	margin-left: .6rem;
+}
+.margin_left5 {
 	margin-left: .5rem;
 }
-.padding_top1{
+.margin_left4{
+margin-left: .4rem;	
+}
+.margin_left3 {
+	margin-left: .3rem;
+}
+.margin_left2 {
+	margin-left: .2rem;
+}
+.margin_left1 {
+	margin-left: .1rem;
+}
+.margin_right6{
+	margin-right: .6rem;
+}
+.padding_right4{
+	padding-right: .4rem;
+}
+.padding_left2{
+	padding-left: .2rem;
+}
+.padding_top2{
+	padding-top: .2rem;
+}
+.padding_top1 {
 	padding-top: .1rem;
 }
-.text_center{
+
+.text_center {
 	text-align: center;
 }
-.text_right{
+
+.text_right {
 	text-align: right;
 }
-.width50{
+.div_border99{
+	border:1px solid  #999999 !important;
+}
+.width30{
+	width: 30%;
+}
+.width40 {
+	width: 40%;
+}
+.width45 {
+	width: 45%;
+}
+.width50 {
 	width: 50%;
 }
-.width100{
+
+.width55 {
+	width: 55%;
+}
+.width100 {
 	width: 100%;
 }
-.width_height100{
+
+.width_height100 {
 	width: 100%;
 	height: 100%;
 }
-.div_backgroun_jb{
-	background: linear-gradient(to right, #FF342D, #FF5882)!important;
+
+.div_backgroun_jb {
+	background: linear-gradient(to right, #FF342D, #FF5882) !important;
 }
-.div_bordder99{
+.div_backgroun_D8{
+			background-color: #D8D8D8;
+}
+.div_bordder99 {
 	border: 1px solid #999999 !important;
+}
+
+.img_width4 {
+	width: .44rem;
+	height: .44rem;
+}
+
+.div_none {
+	display: none;
+}
+/* 缺省页面 */
+.default_img{
+	width: 2.2rem;
+	height: 2.2rem;
+	overflow: hidden;
+	margin-top: 2rem;
+	margin-left: 2.7rem;
+}
+.default_img_btn{
+	width: 5.7rem;
+	height: .82rem;
+	border-radius: .4rem;
+	text-align: center;
+	font-size: .28rem;
+	color: #FFFFFF;
+	margin-left: .9rem;
+	line-height: 3;
+}
+.font_width900{
+	font-weight: 900;
+}
+.font_width800{
+	font-weight: 800;
+}
+.font_width700{
+	font-weight: 700;
+}
+.bj_model_logistics {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+	display: none;
 }
