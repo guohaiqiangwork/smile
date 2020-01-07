@@ -225,50 +225,50 @@
 									}
 								});
 								return null;
+							}else{
+								/* 查看是否绑定银行卡  ok*/
+								slectCheckBank(mui, plus.storage.getItem('memberId'), function(data) {
+									if (data.code != 200) {
+										$$.openWindow({
+											url: '../pages/bankCard.html',
+											id: 'realName',
+											show: {
+												aniShow: "slide-in-right"
+											}
+										});
+										return null;
+									}else{
+										/* 判断是否有提现密码 */
+										isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
+											console.log("判断是否有提现密码==" + JSON.stringify(data))
+											if (data.code == 500) {
+												$$.openWindow({
+													url: 'setPassword.html',
+													id: 'setPassword',
+													show: {
+														aniShow: "slide-in-right"
+													}
+												});
+											}else{
+												//都有去提现页面
+												$$.openWindow({
+													url: 'balanceTix.html',
+													id: 'balanceTix',
+													show: {
+														aniShow: "slide-in-right"
+													}
+												});
+											}
+										});
+									}
+								});
+								
 							}
 						} else {
 							tipShow(data.message);
 						}
 					});
-
-					/* 查看是否绑定银行卡  ok*/
-					slectCheckBank(mui, plus.storage.getItem('memberId'), function(data) {
-						if (data.code != 200) {
-							$$.openWindow({
-								url: '../pages/bankCard.html',
-								id: 'realName',
-								show: {
-									aniShow: "slide-in-right"
-								}
-							});
-							return null;
-						}
-					});
-
-					/* 判断是否有提现密码 */
-					isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
-						console.log("判断是否有提现密码==" + JSON.stringify(data))
-						if (data.code == 500) {
-							$$.openWindow({
-								url: 'setPassword.html',
-								id: 'setPassword',
-								show: {
-									aniShow: "slide-in-right"
-								}
-							});
-						}
-					});
 				};
-
-				/* 都有了去提现页面 */
-				$$.openWindow({
-					url: 'balanceTix.html',
-					id: 'balanceTix',
-					show: {
-						aniShow: "slide-in-right"
-					}
-				});
-
 			}
 			// 打开弹窗
 			$('#openM').on('tap', function() {

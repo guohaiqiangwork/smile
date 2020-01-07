@@ -39,7 +39,8 @@
             "description" : "管理推送消息插件"
         },
         "OAuth" : {},
-        "Payment" : {}
+        "Payment" : {},
+        "Share" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -196,8 +197,27 @@
                         "appsecret" : "gzQRhkDoAg8gBpUusvBCC3"
                     }
                 },
-                "payment" : {}
+                "payment" : {
+                    "weixin" : {
+                        "appid" : "wx2428d85ea06f622e",
+                        "UniversalLinks" : ""
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wx2428d85ea06f622e",
+                        "appsecret" : "90ac9fe0a0a035f04322d0dd617f29f5",
+                        "UniversalLinks" : ""
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx2428d85ea06f622e",
+                        "UniversalLinks" : ""
+                    }
+                }
             }
-        }
+        },
+        "screenOrientation" : [ "portrait-primary", "portrait-secondary" ]
     }
 }

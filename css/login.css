@@ -72,6 +72,8 @@ input::-webkit-input-placeholder {
 .phone_input input{
 	color: #FFFFFF;
 	font-size: 0.36rem;
+	position: relative;
+	bottom: 1px;
 }
 #login .code_input .entry {
 	font-size: .38rem;
@@ -113,6 +115,8 @@ input::-webkit-input-placeholder {
 	font-size: .26rem;
 	line-height: 0.8rem;
 	-font-weight: 700;
+	float: right;
+	margin-top: 0.03rem;
 }
 
 

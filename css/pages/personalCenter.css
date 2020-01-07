@@ -151,7 +151,7 @@
 	width: .41rem;
 	height: .41rem;
 	float: left;
-	margin-left: .6rem;
+	margin-left: .65rem;
 	margin-right: .5rem;
 }
 
@@ -206,11 +206,11 @@
 
 /* 我的服务 */
 .service_img {
-	width: .37rem;
-	height: .37rem;
+	width: .5rem;
+	height: .5rem;
 	/* background-color: #C9C9C9; */
 	float: left;
-	margin-left: .7rem;
+	margin-left: .66rem;
 	margin-top: .6rem;
 	/* overflow: hidden; */
 }

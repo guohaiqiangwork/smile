@@ -193,6 +193,8 @@
 			$$.init();
 
 			var _self;
+			var shareImg;
+			var shareName;
 			if (window.plus) {
 				plusReady();
 			} else {
@@ -266,8 +268,10 @@
 				// 获取商品详情
 				function getImage(shopId) {
 					getCommodityD(mui, shopId, function(data) {
-						//console.log(JSON.stringify(data))
+	
 						if (data.code == 200) {
+							shareImg = data.data.pictureUrlList[0]; //分享图片
+							shareName = data.data.title;//分享产品名称
 							$(".spanOneClass").text(data.data.goodsName) // 商品名称
 							$(".spanTwoClass").text(data.data.title) //副标题
 							$('.spanThreeClass').text("¥" + data.data.specification[0].price) //商品价格
@@ -476,8 +480,9 @@
 						return false;
 					}
 					var shareJson = {
-						"title": "笑容",
-						"desc": "笑容app你好！"
+						"title": "笑容商城",
+						"desc": shareName,
+						"img":shareImg
 					};
 					var lineEndId = ['lineEnd'];
 					var ids = [{

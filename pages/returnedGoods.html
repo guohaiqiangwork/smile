@@ -132,7 +132,6 @@
 						contentnomore: '我也是有底线滴',
 						auto: false,
 						callback: function() {
-							// alert('99')
 							var _this = this;
 							keywords.pageNum++;
 							getMyReturnList();
@@ -382,6 +381,7 @@
 			// 获取申请记录
 			function getApplyRecordList() {
 				getApplyRecord(mui, keywords, function(data) {
+					
 					if (data.code == 200) {
 						if (data.data.records.length == 0) {
 							if (keywords.pageNum == 1) {
@@ -407,10 +407,10 @@
 										'</div>' +
 										'<div class="width50 div_display" style="padding-left: 2rem;">' +
 										'<div class=" font_size28 font_color33 margin_top3 font_colorf4">' +
-										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核成功" :
+										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核通过" :
 											data.data
-											.records[items].retStatus == 3 ? "审核拒绝" : data.data.records[items].retStatus == 4 ? "退款成功" : data.data.records[
-												items].retStatus == 5 ? "退款失败 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
+											.records[items].retStatus == 3 ? "审核未通过" : data.data.records[items].retStatus == 4 ? "已退款" : data.data.records[
+												items].retStatus == 5 ? "已退款 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
 										'</div>' +
 										'<div class=" font_size28 font_color33 margin_top3">' +
 										(data.data.records[items].status == 4 ? "已完成" : data.data.records[items].status ==
@@ -422,7 +422,7 @@
 										'</div>' +
 										'</div>' +
 										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
-										'<div class="newShoping  goDetail_to" style="touch-action: none;" id="nihao" data-id="' + data.data.records[
+										'<div class="newShoping  goDetail_to" style="touch-action: none;" id="nihao" data-Tid="' + data.data.records[items].id + '" data-id="' + data.data.records[
 											items].orderId +
 										'">' +
 										'</div>' +
@@ -446,7 +446,7 @@
 											'<div class="product_number">' +
 											data.data.records[items].returnItemList[item].num +
 											'</div>' +
-											'<div class="product_img_w ">' +
+											'<div class="product_img_w">' +
 											'<img src="' + data.data.records[items].returnItemList[item].picPath +
 											'"  style="width: 100%;height: 100%;">' +
 											'</div>' +
@@ -489,10 +489,10 @@
 										'</div>' +
 										'<div class="width50 div_display" style="padding-left: 2rem;">' +
 										'<div class=" font_size28 font_color33 margin_top3 font_colorf4" >' +
-										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核成功" :
+										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核通过" :
 											data.data
-											.records[items].retStatus == 3 ? "审核拒绝" : data.data.records[items].retStatus == 4 ? "退款成功" : data.data.records[
-												items].retStatus == 5 ? "退款失败 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
+											.records[items].retStatus == 3 ? "审核未通过" : data.data.records[items].retStatus == 4 ? "已退款" : data.data.records[
+												items].retStatus == 5 ? "已退款 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
 										'</div>' +
 										'<div class=" font_size28 font_color33 margin_top3" >' +
 										(data.data.records[items].status == 4 ? "已完成" : data.data.records[items].status ==
@@ -510,7 +510,7 @@
 										'" style="width: 100%;height: 100%;">' +
 										'</div>' +
 										'</div>' +
-										'<div class="product_imgList_rightd goDetail_to" data-id="' + data.data.records[0].orderId + '">' +
+										'<div class="product_imgList_rightd goDetail_to" data-id="' + data.data.records[0].orderId + '" data-Tid="' + data.data.records[items].id + '">' +
 										'<div class="font_size26 font_color33">' +
 										data.data.records[items].returnItemList[0].title +
 										'</div>' +
@@ -620,24 +620,26 @@
 				});
 			});
 			// 去退换货详情
-			$('#productListTwo').on('tap', '#nihao', function() {
-				$$.openWindow({
-					url: 'returnedD.html',
-					id: 'returnedD',
-					extras: {
-						"orderId": $(this).attr('data-id')
-					},
-					show: {
-						aniShow: "slide-in-right"
-					}
-				});
-			})
+			// $('#productListTwo').on('tap', '#nihao', function() {
+			// 	alert('多个')
+			// 	$$.openWindow({
+			// 		url: 'returnedD.html',
+			// 		id: 'returnedD',
+			// 		extras: {
+			// 			"orderId": $(this).attr('data-id')
+			// 		},
+			// 		show: {
+			// 			aniShow: "slide-in-right"
+			// 		}
+			// 	});
+			// })
 			$('#productListTwo').on('tap', '.goDetail_to', function() {
 				$$.openWindow({
 					url: 'returnedD.html',
 					id: 'returnedD',
 					extras: {
-						"orderId": $(this).attr('data-id')
+						"orderId": $(this).attr('data-id'),
+						"TidD":$(this).attr('data-Tid')
 					},
 					show: {
 						aniShow: "slide-in-right"

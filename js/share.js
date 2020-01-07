@@ -13,9 +13,9 @@ function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 			}
 		};
 		if (lineEndId && lineEndId[0] != 'lineEnd') {
-			msg.href = "http://49.232.97.190:8080" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
+			msg.href = "http://www.bjxrkj.com" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
 		} else {
-			msg.href = "http://49.232.97.190:8080" + "/web/appShare/goRegister?shareId=" + userId + ""; //分享地址
+			msg.href = "http://www.bjxrkj.com" + "/web/appShare/goRegister?shareId=" + userId + ""; //分享地址
 		}
 		msg.title = shareTitle;
 		msg.content = shareContentReg;

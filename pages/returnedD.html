@@ -117,9 +117,8 @@
 					pageNum: 1,
 					pageSize: 10,
 					data: {
-						status: '',
 						memberId: plus.storage.getItem('memberId') || '',
-						orderId: _self.orderId
+						id: _self.TidD || ''
 					}
 				}
 				getApplyRecordList(); //获取详情
@@ -159,7 +158,7 @@
 								$(fragmentplanListTwo).append(detailList);
 							})
 							// 待审核
-							if (data.data.records[items].retStatus == 1 && data.data.records[items].retStatus == 2) {
+							if (data.data.records[items].retStatus == 1) {
 								var stateList =
 									'<div class="div_display margin_top2">' +
 									'<div class="font_width700">' +
@@ -185,7 +184,7 @@
 									'</div>';
 								$('.model_product_Ddown').append(stateList);
 								// 3-5 
-							} else if (data.data.records[items].applyServer == 2 || data.data.records[items].applyServer == 4) {
+							} else if (data.data.records[items].retStatus == 3) {
 								var stateList =
 									'<div class="div_display margin_top2">' +
 									'<div class="font_width700">' +
@@ -218,7 +217,63 @@
 									'</div>';
 								$('.model_product_Ddown').append(stateList);
 								// 4-6retStatus
-							} else if (data.data.records[items].applyServer == 1 || data.data.records[items].applyServer == 3) {
+							} else if (data.data.records[items].applyServer == 1 && data.data.records[items].retStatus == 4) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'物流单号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].logisticsCode +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].returnTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款金额:' +
+									'</div>' +
+									'<div class="margin_left2">¥' +
+									data.data.records[items].actualAmount + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款路径:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付" 
+									 : "" +
+									'</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							} else if (data.data.records[items].applyServer == 3 && data.data.records[items].retStatus == 4) {
 								var stateList =
 									'<div class="div_display margin_top2">' +
 									'<div class="font_width700">' +
@@ -247,7 +302,7 @@
 									'退款时间:' +
 									'</div>' +
 									'<div class="margin_left2">' +
-									data.data.records[items].remark + '</div>' +
+									data.data.records[items].returnTime + '</div>' +
 									'</div>' +
 									'<div class="div_display margin_top2">' +
 									'<div class="font_width700">' +
@@ -261,8 +316,159 @@
 									'退款路径:' +
 									'</div>' +
 									'<div class="margin_left2">' +
-									'原路退回</div>' +
+									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付"
+									 : "" +
+									'</div>' +
 									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							} else if (data.data.records[items].applyServer == 2 && data.data.records[items].retStatus == 6) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'物流单号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].logisticsCode +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							} else if (data.data.records[items].applyServer == 4 && data.data.records[items].retStatus == 6) {
+	
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'物流单号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].logisticsCode +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							} else if (data.data.records[items].applyServer == 1 && data.data.records[items].retStatus == 2) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].returnTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款金额:' +
+									'</div>' +
+									'<div class="margin_left2">¥' +
+									data.data.records[items].actualAmount + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'退款路径:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付"
+									 : "" +
+									'</div>' +
+									'</div>';
+								$('.model_product_Ddown').append(stateList);
+							} else if (data.data.records[items].applyServer == 2 && data.data.records[items].retStatus == 2) {
+								var stateList =
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'订单编号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].orderNo +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'物流单号:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].logisticsCode +
+									'</div>' +
+									'</div>'+
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请时间:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retTime + '</div>' +
+									'</div>' +
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
+									'申请原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].retReason + '</div>' +
+									'</div>' 
+									;
 								$('.model_product_Ddown').append(stateList);
 							}
 							$("#topList").append($(fragmentplanListTwo));

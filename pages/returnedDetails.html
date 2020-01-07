@@ -173,6 +173,7 @@
 				swipeBack: true //启用右滑关闭功能
 			});
 			var _self;
+			var returnListL;//退款数据
 			if (window.plus) {
 				plusReady();
 			} else {
@@ -210,15 +211,7 @@
 					userRemark: '' //用户备注
 				}
 				// 处理退款
-				if (_self.orderStatus == 2) {
-					$('.orderStatusImg').css('display', 'none');
-					doc.getElementById('service').innerText = '仅退款'
-					refundData.applyServer = '3'
-					doc.getElementById('Reason').innerText = '未收到货'
-					refundData.retReason = '未收到货'
-					$('#showUserPickerReason').css('display', 'none')
-					$('#showUserPicker').css('display', 'none')
-				}
+				
 				// 判断订单状态是否为待发货
 				orderStatusF = false;
 				// 去详情
@@ -279,7 +272,7 @@
 					userPickerReason.show(function(items) {
 						Reason.innerText = items[0].text; //	退款原因页面赋值
 						refundData.retReason = items[0].text; //接口参数赋值退款原因
-						if(refundData.retReason == '商品质量问题'){
+						if (refundData.retReason == '商品质量问题') {
 							mustFill.style.display = 'block';
 						}
 						// alert(JSON.stringify(refundData))
@@ -295,6 +288,8 @@
 				console.log('请求参数' + JSON.stringify(keywords))
 				getMyReturn(mui, keywords, function(data) {
 					if (data.code == 200) {
+					returnListL	= data.data.records[0].itemList.length;
+					alert(returnListL)
 						if (data.data.records.length == 0) {
 							if (keywords.pageNum == 1) {
 								$('.nothing').css('display', 'block')
@@ -360,6 +355,15 @@
 							// if (data.data.records[0].status == 2) {
 							// 	orderStatusF = true;
 							// }
+							if (data.data.records[0].status == 2) {
+								$('.orderStatusImg').css('display', 'none');
+								doc.getElementById('service').innerText = '仅退款'
+								refundData.applyServer = '3'
+								doc.getElementById('Reason').innerText = '未收到货'
+								refundData.retReason = '未收到货'
+								$('#showUserPickerReason').css('display', 'none')
+								$('#showUserPicker').css('display', 'none')
+							}
 						}
 					} else if (data.code == 401 || data.code == 1500) {
 						gotoLoginIn()
@@ -378,9 +382,17 @@
 				} else if (!refundData.retReason) {
 					tipShow('请检查退款原因')
 					return;
-				}else if(refundData.retReason == '商品质量问题'){
-					if(!refundData.userRemark){
+				} else if (refundData.retReason == '商品质量问题') {
+					if (!refundData.userRemark) {
 						tipShow('请检查具体说明')
+						return;
+					}
+				}else if(refundData.itemList.length  == 0){
+					tipShow('请选择商品')
+					return;
+				}else if(_self.orderStatus == 2){
+					if(refundData.itemList.length != returnListL ){
+						tipShow('请选择商品');
 						return;
 					}
 				}

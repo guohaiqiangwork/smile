@@ -20,7 +20,7 @@
 		</header>
 		<div class="content">
 			<!-- 头部提示信息 -->
-			<div class="order_details_title div_backgroun_jb">
+			<div class="order_details_title" style="background: linear-gradient(to right, #FF342D, #FF5882)">
 				<!-- 待支付 -->
 				<div class="font_colorff" id="statusOne" style="display: none;">
 					<div class="div_display">
@@ -230,7 +230,7 @@
 							$('#statusTwo').css('display', 'block');
 							var btn =
 								'<div class="order_btn_ff"  style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data.orderId + '">' +
-								'再次购买2' +
+								'再次购买' +
 								'</div>';
 							$("#orderDetailsBtn").append(btn);
 
@@ -251,6 +251,9 @@
 							$("#orderDetailsBtn").append(btn);
 
 						} else if (data.data.status == 5) {
+							//如果是已取消,头部背景颜色为灰色
+							$('.order_details_title').css('background', 'linear-gradient(to right, #73767C, #484747)');
+							
 							$('#statusFive').css('display', 'block');
 							$('#reason').text(data.data.remark);
 							var btn = '<div class="order_btn_ff" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data.orderId + '">再次购买</div>';
@@ -372,8 +375,11 @@
 				} else if ($(this).attr("data-type") == 'cancel') {
 					// 取消支付
 					getCancelPay(mui, keyword, function(data) {
-						if (data.code == 200) {
+						if (data.code == 200) { 
 							tipShow('取消成功')
+							//如果是已取消,头部背景颜色为灰色
+							$('.order_details_title').css('background', 'linear-gradient(to right, #73767C, #484747)');
+							
 							plus.webview.currentWebview().reload(true);
 						} else {
 							tipShow(data.message)
