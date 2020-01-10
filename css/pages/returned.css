@@ -1,0 +1,350 @@
+/*  */
+.header_tab {
+	width: 7.5rem;
+	background-color: #FFFFFF;
+	height: .86rem;
+	z-index: 999;
+	position: fixed;
+	top: .8rem;
+}
+
+.border_left {
+	border-left: 1px solid #D8D8D8;
+	height: .4rem;
+	margin-top: 0.2rem;
+	width: 1px;
+	position: absolute;
+	left: 51%;
+}
+
+/* 未选择按钮样式 */
+.tab_swich {
+	color: #9B9B9B;
+	width: 50%;
+	font-size: .28rem;
+	color: #000000;
+	line-height: 3;
+	text-align: center;
+	border-top: 1px solid #D8D8D8;
+}
+
+/* 选择按钮样式 */
+.avue {
+	color: #404040;
+	height: .06rem;
+	width: 1.2rem;
+	border-radius: .1rem;
+	background: linear-gradient(to right, #FF342D, #FF5882) !important;
+	margin-left: 34%;
+	margin-top: -.1rem;
+}
+
+/* 这招 */
+.bj_model {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+	display: none;
+}
+
+.pSetting_change_model {
+	width: 5.8rem;
+	height: 4.2rem;
+	background: #FFFFFF;
+	position: fixed;
+	top: 4rem;
+	left: .9rem;
+	z-index: 999999;
+	border-radius: 0.2rem;
+	box-sizing: border-box;
+	padding: .2rem 0 .2rem 0;
+	margin: 0 auto;
+}
+
+.pSetting_btn {
+	width: 2rem;
+	height: .65rem;
+	border-radius: .4rem;
+	line-height: 2.4;
+	margin-left: .7rem;
+}
+
+.border_1 {
+	width: 2rem;
+	height: .65rem;
+	border-radius: .4rem;
+	line-height: 2.4;
+	margin-left: .7rem;
+	border: 1px solid #0C1934;
+}
+
+/* 填写物流单号 */
+.bj_model_logistics {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+	display: none;
+}
+
+.pSetting_change_logist {
+	width: 5.4rem;
+	height: 3rem;
+	background: #FFFFFF;
+	position: fixed;
+	top: 4rem;
+	left: .9rem;
+	z-index: 999999;
+	border-radius: 0.2rem;
+	box-sizing: border-box;
+	padding: .2rem 0 .2rem 0;
+	margin: 0 auto;
+}
+
+.pSetting_btn_logistics {
+	width: 2.6rem;
+	height: .65rem;
+	border-radius: .4rem;
+	line-height: 2.4;
+	margin-left: 1.4rem;
+}
+
+.img_width_logist {
+	width: .3rem;
+	height: .3rem;
+	margin-top: .3rem;
+	margin-left: .4rem;
+	position: absolute;
+}
+
+.logisticsI {
+	border: none;
+	-webkit-user-select: text !important
+}
+
+/* 退换货详情 */
+.returnedDetails_title {
+	background-color: #FFE8E8;
+	color: #000000;
+	font-weight: 700;
+	padding-left: .26rem;
+	padding-top: .15rem;
+	padding-bottom: .15rem;
+	border-radius: .2rem;
+}
+
+.model_width {
+	width: 7.1rem;
+	margin-left: .2rem;
+}
+
+.condition_height {
+	height: .74rem;
+	background-color: #FFFFFF;
+}
+
+.list_m {
+	margin-top: .17rem;
+	margin-left: .17rem;
+}
+
+.img_up_model {
+	width: 1.2rem;
+	height: 1.2rem;
+	overflow: hidden;
+	border: 1px solid #CFCFCF;
+	border-radius: .1rem;
+	text-align: center;
+	margin-left: .2rem;
+}
+
+.detail_list_model {
+	height: 2rem;
+	background-color: #FFFFFF;
+	margin-top: .2rem;
+	border-radius: .1rem;
+	padding-top: .17rem;
+}
+
+.list_model_right {
+	margin-left: .3rem;
+}
+
+.img_r_d {
+	margin-left: .17rem;
+}
+
+.r_d_check {
+	/* margin-top: .6rem; */
+	width: .7rem;
+	margin-left: .1rem;
+}
+
+.number_model {
+	margin-left: .2rem;
+}
+
+.delNumber {}
+
+.Number {
+	margin-left: .2rem;
+	width: .73rem;
+	height: .45rem;
+	background-color: #F4F4F4;
+	text-align: center;
+	color: #333333;
+	font-size: .28rem;
+}
+
+.money_img {
+	width: .35rem;
+	height: .35rem;
+	border-radius: 50%;
+	background-color: #FFC40C;
+	text-align: center;
+	color: #FFFFFF;
+	font-weight: 800;
+}
+
+.money_btn {
+	width: 7.5rem;
+	height: 1.2rem;
+	position: fixed;
+	bottom: 0;
+	padding-top: .4rem;
+}
+
+/* 退货详情 */
+.model_product_D {
+	width: 7.1rem;
+	/* height: 5.6rem; */
+	background-color: #FFFFFF;
+	margin-left: .2rem;
+	margin-top: .2rem;
+}
+
+.model_product_DDiv {
+	width: 6.7rem;
+	margin-left: .2rem;
+}
+
+.model_product_Dup {
+	height: 2.3rem;
+	border-bottom: 1px solid #F0F0F0;
+	display: flex;
+	padding-top: .5rem;
+}
+.model_product_Ddown{
+	font-size: .28rem;
+	color: #333333;
+}
+/* 列表 */
+
+.product_moudel {
+	width: 7.1rem;
+	box-shadow: 0px 0px 1px 1px #CBCBCB;
+	margin-left: .2rem;
+	margin-top: .3rem;
+	height: 4rem;
+	border-radius: .2rem;
+}
+.product_moudel_border{
+	border-bottom: 1px solid #F0F0F0;
+}
+.product_border {
+	border-bottom: 1px solid #E9E9E9;
+	padding-bottom: .17rem;
+}
+
+.product_moudel_title {
+	width: .9rem;
+	height: .7rem;
+	overflow: hidden;
+	margin-left: .22rem;
+	margin-top: .17rem;
+}
+
+.product_imgList_left {
+	width: 6.5rem;
+	overflow: hidden;
+}
+
+.product_imgList_right {
+	width: 1rem;
+	margin-top: .9rem;
+	margin-left: .2rem;
+}
+
+.product_img_w {
+	width: 1.2rem;
+	height: 1.2rem;
+	overflow: hidden;
+	margin-left: .2rem;
+	margin-top: .3rem;
+}
+
+
+.img_w_m {
+	/* width: 1.2rem; */
+	margin-top: .1rem;
+	margin-left: .4rem;
+}
+/* 列表数据 */
+.product_number {
+	width: .47rem;
+	height: .24rem;
+	border-radius: .2rem;
+	border: 1px solid #F42300;
+	color: #F42300;
+	font-size: .2rem;
+	text-align: center;
+	line-height: 1;
+	position: absolute;
+	margin-left: 1.2rem;
+	margin-top: .2rem;
+	/* background-color: red; */
+}
+.return_btn{
+	width: 1.6rem;
+	height: .48rem;
+	border-radius: .3rem;
+	text-align: center;
+	color: #F42300;
+	border: 1px solid #F42300;
+	font-size: .24rem;
+	margin-top: .1rem;
+}
+
+.product_img_wd {
+	width: .9rem;
+	height: .9rem;
+	overflow: hidden;
+	margin-left: .3rem;
+	margin-top: .3rem;
+}
+
+
+.product_imgList_rightd {
+	width: 4rem;
+	margin-left: .5rem;
+	margin-top: .4rem;
+	text-align: left;
+}
+
+.product_rightd_number {
+	margin-top: .8rem;
+}
+
+.newShoping {
+	display: flex;
+	width: 10rem;
+	overflow-x: scroll;
+	height: 1.5rem;
+}

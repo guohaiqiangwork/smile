@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<script src="js/rem_reset.js"></script>
+		<style>
+			#close {
+				position: absolute;
+				width: 3.3rem;
+				left: 50%;
+				height: .84rem;
+				margin-left: -80px;
+				bottom: 2rem;
+				padding: 10px;
+				color: #fff;
+				background: linear-gradient(to right, #FF342D, #FF5882);
+				border: none;
+				border-radius: .5rem;
+				font: .3rem;
+			}
+
+			.item-logo {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+
+			.item-logo a {
+				width: 4.5rem;
+				height: 3.5rem;
+				display: block;
+				border: 1px solid #FFFFFF;
+				border-color: rgba(255, 255, 255, 0.5);
+				text-align: center;
+				line-height: 200px;
+				border-radius: 50%;
+				font-size: 40px;
+				color: #fff;
+				position: absolute;
+				top: 15%;
+				left: 50%;
+				margin-left: -100px;
+			}
+
+			#slider .mui-slider-indicator {
+				bottom: 1rem;
+				font-size: 0;
+				z-index: 998;
+				width: 7rem;
+			}
+
+			#slider .mui-slider-indicator .mui-indicator {
+				width: .16rem;
+				height: .16rem;
+				margin: 0;
+				border-radius: 50%;
+				box-shadow: none;
+				background: #EFEFF4;
+				margin-left: .2rem;
+			}
+
+			#slider .mui-slider-indicator .mui-indicator:nth-of-type(1) {
+				border-top-left-radius: 50%;
+				border-bottom-left-radius: 50%;
+			}
+
+			#slider .mui-slider-indicator .mui-indicator:last-child {
+				border-top-right-radius: 50%;
+				border-bottom-right-radius: 50%;
+			}
+
+			#slider .mui-slider-indicator .mui-active.mui-indicator {
+				background: #008BD5;
+				border-radius: 50%;
+			}
+
+			.item-word {
+				width: 100%;
+				position: absolute;
+				font-size: .4rem;
+				left: 0;
+				bottom: 5rem;
+				text-align: center;
+				color: #000000;
+			}
+
+			.item-word-two {
+				width: 100%;
+				position: absolute;
+				font-size: .3rem;
+				color: #666666;
+				left: 0;
+				bottom: 4.4rem;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="slider" class="mui-slider mui-fullscreen">
+			<div class="mui-slider-group">
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<div class="item-logo" style="background-color: #FFFFFF">
+						<a href="#">
+							<img src="image/guide1.png">
+						</a>
+						<div class="item-word">
+							好友下单 获得大礼
+						</div>
+						<div class="item-word-two">
+							好友购物获得余额
+						</div>
+					</div>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<div class="item-logo" style="background-color: #FFFFFF;">
+						<a href="#">
+							<img src="image/guide2.png">
+						</a>
+						<div class="item-word">
+							躺在家里 赚取利润
+						</div>
+						<div class="item-word-two">
+							手机操作方便快捷
+						</div>
+					</div>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<div class="item-logo" style="background-color: #FFFFFF;">
+						<a href="#">
+							<img src="image/guide3.png">
+						</a>
+						<div class="item-word">
+							新型模式 前所未有
+						</div>
+						<div class="animate">
+							<button id='close' class=" mui-btn mui-btn-warning mui-btn-outlined">开启我的笑容</button>
+						</div>
+					</div>
+				</div>
+				<!-- 第四张 -->
+				<!-- <div class="mui-slider-item">
+				<div class="item-logo" style="background-color: #FFFFFF;">
+					<a href="#">
+						<img src="img/guide_icon_04.png">
+					</a>
+					<div class="item-word">
+						上学、放学出行，用美好同乘
+					</div>
+					<div class="animate">
+						<button id='close' class="mui-btn mui-btn-warning mui-btn-outlined"
+							style="background-color: #008BD5;">立即体验</button>
+					</div>
+				</div>
+			</div> -->
+
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<!-- <div class="mui-indicator"></div> -->
+			</div>
+		</div>
+		<script src="js/jquery-1.11.2.min.js"></script>
+		<script src="js/mui.min.js"></script>
+
+		<script>
+			mui.back = function() {};
+			mui.plusReady(function() {
+				if (mui.os.ios) {
+					plus.navigator.setFullscreen(true);
+				}
+				setTimeout(function() {
+					plus.navigator.closeSplashscreen();
+				}, 2000);
+			});
+			//立即体验按钮点击事件
+			document.getElementById("close").addEventListener('tap', function(event) {
+				plus.storage.setItem("lauchFlag", "true");
+				plus.webview.currentWebview().close();
+			}, false);
+			//图片切换时，触发动画
+			document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+				if (event.detail.slideNumber + 1 == 4) {
+					$(".mui-slider-indicator").css("display", "none");
+				} else {
+					if ($(".mui-slider-indicator").css("display") == 'block') {
+						return;
+					} else if ($(".mui-slider-indicator").css("display") == 'none') {
+						$(".mui-slider-indicator").css("display", "block");
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

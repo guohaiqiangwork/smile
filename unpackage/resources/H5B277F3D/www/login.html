@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>login</title>
+		<link rel="stylesheet" type="text/css" href="css/mobileReset.css" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+		<script src="js/rem_reset.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body onselectstart="return false;">
+		<div id="login">
+			<div class="returnKey mui-action-back"><img src="image/33@2x.png" style="width: .6rem;height: .6rem;"></div>
+			<div class="car_logo">
+				<img src="image/log@2x.png">
+			</div>
+			<div class="phone_input">
+				<!-- <i class="fa fa-tablet font_Typeface"></i> -->
+				<img src="image/4538@2x.png" />
+				<input class="entry" id="phone" required="required" maxlength="11" type="text" placeholder="请输入手机号码">
+			</div>
+			<div class="code_input">
+				<!-- <i class="fa fa-tablet font_Typeface"></i> -->
+				<img src="image/4539@2x.png" />
+				<input required="required" id="code" maxlength="6" type="text" placeholder="请输入验证码" class="entry" style="width: 2.3rem;">
+				<span id="yzm">获取验证码</span>
+			</div>
+			<div class="login_btn">
+				登录
+			</div>
+			<div class="login_btn_X">
+				登录
+			</div>
+			<div class="use_car_des">
+				<p style="color: #8D8888;">点击登录，即表示您同意<a href="#" data-index='0' style="color: #FFFFFF;">《笑容用户协议》</a></p>
+			</div>
+			<div class="otherLogin">
+				<div class="otherWord">
+					<span></span>
+					<span class="otherName">其他方式登录</span>
+					<span></span>
+				</div>
+				<ul class="other_login_icon oauth-area"></ul>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/commonFun.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/igexinTool.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function($, doc, $$, undefined) {
+			$$.init()
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			};
+
+			// 5+环境引用
+			function plusReady() {
+				// 监听网络变化
+				document.addEventListener("netchange", function() {
+					// 加延迟 防止页面不能及时加载
+					var addNetTimer = setTimeout(function() {
+						clearTimeout(addNetTimer);
+						onNetChange();
+					}, 100);
+				}, false);
+				var _self = plus.webview.currentWebview();
+				var bindPhone = plus.webview.getWebviewById("bindPhone") || '';
+				bindPhone ? bindPhone.close() : '';
+				// 弹出软键盘时自动改变webview的高度 
+				if (mui.os.ios) {
+					plus.webview.currentWebview().setStyle({
+						softinputMode: "adjustResize"
+					});
+				}
+
+				//调用软键盘导致高度变化bug:获取原始窗口的高度
+				var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				window.onresize = function() {
+					// 	//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+					var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+					//resizeHeight<originalHeight证明窗口被挤压了
+					if (resizeHeight * 1 < originalHeight * 1) {
+						$("#login").css("background-size", "110% 100%");
+						plus.webview.currentWebview().setStyle({
+							height: originalHeight
+						});
+					}
+				}
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				// 服务条例
+				$('.use_car_des').on('tap', 'a', function() {
+					console.log($(this).attr('data-index'));
+					var caseProtocol = $(this).attr('data-index');
+					$$.openWindow({
+						url: "views/agreement.html",
+						id: "agreement",
+						styles: {
+							statusbar: {
+								background: "#fff"
+							}
+						}
+					})
+				})
+
+				function isInstalled(id) {
+					if (mui.os.android) {
+						var main = plus.android.runtimeMainActivity();
+						var packageManager = main.getPackageManager();
+						var PackageManager = plus.android.importClass(packageManager)
+						var packageName = {
+							"weixin": "com.tencent.mm",
+						}
+						try {
+							return packageManager.getPackageInfo(packageName[id], PackageManager.GET_ACTIVITIES);
+						} catch (e) {}
+					} else {
+						var WXApi = plus.ios.import("WXApi");
+						return WXApi.isWXAppInstalled()
+					}
+				}
+				//第三方登录
+				/* var authBtns = ['weixin']; //配置业务支持的第三方登录
+				var auths = {};
+				var oauthArea = doc.querySelector('.oauth-area');
+				var wxWaiting = plus.nativeUI.showWaiting();
+				plus.oauth.getServices(function(services) {
+					for (var i in services) {
+						var service = services[i];
+						auths[service.id] = service;
+						if (~authBtns.indexOf(service.id)) {
+							var isInstall = isInstalled(service.id);
+							var btn = document.createElement('div');
+							//如果微信未安装，则为不启用状态
+							btn.setAttribute('class', 'oauth-btn' + (!isInstall && service.id === 'weixin' ? (' disabled') : ''));
+							btn.authId = service.id;
+							btn.style.backgroundImage = 'url("image/wx.png")'
+							oauthArea.appendChild(btn);
+							wxWaiting.close();
+						} else {
+							wxWaiting.close();
+						}
+
+					}
+					$(oauthArea).on('tap', '.oauth-btn', function() {
+						if (this.classList.contains('disabled')) {
+							plus.nativeUI.toast('微信尚未登录');
+							return;
+						}
+						var auth = auths[this.authId];
+						auth.login(function() {
+							plus.nativeUI.toast("登录认证成功");
+							auth.getUserInfo(function() {
+								var name = auth.userInfo.nickname || auth.userInfo.name;
+								// 存储微信openid
+								plus.storage.setItem('userOpenId', auth.userInfo.openid);
+								plus.storage.setItem('wxNickName', name);
+								plus.storage.setItem('wxHeadImg', auth.userInfo.headimgurl);
+								var obj = {
+									'openId': auth.userInfo.openid,
+									'nickName': name,
+									'headImgUrl': auth.userInfo.headimgurl,
+									// 'unionid': auth.userInfo.headimgurl.unionid || ''
+								};
+								//判断微信是否绑定手机号
+								$$.ajax(requserUrl + '/wx/havePhone', {
+									timeout: 20000,
+									type: 'post',
+									data: obj,
+									success: function(data) {
+										console.log("11=" + JSON.stringify(data));
+										if (data.code == 500) {
+												$$.openWindow({
+													url: "views/bindPhone.html",
+													id: "bindPhone",
+													styles: {
+														statusbar: {
+															background: '#fff'
+														}
+													},
+													extras: {
+														"powerId": data.obj,
+														'canshu': 'dfdfs'
+													}
+												});
+											
+										} else {
+											console.log(JSON.stringify(data))
+											plus.storage.setItem('memberId', data.data.id);
+											plus.storage.setItem('Token', data.data.token + "")
+											// var ws = plus.webview.currentWebview();
+											// plus.webview.close(ws);
+											// // 监听个人中心
+											// var list = plus.webview.currentWebview().opener();
+											// mui.fire(list, 'refreshMajorGuestCount');
+											// plus.webview.getWebviewById('HBuilder').reload()
+											// tipShow(JSON.stringify(data));
+											
+											// 登录成功后刷新
+											var list = plus.webview.currentWebview().opener();
+											mui.fire(list, 'refreshMajorGuestCount');
+											var ws = plus.webview.currentWebview();
+											plus.webview.close(ws);
+											plus.webview.getWebviewById('HBuilder').reload()
+										}
+									},
+									error: function() {
+										console.log("22=" + JSON.stringify(data));
+										acceptDateErrorTip();
+									}
+								})
+
+
+
+							}, function(e) {
+								plus.nativeUI.toast("获取用户信息失败：" + e.message);
+							});
+						}, function(e) {
+							waiting.close();
+							plus.nativeUI.toast("登录认证失败：" + e.message);
+						});
+					});
+				}, function(e) {
+					oauthArea.style.display = 'none';
+					plus.nativeUI.toast("获取登录认证失败：" + e.message);
+				}); */
+
+				//点击获取验证码
+				var yzm = document.getElementById('yzm')
+				//是否可以点击【获取验证码按钮开关】
+				var onOff = true;
+				var reg = new RegExp(/^\d{6}$/); //6位数字验证
+				//code_4用于注册信息时的验证，验证码，获取与输入的一致
+				var code_4 = '';
+				yzm.onclick = function() {
+					if ($('#phone').val() < 11 || !(/^1[3456789]\d{9}$/.test($('#phone').val()))) {
+						tipShow('请输入正确手机号');
+						return
+					}
+
+					//如果onOff标志false则，不执行任何操作
+					if (!onOff)
+						return;
+					//循环周期60s
+					var times = 60;
+					//获取验证码
+					var data1 = {
+						phone: $('#phone').val()
+					};
+					var getCodeWati = plus.nativeUI.showWaiting("获取中...");
+					getCode(mui, data1, function(data) {
+						getCodeWati.close();
+						if (data.code == 200) {
+							console.log('验证码获取成功' + data.data)
+						} else {
+							console.log('验证码获取失败' + data.message)
+						}
+					});
+					//使用定时器，一秒触发一次事件，如果结束，则关闭定时器
+					var timer = setInterval(function() {
+						//事件处理，一秒一次
+						times--;
+						if (times < 1) {
+							//执行结束，则可以再次点击
+							yzm.innerHTML = "重新获取";
+							onOff = true;
+							clearInterval(timer);
+						} else {
+							var text = times + 's';
+							yzm.innerHTML = text;
+							onOff = false;
+						}
+					}, 1000);
+				}
+				// 禁止回退 重写back
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if (backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+						plus.webview.getWebviewById('HBuilder').reload()
+						// plus.nativeUI.toast('再按退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				}
+
+			}
+
+			// 点击跳转
+			$(".login_btn_X").on("tap", function() {
+				var keyword = {
+					phone: $("#phone").val(),
+					phoneCode: $("#code").val(),
+					openId: plus.storage.getItem('userOpenId') || ''
+				};
+				var gotoLoginWati = plus.nativeUI.showWaiting("登录中...");
+				gotoLogin(mui, keyword, function(data) {
+					gotoLoginWati.close()
+					if (data.code == 200) {
+						tipShow(data.message);
+						//console.log(JSON.stringify(data) + 'dsfjlk ')
+						plus.storage.setItem('memberId', data.data.id);
+						plus.storage.setItem('Token', data.data.token + "")
+						
+						//个推
+						//alert("已登录="+ plus.storage.getItem('memberId'));
+						var tool =	new igexinTool();
+						tool.bindAlias(plus.storage.getItem('memberId'));
+						
+						// 登录成功后刷新
+						var list = plus.webview.currentWebview().opener();
+						mui.fire(list, 'refreshMajorGuestCount');
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+						if(plus.webview.getWebviewById('HBuilder')){
+							plus.webview.getWebviewById('HBuilder').reload()
+						}
+						
+					} else {
+						tipShow(data.message)
+						$("#code").val('')
+					}
+				});
+			});
+			// 监听验证码输入框内容
+			$('.code_input input').bind('input propertychange', function() {
+				if ($(this).val().length == 6) {
+					$('.login_btn_X').css('display', 'block')
+					$('.login_btn').css('display', 'none')
+				}
+			});
+
+		})(jQuery, document, mui);
+	</script>
+
+</html>

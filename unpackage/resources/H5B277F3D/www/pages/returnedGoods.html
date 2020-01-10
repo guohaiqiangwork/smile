@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+   
+	<head>
+		<meta charset="utf-8">
+		<title>退换货</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/pages/returned.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+
+	<body onselectstart="return false;" style="background-color: #FAFAFA;">
+		<header class="header_white title">
+			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
+			退换货申请
+		</header>
+		<div class="content  mui-fullscreen">
+			<!-- tab -->
+			<div class="div_display header_tab">
+				<div class="tab_swich" data-id="1">
+					可申请订单
+					<div class="avue" id="qb"></div>
+				</div>
+				<div class="border_left"></div>
+				<div class="tab_swich" data-id="2">
+					申请记录
+					<div class="" id="fk"></div>
+				</div>
+			</div>
+			<!-- 内容区域 -->
+			<div class="mui-scroll-wrapper">
+
+				<div class="mui-scroll">
+
+					<!-- 可申请订单 -->
+					<div class="" id="productList" style="padding-bottom: 1.5rem;margin-top: 1rem;">
+
+					</div>
+					<!-- 申请记录 -->
+					<div class="" id="productListTwo" style="padding-bottom: 1.5rem;margin-top: 1rem;display: none;">
+
+					</div>
+				</div>
+			</div>
+			<!-- 空页面 -->
+			<div class="nothing" style="display: none;">
+				<!-- <img src="../image/default/nameSuccess.png">
+				<p>您当前没有订单哦~</p> -->
+			</div>
+		</div>
+		<!-- 退货超时提示 -->
+		<div class="bj_model">
+			<div class="pSetting_change_model text_center">
+				<div class=" font_size32 font_color33 margin_top5 font_width900">
+					超出售后时效
+				</div>
+				<div class=" font_size24 font_color33 text_center margin_left6 margin_right6 margin_top5">
+					该商品已经超了售后期，如有售后问题请拨打电话400-1345-111
+				</div>
+				<div class="margin_top4" style="border: 1px solid #F5F5F5;"></div>
+				<div class="font_size28 font_colorff div_display margin_top4">
+					<div class="text_center pSetting_btn border_1 font_color33" id="modelClose">
+						取消
+					</div>
+					<div class="div_backgroun_jb text_center pSetting_btn" id="okBtn">
+						拨打电话
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- 填写物流单号 -->
+		<div class="bj_model_logistics">
+			<div class="pSetting_change_logist">
+				<img src="../image/close.png" class="img_width_logist" id="closeLogist">
+				<div class=" font_size32 font_color33  font_width900 margin_top2 text_center">
+					填写物流单号
+				</div>
+				<div class=" font_size24 font_color33 text_center margin_top4">
+					<input type="" name="" id="okLogistInput" value="" class="logisticsI" placeholder="请填写物流单号" />
+				</div>
+				<div class="margin_top2" style="border: 1px solid #F5F5F5;"></div>
+				<div class="font_size28 font_colorff div_display margin_top2">
+					<div class="div_backgroun_jb text_center pSetting_btn_logistics" id="okLogist">
+						确认
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				_self.orderType = 1;
+				// 判断展示那个
+				if (_self.orderType == 1) {
+					$("#qb").addClass("avue")
+				} else if (_self.orderType == 2) {
+					$('#fk').addClass('avue')
+				};
+				mui(".mui-scroll-wrapper").pullRefresh({
+					container: '.mui-scroll',
+					up: {
+						height: 50, //可选.默认50.触发上拉加载拖动距离
+						contentrefresh: '加载中...',
+						contentnomore: '我也是有底线滴',
+						auto: false,
+						callback: function() {
+							// alert('99')
+							var _this = this;
+							keywords.pageNum++;
+							getMyReturnList();
+							// database.current++;
+							setTimeout(function() {
+								_this.endPullupToRefresh(false);
+							}, 500)
+						}
+					},
+					down: {
+						height: 50,
+						auto: false,
+						contentdown: "下拉刷新",
+						contentover: "释放刷新",
+						contentrefresh: "刷新中...",
+						callback: function() {
+							keywords.pageNum = 1;
+							keywords.pageSize = 10;
+							// var list = $('#container');
+							// var reg = /(\d{3})\d{4}(\d{4})/;
+							// list.html('');
+							plus.webview.currentWebview().reload(true);
+
+						}
+					}
+				});
+				keywords = {
+					pageNum: 1,
+					pageSize: 10,
+					data: {
+						status: '',
+						memberId: plus.storage.getItem('memberId') || '',
+						orderId: ''
+					}
+				}
+				/* 子页面调用父页面方法 */
+				window.addEventListener('getRecordList', function(event) {
+					_self.orderType == 1
+					getApplyRecordList();
+				});
+				// 获取退货列表
+				getMyReturnList();
+			}
+			// 头部导航
+			$('.tab_swich').on('tap', function() {
+				keywords = {
+					pageNum: 1,
+					pageSize: 10,
+					data: {
+						status: '',
+						memberId: plus.storage.getItem('memberId') || '',
+						orderId: ''
+					}
+				}
+				if ($(this).attr("data-id") == 2) {
+					$("#productListTwo").html("");
+					$('#productList').css('display', 'none');
+					$('#productListTwo').css('display', 'block');
+					getApplyRecordList(); //获取申请记录
+				} else {
+					$("#productList").html("");
+					$('#productList').css('display', 'block');
+					$('#productListTwo').css('display', 'none');
+					getMyReturnList(); //获取可申请订单
+				}
+				$(".header_tab").find("div").removeClass("avue")
+				$(this).children("div").addClass('avue')
+				// 获取列表
+			})
+			//  获取退货可申请列表
+			function getMyReturnList() {
+				getMyReturn(mui, keywords, function(data) {
+					if (data.code == 200) {
+						if (data.data.records.length == 0) {
+							if (keywords.pageNum == 1) {
+								$('.nothing').css('display', 'block')
+							}
+						} else {
+							var fragmentplanList = document.createDocumentFragment();
+							var fragmentplanListnihao = document.createDocumentFragment();
+							$.each(data.data.records, function(items) {
+								// 多个
+								if (data.data.records[items].itemList.length > 1) {
+									var orderLiTwo =
+										'<div class="product_moudel" id="bodyList" >' +
+										'<div class="div_display product_moudel_border">' +
+										'<div class="width50 div_display">' +
+										'<div class=" product_moudel_title">' +
+										'<img src="' + data.data.records[items].mchLogo +
+										'"  style="width: .8rem;height:.6rem">' +
+										'</div>' +
+										'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
+										 data.data.records[items].mchName+
+										'</div>' +
+										'</div>' +
+										'<div class="width50 div_display" style="padding-left: 2rem;">' +
+										'<div class=" font_size28 font_color33 margin_top3 font_colorf4">' +
+										(data.data.records[items].status == 1 ? "待付款" : data.data.records[items].status == 2 ? "待发货" : data.data
+											.records[items].status == 3 ? "待收货" : data.data.records[items].status == 4 ? "已完成" : data.data.records[
+												items].status ==
+											5 ? "已取消" : "") +
+										'</div>' +
+										// '<div class=" font_size28 font_color33 margin_top3">' +
+										// () +
+										// '</div>' +
+										'<div class=" margin_top3" id="deleteImg" data-id="' + data.data.records[items].orderId + '">' +
+										// '<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
+										'<div class="newShoping  goDetail_to" style="touch-action: none;" id="nihao" data-id="' + data.data.records[
+											items].orderId +
+										'">' +
+										'</div>' +
+										'</div>' +
+										'<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">' +
+										'<span class=" font_color99">共' +
+										data.data.records[items].itemList.length +
+										'种</span> <span class="font_color00">实付款：¥ ' +
+										+data.data.records[items].payment +
+										'</span>' +
+										'</div>' +
+										'<div class="div_display" id="btnAperation">' +
+										// '<div class="return_btn" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data
+										// .records[items].orderId + '">退换货</div>';
+										'</div>' +
+										'</div>' +
+										'</div>';
+									$(fragmentplanList).append(orderLiTwo);
+									$.each(data.data.records[items].itemList, function(item) {
+										var abc = '<div class="">' +
+											'<div class="product_number">' +
+											data.data.records[items].itemList[item].num +
+											'</div>' +
+											'<div class="product_img_w ">' +
+											'<img src="' + data.data.records[items].itemList[item].picPath +
+											'"  style="width: 100%;height: 100%;">' +
+											'</div>' +
+											'</div>';
+										$("#nihao", fragmentplanList).append(abc);
+									});
+									// 判断是否展示物流单号
+									if (data.data.records[items].status == 2) {
+										var btn =
+											'<div class="return_btn" style="margin-left: 5rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+											data.data.records[items].orderId + '" data-status="'+data.data.records[items].status+'">退款</div>' +
+											'</div>';
+										$("#btnAperation", fragmentplanList).append(btn);
+									} else if (data.data.records[items].status == 4) {
+										var btn =
+											'<div class="return_btn" style="margin-left: 5rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+											data.data.records[items].orderId + '">退换货</div>' +
+											'</div>';
+										$("#btnAperation", fragmentplanList).append(btn);
+									}
+									$("#productList").append($(fragmentplanList));
+								} else {
+									var orderLiTwo =
+										'<div class="product_moudel">' +
+										'<div class="div_display product_moudel_border">' +
+										'<div class="width50 div_display">' +
+										'<div class=" product_moudel_title">' +
+										'<img src="' + data.data.records[items].mchLogo +
+										'"  style="width: .8rem;height:.6rem">' +
+										'</div>' +
+										'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
+										 data.data.records[items].mchName+
+										'</div>' +
+										'</div>' +
+										'<div class="width50 div_display" style="padding-left: 2rem;">' +
+										'<div class=" font_size28 font_color33 margin_top3 font_colorf4" >' +
+										(data.data.records[items].status == 1 ? "待付款" : data.data.records[items].status == 2 ? "待发货" : data.data
+											.records[items].status == 3 ? "待收货" : data.data.records[items].status == 4 ? "已完成" : data.data.records[
+												items].status ==
+											5 ? "已取消" : "") +
+										'</div>' +
+										// '<div class=" font_size28 font_color33 margin_top3" >' +
+										// () +
+										// '</div>' +
+										'<div class=" margin_top3" id="deleteImg" data-id="' + data.data.records[items].orderId + '">' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" >' +
+										'<div class="div_display"  id="bodyList">' +
+										'<div class="product_imgList_leftd">' +
+										'<div class="product_img_wd ">' +
+										'<img src="' + data.data.records[items].itemList[0].picPath +
+										'" style="width: 100%;height: 100%;">' +
+										'</div>' +
+										'</div>' +
+										'<div class="product_imgList_rightd goDetail_to" data-id="' + data.data.records[0].orderId + '">' +
+										'<div class="font_size26 font_color33">' +
+										data.data.records[items].itemList[0].title +
+										'</div>' +
+										'<div class="font_size26 font_color99">' +
+										"规格:" + data.data.records[items].itemList[0].skuName +
+										'</div>' +
+										'<div class="font_size26 font_colorf4">' +
+										"¥" + data.data.records[items].itemList[0].price +
+										'</div>' +
+										'</div>' +
+										'<div class="product_rightd_number font_size28 font_color99">' +
+										"*" + data.data.records[items].itemList[0].num +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">' +
+										'<span class=" font_color99">共1种</span> <span class="font_color00">' +
+										"实付款：¥" + data.data.records[items].payment +
+										'</span>' +
+										'</div>' +
+										'<div class="div_display" id="btnAperation">' +
+										// '<div class="return_btn" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data
+										// .records[items].orderId + '">退换货</div>';
+										'</div>' +
+										'</div>';
+									$(fragmentplanList).append(orderLiTwo);
+									// 判断是否展示物流单号
+									if (data.data.records[items].status == 2) {
+										var btn =
+											'<div class="return_btn" style="margin-left: 5rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+											data.data.records[items].orderId + '" data-status="'+data.data.records[items].status+'">退款</div>' +
+											'</div>';
+										$("#btnAperation", fragmentplanList).append(btn);
+									} else if (data.data.records[items].status == 4) {
+										var btn =
+											'<div class="return_btn" style="margin-left: 5rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+											data.data.records[items].orderId + '">退换货</div>' +
+											'</div>';
+										$("#btnAperation", fragmentplanList).append(btn);
+									}
+
+									$("#productList").append($(fragmentplanList));
+								}
+
+							})
+
+						}
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					}
+
+				})
+			};
+			// 获取申请记录
+			function getApplyRecordList() {
+				getApplyRecord(mui, keywords, function(data) {
+					if (data.code == 200) {
+						if (data.data.records.length == 0) {
+							if (keywords.pageNum == 1) {
+								$('.nothing').css('display', 'block')
+							}
+						} else {
+							var fragmentplanListTwo = document.createDocumentFragment();
+							var fragmentplanListnihao = document.createDocumentFragment();
+							$.each(data.data.records, function(items) {
+								// 多个
+								if (data.data.records[items].returnItemList.length > 1) {
+									var orderLiTwo =
+										'<div class="product_moudel" id="bodyList" >' +
+										'<div class="div_display product_moudel_border">' +
+										'<div class="width50 div_display">' +
+										'<div class=" product_moudel_title">' +
+										'<img src="' + data.data.records[items].mchLogo +
+										'"  style="width: .8rem;height:.6rem">' +
+										'</div>' +
+										'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
+										 data.data.records[items].mchName +
+										'</div>' +
+										'</div>' +
+										'<div class="width50 div_display" style="padding-left: 2rem;">' +
+										'<div class=" font_size28 font_color33 margin_top3 font_colorf4">' +
+										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核成功" :
+											data.data
+											.records[items].retStatus == 3 ? "审核拒绝" : data.data.records[items].retStatus == 4 ? "退款成功" : data.data.records[
+												items].retStatus == 5 ? "退款失败 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
+										'</div>' +
+										'<div class=" font_size28 font_color33 margin_top3">' +
+										(data.data.records[items].status == 4 ? "已完成" : data.data.records[items].status ==
+											5 ? "已取消" : "") +
+										'</div>' +
+										'<div class=" margin_top3" id="deleteImg" data-id="' + data.data.records[items].orderId + '">' +
+										// '<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
+										'<div class="newShoping  goDetail_to" style="touch-action: none;" id="nihao" data-id="' + data.data.records[
+											items].orderId +
+										'">' +
+										'</div>' +
+										'</div>' +
+										'<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">' +
+										'<span class=" font_color99">共' +
+										data.data.records[items].returnItemList.length +
+										'种</span> <span class="font_color00">实付款：¥ ' +
+										+data.data.records[items].retPrice +
+										'</span>' +
+										'</div>' +
+										'<div class="div_display" id="btnAperation" >' +
+										// '<div class="return_btn" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data
+										// .records[items].orderId + '">退换货</div>';
+										// '</div>' +
+										'</div>' +
+										'</div>';
+									$(fragmentplanListTwo).append(orderLiTwo);
+									$.each(data.data.records[items].returnItemList, function(item) {
+										var abc = '<div class="">' +
+											'<div class="product_number">' +
+											data.data.records[items].returnItemList[item].num +
+											'</div>' +
+											'<div class="product_img_w ">' +
+											'<img src="' + data.data.records[items].returnItemList[item].picPath +
+											'"  style="width: 100%;height: 100%;">' +
+											'</div>' +
+											'</div>';
+										$("#nihao", fragmentplanListTwo).append(abc);
+									});
+									// 判断是否展示物流单号
+									if (data.data.records[items].retStatus == 2) {
+										if (data.data.records[items].retNo) {
+											var btnTwo =
+												'<div class="font_color99 font_size24" style="margin-left:3.3rem;margin-top:.3rem">' +
+												"物流单号：" + data.data.records[items].retNo + '</div>';
+										} else {
+											var btnTwo =
+												'<div class="return_btn" id="logistics" style="margin-left: 5rem;width:1.8rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+												data.data.records[items].id + '">填写物流单号</div>' +
+												'</div>';
+										}
+										$("#btnAperation", fragmentplanListTwo).append(btnTwo);
+									} else if (data.data.records[items].retStatus == 6) {
+										var btnTwo =
+											'<div class="font_color99 font_size24" style="margin-left:3.3rem;margin-top:.3rem">' +
+											"物流单号：" + data.data.records[items].retNo + '</div>';
+										$("#btnAperation", fragmentplanListTwo).append(btnTwo);
+									}
+
+									$("#productListTwo").append($(fragmentplanListTwo));
+								} else {
+									var orderLiTwo =
+										'<div class="product_moudel">' +
+										'<div class="div_display product_moudel_border">' +
+										'<div class="width50 div_display">' +
+										'<div class=" product_moudel_title">' +
+										'<img src="' + data.data.records[items].mchLogo +
+										'"  style="width: .8rem;height:.6rem">' +
+										'</div>' +
+										'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
+										 data.data.records[items].mchName+
+										'</div>' +
+										'</div>' +
+										'<div class="width50 div_display" style="padding-left: 2rem;">' +
+										'<div class=" font_size28 font_color33 margin_top3 font_colorf4" >' +
+										(data.data.records[items].retStatus == 1 ? "待审核" : data.data.records[items].retStatus == 2 ? "审核成功" :
+											data.data
+											.records[items].retStatus == 3 ? "审核拒绝" : data.data.records[items].retStatus == 4 ? "退款成功" : data.data.records[
+												items].retStatus == 5 ? "退款失败 " : data.data.records[items].retStatus == 6 ? "已完成" : "") +
+										'</div>' +
+										'<div class=" font_size28 font_color33 margin_top3" >' +
+										(data.data.records[items].status == 4 ? "已完成" : data.data.records[items].status ==
+											5 ? "已取消" : "") +
+										'</div>' +
+										'<div class=" margin_top3" id="deleteImg" data-id="' + data.data.records[items].orderId + '">' +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
+										'<div class="div_display" id="bodyList">' +
+										'<div class="product_imgList_leftd">' +
+										'<div class="product_img_wd ">' +
+										'<img src="' + data.data.records[items].returnItemList[0].picPath +
+										'" style="width: 100%;height: 100%;">' +
+										'</div>' +
+										'</div>' +
+										'<div class="product_imgList_rightd goDetail_to" data-id="' + data.data.records[0].orderId + '">' +
+										'<div class="font_size26 font_color33">' +
+										data.data.records[items].returnItemList[0].title +
+										'</div>' +
+										'<div class="font_size26 font_color99">' +
+										"规格:" + data.data.records[items].returnItemList[0].skuName +
+										'</div>' +
+										'<div class="font_size26 font_colorf4">' +
+										"¥" + data.data.records[items].returnItemList[0].price +
+										'</div>' +
+										'</div>' +
+										'<div class="product_rightd_number font_size28 font_color99">' +
+										"*" + data.data.records[items].returnItemList[0].num +
+										'</div>' +
+										'</div>' +
+										'</div>' +
+										'<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">' +
+										'<span class=" font_color99">共1种</span> <span class="font_color00">' +
+										"实付款：¥" + data.data.records[items].retPrice +
+										'</span>' +
+										'</div>' +
+										'<div class="div_display" id="btnAperation">' +
+										// '<div class="return_btn" style="margin-left: 5rem;" data-type="againBuy" data-id="' + data.data
+										// .records[items].orderId + '">退换货</div>';
+										'</div>' +
+										'</div>';
+									$(fragmentplanListTwo).append(orderLiTwo);
+									// 判断是否展示物流单号
+									if (data.data.records[items].retStatus == 2) {
+										if (data.data.records[items].retNo) {
+											var btnTwo =
+												'<div class="font_color99 font_size24" style="margin-left:3.3rem;margin-top:.3rem">' +
+												"物流单号：" + data.data.records[items].retNo + '</div>';
+										} else {
+											var btnTwo =
+												'<div class="return_btn" style="margin-left: 5rem;width:1.8rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+												data.data.records[items].orderId + '">填写物流单号</div>' +
+												'</div>';
+										}
+										$("#btnAperation", fragmentplanListTwo).append(btnTwo);
+									} else if (data.data.records[items].retStatus == 6) {
+										var btnTwo =
+											'<div class="font_color99 font_size24" style="margin-left:3.3rem;margin-top:.3rem">' +
+											"物流单号：" + data.data.records[items].retNo + '</div>';
+										$("#btnAperation", fragmentplanListTwo).append(btnTwo);
+									}
+
+									$("#productListTwo").append($(fragmentplanListTwo));
+								}
+
+							})
+
+						}
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					}
+
+				})
+			};
+
+			// 去退换货详情页面
+			$('#productList').on('tap', '.return_btn', function() {
+				var orderNumberId = $(this).attr('data-id')
+				var orderNumberStatus = $(this).attr('data-status')
+				getIsLapse(mui, $(this).attr('data-id'), function(data) {
+					if (data.code == 200) {
+						$$.openWindow({
+							url: 'returnedDetails.html',
+							id: 'returnedDetails',
+							extras: {
+								"orderId": orderNumberId,
+								'orderStatus':orderNumberStatus
+							},
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+
+					} else {
+						$('.bj_model').css('display', 'block')
+					}
+				})
+
+			})
+			// 去订单详情
+			$('#productList').on('tap', '#nihao', function() {
+				$$.openWindow({
+					url: '../pages/orderDetails.html',
+					id: 'orderDetails',
+					extras: {
+						"orderId": $(this).attr('data-id')
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			$('#productList').on('tap', '.goDetail_to', function() {
+				$$.openWindow({
+					url: '../pages/orderDetails.html',
+					id: 'orderDetails',
+					extras: {
+						"orderId": $(this).attr('data-id')
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			});
+			// 去退换货详情
+			$('#productListTwo').on('tap', '#nihao', function() {
+				$$.openWindow({
+					url: 'returnedD.html',
+					id: 'returnedD',
+					extras: {
+						"orderId": $(this).attr('data-id')
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			$('#productListTwo').on('tap', '.goDetail_to', function() {
+				$$.openWindow({
+					url: 'returnedD.html',
+					id: 'returnedD',
+					extras: {
+						"orderId": $(this).attr('data-id')
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			});
+			var addLogistics = {
+				logisticsCode: '', //物流单号
+				retId: '' //订单号
+			}
+			// 打开物流信息
+			$('#productListTwo').on('tap', '#logistics', function() {
+				$('.bj_model_logistics').css('display', 'block');
+				addLogistics.retId = $(this).attr('data-id') //赋值
+			})
+			// 关闭物流信息
+			$('#closeLogist').on('tap', function() {
+				$('.bj_model_logistics').css('display', 'none')
+			})
+			// 确认物流单号
+			$('#okLogist').on('tap', function() {
+				addLogistics.logisticsCode = $('#okLogistInput').val();
+				if (!$('#okLogistInput').val()) {
+					tipShow('请填写物流单号');
+					return
+				}
+				getAddLogistics(mui, addLogistics, function(data) {
+					if (data.code == 200) {
+						$('.bj_model_logistics').css('display', 'none');
+						$("#productListTwo").html("");
+						$('#fk').addClass('avue')
+						getApplyRecordList();
+					} else {
+
+					}
+				})
+			})
+			// 关闭退货提示框
+			$('#modelClose').on('tap', function() {
+				$('.bj_model').css('display', 'none')
+			})
+			// 拨打电话
+			$("#okBtn").on("tap", function() {
+				var phone = "18048334993";
+				if (plus.os.name == "Android") {
+					var btnArray = ['拨打', '取消'];
+					var phone = "18048334993";
+					mui.confirm(phone, '提示', btnArray, function(e) {
+						var Intent = plus.android.importClass("android.content.Intent");
+						var Uri = plus.android.importClass("android.net.Uri");
+						var main = plus.android.runtimeMainActivity();
+						var uri = Uri.parse("tel:" + phone);
+						var call = new Intent("android.intent.action.CALL", uri);
+						main.startActivity(call);
+					});
+				} else {
+					var UIAPP = plus.ios.importClass("UIApplication");
+					var NSURL = plus.ios.importClass("NSURL");
+					var app = UIAPP.sharedApplication();
+					app.openURL(NSURL.URLWithString("tel://" + phone));
+				}
+
+			})
+
+		})(jQuery, document, mui);
+	</script>
+
+</html>

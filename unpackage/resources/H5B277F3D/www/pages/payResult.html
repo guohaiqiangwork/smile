@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/confirmOrder.css" />
+
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">	
+		<div class="content">
+				
+				<!-- 成功 -->
+				<div class="text_center paySucceed" style="display: none;">
+					<div class="payResult_img">
+						<img src="../image/paySure.png" width="100%" height="100%">
+					</div>
+					<div class="pay_Y font_size26 font_color33">
+						支付成功
+					</div>
+					<div class="pay_go_index div_backgroun_jb gotoHomePage">
+						去首页逛逛
+					</div>
+				</div>
+				<!-- 失败 -->
+				<div class="text_center payError" >
+					<div class="payResult_img">
+						<img src="../image/payFail.png" width="100%" height="100%">
+					</div>
+					<div class="pay_Y font_size26 font_color33">
+						支付失败
+					</div>
+					<div class="pay_Y font_size26 font_color33 payContent">
+						<!-- 银行卡余额不足 -->
+					</div>
+					<div class="pay_go pay_go_index div_backgroun_jb returnPage">
+						重新支付
+					</div>
+				</div>
+				
+		
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				var payParams = _self.payParams;
+				//alert("支付信息="+payParams);
+				if(payParams == "成功"){
+					$(".paySucceed").css("display", "block");
+					$(".payError").css("display", "none");
+				}else{
+					$(".paySucceed").css("display", "none");
+					$(".payError").css("display", "block");
+					$(".payContent").text(payParams);
+				}
+				
+			}
+			// 去首页
+			$('.gotoHomePage').on('tap',function(){
+				toIndex(0);
+				/* $$.openWindow({
+					url: '../index.html',
+					id: 'index',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				}); */
+			})
+			// 重新支付
+			$('.returnPage').on('tap',function(){
+				plus.webview.currentWebview().close();
+			})
+		})(jQuery, document, mui);
+	</script>
+
+</html>

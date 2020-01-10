@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="../css/pages/pSetting.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pages/cashMoney.css" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white title">
+			<div class="div_display">
+				<div class="">
+					<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
+				</div>
+				<div class="" style="margin-left: 3rem;">
+					我的余额
+				</div>
+				<div class="font_size24 font_color00" style="margin-left: 1.7rem;" id="openM">
+					余额说明
+				</div>
+			</div>
+
+		</header>
+		<div class="content">
+			<div class="cashMoney">
+				<div>
+					<h5 class=" font_size26 font_colorff">可用余额</h5>
+					<h4><span class="font_size32">¥</span> <span id="h4Cla" style="font-size: .7rem;"></span></h4>
+					<h3 class="font_size24 font_colorff">待收佣金: <span>¥</span> <span id="frozenMoney"></span></h3>
+				</div>
+				<div id="txClick">
+					<div>
+						提现
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 列表部分 -->
+		<div>
+			<div id="titleList">
+				<div style="touch-action: none;" id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<div style="height: 60px;">
+						<div class="mui-control-item mui-active">全部</div>
+					</div>
+
+					<div>
+						<div class="mui-control-item">支出</div>
+					</div>
+
+					<div>
+						<div class="mui-control-item">收入</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="bodyList">
+				<div>
+					<ul id="bodyList_ul">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- 余额说明弹出框 -->
+		<div class="bj_model_logistics closeModel">
+			<div class="div_backgroun_ff model_cash">
+				<div class="div_display padding_top2">
+					<div class="font_size32 " style="margin-left: 2rem;">
+						余额说明
+					</div>
+					<div class="closeModel" style="margin-left: 1.5rem;">
+						<img src="../colse.png" style="width: .3rem;height: .3rem;">
+					</div>
+				</div>
+				<div class="content_model">
+					都放假了可是弹尽粮绝了空间的分三教九流肯德基粉色的肌肤及时的分了就睡觉v
+					街道上看风景看了空间打开了手机发就离开的时间发脸上的肌肤；到了放假啊路上风景老司机将送大家福利事件发生纠纷施蒂利克均想就看vhjskjcksjdvkjkldjflklkj
+					就分开了撒点击发觉得苏里科夫睡了放假啦上的风景就看了撒娇看就看撒的分 v 你快开机卡升级女款你的身份和扩散阿脸上的肌肤阿反馈就是离开v 那就撒谎分
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				/* 给可用余额赋值 */
+				var h4Cla = doc.getElementById('h4Cla');
+				if(_self.myMoney.length < 9){
+					h4Cla.innerText = _self.myMoney;
+				}else{
+					$('#h4Cla').css('fontSize','.24rem')
+					h4Cla.innerText = _self.myMoney;
+				}
+				
+				// 查询冻结金额
+				getFreezeAmount(mui,plus.storage.getItem('memberId'),function(data){
+					if(data.code == 200){
+						$('#frozenMoney').text(data.data)
+					}
+				})
+
+				/* 默认查询全部流水 */
+				var dataBase = {
+					memberId: plus.storage.getItem('memberId'),
+					transType: '',
+					status: 1
+				};
+				fallBankMassage(mui, dataBase, function(data) {
+					if (data.code == 200) {
+						listHtml(data.data.data);
+					} else {
+						tipShow(data.message);
+					}
+				})
+			}
+
+			/* 选项卡点击事件 */
+			mui("#segmentedControl").on('tap', '.mui-control-item', function(event) {
+				var info = $(this).html();
+				console.log("我是点击的选项卡" + info)
+				var dataBase = {};
+				if (info == "全部") {
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: '',
+						status: 1
+					};
+				} else if (info == "支出") {
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: 2,
+						status: 1
+					};
+				} else if (info == "收入") {
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: 1,
+						status: 1
+					};
+				}
+				/* 请求接口 */
+				fallBankMassage(mui, dataBase, function(data) {
+					if (data.code == 200) {
+						listHtml(data.data.data);
+					} else {
+						tipShow(data.message);
+					}
+				})
+			});
+
+
+			/** list 循环公共方法
+			 *
+			 * data ：后台返回数据
+			 * 
+			 */
+			function listHtml(data) {
+				var bodyList_ul = doc.getElementById("bodyList_ul");
+				var html = [];
+				var mark = "";
+				for (i = 0; i < data.length; i++) {
+					if (data[i].transType == 1) {
+						mark = "+¥";
+					} else {
+						mark = "-¥";
+					}
+					html.push('<li><div>' + data[i].recordDesc + '</div><div>' + data[i].createTime + '</div><div>' + mark + data[i].amount +
+						'</div></li>');
+				}
+				bodyList_ul.innerHTML = html.join('');
+			}
+
+			/* 提现点击事件 */
+			var txClick = doc.getElementById('txClick');
+			txClick.onclick = function() {
+
+				if (!plus.storage.getItem('Token')) {
+					tipShow('您还没有登录');
+				} else {
+					/* 查看是否实名认证 ok*/
+					getUserList(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							//如果没有身份证号跳到实名认证页面
+							if (!data.data.idcard) {
+								$$.openWindow({
+									url: '../pages/realName.html',
+									id: 'realName',
+									show: {
+										aniShow: "slide-in-right"
+									}
+								});
+								return null;
+							}
+						} else {
+							tipShow(data.message);
+						}
+					});
+
+					/* 查看是否绑定银行卡  ok*/
+					slectCheckBank(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code != 200) {
+							$$.openWindow({
+								url: '../pages/bankCard.html',
+								id: 'realName',
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+							return null;
+						}
+					});
+
+					/* 判断是否有提现密码 */
+					isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
+						console.log("判断是否有提现密码==" + JSON.stringify(data))
+						if (data.code == 500) {
+							$$.openWindow({
+								url: 'setPassword.html',
+								id: 'setPassword',
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+						}
+					});
+				};
+
+				/* 都有了去提现页面 */
+				$$.openWindow({
+					url: 'balanceTix.html',
+					id: 'balanceTix',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+
+			}
+			// 打开弹窗
+			$('#openM').on('tap', function() {
+				$('.bj_model_logistics').css('display', 'block')
+			})
+			// 关闭弹窗
+			$('.closeModel').on('tap', function() {
+				$('.bj_model_logistics').css('display', 'none')
+			})
+
+
+		})(jQuery, document, mui);
+	</script>
+
+</html>

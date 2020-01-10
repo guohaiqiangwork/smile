@@ -1,0 +1,262 @@
+#productList{
+	margin-top: 1rem;
+}
+
+/*  */
+.header_tab{
+	width: 7.5rem;
+	background-color: #FFFFFF;
+	height: .86rem;
+	z-index: 999;
+	position: fixed;
+	top: .8rem;
+}
+/* 选择按钮样式 */
+ .avue {
+	color: #404040;
+	height: .06rem;
+	width: .6rem;
+	border-radius: .1rem;
+	background: linear-gradient(to right, #FF342D, #FF5882) !important;
+	margin-left: 34%;
+	margin-top: .1rem;
+}
+
+
+/* 未选择按钮样式 */
+.tab_swich{
+	color: #9B9B9B;
+	width: 25%;
+	font-size: .28rem;
+	color: #000000;
+	text-align: center;
+}
+.product_moudel {
+	width: 7.1rem;
+	box-shadow: 0px 0px 1px 1px #CBCBCB;
+	margin-left: .2rem;
+	margin-top: .3rem;
+	height: 4rem;
+	border-radius: .2rem;
+}
+.product_moudel_border{
+	border-bottom: 1px solid #F0F0F0;
+}
+.product_border {
+	border-bottom: 1px solid #E9E9E9;
+	padding-bottom: .17rem;
+}
+
+.product_moudel_title {
+	width: .9rem;
+	height: .7rem;
+	overflow: hidden;
+	margin-left: .22rem;
+	margin-top: .17rem;
+}
+
+.product_imgList_left {
+	width: 6.5rem;
+	overflow: hidden;
+}
+
+.product_imgList_right {
+	width: 1rem;
+	margin-top: .9rem;
+	margin-left: .2rem;
+}
+
+.product_img_w {
+	width: 1.2rem;
+	height: 1.2rem;
+	overflow: hidden;
+	margin-left: .2rem;
+	margin-top: .3rem;
+}
+
+
+.img_w_m {
+	/* width: 1.2rem; */
+	margin-top: .1rem;
+	margin-left: .4rem;
+}
+
+.product_number {
+	width: .47rem;
+	height: .24rem;
+	border-radius: .2rem;
+	border: 1px solid #F42300;
+	color: #F42300;
+	font-size: .2rem;
+	text-align: center;
+	line-height: 1;
+	position: absolute;
+	margin-left: 1.2rem;
+	margin-top: .2rem;
+	/* background-color: red; */
+}
+
+.product_img_wd {
+	width: .9rem;
+	height: .9rem;
+	overflow: hidden;
+	margin-left: .3rem;
+	margin-top: .3rem;
+}
+
+
+.product_imgList_rightd {
+	width: 4rem;
+	margin-left: .5rem;
+	margin-top: .4rem;
+	text-align: left;
+}
+
+.product_rightd_number {
+	margin-top: .8rem;
+}
+
+/* 弹窗 */
+.order_change_model {
+	width: 6rem;
+	height: 4.2rem;
+	background: #FFFFFF;
+	position: fixed;
+	top: 3rem;
+	left: .9rem;
+	z-index: 999999;
+	border-radius: 0.1rem;
+	box-sizing: border-box;
+	padding: .5rem 0 .5rem 0;
+	margin: 0 auto;
+
+}
+
+.orderChange_moudel {
+	border-bottom: 1px solid #CBCBCB;
+	height: 2rem;
+	text-align: center;
+}
+
+.orderChange_moudel_btn {
+	height: 1.3rem;
+}
+
+.orderChange_moudel_btn div {
+	height: .7rem;
+	width: 2rem;
+	text-align: center;
+	border-radius: .4rem;
+	border: 1px solid #0C1934;
+	line-height: 2.3;
+	margin-top: .3rem;
+	margin-left: .7rem;
+}
+
+
+/* 订单详情 */
+.details_moudel {
+	width: 7.1rem;
+	margin-left: .2rem;
+}
+
+.order_details_title {
+	height: 1.5rem;
+	padding-left: .4rem;
+	padding-top: .3rem;
+}
+
+.details_name {
+	margin-left: .3rem;
+	margin-top: .8rem;
+	font-size: .32rem;
+	color: #333333;
+}
+
+.details_address {
+	margin-top: .2rem;
+	box-shadow: 0px 0px 5px 2px #C9C9C9;
+	border-radius: .1rem;
+}
+
+.details_operation {
+	height: 5rem;
+	margin-top: .2rem;
+	padding-left: .3rem;
+	border: 1px solid #E9E9E9;
+	border-radius: .1rem;
+
+}
+
+.details_operation_top {
+	height: 2rem;
+	margin-top: .3rem;
+	border-bottom: 1px dashed #D0D0D0;
+	width: 6.5rem;
+}
+
+.details_operation_bottom {
+	height: 1.5rem;
+	margin-top: .3rem;
+	border-bottom: 1px dashed #D0D0D0;
+	width: 6.5rem;
+}
+
+.details_btn {
+	width: 1.6rem;
+	height: .5rem;
+	border-radius: .3rem;
+	border: 1px solid #F42300;
+	float: right;
+	margin-bottom: .3rem;
+	line-height: 1.5;
+}
+
+.newShoping {
+	display: flex;
+	width: 10rem;
+	overflow-x: scroll;
+	height: 1.5rem;
+}
+.order_btn_ff{
+	width: 1.6rem;
+	height: .48rem;
+	border: 1px solid #333333;
+	border-radius: .3rem;
+	text-align: center;
+	color: #000000;
+	margin-top: .3rem;
+	font-size: .24rem;
+	line-height: 1.8;
+}
+.order_btn_f4{
+	width: 1.6rem;
+	height: .48rem;
+	border: 1px solid #F42300;
+	border-radius: .3rem;
+	text-align: center;
+	color: #F42300;
+	margin-top: .3rem;
+	margin-left: .2rem;
+	font-size: .24rem;
+	line-height: 1.8;
+}
+
+
+
+.container{
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.container .item{
+    display:inline-block;
+    box-sizing: border-box;
+    width:33%;
+}
+
+.retrunPage{
+	float: left;
+	margin-left: 0.2rem;
+}

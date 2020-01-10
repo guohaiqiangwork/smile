@@ -1,0 +1,244 @@
+<!-- 我的积分 -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../css/pages/pSetting.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/pages/cashMoney.css"/>
+		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<!--标准mui.css-->
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white title">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			我的积分
+		</header>
+		<div class="contentTwo">
+			<div class="cashMoney">
+				<div>
+					<h5>可用积分</h5>
+					<h4 id="h4Cla"></h4>
+				</div>
+				<div class="ljjf">
+					<span>累计积分：</span>
+					<span>19909</span>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 列表部分 -->
+		<div>
+			<div id="titleList">
+				<div style="touch-action: none;" id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<div>
+						<div class="mui-control-item mui-active">全部</div>
+					</div>
+					
+					<div>
+						<div class="mui-control-item">支出</div>
+					</div>
+					
+					<div>
+						<div class="mui-control-item">收入</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="bodyList">
+				<div>
+					<ul id="bodyList_ul">
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				/* 给可用余额赋值 */
+				var h4Cla = doc.getElementById('h4Cla');
+				h4Cla.innerText = _self.myIntegral;
+				
+				
+				/* 默认查询全部流水 */
+				var dataBase = {
+					memberId: plus.storage.getItem('memberId'),
+					transType: '',
+					status:2
+				};
+				fallBankMassage(mui, dataBase, function(data) {
+				    if (data.code == 200) {
+						listHtml(data.data.data);
+				    } else {
+				        tipShow(data.message);
+				    }
+				})
+			}
+			
+			/* 选项卡点击事件 */
+			mui("#segmentedControl").on('tap', '.mui-control-item', function(event){
+				var info=$(this).html();
+				console.log("我是点击的选项卡" + info)
+				var dataBase = {};
+				if(info == "全部"){
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: '',
+						status:2
+					};
+				}else if(info == "支出"){
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: 2,
+						status:2
+					};
+				}else if(info == "收入"){
+					dataBase = {
+						memberId: plus.storage.getItem('memberId'),
+						transType: 1,
+						status:2
+					};
+				}
+				/* 请求接口 */
+				fallBankMassage(mui, dataBase, function(data) {
+				    if (data.code == 200) {
+						listHtml(data.data.data);
+				    } else {
+				        tipShow(data.message);
+				    }
+				})
+			});
+			
+			
+			/** list 循环公共方法
+			*
+			* data ：后台返回数据
+			* 
+			*/
+			function listHtml(data){
+				var bodyList_ul = doc.getElementById("bodyList_ul");
+				var html = [];
+				var mark = "";
+				for(i=0;i<data.length;i++){
+					if(data[i].recordDesc == "收入"){
+						mark = "+ ";
+					}else{
+						mark = "- ";
+					}
+					html.push('<li><div>'+data[i].recordDesc+'</div><div>'+data[i].createTime+'</div><div>'+mark + data[i].amount+'</div></li>');
+				}
+				bodyList_ul.innerHTML = html.join('');
+			}
+			
+			/* 提现点击事件 */
+			var txClick = doc.getElementById('txClick');
+			txClick.onclick = function(){
+				
+				if (!plus.storage.getItem('Token')) {
+					tipShow('您还没有登录');
+					return "没有登录";
+				}
+				
+				/* 查看是否实名认证 ok*/
+				getUserList(mui, plus.storage.getItem('memberId'), function(data) {
+				    if (data.code == 200) {
+						//如果没有身份证号跳到实名认证页面
+						if (!data.data.idcard) {
+							$$.openWindow({
+								url: '../pages/realName.html',
+								id: 'realName',
+								show: {
+									aniShow: "slide-in-right"
+								}
+							});
+							return null;
+						}
+				    } else {
+				        tipShow(data.message);
+				    }
+				}); 
+				
+				
+				/* 查看是否绑定银行卡  ok*/
+				slectCheckBank(mui, plus.storage.getItem('memberId'), function(data) {
+				    if (data.code != 200) {
+						$$.openWindow({
+							url: '../pages/bankCard.html',
+							id: 'realName',
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+						return null;
+				    }
+				}); 
+				
+				
+				/* 判断是否有提现密码 */
+				isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code != 200) {
+						alert("没有密码");
+						
+						$$.openWindow({
+							url: 'setPassword.html',
+							id: 'setPassword',
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+						
+						return null;
+				    }
+				}); 
+				
+				
+				/* 都有了去提现页面 */
+				$$.openWindow({
+					url: 'balanceTix.html',
+					id: 'balanceTix',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+				
+			}
+			
+			
+		})(jQuery, document, mui);
+	</script>
+
+</html>

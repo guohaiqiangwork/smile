@@ -1,0 +1,54 @@
+.title{
+	height: 1.26rem;
+	line-height: 1.26rem;
+}
+
+.title i img{
+	width: 22px;
+	height: 22px;
+}
+
+body{
+	background-color: #FAFAFA;
+}
+
+.contentList{
+	border-radius: 0.12rem;
+	margin-top: 80px;
+	height: 2.3rem;
+	width: 6.5rem;
+	background-color: #FFFFFF;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#yzm{
+	font-size: 0.28rem;
+	height: .6rem;
+	width: 1.8rem;
+	float: right;
+	margin-right: .7rem;
+	border-radius: 1rem;
+	border:solid 1px #CBCBCB;
+	text-align: center;
+	line-height: .6rem;
+	margin-top: 0.15rem;
+}
+
+.contentList div div:nth-child(3) button{
+	width: 5.2rem;
+	height: 0.9rem;
+	background-color: #A0A0A0;
+	border-radius:1rem;
+	color: #FFFFFF;
+	font-size: 0.32rem;
+	margin-top: .6rem;
+}
+
+.contentList div div:nth-child(3){
+	text-align: center;
+}
+
+.mui-btn, button, input[type=button], input[type=reset], input[type=submit] {
+		border: 1px solid #FAFAFA;
+}

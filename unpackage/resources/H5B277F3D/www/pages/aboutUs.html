@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			关于我们
+		</header>
+		<div class="content">
+			<div class="settingList">
+				<ul>
+					<li class="settingPassword" href="../pages/serviceAgreement.html" data-id='serviceAgreement'><span>用户协议</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/merchantInformation.html" data-id='merchantInformation'><span>商家信息</span><i class="fa fa-angle-right"></i></li>
+					<li class="settingPassword" href="../pages/Privacy.html" data-id='Privacy'><span>隐私政策</span><i class="fa fa-angle-right"></i></li>
+				</ul>
+			</div>
+			<!-- <div style="text-align: center;">
+				<div style="margin-top: 2rem;">
+					<img src="../image/log@2x.png" style="width:2.3rem" >
+				</div>
+				<div style="font-size: .56rem;color: #333333;margin-top: .2rem;">
+						笑容
+				</div>
+				<div style="color: #999999;font-size: .3rem;margin-top: .2rem">
+					版本：V1.0.1 
+				</div>
+				<div id="goToAgreement" style="font-size: .32rem;color: #666666;margin-top: 7rem;">
+					《笑容用户协议》
+				</div>
+						
+			</div>
+			 -->
+		</div>
+
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				// $('#goToAgreement').on('tap', function() {
+				// 	$$.openWindow({
+				// 		url: 'agreement.html',
+				// 		id: 'agreement',
+				// 		show: {
+				// 			aniShow: "slide-in-right"
+				// 		}
+				// 	});
+				// });
+				//页面跳转serviceModuer
+				$('.settingPassword').on('tap', function(e) {
+					// 获取页面ID
+					var urlId = $(this).attr("data-id");
+					// 获取路径
+					var urlRout = this.getAttribute('href');
+						//alert(urlRout)
+					if (urlRout && urlId) {
+						$$.openWindow({
+							url: urlRout,
+							id: urlId,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						console.log('缺少页面路径')
+
+					}
+				});
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

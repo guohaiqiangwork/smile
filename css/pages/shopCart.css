@@ -1,0 +1,263 @@
+.shopCart_moudel {
+	width: 7rem;
+	margin-left: .2rem;
+	box-shadow: 0px 0px 1px 1px #CBCBCB;
+	border: 1px solid #E9E9E9;
+	height: 2.3rem;
+	border-radius: .2rem;
+	margin-top: 0.2rem;
+	background-color: #FFFFFF;
+	
+}
+
+.shopCart_moudel_left {
+	width: .7rem;
+	margin-left: .1rem;
+}
+
+.shopCart_moudel_right {
+	width: 6rem;
+}
+
+.shopCart_img {
+	width: 1.7rem;
+	height: 1.7rem;
+	overflow: hidden;
+	margin-top: .3rem;
+}
+
+.shopCart_img_width {
+	width: 100%;
+	height: 100%;
+}
+
+.shopCart_product {
+	width: 5rem;
+	margin-left: .2rem;
+}
+
+.shopCart_product_title {
+	color: #333333;
+	font-size: .32rem;
+	margin-top: .3rem;
+}
+
+.shopCart_product_g {
+	color: #999999;
+	font-size: .28rem;
+}
+
+.shopCart_price {
+	float: left;
+	font-size: .26rem;
+	color: #F42300;
+	margin-top: .34rem;
+	-font-weight: 500;
+	font-family: sans-serif;
+	-font-family: ;
+}
+
+.shopCart_number {
+	margin-left: 1.5rem;
+	margin-top: .3rem;
+}
+
+.shopCart_Invalid {
+	width: .6rem;
+	height: .3rem;
+	color: #FFFFFF;
+	font-size: .2rem;
+	background-color: #D8D8D8;
+	text-align: center;
+	border-radius: 3px;
+	line-height: 1.8;
+}
+
+.shopCart_Invalid_font {
+	color: #333333;
+	font-size: .28rem;
+	margin-left: .1rem;
+}
+
+.bootom_title {
+	position: fixed;
+	bottom: 0;
+	width: 7.5rem;
+	height: 1rem;
+	box-shadow: 0px 0px 5px 2px #C9C9C9;/* 投影 */
+	border-top: 1px solid #C9C9C9;
+	background-color: #FFFFFF;
+}
+
+.bootom_left {
+	width: 2.08rem;
+	margin-top: .1rem;
+	font-size: .24rem;
+	color: #333333;
+	float: left;
+}
+
+.bootom_price {
+	font-size: .28rem;
+	width: 2.75rem;
+	margin-top: .2rem;
+	float: left;
+}
+
+.bootom_price_font {
+	font-size: .32rem;
+	color: #F42300;
+	font-family: sans-serif;
+}
+
+.bootom_right {
+	width: 2.5rem;
+	float: right;
+}
+
+.bootom_right_width {
+	width: 2.6rem;
+	height: 1rem;
+	font-size: .36rem;
+	color: #FFFFFF;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+	text-align: center;
+	line-height: 1rem;	
+}
+.bootom_editor{
+	width: 1.6rem;
+	height: .6rem;
+	border-radius: .8rem;
+	text-align: center;
+	font-size: .26rem;
+	line-height: 2.3;
+	margin-top: .2rem;
+}
+.bootom_editor_border{
+	border: 1px solid #F42300;
+	color: #F42300;
+	margin-left: .5rem;
+}
+.bootom_editor_border1{
+	border: 1px solid #333333;
+	color: #333333;
+	margin-left: .3rem;
+}
+
+/* .bootom_editor_borderTwo{
+	border: 1px solid #F42300;
+	color: #F42300;
+	margin-left: .5rem;
+	width: 1rem;
+	float: left;
+}
+.bootom_editor_borderTwo1{
+	border: 1px solid #333333;
+	color: #333333;
+	margin-left: .3rem;
+	width: 1rem;
+	float: left;
+} */
+
+.nvalid{
+	margin-top: 0.5rem;
+	margin-left: 0.3rem;
+}
+.nvalid div:nth-child(1){
+	width: .6rem;
+	height: .3rem;
+	color: #FFFFFF;
+	font-size: .2rem;
+	background-color: #D8D8D8;
+	text-align: center;
+	border-radius: 3px;
+	line-height: 1.8;
+	float: left;
+}
+.nvalid div:nth-child(2){
+	float: left;
+	color: #333333;
+	font-size: .28rem;
+	margin-left: .2rem;
+}
+
+/* 失效产品 */
+.sxyq{
+	display: none;
+}
+
+/* 购物车缺省页样式 */
+#cartDefaultId_one {
+	margin-top: 3rem;
+	height: 3rem;
+	text-align: center;
+}
+#cartDefaultId_one img{
+	width: 2.2rem;
+}
+
+#cartDefaultId_two{
+	text-align: center;
+}
+
+#cartDefaultId_two span{
+	font-size: 0.26rem;
+	color: #0C1934;
+}
+
+
+.pay_go_index{
+	width: 5.8rem;
+	height: .8rem;
+	border-radius: .4rem;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: .28rem;
+	line-height: 3;
+	margin-left: .9rem;
+	margin-top: .9rem;
+}
+
+/* 数量按钮 */
+.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn] {
+	    -background-color:transparent;
+		/* 按钮颜色 */
+		color: #333333;
+		/* 按钮大小 */
+		font-size: 0.5rem;
+		background-color: #FFFFFF;
+		
+}
+
+/* 数量input显示框样式 */
+.mui-numbox .mui-input-numbox, .mui-numbox .mui-numbox-input {
+		border-right: solid 0px #ccc!important;
+		border-left: solid 0px #ccc!important;
+		background-color: #F4F4F4;
+}
+
+.mui-numbox {
+	background-color:transparent;
+}
+
+.font_color99 {
+    color: #000000 !important;
+}
+
+.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
+	color:#CBCBCB;
+}
+
+/* 选中按钮投影 */
+/* .tyyy{
+	width: 0.3rem;
+	height: 0.15rem;
+	background-color: #F42300;
+	opacity: 0.1;
+	position: absolute;
+	top: 1.295rem;
+	left: 0.17rem;
+	-box-shadow: 1px 1px 10px #F42300;
+	border-radius: 1.5rem;
+	z-index: 1;
+} */

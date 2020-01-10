@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/confirmOrder.css" />
+
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			<span class="spanParams"></span>
+		</header>
+		<div class="content" style="margin-top: 1rem;">
+			
+			<div id="contentList">
+				
+			</div>
+		
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				var pageName = _self.pageName;
+				$(".spanParams").text(pageName);
+				
+				if(pageName == "失效商品清单"){
+					/* 获取失效商品清单 */
+					cartListNo(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							var keywordDataTwo = data.data;
+							var donmentParams = doc.createDocumentFragment();
+							$.each(keywordDataTwo, function(index, row) {
+								var cartList = 
+									'<div class="commodities_moudel">'+
+										'<div class="div_display">'+
+											'<div class="product_imgList_leftd">'+
+												'<div class="product_img_wd ">'+
+													'<img src="'+row.picture+'" style="width: 100%;height: 100%;">'+
+												'</div>'+
+											'</div>'+
+											'<div class="product_imgList_rightd">'+
+												'<div class="font_size26 font_color33">'+row.goodsName+'</div>'+
+												'<div class="font_size26 font_color99">规格: '+row.pecificationName+'</div>'+
+												'<div class="font_size26 font_colorf4">¥'+row.price+'</div>'+
+											'</div>'+
+											'<div class="product_rightd_number font_size28 font_color99">*'+row.num+'</div>'+
+										'</div>'+
+									'</div>';
+								
+								$(donmentParams).append(cartList);
+							});
+							$("#contentList").empty();
+							$("#contentList").append(donmentParams);
+						} else {
+							tipShow(data.message);
+						}
+					});
+				}else{
+					//商品清单
+					var cartData = eval('(' +_self.cartData+')') ;
+					var donmentParams = doc.createDocumentFragment();
+					console.log("111111=="+ JSON.stringify(cartData))
+					$.each(cartData, function(index, row) {
+						var cartList = 
+							'<div class="commodities_moudel">'+
+								'<div class="div_display">'+
+									'<div class="product_imgList_leftd">'+
+										'<div class="product_img_wd ">'+
+											'<img src="'+row.picPath+'" style="width: 100%;height: 100%;">'+
+										'</div>'+
+									'</div>'+
+									'<div class="product_imgList_rightd">'+
+										'<div class="font_size26 font_color33">'+row.goodsName+'</div>'+
+										'<div class="font_size26 font_color99">规格: '+row.skuName+'</div>'+
+										'<div class="font_size26 font_colorf4">¥'+row.price+'</div>'+
+									'</div>'+
+									'<div class="product_rightd_number font_size28 font_color99">*'+row.num+'</div>'+
+								'</div>'+
+							'</div>';
+						
+						$(donmentParams).append(cartList);
+					});
+					$("#contentList").empty();
+					$("#contentList").append(donmentParams);
+				}
+				
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

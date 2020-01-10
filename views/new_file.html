@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<!-- 引用外部css -->
+		<link rel="stylesheet" type="text/css" href="../css/view/homePage.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+
+
+	</head>
+	<body>
+		<header class="header_white" style="height:1rem ;">
+			<div class="div_display margin_top3">
+				<!-- 消息 -->
+				<div class="header_title_left" id="messageId">
+					<div class="div_backgroun_jb header_title_leftT"></div>
+					<img src="../image/news@2x.png" class="header_title_leftI">
+				</div>
+				<!-- log -->
+				<div class="header_title_center">
+					<img src="../image/headerT.png" class="header_title_centerI">
+				</div>
+				<!-- 搜索 -->
+				<div class="header_title_right" >
+					<img src="../image/search@2x.png" class="header_title_rightI">
+				</div>
+			</div>
+		</header>
+		<div class="mui-content" id="heardD">
+			<div id="slider" class="mui-slider mui-fullscreen" style="height: 0.9rem;width: 90%;">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" style="touch-action: none;">
+						<a class="mui-control-item mui-active">
+							热门
+						</a>
+						<a href="#mdsc" class="mui-control-item">
+							面点速食
+						</a>
+						<a class="mui-control-item">
+							酒水饮料
+						</a>
+						<a class="mui-control-item">
+							粮油干货
+						</a>
+						<a class="mui-control-item">
+							美妆百货
+						</a>
+						<a class="mui-control-item">
+							中外茶叶
+						</a>
+						<a class="mui-control-item">
+							母婴保健
+						</a>
+						<a class="mui-control-item">
+							家装家纺
+						</a>
+						<a class="mui-control-item">
+							日用纸品
+						</a>
+						<a class="mui-control-item">
+							电子数码
+						</a>
+						<a class="mui-control-item">
+							健康体检
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="allCategories">
+				<img src="../image/icon_down_up.png">
+			</div>
+		</div>
+
+		<!-- 全部分类区域 -->
+		<div class="whole">
+			<div>
+				<div class="titNav">
+					<div id="message">全部选项</div>
+					<!-- 向上箭头 -->
+					<div id="jt">
+						<img src="../image/icon_down_up.png" />
+					</div>
+				</div>
+			</div>
+			<div class="capsule capsuleSelection">
+				热门
+			</div>
+		</div>
+
+
+		<!-- 轮播图 -->
+		<div class="mui-content lobotuTitle" id="goLogin">
+			<div class="lunbo">
+				<div class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+
+					</div>
+					<div class="mui-slider-indicator mui-slider-indicatorTwo">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 新品发现 -->
+		<div>
+			<div id="goToPay">
+				<i class="fa fa-circle"></i>&nbsp; 新品发现 &nbsp;<i class="fa fa-circle"></i>
+			</div>
+
+			<!-- <div class="mui-content newShoping" id="newShopingID">
+			</div> -->
+
+
+			<div class="mui-content">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll newShoping" style="touch-action: none;" id="newShopingID">
+
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- 广告 -->
+			<div class="guangg">
+				<img id="imgPara" />
+			</div>
+			<!-- - 热门- -->
+			<div class="mdss" id="mdsc">
+				-- <span class="hostClass">热门</span> --
+			</div>
+			<div class="guanggTwo">
+				<img id="imgParaTwo" />
+			</div>
+
+			<!-- 最下面模块list -->
+			<div class="bottomList" id="bottomListTwo">
+
+			</div>
+
+			<div id="moveLocation" class="locationBtn">
+				<img src="../image/position.png">
+			</div>
+
+			<button id="messageId">去消息页面</button>
+	</body>
+
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/rem_reset.js"></script>
+	<script src="../js/domMove.js"></script>
+
+	<!-- 调用后端接口方法 -->
+	<script src="../js/returnList.js" type="text/javascript"></script>
+
+
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏		
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条			
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+
+				_self = plus.webview.currentWebview();
+				var getOrderDetailWai = plus.nativeUI.showWaiting("信息加载中...");
+				var userSessionId = plus.storage.getItem('userSessionId');
+				//设置系统状态栏背景色
+				// plus.navigator.setStatusBarBackground('#6495ED')
+				/* $('#heardD').scroll({
+					indicators: false //是否显示滚动条
+				}); */
+
+				getOrderDetailWai.close();
+
+
+				/* 去搜索页 */
+				var mdsc = doc.getElementById('mdsc');
+				mdsc.onclick = function() {
+					$$.openWindow({
+						url: 'details.html',
+						id: 'details',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				};
+
+
+				/* 去搜索页 */
+				var mdsc = doc.getElementById('mdsc');
+				mdsc.onclick = function() {
+					$$.openWindow({
+						url: 'searchPage.html',
+						id: 'searchPage',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				};
+
+				// 全部分类展示
+				var a = ["面点速食", "酒水饮料", "酒水饮料", "美妆百货", "中外茶叶", "母婴保健", "家装家纺", "日用纸品", "电子数码", "健康体检"]
+				$.each(a, function(index) {
+					$('.whole').append(
+						'<div  class="capsule" +  data-id=' + a[index] + '>' + a[index] + '</div>'
+					)
+				});
+
+				// 点击选择全部分类
+				$(".whole").on("tap", ".capsule", function() {
+					var $this = $(this);
+					$(".hostClass").html($(this).attr("data-id"));
+					/* 点击选项卡去指定的列表模块 */
+					window.scrollTo(0, 465);
+					if ($(this).hasClass("capsuleSelection")) {
+						return
+					} else {
+						$(this).addClass("capsuleSelection").siblings("div").removeClass("capsuleSelection");
+					}
+					// console.log($(this).text())
+				});
+
+				/* 点击头部选项卡，页面移动到指定位置 */
+				$(".mui-control-item").on("tap", function() {
+					$(".hostClass").html(this.innerText);
+					var ele = doc.getElementById("mdsc");
+					/* 点击选项卡去指定的列表模块 */
+					window.scrollTo(0, 465);
+				});
+
+
+				// 点击展开全部选项栏
+				$(".allCategories").on("tap", function() {
+					$(".whole").css("display", "block")
+				})
+				// 关闭全部选项栏
+				$("#jt").on("tap", function() {
+					$(".whole").css("display", "none")
+				})
+
+				$('#goLogin').on('tap', function() {
+					$$.openWindow({
+						url: '../login.html',
+						id: 'login',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				})
+
+				// 轮播
+				getImage(); //获取
+
+				var slider = mui("#slider");
+				slider.slider({
+					interval: 3000
+				});
+
+				function getImage() {
+					getLB(mui, "", function(data) {
+						if (data.code == 200) {
+							var dataList = data.data;
+							var length = dataList.length
+
+							if (length == 1) {
+								console.log(data.data.list[0].src)
+								$('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + dataList[0].carousel +
+									'" /></div>');
+							} else {
+								$('.mui-slider-group').append(
+									'<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + dataList[length -
+										1].carousel +
+									'" /></div>');
+								$('.mui-slider-indicatorTwo').append('<div class="mui-indicator mui-active"></div>');
+								for (var i = 0; i < length; i++) {
+									$('.mui-slider-group').append('<div class="mui-slider-item"><img class="lunbo-img" src="' + dataList[i].carousel +
+										'" /></div>');
+								}
+								$('.mui-slider-group').append(
+									'<div class="mui-slider-item mui-slider-item-duplicate"><img class="lunbo-img" src="' + dataList[0].carousel +
+									'" /></div>');
+								for (var i = 0; i < length - 1; i++) {
+									$('.mui-slider-indicatorTwo').append('<div class="mui-indicator"></div>');
+								}
+							}
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+							});
+						} else {
+							tipShow(data.message);
+						}
+					})
+				}
+
+				/* 获取新品发现list */
+				var newShopingID = document.getElementById("newShopingID");
+				var htmlTwo = [];
+
+				for (i = 0; i < 6; i++) {
+					htmlTwo.push('<div class="gotoDetails" data-id=' + i + '><div><img src="../image/log@2x.png"></div>');
+					htmlTwo.push('<div>海南凤梨</div><div>极甜凤梨甜到心里</div>')
+					htmlTwo.push('<div><span>¥19.00</span><i class="fa fa-shopping-cart"></i></div></div>')
+				}
+				newShopingID.innerHTML = htmlTwo.join('');
+
+				/* 跳转到详情页 */
+				$(".gotoDetails").on("tap", function(e) {
+					$$.openWindow({
+						url: 'details.html',
+						id: 'details',
+						extras: {
+							"shopId": $(this).attr('data-id')
+						},
+
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				});
+
+
+				/* 获取banner图 （广告图上）*/
+				var dataBase = {
+					isShow: 1,
+					position: 1,
+				};
+				getBanner(mui, dataBase, function(data) {
+					if (data.code == 200) {
+						document.getElementById("imgPara").src = data.data.banner;
+					} else {
+						tipShow(data.message);
+					}
+				});
+				/* 获取banner图 （广告图下）*/
+				var dataBase = {
+					isShow: 1,
+					position: 2,
+				};
+				getBanner(mui, dataBase, function(data) {
+					if (data.code == 200) {
+						document.getElementById("imgParaTwo").src = data.data.banner;
+					} else {
+						tipShow(data.message);
+					}
+				});
+
+
+				/* 获取页面下部分list*/
+				var bottomListTwo = document.getElementById("bottomListTwo");
+				var htmlThree = [];
+				for (i = 0; i < 5; i++) {
+					htmlThree.push('<div class="newShopingIDTwo" data-id=' + i + '>'); /* id="detailsCal" */
+					htmlThree.push('<div><img src="../image/log@2x.png"></div>');
+					htmlThree.push('<div>海南凤梨（1个）</div><div>极甜凤梨甜到心里</div>');
+					htmlThree.push('<div><span>¥19.00</span><i class="fa fa-shopping-cart"></i></div></div>');
+				}
+
+				/* 如果是奇数 在最后加个查看更多的图片 */
+				var num = 5;
+				if (num % 2 != 0) {
+					htmlThree.push('<div class="newShopingIDThree" id="gd">');
+					htmlThree.push('<div><img src="../image/log@2x.png"></div>');
+					htmlThree.push('</div>')
+				}
+				bottomListTwo.innerHTML = htmlThree.join('');
+
+
+				/* 点击更多跳到更多页面 */
+				var gd = doc.getElementById('gd');
+				gd.onclick = function() {
+					$$.openWindow({
+						url: 'more.html',
+						id: 'more',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				};
+
+
+				/* 跳转到详情页 */
+				$(".newShopingIDTwo").on("tap", function(e) {
+					$$.openWindow({
+						url: 'details.html',
+						id: 'details',
+						extras: {
+							"shopId": $(this).attr('data-id')
+						},
+
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				});
+
+
+				/* 去消息页面 */
+				var messageId = doc.getElementById('messageId');
+				messageId.onclick = function() {
+					$$.openWindow({
+						url: '../pages/newsPage.html',
+						id: 'newsPage',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				};
+
+
+				/* 去登录页 */
+				var goToPay = doc.getElementById('goToPay');
+				goToPay.onclick = function() {
+					$$.openWindow({
+						url: '../login.html',
+						id: 'login',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				};
+
+			}
+		})(jQuery, document, mui);
+	</script>

@@ -1,0 +1,209 @@
+.myWallet{
+    width: 100%;
+    background: #008BD5;
+    padding-bottom: 0.5rem;
+    overflow: hidden;
+}
+.currentBalance{
+    text-align: center;
+    font-size: .24rem;
+    color: #85C7EB;
+    margin-top: .46rem;
+}
+.currentBalanceNum{
+    font-size: .58rem;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0.1rem;
+}
+.moneyRecord{
+    margin-top: .28rem;
+}
+.moneyRecord div{
+    float: left;
+    text-align: center;
+}
+.moneyRecord .todayRecord{
+    width: 3.75rem;
+}
+.moneyRecord .hisRecord{
+    width: 3.73rem;
+}
+.moneyRecord .recordLine{
+    width: .02rem;
+    height: .4rem;
+    background: #fff;
+    margin-top: 0.2rem;
+}
+.moneyRecord div p{
+    font-size: .34rem;
+    color: #fff;
+    font-weight: 700;
+}
+.moneyRecord div span{
+    font-size: .24rem;
+    color: #85C7EB;
+}
+/* 接单记录 */
+.orderRecord{
+    margin-top: .3rem;
+    display: none;
+}
+.orderRecord div{
+    width: 3.3rem;
+    height: auto;
+    border: 1px solid #707070;
+    float: left;
+    margin-left: .3rem;
+    border-radius: .1rem;
+    box-sizing: border-box;
+}
+.orderNum p,
+.roadNum p
+{
+    font-size: .4rem;
+    color: #1A202C;
+    margin-left: 0.2rem;
+    margin-top: 0.2rem;
+    word-wrap:break-word;
+}
+.orderNum span,
+.roadNum span{
+    display: inline-block;
+    font-size: .24rem;
+    color: rgb(98, 101, 105);
+    margin-left: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+.moneyList{
+    width: 6.8rem;
+    margin-left: .35rem;
+    margin-top: 0.1rem;
+}
+.moneyList li{
+    width: 100%;
+    font-size: .32rem;
+    color: #1A202C;
+    line-height: 1rem;
+    border-bottom: 1px solid #E9E9E9;
+}
+.moneyList li i{
+    float: right;
+    font-size: .5rem;
+    line-height: 1rem;
+    color: #A0A0A0;
+}
+/* 充值 */
+.width50{
+    width: 3.4rem;
+    float: left;
+    color: #1A202C;
+    font-size: .32rem;
+}
+.div_backgroun_ff{
+    background-color: #ffffff;
+}
+.text_left{
+    text-align: left;
+    padding-left: .3rem;
+}
+.text_right{
+    text-align: right;
+    padding-right: .3rem;
+}
+.div_border_20{
+    height: .2rem;
+    background-color: #f8f8f8;
+    float: left;
+    width: 7.5rem;
+    margin-top: .32rem;
+}
+.recharge_title{
+    font-size: .32rem;
+    color: #1A202C;
+    padding-left: .3rem;
+    margin-top: .32rem;
+    float: left;
+    width:7.5rem;
+}
+.money .recharge_money{
+    width: 2.1rem;
+    border: 1px solid #fff;
+    float: left;
+    height: .8rem;
+    color: #000;
+    font-size: .26rem;
+    text-align: center;
+    line-height: .8rem;
+    margin-left: .3rem;
+    margin-top: .24rem;
+    box-sizing: border-box;
+    border-radius: 0.1rem;
+}
+.user_select .recharge_money{
+    border: 1px solid #008BD5;
+    color: #008BD5;
+}
+.driver_select .recharge_money{
+    border: 1px solid #242E42;
+    color: #242E42;
+}
+.money .money_selected{
+    color: #ffffff !important;
+    background-color: #fff;
+}
+.driver_select .money_selected{
+    color: #ffffff !important;
+    background-color: #242E42
+}
+.user_select .money_selected{
+    color: #ffffff !important;
+    background-color: #008BD5
+}
+.money{
+    width:7.5rem;
+    margin-top: .4rem;
+    float: left;
+}
+.recharge_tips{
+    width: 7.5rem;
+    color: #a1a1a1;
+    font-size: .24rem;
+    float: left;
+    padding-left: .4rem;
+    margin-top: 1.26rem;
+}
+.recharge_btn{
+    width: 6.7rem;
+    background-color: #fff;
+    color: #ffffff;
+    font-size: .32rem;
+    float: left;
+    margin-left: .4rem;
+    text-align: center;
+    line-height: 3;
+    height: 1rem;
+    margin-top: .16rem;
+}
+.user_btn{
+    background-color: #008BD5;
+}
+.driver_btn{
+    background-color: #242E42;
+}
+.recharge_btn .pay{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: .32rem;
+    line-height: 1rem;
+    color: #fff;
+}
+.recharge_tips span{
+    position: absolute;
+    margin-top: -.05rem;
+    margin-left: .1rem;
+}
+

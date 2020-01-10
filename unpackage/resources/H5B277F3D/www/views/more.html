@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/view/seavhPage.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/view/more.css"/>
+		
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no"> -->
+		<style type="text/css">
+			.mui-content>.mui-table-view:first-child {
+				margin-top: -1px;
+			}
+		</style>
+		
+	</head>
+
+	<body>
+		<div id="searchPageValueTiele_id">
+			<div style="height: 10px;"></div>
+			<i class="returnButtonClass" id="returnBut" style="line-height: 0.7rem;"><img src="../image/returnButton.png"></i>
+			<!-- 购物车图标 -->
+			<img class="shop_num_ioc-clsaa" src="../image/shopCard.png" style="width: 0.5rem;float: right;margin-right: 0.6rem;margin-top: 0.1rem;"/>
+			<!-- 购物车显示数量标致 -->
+			<div class="shop_num_ioc-clsaa" id="shop_num_ioc">
+				0
+			</div>
+			<div id="titleAge" style="width: 5.5rem;">
+				<input  style="width: 4.5rem;background-color: #FFFFFF;" id="searchInput" disabled="disabled"/>
+				<!-- <i class="fa fa-search"></i> -->
+				<!-- 搜索 -->
+				<img src="../image/search@2x.png" class="header_title_rightI">
+			
+			</div>
+			<!-- <i class="fa fa-shopping-cart gwc"></i> -->
+			
+			<div id="titleList">
+				<div style="touch-action: none;" id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<div style="height: 0.6rem;" id="tab_contral">
+						<a class="mui-control-item mui-active" id="zongheId">综合</a>
+						<a class="mui-control-item" id="volume_id" style="border-left: 1px solid #D8D8D8;border-right: 1px solid #D8D8D8;">销量最高</a>
+						<a class="mui-control-item" id="priceId">
+							价格
+							<div id="priceIdTwo">
+								<i class="mrys fa fa-sort-up (alias)" style="float:right;height: 0.1rem;"></i>
+								<i class="mrys fa fa-sort-desc iocClass" style="float:right;height: 0.1rem;"></i>
+							</div>
+							
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div style="height: 80px;"></div>
+				<!--数据列表-->
+				<div  class="bottomList mui-table-view mui-table-view-chevron" id="bottomListTwo">
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 回到顶部按钮 -->
+		<div id="moveLocation" class="locationBtn">
+			<img src="../image/upper.png" class="width_height100">
+		</div>
+		
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-1.11.2.min.js"></script>
+		<script src="../js/requestFun.js"></script>
+		<script src="../js/commonFun.js" type="text/javascript"></script>
+		
+		<script>
+			
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						callback: pulldownRefresh
+					},
+					up: {
+						auto:true,
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh,
+					}
+				}
+			});
+			
+			var count = 0;
+			var code = "";
+			var priceSorted = "1";
+			function pullupRefresh() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				code = _self.code;
+				
+				//去搜索页面
+				$(".header_title_rightI").on("tap",function(){
+					mui.openWindow({
+						url: 'searchPage.html',
+						id: 'searchPage',
+						extras:{
+							"goodsName":_self.goodsName
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				});
+				
+				
+				// 获取购物车数量
+				getShoppingCart(mui, plus.storage.getItem('memberId'), function(data) {
+					//console.log("111111111111=="+ JSON.stringify(data))
+					if (data.code == 200) {
+						$('#shop_num_ioc').text(data.data + "+");
+					} else {
+						tipShow(data.message)
+					}
+				});
+				
+				//去购物车
+				$(".shop_num_ioc-clsaa").on("tap",function(){
+					toIndex(2);
+				})
+				
+				var searchInput = document.getElementById("searchInput");
+				searchInput.value = _self.goodsName;
+				//console.log("goodsName="+_self.goodsName);
+				
+				$('#moveLocation').on('tap',function(e){
+					window.scrollTo(0, 0, 100);		
+				});
+				
+				
+				/* 加入购物车 */
+				$("#bottomListTwo").on("tap",".fa-plus",function(){
+					//alert("222");
+					var spId = $(this).attr("spId");
+					var goodsId = $(this).attr("data-idCart");
+					console.log("spId="+spId);
+					console.log("goodsId="+goodsId);
+					var dataBaseCart = {
+						goodsId:goodsId,
+						pecificationId:spId,
+						userId:plus.storage.getItem('memberId'),
+					};
+					addShoppingCart(mui, dataBaseCart, function(data) {
+						if (data.code == 200) {
+							tipShow("购物车加入成功");
+						} else {
+							tipShow(data.message);
+						}
+					});
+				});
+				
+				
+				/* setTimeout(function() { */
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					var newCount = cells.length>0?5:10;//首次加载10条，满屏
+					
+					
+					
+					/* ----------------------默认加载list ----------------*/
+					var meberIdValue = "";
+					if(plus.storage.getItem('memberId')){
+						meberIdValue = plus.storage.getItem('memberId');
+					}else{
+						meberIdValue = "";
+					}
+					var dataBase = {
+						code:code,
+						pageNum:count,
+						goodsName:"",
+						priceSorted:priceSorted,
+						meberId:meberIdValue
+					};
+					getGoodsCondition(mui, dataBase, function(data) {
+					    if (data.code == 200) {
+							//console.log("AAA=="+ JSON.stringify(data));
+							var bottomListTwo = document.getElementById("bottomListTwo");
+							var htmlThree = [];
+							var getGoodsConditionData = data.data;
+							for(i=0;i< getGoodsConditionData.length;i++){
+								htmlThree.push('<div class="newShopingIDTwo" data-id='+getGoodsConditionData[i].id+'>');
+								htmlThree.push('<div class="searchDetails" data-inventory=' + getGoodsConditionData[i].inventory + '  data-id='+getGoodsConditionData[i].id+'>');
+								htmlThree.push('<img src="'+getGoodsConditionData[i].pictureUrl+'">');
+								if (getGoodsConditionData[i].inventory == 0) {
+									htmlThree.push('<img class="soldOutThree" src="../image/Group%20.png">');
+								}
+								htmlThree.push('</div>');
+								htmlThree.push('<div class="searchDetails" data-inventory=' + getGoodsConditionData[i].inventory + '  data-id='+getGoodsConditionData[i].id+'>'+getGoodsConditionData[i].goodsName+'</div><div></div>')
+								htmlThree.push('<div><span class="searchDetails" data-inventory=' + getGoodsConditionData[i].inventory + '  data-id='+getGoodsConditionData[i].id+'>￥'+getGoodsConditionData[i].price+'</span><i class="fa fa-plus" spId='+ getGoodsConditionData[i].pecificationId+' data-idCart='+ getGoodsConditionData[i].id+'></i></div></div>');
+							}
+							if(count == 1){
+								bottomListTwo.innerHTML = htmlThree.join('');
+							}else{
+								$('#bottomListTwo').append(htmlThree.join(''));
+							}
+						} else {
+						    tipShow(data.message);
+						}
+					});
+				/* }, 1500); */
+			}
+
+			function addData() {
+				pullupRefresh();
+			}
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					addData();
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					//mui.toast("为你推荐了5篇文章");
+				}, 1500);
+			}
+			
+			
+			/* 跳转到详情页 */
+			$("#bottomListTwo").on("tap",".searchDetails",function(e){
+				var inventory = $(this).attr('data-inventory');
+				console.log("111="+ $(this).attr('data-id'));
+				mui.openWindow({
+					url: 'details.html',
+					id:'details',
+					extras: {
+						"shopId": $(this).attr('data-id'),
+						"shopNum":inventory,
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			});
+			
+			/* 关闭当前页 */
+			var returnBut = document.getElementById("returnBut");
+			returnBut.onclick = function(){
+				mui.currentWebview.close();
+			};
+			
+			/* 价格筛选事件 */
+			var priceIdTwo = document.getElementById("priceIdTwo");
+			var tab_contral = document.getElementById("tab_contral");
+			priceId.onclick = function(){
+				//如果点击了三角按钮,添加价格加黑样式 mui-control-item
+				$("#tab_contral .mui-active").removeClass('mui-active');
+				tab_contral.querySelector('a:nth-child(3)').classList.add('mui-active');
+				
+				
+				$("#priceIdTwo .iocClass").removeClass('iocClass');
+				if(priceSorted == 0){
+					priceSorted = 1;
+				}else{
+					priceSorted = 0;
+				}
+				//alert(priceSorted)
+				priceIdTwo.querySelector('#priceIdTwo i:nth-child('+(priceSorted+1)+')').classList.add('iocClass');
+				
+				/* 获取信息类别 */
+				var dataBase = {
+					code:code,
+					pageNum:1,
+					goodsName:"",
+					priceSorted:priceSorted,
+					sell:"",
+					synthesize:""
+				};
+				moreList(dataBase);
+			};
+			
+			/* 获取信息类别 公共方法*/
+			function moreList(dataBase){
+				getGoodsCondition(mui, dataBase, function(data) {
+				    if (data.code == 200) {
+						/* console.log("AAA=="+ JSON.stringify(data)); */
+						var bottomListTwo = document.getElementById("bottomListTwo");
+						var htmlThree = [];
+						var getGoodsConditionData = data.data;
+						for(i=0;i< getGoodsConditionData.length;i++){
+							htmlThree.push('<div class="newShopingIDTwo" data-id='+getGoodsConditionData[i].id+'>');
+							htmlThree.push('<div><img src="'+getGoodsConditionData[i].pictureUrl+'"></div>');
+							htmlThree.push('<div>'+getGoodsConditionData[i].goodsName+'</div><div></div>')
+							htmlThree.push('<div><span>￥'+getGoodsConditionData[i].price+'</span><i class="fa fa-shopping-cart" spId='+ getGoodsConditionData[i].pecificationId+' data-idCart='+ getGoodsConditionData[i].id+'></i></div></div>');
+						}
+						if(count == 1){
+							bottomListTwo.innerHTML = htmlThree.join('');
+						}else{
+							/* 删除#bottomListTwo中的子标签 */
+							$('#bottomListTwo').empty();
+							$('#bottomListTwo').append(htmlThree.join(''));
+						}
+					} else {
+					    tipShow(data.message);
+					}
+				});
+			};
+			
+			
+			/* 销量筛选事件 */
+			$("#volume_id").on("tap",function(){
+				var dataBase = {
+					code:code,
+					pageNum:1,
+					goodsName:"",
+					priceSorted:"",
+					sell:"1",
+					synthesize:""
+				};
+				moreList(dataBase);
+			});
+			
+			/* 综合筛选事件 */
+			$("#zongheId").on("tap",function(){
+				var dataBase = {
+					code:code,
+					pageNum:1,
+					goodsName:"",
+					priceSorted:"",
+					sell:"",
+					synthesize:"1"
+				};
+				moreList(dataBase);
+			});
+
+		</script>
+	</body>
+
+</html>

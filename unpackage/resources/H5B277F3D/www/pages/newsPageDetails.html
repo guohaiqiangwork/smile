@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../css/view/seavhPage.css"/>
+		
+		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css"/>
+		
+		<link rel="stylesheet" type="text/css" href="../css/pages/newsPage.css"/>
+	</head>
+	<body>
+		<header class="header_white title">
+			<i id="returnTopPage_set"><img src="../image/left@2x.png" style="width: .22rem;height: .38rem;"></i>
+			消息通知
+		</header>
+		
+		<div style="height: 65px;"></div>
+		
+		
+		<div id="messageDetailseCount">
+			
+		</div>
+		
+		
+		<!-- 最底部的已查看全部消息 -->
+		<div class="bottomClass">
+			<span>——  已查看完全部消息  ——</span>
+		</div>
+		
+		
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/commonFun.js" type="text/javascript"></script>
+	
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				var messageId = _self.messageId;
+				console.log("11="+ messageId);
+				
+				//返回上一页
+				var returnTopPage_set = doc.getElementById("returnTopPage_set");
+				returnTopPage_set.onclick = function() {
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					var list = plus.webview.currentWebview().opener();
+					mui.fire(list, 'refreshHomeNewsTwo');
+				}
+				
+				/* 获取消息详情内容 */
+				MessageDetail(mui,messageId,function(data){
+					if (data.code == 200) {
+						var detailsData = data.data;
+						var list = 
+						'<ul>'+
+							'<li>'+detailsData.title+'</li>'+
+							'<li>'+detailsData.createTime+'</li>'+
+						'</ul>'+
+						'<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+detailsData.content+'</p>';
+						
+						$("#messageDetailseCount").append(list);
+					} else {
+						tipShow(data.message);
+					}
+				});
+				
+				
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>
+

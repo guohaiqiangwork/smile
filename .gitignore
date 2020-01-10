@@ -1,0 +1,32 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+.merge_file_a12472
+js/requestFun_REMOTE_15324.js
+js/requestFun_BACKUP_13396.js
+js/requestFun_BACKUP_15324.js
+js/requestFun_BASE_13396.js
+js/requestFun_BASE_15324.js
+js/requestFun_LOCAL_13396.js
+js/requestFun_LOCAL_15324.js
+js/requestFun_REMOTE_13396.js

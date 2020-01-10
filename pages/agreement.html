@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			笑容用户协议
+		</header>
+		<div class="content">
+			<div style="text-align: center;">
+				<div style="margin-top: 2rem;">
+					<img src="../image/log@2x.png" style="width:2.3rem" >
+				</div>
+				<div id="goToAgreement" style="font-size: .32rem;color: #666666;margin-top: 7rem;">
+					《笑容用户协议》
+				</div>
+						
+			</div>
+			
+		</div>
+		
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				$('#goToAgreement').on('tap',function(){
+					$$.openWindow({
+						url: 'agreement.html',
+						id:'agreement',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				})
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

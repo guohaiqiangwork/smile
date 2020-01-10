@@ -1,0 +1,48 @@
+.ipt-style {
+	display: flex;
+	align-items: center;
+	padding: 0.18rem 0;
+	margin: 0 0.54rem;
+}
+
+.ipt-style input {
+	font-size: .28rem;
+	color: #BDBDBD;
+	border: none;
+	margin: 0;
+}
+
+.bind_btn {
+	margin-top: 1.2rem;
+	width: 80%;
+	border: 1px solid #D7D7D7;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: .32rem;
+	background-color: #D7D7D7;
+	height: .9rem;
+	border-radius: .45rem;
+	line-height: 2.5;
+	margin-left: .3rem;
+}
+
+.bind_title {
+	padding-top: .6rem;
+	font-size: .56rem;
+	color: #000000;
+}
+
+.bindPhone_phone {
+	border-bottom: 1px solid #707070;
+	width: 80%;
+	margin-top: 1.2rem;
+}
+
+.bindPhone_code {
+	border-bottom: 1px solid #707070;
+	width: 80%;
+	margin-top: .7rem;
+}
+.bindPhone_I{
+	width: .24rem;height: .35rem;
+}

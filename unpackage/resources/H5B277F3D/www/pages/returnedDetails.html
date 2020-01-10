@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>退换货</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/pages/returned.css" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<script src="../js/rem_reset.js"></script>
+		<style type="text/css">
+			.mui-numbox {
+				position: relative;
+				display: inline-block;
+				overflow: hidden;
+				width: 2.5rem;
+				height: .45rem;
+				padding: 0 !important;
+				vertical-align: top;
+				vertical-align: middle;
+				border: none !important;
+				border-radius: 3px;
+				background-color: #F4F4F4;
+			}
+
+			.mui-checkbox input[type=checkbox]:checked:before {
+				background: linear-gradient(to right, #FF342D, #FF5882);
+				-webkit-background-clip: text;
+				color: transparent;
+			}
+		</style>
+	</head>
+
+	<body onselectstart="return false;" style="background-color: #FAFAFA;">
+		<header class="header_white title">
+			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
+			退换货申请
+		</header>
+		<div class="content">
+			<div class="model_width">
+				<!-- 提示语 -->
+				<div class="returnedDetails_title">
+					<div class="font_size28">
+						小贴士：
+					</div>
+					<div class="font_size26">
+						1. 申请通过后退款按原支付方式退回，耐心等待通知
+					</div>
+					<div class="font_size26">
+						2. 申请单通过后，商品就真的与你擦身而过
+					</div>
+				</div>
+				<!-- 条件 申请服务-->
+				<div class="div_display condition_height margin_top3">
+					<div class="width50 div_display list_m">
+						<div class="font_colorf4">*</div>
+						<div class="font_size28 font_color00">申请服务：</div>
+						<div class="font_size28 font_color66" id="service"></div>
+					</div>
+					<div class="width50 text_right  padding_right4 font_color5c">
+						<i class="fa-2x fa fa-angle-down" id='showUserPicker'></i>
+					</div>
+				</div>
+				<!-- 条件 申请原因-->
+				<div class="div_display condition_height margin_top2">
+					<div class="width50 div_display list_m">
+						<div class="font_colorf4">*</div>
+						<div class="font_size28 font_color00">申请原因：</div>
+						<div class="font_size28 font_color66" id="Reason"></div>
+					</div>
+					<div class="width50 text_right  padding_right4 font_color5c">
+						<i class="fa-2x fa fa-angle-down" id='showUserPickerReason'></i>
+					</div>
+				</div>
+				<!-- 条件 具体说明：-->
+				<div class="div_display condition_height margin_top2">
+					<div class="div_display list_m">
+						<div class="font_colorf4">*</div>
+						<div class="font_size28 font_color00">具体说明：</div>
+						<div class="">
+							<input class="font_size28 font_color66" type="" name="" id="userRemarkInfo" value="" placeholder="请具体说明" style="-webkit-user-select:text !important;border: none;" />
+						</div>
+					</div>
+				</div>
+				<!-- 图片上传 -->
+				<div class="div_display  orderStatusImg" style="margin-top: .17rem;">
+					<div class="img_up_model" data-id="1">
+						<img src="../image/upImg.png" id="img1" class="margin_top3" style="width: .63rem;height: .63rem;">
+						<img src="" id="img1d" style="width: 1.2rem;height: 1.3rem;display: none;">
+					</div>
+					<div class="img_up_model img_show1" style="display: none;" data-id="2">
+						<img src="../image/upImg.png" id="img2" class="margin_top3" style="width: .63rem;height: .63rem;">
+						<img src="" id="img2d" style="width: 1.2rem;height: 1.3rem;display: none;">
+					</div>
+					<div class="img_up_model img_show2" style="display: none;" data-id="3">
+						<img src="../image/upImg.png" id="img3" class="margin_top3" style="width: .63rem;height: .63rem;">
+						<img src="" id="img3d" style="width: 1.2rem;height: 1.3rem;display: none;">
+					</div>
+				</div>
+				<div class="font_color5c font_size22 orderStatusImg"> <span class="font_colorf4">*</span> 请上传商品凭证，最多上传3张</div>
+
+				<!-- 全选 -->
+				<div class="condition_height margin_top2 font_size28 font_color5c padding_top2 padding_left2">
+					<div class="mui-input-row mui-checkbox mui-left" style="margin-left: -5%;margin-top: -2%;">
+						<label>全选</label>
+						<input id="checkboxAll" value="Item 2" type="checkbox">
+					</div>
+				</div>
+				<div class="" id="list">
+					<!-- 		<div class="div_display detail_list_model">
+						<div class="div_display left_check">
+							<div class="padding_left2 r_d_check">
+								<div class="mui-checkbox">
+									<input data-Params="0" name="commodity" type="checkbox" class="res" style="margin-top: 0.8rem;padding-left: .3rem;">
+								</div>
+							</div>
+							<div class="img_r_d">
+								<img src="../image/mu.jpg" style="width: 1.5rem;height: 1.5rem;">
+							</div>
+						</div>
+						<div class="list_model_right" style="width: 4.5rem;">
+							<div class="font_size32">卡夫芝士粉</div>
+							<div class="div_display font_size32 margin_top2">
+								<div class="width55">¥45.9</div>
+								<div class="div_display number_model">
+									<div class="font_color5c delNumber">-</div>
+									<div class="text_center Number">9</div>
+									<div class="font_color33 addNumber margin_left2">+</div>
+								</div>
+							</div>
+							<div class="div_display font_size24 margin_top2">
+								<div class="width55">预计退款：¥4333</div>
+								<div class="width40 margin_left2">最多申请 ：<span class="font_colorf4">1件</span></div>
+							</div>
+						</div>
+					</div>
+ -->
+				</div>
+
+				<!-- 金额 -->
+				<div class="condition_height div_display margin_top2 padding_top2" style="margin-bottom: 1.5rem;">
+					<div class="money_img margin_left2">
+						¥
+					</div>
+					<div class="font_size28 font_color00 font_width900 margin_left2">
+						预计退款总金额
+					</div>
+					<div class="font_colorf4 totalPrice" style="margin-left: 3rem;">
+						0
+					</div>
+				</div>
+			</div>
+			<!-- 提交按钮 id="goToD"-->
+			<div id="getRefundGo" class="font_size32 font_colorff text_center div_backgroun_jb money_btn">
+				提交申请
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.picker.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				if( _self.orderStatus == 2){
+					$('.orderStatusImg').css('display','none')
+				}
+				// 获取商品列表
+				keywords = {
+					pageNum: 1,
+					pageSize: 10,
+					data: {
+						status: '',
+						memberId: plus.storage.getItem('memberId') || '',
+						orderId: _self.orderId
+					}
+				}
+				getMyReturnList();
+				// 退款接口数据
+				refundData = {
+					applyServer: '', //申请服务 1- 退货、2-换货、3-仅退款、4-补发货
+					itemList: [],
+					orderId: _self.orderId, //订单id
+					pictrue: '', //退换货的图片
+					retReason: '', //退款原因
+					userRemark: '' //用户备注
+				}
+				// 判断订单状态是否为待发货
+				orderStatusF = false;
+				// $("#all").click(function() {
+				// 	if (this.checked) {
+				// 		$("#list :checkbox").prop("checked", true);
+				// 	} else {
+				// 		$("#list :checkbox").prop("checked", false);
+				// 	}
+				// });
+				// $('#all').on('tap', function() {
+				// 	if (this.checked) {
+				// 		$("#list :checkbox").prop("checked", true);
+				// 	} else {
+				// 		$("#list :checkbox").prop("checked", false);
+				// 	}
+				// })
+				// $('#list').on('tap', 'div', '#getValue', function() {
+				// 	var valArr = new Array;
+				// 	$("#list div:checkbox[checked]").each(function(i) {
+				// 		valArr[i] = $(this).val();
+				// 	});
+				// 	var vals = valArr.join(','); //转换为逗号隔开的字符串
+				// 	alert(vals);
+				// })
+				// //设置全选复选框
+				// $("#list div:checkbox").click(function() {
+				// 	allchk();
+				// });
+
+				// function allchk() {
+				// 	var chknum = $("#list div:checkbox").size(); //选项总个数
+				// 	var chk = 0;
+				// 	$("#list div:checkbox").each(function() {
+				// 		if ($(this).prop("checked") == true) {
+				// 			chk++;
+				// 		}
+				// 	});
+				// 	if (chknum == chk) { //全选
+				// 		$("#all").prop("checked", true);
+				// 	} else { //不全选
+				// 		$("#all").prop("checked", false);
+				// 	}
+				// }
+
+				// 数量加
+				// $('.addNumber').on('tap', function() {
+
+				// 	$('.Number').text(Number($('.Number').text()) + 1)
+				// })
+				// // 数量减
+				// $('#list').on('tap', '.delNumber',function() {
+				// 	// var rowNum = $(this).children(".Number").find("div").attr("data-num");
+				// 	var rowNum = $(this).children(".Number").find("span").attr("data-num");
+				// 	alert(rowNum);
+				// 	return
+				// 	$('.Number').text(Number($(this).attr('data-number')) - 1)
+				// })
+
+				// 去详情
+				$('#goToD').on('tap', function() {
+					$$.openWindow({
+						url: 'returnedD.html',
+						id: 'returnedD',
+						extras: {
+							// orderType: $(this).attr('data-id')
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+
+				});
+				//申请服务
+				var userPicker = new mui.PopPicker();;
+				userPicker.setData([{
+					value: '1',
+					text: '退货'
+				}, {
+					value: '2',
+					text: '换货'
+				}, {
+					value: '3',
+					text: '仅退款'
+				}, {
+					value: '4',
+					text: '补发货'
+				}]);
+				var showUserPickerButton = doc.getElementById('showUserPicker');
+				var service = doc.getElementById('service');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						service.innerText = items[0].text; //页面赋值
+						refundData.applyServer = items[0].value; //接口参数赋值
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+				// 申请原因
+				var userPickerReason = new mui.PopPicker();;
+				userPickerReason.setData([{
+					value: 'ywj',
+					text: '未收到货'
+				}, {
+					value: 'aaa',
+					text: '商品包装破损'
+				}, {
+					value: 'lj',
+					text: '商品质量问题'
+				}]);
+				var reasonPickerButton = doc.getElementById('showUserPickerReason');
+				var Reason = doc.getElementById('Reason');
+				reasonPickerButton.addEventListener('tap', function(event) {
+					userPickerReason.show(function(items) {
+						Reason.innerText = items[0].text; //	退款原因页面赋值
+						refundData.retReason = items[0].text; //接口参数赋值退款原因
+						// alert(JSON.stringify(refundData))
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+
+			}
+
+			//  获取退货可申请列表
+			function getMyReturnList() {
+				console.log('请求参数' + JSON.stringify(keywords))
+				getMyReturn(mui, keywords, function(data) {
+					console.log(JSON.stringify(data))
+					if (data.code == 200) {
+						if (data.data.records.length == 0) {
+							if (keywords.pageNum == 1) {
+								$('.nothing').css('display', 'block')
+							}
+						} else {
+							var fragmentplanList = document.createDocumentFragment();
+
+							$.each(data.data.records[0].itemList, function(item) {
+								var orderLiTwo =
+									'<div  class="div_display detail_list_model" cartData=' + JSON.stringify(data.data.records[0].itemList[
+										item]) + '>' +
+									'<div class="div_display returned_left">' +
+									'<div class="padding_left2 r_d_check">' +
+									'<div class="mui-checkbox">' +
+									'<input data-Params="0" name="commodity"' +
+									' type="checkbox" class="res" data-price=' + data.data.records[0].itemList[item].price + ' data-index=' +
+									JSON.stringify(data.data.records[0].itemList[item]) +
+									' style="margin-top: 0.8rem;padding-left: .3rem;">' +
+									'</div>' +
+									'</div>' +
+									'<div class="img_r_d">' +
+									'<img src="' + data.data.records[0].itemList[item].picPath +
+									'"  style="width: 1.5rem;height: 1.5rem;">' +
+									'</div>' +
+									'</div>' +
+									'<div class="list_model_right returned_right" style="width: 4.5rem;">' +
+									'<div class="font_size32">' + data.data.records[0].itemList[item].title + '</div>' +
+									'<div class="div_display font_size32 margin_top2">' +
+									'<div class="width55 returned_price">¥' + data.data.records[0].itemList[item].price + '</div>' +
+									'<div class="div_display number_model">' +
+									'<div class="mui-numbox num-btn" data-numbox-step="1" data-numbox-min="1" data-numbox-max="99" id="box ' +
+									item + '" >' +
+									//"-"按钮，点击可减小当前数值																		
+									'<button id="minusId" class="mui-btn mui-numbox-btn-minus" type="button" data-moreNumber=' + data.data.records[
+										0].itemList[item].num + ' data-price=' + data.data.records[
+										0].itemList[item].price +
+									' >-</button>' +
+									'<input readonly="readonly" cartData_id=' + data.data.records[0].itemList[item].id +
+									' cartData_pecificationId=' + data.data.records[0].itemList[item].pecificationId + ' data-num=' + data.data
+									.records[0].itemList[item].num + ' class="mui-numbox-input" type="number" value="' + data.data.records[0]
+									.itemList[item].num +
+									'" />' +
+									//"+"按钮，点击可增大当前数值
+									'<button id="addId" class="mui-btn mui-numbox-btn-plus" type="button" data-moreNumber=' + data.data.records[
+										0].itemList[item].num + ' data-price=' + data.data.records[0]
+									.itemList[item].price +
+									'>+</button>' +
+									'</div>' +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display font_size24 margin_top2 mostNumber" id="mostNumber">' +
+									'<div class="width55">预计退款：¥' + data.data.records[0].itemList[item].totalFee + '</div>' +
+									'<div class="width40 margin_left2">最多申请 ：<span class="font_colorf4" >' + data.data.records[0].itemList[
+										item].num + ' 件</span></div>' +
+									'</div>' +
+									'</div>' +
+									'</div>';
+								$(fragmentplanList).append(orderLiTwo);
+							})
+							$("#list").append($(fragmentplanList));
+							// data.data.records[0].payment
+							$('.totalPrice').text('¥' + 0)
+							// if (data.data.records[0].status == 2) {
+							// 	orderStatusF = true;
+							// }
+						}
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					}
+
+				})
+			};
+
+			// 退款接口
+			$('#getRefundGo').on('tap', function() {
+				console.log(JSON.stringify(refundData))
+				refundData.userRemark = $('#userRemarkInfo').val() //具体说明赋值
+				if (!refundData.applyServer) {
+					tipShow('请检查申请服务类型')
+					return;
+				} else if (!refundData.retReason) {
+					tipShow('请检查退款原因')
+					return;
+				} else if (!refundData.userRemark) {
+					tipShow('请检查具体说明')
+					return;
+				}
+
+				getRefund(mui, refundData, function(data) {
+					if (data.code == 200) {
+						tipShow('提交成功')
+						var list = plus.webview.currentWebview().opener();
+						mui.fire(list, 'getRecordList');
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+					} else {
+						tipShow(data.message)
+					}
+				})
+			})
+
+
+			/**
+			 * 上传图片操作列表
+			 * @param {object} dom 上传节点
+			 */
+			function upImgFun(dom) {
+				if (mui.os.plus) {
+					var a = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "插入图片",
+						cancel: "取消",
+						buttons: a
+					}, function(b) {
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(dom); /*拍照*/
+								break;
+							case 2:
+								galleryImg(dom); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}
+
+			/**
+			 * 拍照
+			 * @param {object} dom 上传节点
+			 */
+			function getImage(dom, cameraIndex, callback) {
+				if (cameraIndex) {
+					var c = plus.camera.getCamera(cameraIndex);
+				} else {
+					var c = plus.camera.getCamera();
+				}
+				c.captureImage(function(e) {
+					// 读取本地文件中选取图片
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						// 执行上传操作
+						// console.log(entry.toLocalURL());
+						compressImage(entry.toLocalURL(), dom, callback)
+					}, function(e) {
+						plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+						callback && callback(500);
+					});
+				}, function(s) {
+					console.log("error" + s);
+					callback && callback(500);
+				}, {
+					filename: "_doc/head.jpg"
+				})
+			}
+			/**
+			 * 手机相册选择
+			 * @param {object} dom 上传节点
+			 */
+			function galleryImg(dom) {
+				plus.gallery.pick(function(a) {
+					plus.io.resolveLocalFileSystemURL(a, function(entry) {
+						//entry为图片原目录（相册）的句柄
+						upImg(entry.toLocalURL(), dom);
+					}, function(e) {
+						console.log("读取图片错误：" + e.message);
+					});
+				}, function(a) {}, {
+					filter: "image"
+				})
+			}
+
+			// 压缩图片
+			function compressImage(imgUrl, dom, callback) {
+				console.log("开始压缩图片：")
+				plus.nativeUI.showWaiting();
+				// console.log(imgUrl);
+				plus.zip.compressImage({
+						src: imgUrl,
+						dst: imgUrl,
+						quality: 20,
+						overwrite: true,
+						width: '80%'
+					},
+					function(i) {
+						plus.nativeUI.closeWaiting();
+						console.log("压缩图片成功：" + JSON.stringify(i));
+						imgUrlY = i.target
+						upImg(imgUrlY, dom, callback);
+						return
+					},
+					function(e) {
+						plus.nativeUI.closeWaiting();
+						console.log("压缩图片失败: " + JSON.stringify(e));
+
+					});
+			}
+			/**
+			 * 图片上传
+			 * @param {object} dom 上传节点
+			 */
+			function upImg(event, dom, callback) {
+				console.log(JSON.stringify(event))
+				if (_self.imgId == '1') {
+					var server = requserUrl + '/file/fileUpload';
+					// $("#img1").attr("src", event);
+					$("#img1").css('display', 'none')
+					$("#img1d").css('display', 'block')
+					$("#img1d").attr("src", event);
+					$('.img_show1').css('display', 'block')
+				} else if (_self.imgId == '2') {
+					var server = requserUrl + '/file/fileUpload';
+					// $("#img2").attr("src", event);
+					$("#img2").css('display', 'none')
+					$("#img2d").css('display', 'block')
+					$("#img2d").attr("src", event);
+					$('.img_show2').css('display', 'block')
+				} else if (_self.imgId == '3') {
+					var server = requserUrl + '/file/fileUpload';
+					// $("#img3").attr("src", event);
+					$("#img3").css('display', 'none')
+					$("#img3d").css('display', 'block')
+					$("#img3d").attr("src", event);
+				}
+				var wt = plus.nativeUI.showWaiting("上传中...");
+				var uploaderDown = plus.uploader.createUpload(server, {
+						method: "post"
+					},
+					function(t, status) {
+						console.log(JSON.stringify(t))
+						wt.close();
+						var dataCode = eval("(" + t.responseText + ")")
+						console.log(JSON.stringify(dataCode))
+						if (dataCode.code == '200') {
+							if (refundData.pictrue) {
+								refundData.pictrue = refundData.pictrue + ',' +
+									dataCode.data.path
+							} else {
+								refundData.pictrue = dataCode.data.path
+							}
+						} else {
+							tipShow(dataCode.message)
+						}
+
+					});
+				uploaderDown.addFile(event, {
+					key: "file"
+				}); //添加传输文件 event 文件  key 文件夹名
+				uploaderDown.setRequestHeader('Authorization', "Bearer" + " " + plus.storage.getItem('Token'));
+				uploaderDown.setRequestHeader('client', 'APP');
+				uploaderDown.addData("string_key", "string_value");
+				uploaderDown.start()
+			}
+			// 点击上传图片
+			$('.img_up_model').on('tap', function() {
+				// alert($(this).attr('data-id'))
+				var _this = $(this);
+				_self.imgId = $(this).attr('data-id')
+				setTimeout(function() {
+					upImgFun(_this);
+				}, 50);
+			})
+
+			// 选中单个商品
+			var $checkbox = $("input[name='commodity']");
+			mui("#list").on('change', 'input', function() {
+				//合计处的数量
+				var totalNum = parseInt($(".totalNum").text());
+				/* 从红点选项找到现在的商品数量--选中行数量 */
+				var redCircle = $(this).parent().parent().parent().next().find("input").val();
+				/**
+				 * 1：未选中
+				 * 0：选中 
+				 * **/
+				var dataKw = eval('(' + $(this).attr('data-index') + ')') //选择数据
+				dataKw.num = redCircle; //改变数量
+				var dataParams = $(this).attr("data-Params");
+				//计算金额 总金额
+				var totalPrice = $(".totalPrice").text().substring(1);
+				if (dataParams == 0) {
+					refundData.itemList.push(dataKw); //添加数据给到后端
+					var zongPrice = Number(totalPrice) + Number(redCircle) * Number($(this).attr("data-price")).toFixed(2)
+					$(".totalPrice").text("¥" + zongPrice); //合计金额
+					$(this).attr("data-Params", 1);
+				} else {
+					// 判断取消后删除对应数组
+					$.each(refundData.itemList, function(items) {
+						if (refundData.itemList[items].id == dataKw.id) {
+							refundData.itemList.splice(items, 1)
+						}
+					})
+					//子取消一个,总的就取消
+					$("#checkboxAll").prop("checked", false);
+					var zongPrice = Number(totalPrice) - Number(redCircle) * Number($(this).attr("data-price")).toFixed(2)
+					//合计金额
+					$(".totalPrice").text("¥" + zongPrice);
+					$(this).attr("data-Params", 0);
+				}
+			});
+			// 全选 (只是 有效商品)
+			$("#checkboxAll").click(function() {
+				$('input[name="commodity"]').prop("checked", this.checked);
+				/* 查看总选项是否选中 false:取消*/
+				var checkboxAll = $("#checkboxAll").prop("checked");
+				//有效
+				if (!checkboxAll) {
+					refundData.itemList = [];
+					/* 已选中 */
+					$('#list .detail_list_model').each(function(index) {
+						if ($(this).children(".returned_left").find("input").attr("data-Params") == "1") {
+							$(this).children(".returned_left").find("input").attr("data-Params", "0");
+						}
+					});
+					/* 算总金额，总数量，并赋值 */
+					$(".totalPrice").text("¥" + 0);
+				} else {
+					var numPr = $(".totalPrice").text().substring(1);
+					refundData.itemList = [];
+					/* 未选中 */
+					$('#list .detail_list_model').each(function(index) {
+						if ($(this).children(".returned_left").find("input").attr("data-Params") == "0") {
+							$(this).children(".returned_left").find("input").attr("data-Params", "1");
+							var rowNum = $(this).children(".returned_right").find("input").val();
+							var cartDataJson = eval('(' + $(this).attr('cartData') + ')');
+							cartDataJson.num = rowNum; //数据数量
+							var totleMoney = cartDataJson.price * rowNum; //单个商品价格
+							refundData.itemList.push(cartDataJson); //添加数据给到后端
+							numPr = Number(numPr)  + totleMoney
+						}
+					});
+					// 总金额赋值
+					$(".totalPrice").text("¥" + numPr);
+				}
+			});
+
+
+
+
+			/* 购物车数量 加 事件*/
+			$("#list").on("tap", ".mui-numbox-btn-plus", function() {
+				var moreNumber = $(this).attr('data-moreNumber'); //最多可退数量
+				$(this, "#addId").attr('disabled', true);
+				if ($(this).parent().children("input").val() < moreNumber) {
+					var num = $(this).parent().children("input").val(); //数量
+					$(this).parent().children("input").val(Number(num) + 1) //数量加1
+				} else {
+					tipShow('超出最大数量')
+					$(this, "#addId").attr('disabled', false);
+					// $('input[name="commodity"]').prop("checked", false)
+				}
+				var _this = this;
+				var totalPrice = $(".totalPrice").text().substring(1); //总金额
+				var danPrice = $(_this).parent().parent().prev(".returned_price").text().substring(1); //单价
+				// 是否选中
+				var dataParams = $(_this).parents(".returned_right").siblings(".returned_left").find("input").attr("data-Params");
+				if (dataParams == 1) {
+					//合计金额
+					var numberPrice = Number(totalPrice) - Number(danPrice).toFixed(2)
+					//合计金额
+					$(".totalPrice").text("¥" + numberPrice);
+				}
+			})
+			/* 购物车数量 减 事件*/
+			$("#list").on("tap", ".mui-numbox-btn-minus", function() {
+				// $(this, "#minusId").attr('disabled', true);
+				if ($(this).parent().children("input").val() == 1) {
+					tipShow('数量太少了')
+					return;
+				}
+				var num = $(this).parent().children("input").val(); //数量
+				$(this).parent().children("input").val(Number(num) - 1) //数量减-
+				// if ($(this).parent().children("input").val() == 0) {
+				// 	$(this, "#minusId").attr('disabled', false);
+				// }
+				var _this = this;
+				var totalPrice = $(".totalPrice").text().substring(1); //总金额
+				var danPrice = $(_this).parent().parent().prev(".returned_price").text().substring(1); //单价
+				// 是否选中
+				var dataParams = $(_this).parents(".returned_right").siblings(".returned_left").find("input").attr("data-Params");
+				if (dataParams == 1) {
+					var numberPrice = Number(totalPrice) - Number(danPrice).toFixed(2)
+					//合计金额
+					$(".totalPrice").text("¥" + numberPrice)
+				}
+			})
+		})(jQuery, document, mui);
+	</script>
+
+</html>

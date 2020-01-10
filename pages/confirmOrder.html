@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/confirmOrder.css" />
+
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;" >
+		<header class="header_white" style="background-color: #FFFFFF;">
+			<div class="i_ioc"><img src="../image/left@2x.png"></div>
+			<span style="margin-right: 0.6rem;">订单确认</span>
+		</header>
+		
+		<div class="mui-content mui-scroll-wrapper" style="background-color: #fafafa;">
+			<div class="mui-scroll">
+				<!-- 地址 -->
+				<div class="div_display confirmOrder_model address_div" href="../pages/myAddress.html" data-id='myAddress'>
+					
+				</div>
+				<!-- 产品 -->
+				<div class="product_moudel">
+					<!-- 标题 -->
+					<!-- <div class="div_display product_border">
+						<div class=" product_moudel_title">
+							<img src="../image/mu.jpg" style="width: 100%;">
+						</div>
+						<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">
+							笑容
+						</div>
+					</div> -->
+					<!--  多个产品 -->
+					<div class="div_display twoList" style="display: none; ">
+						<div class="product_imgList_left div_display two_divList">
+							
+						</div>
+						<div class="product_imgList_right font_size24 font_color33 goToCommoditiesTwo two_divNumList" style="position: relative; top:-100px;left: 83%;">
+							<span id="spanListTotle"></span>
+							<i class="fa fa-angle-right  font_colorcb" style="font-size: .32rem;margin-left: .03rem;"></i>
+						</div>
+					</div>
+					<!-- 单个产品 style="height: 7.6rem;" -->
+					<div class="oneList">
+
+					</div>
+
+				</div>
+				<!-- 失效商品 -->
+				<div class="invalid_product div_display font_size28 font_color33">
+					<div class="invalid_product_left width60">
+						失效商品清单
+					</div>
+					<div class="invalid_product_left goToCommodities">
+						<span id="spanXXshop" style="font-family: sans-serif;"></span>
+						<span> <i class="fa fa-angle-right  font_colorcb"></i></span>
+					</div>
+				</div>
+				<!-- 商品金额 -->
+				<div class="product_money">
+					<div class="div_display font_size28 font_color33 product_money_list">
+						<div class="width50 money_list_left">
+							商品金额
+						</div>
+						<div class="width50 text_right money_list_right shopMoney" style="font-family: sans-serif;">
+
+						</div>
+					</div>
+					<!-- <div class="div_display font_size28  product_money_list">
+						<div class="width50 font_color99 money_list_left">
+							运费
+						</div>
+						<div class="width50 font_color33 text_right money_list_right">
+							¥250.00
+						</div>
+					</div> -->
+					
+					<!-- 合计 -->
+					<div class="div_display font_size28" style="margin-bottom: 2rem;">
+						<div class="width50"></div>
+						<div class="width50 font_color33 text_right money_list_rightZ Total"  style="font-family: sans-serif;">
+					
+						</div>
+					</div>
+				</div>
+				<div style="height: 2rem;"></div>
+				<!-- 是否使用笑容币 -->
+				<!-- <div class="invalid_product div_display font_size28 font_color33">
+					<div class="invalid_product_left width50">
+						笑容金币<span class="font_colorf4 font_size24">共1000，可用127</span>
+					</div>
+					<div class="invalid_product_left width50 text_right money_list_right">
+						<div class="mui-switch mui-switch-blue mui-switch-mini" id="mySwitch" style="float: right;">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		
+		
+		<!-- 地址提示框，送至-->
+		<div id="address_hint">
+			<span>送至 : </span>
+			<span id="address_count"></span>
+		</div>
+		
+		<!-- 去支付 -->
+		<div class="div_display product_pay" style="background-color: #FFFFFF;">
+			<div class="font_size32 font_color33 product_pay_left">
+				还需支付：<span class="font_size40 font_colorf4 stillMoney"></span>
+			</div>
+		
+			<div class="product_pay_right">
+				去支付
+			</div>
+		</div>
+		
+		<!-- 变动信息 -->
+		<div id="orderChange" class="order_change_model" style="display: none;"> <!--  style="display: none;"-->
+			<div class="font_size32 font_color33 text_center product_border">
+				以下商品信息发生变动
+			</div>
+			<!-- 商品列表 -->
+			<div class="listTwo" style="max-height: 5.5rem;overflow-y: auto;">
+		
+			</div>
+			<!-- 底部 -->
+			<div class="div_display" style="background-color:#FFFFFF; position: fixed;  bottom: 1.8rem;height: 1.3rem;border-top: 1px solid #CBCBCB; z-index: 999; width: 90.5%;">
+				<div class="width50" style="margin-top: 0.3rem;">
+					<div class="orderhang_btn font_color33 moudel-close">
+						返回购物车确认
+					</div>
+				</div>
+				<div class="width50" style="margin-top: 0.3rem;">
+					<div class="orderhang_btn font_colorff div_backgroun_jb goPay" style="border: none;">
+						继续支付订单
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+			/* 商品list data */
+			var cartData = [];
+			/* 地址id */
+			var addressIdVal = "";
+			
+			var address = "";
+			
+			//新data
+			var listNumData = [];
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				//购物车id集合 数组
+				var cartIdVal = _self.cartId;
+				plus.storage.setItem("cartIdVal", cartIdVal);
+				
+				//监听手机物理返回键
+				plus.key.addEventListener('backbutton',function(){
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					//获取父窗口
+					var list = plus.webview.currentWebview().opener();　
+					mui.fire(list, 'returnFunc');
+				});
+				
+				/* 返回 键点击事件*/
+				$(".i_ioc").on("tap",function(){
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					//获取父窗口
+					var list = plus.webview.currentWebview().opener();　
+					mui.fire(list, 'returnFunc');
+				});
+				
+				//监听子页面方法
+				window.addEventListener('addressFunc', function(e) {
+					//console.log("选择地址我进来了！");
+					//接收子页面传过来的参数
+					addressIdVal  = e.detail.data_id;
+					var receiver  = e.detail.receiver;
+					var mobile  = e.detail.mobile;
+					mobile = mobile.substring(3, 0) + "^_^" + mobile.substring(7, 11);
+					address  = e.detail.address;
+					var isDefault  = e.detail.isDefault;
+					var donmentParams = doc.createDocumentFragment();
+					if(isDefault == 1){//默认
+						var cartList =
+						'<div class="confirmOrder_model_left">'+
+							'<div class="confirmOrder_left_name">'+receiver+'</div>'+
+							'<div class="confirmOrder_left_falg">默认</div>'+
+						'</div>'+
+						'<div class="confirmOrder_content">'+
+							'<div class="font_size32 font_color33">'+mobile+'</div>'+
+							'<div class="font_size28 margin_top2">'+ address +'</div>'+
+						'</div>'+
+						'<div class="confirmOrder_right font_size32">'+
+							'<i class="fa fa-angle-right"></i>'+
+						'</div>';
+						$(donmentParams).append(cartList);
+					}else{
+						var cartList =
+						'<div class="confirmOrder_model_left">'+
+							'<div class="confirmOrder_left_name">'+receiver+'</div>'+
+							'<div></div>'+
+						'</div>'+
+						'<div class="confirmOrder_content">'+
+							'<div class="font_size32 font_color33">'+mobile+'</div>'+
+							'<div class="font_size28 margin_top2">'+ address +'</div>'+
+						'</div>'+
+						'<div class="confirmOrder_right font_size32">'+
+							'<i class="fa fa-angle-right"></i>'+
+						'</div>';
+						$(donmentParams).append(cartList);
+					}
+					$(".address_div").empty();
+					$(".address_div").append(donmentParams);
+				});
+				
+				/* 查询失效商品个数 */
+				cartListNo(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						var keywordDataTwo = data.data.length;
+						$("#spanXXshop").text("共"+keywordDataTwo+"种");
+					} else {
+						//tipShow(data.message);
+					}
+				});
+				
+				
+				/* 跳转收货地址页面点击事件 */
+				$('.address_div').on('tap', function (e) {
+					// 获取路径
+					var urlRout = this.getAttribute('href');
+					// 获取页面ID
+					var urlId = $(this).attr("data-id");
+					if (urlRout && urlId) {
+						$$.openWindow({
+							url: urlRout,
+							id: urlId,
+							extras: {
+								pageName: 'confirmOrder'
+							},
+							show: {
+								aniShow: "slide-in-right"
+							},
+						});
+					} else {
+						console.log('缺少页面路径')
+					}
+				
+				});
+				
+				/* 收货地址 */
+				getUserAddress(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
+						//console.log("购物车地址="+ JSON.stringify(data));
+						var cartdata = data.data;
+						var donmentParams = doc.createDocumentFragment();
+						//是否有默认地址 1有,2无
+						var defaultAddress = 2;
+						
+						//如果没有地址
+						if(cartdata.length == 0){
+							address = cartdata.length;
+							
+							var cartList =
+							'<div class="confirmOrder_content" style="margin-left: 1.5rem;line-height: 1.4rem;">'+
+								'<div class="font_size32 font_color33"><img class="addressImg" src="../image/5600@2x.png" >&nbsp;&nbsp;请选择收货地址</div>'+
+							'</div>'+
+							'<div class="confirmOrder_right font_size32">'+
+								//'<i class="fa fa-angle-right"></i>'+
+							'</div>';
+							$(donmentParams).append(cartList);
+						}else{
+							for(i=0;i<cartdata.length;i++){
+								//有默认地址选默认
+								if(cartdata[i].isDefault == 1){
+									/* 地址id */
+									addressIdVal = cartdata[i].id;
+									var mobile = cartdata[i].mobile;
+									mobile = mobile.substring(3, 0) + "^_^" + mobile.substring(7, 11);
+									
+									address = cartdata[i].province + cartdata[i].city+ cartdata[i].area + cartdata[i].address;
+									
+									defaultAddress = 1;
+									var cartList =
+									'<div class="confirmOrder_model_left">'+
+										'<div class="confirmOrder_left_name">'+cartdata[i].receiver+'</div>'+
+										'<div class="confirmOrder_left_falg">默认</div>'+
+									'</div>'+
+									'<div class="confirmOrder_content">'+
+										'<div class="font_size32 font_color33">'+ mobile +'</div>'+
+										'<div class="font_size28 margin_top2">'+ address +'</div>'+
+									'</div>'+
+									'<div class="confirmOrder_right font_size32">'+
+										'<i class="fa fa-angle-right"></i>'+
+									'</div>';
+									$(donmentParams).append(cartList);
+								}
+							}
+							
+							//没有默认选第一条
+							if(defaultAddress != 1){
+								var mobile = cartdata[0].mobile;
+								mobile = mobile.substring(3, 0) + "^_^" + mobile.substring(7, 11);
+								/* 地址id */
+								addressIdVal = cartdata[0].id;
+								
+								address = cartdata[0].city+ cartdata[0].area + cartdata[0].address;
+								
+								var cartList =
+								'<div class="confirmOrder_model_left">'+
+									'<div class="confirmOrder_left_name">'+cartdata[0].receiver+'</div>'+
+									'<div></div>'+
+								'</div>'+
+								'<div class="confirmOrder_content">'+
+									'<div class="font_size32 font_color33">'+ mobile +'</div>'+
+									'<div class="font_size28 margin_top2">'+address +'</div>'+
+								'</div>'+
+								'<div class="confirmOrder_right font_size32">'+
+									'<i class="fa fa-angle-right"></i>'+
+								'</div>';
+								$(donmentParams).append(cartList);
+							}
+						}
+						
+						$(".address_div").empty();
+						$(".address_div").append(donmentParams);
+					} else if (data.code == 401 || data.code == 1500) {
+						gotoLoginIn()
+					} else {
+						tipShow(data.message)
+					}
+				});
+				
+				
+				$$(".mui-scroll-wrapper").scroll({
+					bounce: false, //滚动条是否有弹力默认是true
+					indicators: true, //是否显示滚动条,默认是true
+					deceleration: 0.0006 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+				
+				//监听滚动条高度,显示或者隐藏
+				var scroll = $$('.mui-scroll-wrapper').scroll();
+				doc.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
+					if (scroll.y < -100) {
+						$("#address_hint").css("display","block");
+						$("#address_count").html(address);
+					}else{
+						$("#address_hint").css("display","none");
+					}
+				});
+				
+				/* 获取商品list */
+				var dataBassJSO = _self.dataBassJSO;
+				//alert("11="+dataBassJSO)
+				settle(mui, dataBassJSO, function(data) {
+					//console.log("111111111113333333 ="+ JSON.stringify(data));
+					if (data.code == 200) {
+						cartData = data.data.itemList;
+						//console.log("确认订单listdata ="+ JSON.stringify(cartData))
+						//商品金额
+						$(".shopMoney").text("¥"+data.data.totalPrice);
+						//合计
+						$(".Total").text("合计：¥"+data.data.totalPrice);
+						//还需支付 
+						$(".stillMoney").text("¥"+ data.data.totalPrice);
+						//多件商品展示显示几中
+						$("#spanListTotle").text("共"+ cartData.length +"种");
+						
+						//console.log("去结算=="+ JSON.stringify(data));
+						if (cartData.length != 0) {
+							var donmentParams = doc.createDocumentFragment();
+							if (cartData.length < 5) {
+								//动态设置list高度
+								$(".oneList").css("height", "1.9" * cartData.length +"rem");
+								
+								$.each(cartData, function(index, row) {
+									var cartList = 
+										'<div class="product_imgList_leftd" style="float: left;">' +
+											'<div class="product_img_wd ">' +
+												'<img src="'+row.picPath+'" style="width: 100%;height: 100%;">' +
+											'</div>' +
+										'</div>' +
+										'<div class="product_imgList_rightd" style="float: left;">' +
+											'<div class="font_size32 font_color33">'+row.goodsName+'</div>' +
+											'<div class="font_size26 font_color99">规格: '+row.skuName+'</div>' +
+											'<div class="font_size26 font_colorf4" style="font-family: sans-serif;">¥'+row.price+'</div>' +
+										'</div>' +
+										'<div style="float: left;font-family: sans-serif;" class="product_rightd_number font_size28 font_color99">X '+row.num+'</div><div style="width: 100%;"></div>';
+									
+									$(donmentParams).append(cartList);
+								});
+								$(".oneList").empty();
+								$(".oneList").append(donmentParams);
+							} else {
+								$(".twoList").css("display", "block")
+								$(".oneList").css("display", "none");
+								
+								//动态设置list高度
+								$(".twoList").css("height", "2.2rem");
+								
+								for(i=0;i<4;i++){
+									var cartList =
+									 '<div>'+
+											'<div class="product_number">'+cartData[i].num+'</div>'+
+											'<div class="product_img_w ">'+
+												'<img src="'+cartData[i].picPath+'" style="width: 100%;height: 100%;">'+
+											'</div>'+
+											'<div class=" img_w_m font_color66 font_size22 ">¥'+cartData[i].price+'</div>'+
+										'</div>';
+									$(donmentParams).append(cartList);
+								}
+								$(".two_divList").empty();
+								$(".two_divList").append(donmentParams);
+							}
+						}
+					} else {
+						tipShow(data.message);
+					}
+				});
+				
+				//获取分享人id
+				getShareIdFunc();
+			};
+
+			//遮罩
+			var orderChange = mui.createMask(function() {
+				$(".order_change_model").css("display", "none");
+				return;
+			});
+			
+			//查询绑定人关系 分享人id
+			function getShareIdFunc(){
+				var keyword = {
+					memberId: plus.storage.getItem('memberId')
+				}
+				getShareId(mui, keyword, function(data) {
+					if(data.code == 200) {
+						//console.log("分享人id="+ data.data.sharePeopleId)
+						plus.storage.setItem('sharePeopleId', data.data.sharePeopleId);
+					} else {
+						//tipShow(data.message);
+						plus.storage.setItem('sharePeopleId', "");
+					}
+				});
+			}
+			
+			
+			/* 商品发生变动 继续支付 提交订单*/
+			$(".goPay").on("tap",function(){
+				var cartIdVal = plus.storage.getItem("cartIdVal");
+				var dataBase = {
+					cartId:JSON.parse(cartIdVal),
+					itemList:listNumData,
+					memberId:plus.storage.getItem('memberId'),
+					orderAddress:{
+						addressId:addressIdVal
+					},
+					sharePeopleId:plus.storage.getItem('sharePeopleId'),
+				};
+				
+				placeAnOrder(mui,dataBase,function(data){
+					if(data.code == 200) {
+						$(".order_change_model").css("display", "none");
+						$$.openWindow({
+							url: '../pages/orderPay.html',
+							id: 'orderPay',
+							extras:{
+								payMoney:data.data.totalPrice,
+								orderNo:data.data.orderNo,
+								createTime:data.data.createTime,
+							},
+							createNew:true,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+						/* setTimeout(function(){  
+						    mui.currentWebview.close();
+						},200) */
+					} else {
+						tipShow(data.message);
+					}
+				});
+				
+			})
+			
+			
+			//去支付
+			$('.product_pay_right').on('tap', function() {
+				var getShareId = getShareIdFunc();
+				//console.log("11="+ getShareId);
+				/* 调用提交订单接口 */
+				var cartIdVal = plus.storage.getItem("cartIdVal");
+				//console.log("55="+cartIdVal)
+				var dataBase = {
+					cartId:JSON.parse(cartIdVal),
+					itemList:cartData,
+					memberId:plus.storage.getItem('memberId'),
+					orderAddress:{
+						addressId:addressIdVal
+					},
+					sharePeopleId:plus.storage.getItem('sharePeopleId'),
+				};
+
+				placeAnOrder(mui,dataBase,function(data){
+					//console.log("111111111="+ JSON.stringify(data));
+					var orderData = data.data;
+					if(data.code == 300){
+						//如果是库存不够,先查是否还有够的商品
+						//旧data----cartData  ,,库存不够返回的新data----orderData
+						//alert(cartData.length == orderData.length)
+						if(cartData.length == orderData.length){
+							
+							for(h=0;h<orderData.length;h++){
+								for(j=0;j<cartData.length;j++){
+									if(orderData[h].goodsId == cartData[j].goodsId){
+										//console.log("新="+  JSON.stringify(orderData[h]));
+										//console.log("旧="+ JSON.stringify(cartData[j]));
+										cartData[j].num = orderData[h].goodsNum;
+										//console.log("3333333333="+ JSON.stringify(cartData));
+									}
+								}
+							}
+							//console.log("cartData--="+ JSON.stringify(cartData));
+							listNumData = cartData;
+						}else{
+							for(h=0;h<orderData.length;h++){
+								for(j=0;j<cartData.length;j++){
+									if(orderData[h].goodsId == cartData[j].goodsId){
+										//console.log("新="+  JSON.stringify(orderData[h]));
+										//console.log("旧="+ JSON.stringify(cartData[j]));
+										cartData[j].num = orderData[h].goodsNum;
+										//console.log("3333333333="+ JSON.stringify(cartData));
+									}
+								}
+							}
+							listNumData = cartData;
+						};
+
+						
+						orderChange.show();
+						$("#orderChange").css("display","block");
+						var fragmentplanList = document.createDocumentFragment();
+
+						for(i=0;i < orderData.length;i++){
+							var orderList ='<div class="orderChange_moudel">'+
+								'<div class="div_display">'+
+									'<div class="product_imgList_leftd">'+
+										'<div class="orderChange_img_wd ">'+
+											'<img src="'+orderData[i].picPath+'" style="width: 100%;height: 100%;">'+
+										'</div>'+
+									'</div>'+
+									'<div class="product_imgList_rightd">'+
+										'<div class="font_size28 font_color33">'+orderData[i].goodsName+'</div>'+
+										'<div class="font_size28 font_color99">'+orderData[i].skuName+'</div>'+
+										'<div class="font_size24 font_colorf4" style="margin-top: .2rem;">商品库存仅剩个'+orderData[i].goodsNum+'个</div>'+
+									'</div>'+
+									'<div class="product_rightd_number font_size28 font_color99">*'+orderData[i].num+'</div>'+
+								'</div>'+
+							'</div>';
+							$(fragmentplanList).append(orderList);
+						};
+						/* 删除子标签 */
+						$('.listTwo').empty();
+						$(".listTwo").append($(fragmentplanList));
+					}else if(data.code == 200) {
+						var all = plus.webview.all();  
+						//console.log("all ="+ JSON.stringify(all));
+						/* for (var i = 0, len = all.length; i < len; i++) {
+							console.log(all[i].id)
+							if (all[i].id == "orderPay") {  
+								all[i].close();  
+							}  
+						} */ 
+									
+						/* console.log("价格="+data.data.totalPrice);	
+						console.log("orderNo="+data.data.orderNo);	
+						console.log("createTime="+data.data.createTime); */	
+						//去支付页
+						$$.openWindow({
+							url: '../pages/orderPay.html',
+							id: 'orderPay',
+							extras:{
+								payMoney:data.data.totalPrice,
+								orderNo:data.data.orderNo,
+								createTime:data.data.createTime,
+							},
+							createNew:true,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+						//plus.webview.getWebviewById("orderPay.html").reload();
+						/* setTimeout(function(){  
+						    mui.currentWebview.close(); 
+						},200); */
+					} else {
+						tipShow(data.message);
+					}
+				});
+			})
+			// 关闭
+			$("#orderChange .moudel-close").on("tap", function() {
+				$(".order_change_model").css("display", "none");
+				orderChange.close();
+				
+				toIndex(2);
+				/* $$.openWindow({
+					url: '../views/shopCart.html',
+					id: 'views',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				}); */
+			});
+			
+			// 去商品清单 失效
+			$('.goToCommodities').on('tap', function() {
+				$$.openWindow({
+					url: '../pages/commodities.html',
+					id: 'commodities',
+					extras: {
+						pageName: '失效商品清单'
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			});
+			
+			// 去商品清单 有效
+			$('.goToCommoditiesTwo').on('tap', function() {
+				$$.openWindow({
+					url: '../pages/commodities.html',
+					id: 'commodities',
+					extras: {
+						pageName: '商品清单',
+						cartData:JSON.stringify(cartData)
+					},
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			});
+
+		})(jQuery, document, mui);
+	</script>
+
+</html>

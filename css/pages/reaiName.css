@@ -1,0 +1,275 @@
+.reaiName_card_title {
+	font-size: .28rem;
+	display: flex;
+	padding-top: .7rem;
+}
+
+.reaiName_card_signL {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-right: .2rem;
+	margin-left: 1.1rem;
+}
+
+.reaiName_card_signR {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-left: .2rem;
+}
+
+.reaiName_division_signL {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-right: .2rem;
+	margin-left: 1.8rem;
+}
+
+.reaiName_division_signR {
+	border-top: 1px solid #DCDCDC;
+	width: .6rem;
+	height: 1px;
+	margin-top: .18rem;
+	margin-left: .2rem;
+}
+
+.font_size26 {
+	font-size: .26rem;
+	text-align: center;
+	color: #999999;
+}
+
+.font_margin {
+	margin-top: .6rem;
+}
+
+.font_size26 span {
+	color: #FEAE11;
+}
+
+.tips_moudel {
+	border: 1px dashed #333333;
+	width: 7rem;
+	height: 1.8rem;
+	overflow: hidden;
+	margin-top: .45rem;
+	margin-left: .25rem;
+}
+
+#realNameOne ._left {
+	width: 3.5rem;
+	height: 2.3rem;
+	border: 1px dashed #333333;
+	margin-top: .3rem;
+	margin-left: .2rem;
+	overflow: hidden;
+	text-align: center;
+}
+
+#realNameOne .font {
+	width: 3.5rem;
+	margin-top: .1rem;
+	margin-left: .2rem;
+	text-align: center;
+	font-size: .24rem;
+	font-weight: 800;
+}
+
+.division {
+	background-color: #F3F5F8;
+	height: .2rem;
+	margin-top: 1.2rem;
+}
+
+#realNameOne ._left div {
+	font-size: .3rem;
+	padding-top: .5rem;
+}
+
+/* 信息确认 */
+
+._one {
+	float: left;
+	height: 1rem;
+	margin-top: .2rem;
+	border-bottom: 1px solid #F5F8FC;
+	width: 7.5rem;
+}
+
+._one ._left {
+	width: 2rem;
+	text-align: left;
+	float: left;
+	font-size: .3rem;
+	padding-left: .4rem;
+	color: #303030;
+	line-height: 2;
+}
+
+._one ._right {
+	width: 5rem;
+	float: left;
+}
+
+._one ._right input {
+	border: none;
+	/* height: .3rem; */
+}
+
+.bottom_btn {
+	height: 1rem;
+	width: 7.5rem;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: .3rem;
+	padding-top: .28rem;
+	position: fixed;
+	bottom: 0;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+}
+
+/* 信息录入 */
+._one ._left_y {
+	width: 2rem;
+	text-align: left;
+	float: left;
+	font-size: .3rem;
+	padding-left: .4rem;
+	color: #303030;
+	line-height: 2;
+}
+
+._one ._right_i {
+	width: 2.7rem;
+	float: left;
+}
+
+._one ._right_i input {
+	border: none;
+}
+
+._right_yb {
+	float: left;
+	font-size: .3rem;
+	color: #A0A0A0;
+	border: none;
+	width: 2.3rem;
+	padding-top: .4rem;
+	text-align: center;
+	border-left: 1px solid #E6E6E6;
+	height: 1.2rem;
+	margin-top: -.2rem;
+}
+
+
+/* 银行卡 */
+#bankCard {}
+
+#bankCard .bank_moudel {
+	width: 6.9rem;
+	height: 2.2rem;
+	border-radius: .1rem;
+	margin-left: .3rem;
+	float: left;
+	margin-top: .3rem;
+	color: #FFFFFF;
+	/* background: linear-gradient(to right, #FF7366, #FE5262); */
+}
+
+.bank_bgColor_zgp{
+	/* red */
+	background: linear-gradient(to right, #FF7066,#FC484E);
+}
+.bank_bgColor_ny{
+	/* blue */
+	background: linear-gradient(to right, #01A99C, #028DAE);
+}
+.bank_bgColor_jj{
+	/* greet */
+	background: linear-gradient(to right, #498ACE, #4063BF);
+}
+
+
+#bankCard .bank_moudel ._left {
+	width: 1.2rem;
+	float: left;
+}
+
+#bankCard .bank_moudel ._left div {
+	width: .8rem;
+	height: .8rem;
+	border-radius: 50%;
+	/* border: 1px solid red; */
+	overflow: hidden;
+	margin-top: .54rem;
+	margin-left: .34rem;
+}
+
+#bankCard .bank_moudel ._right {
+	width: 5.6rem;
+	float: left;
+	margin-top: .5rem;
+}
+
+#bankCard .bank_moudel ._right ._Bone {
+	width: 100%;
+	float: left;
+}
+
+._Bone_number {
+	font-size: .34rem;
+	float: left;
+	margin-left: 1.4rem;
+}
+
+._Bone_name {
+	font-size: .34rem;
+	float: left;
+	margin-left: .24rem;
+}
+
+/* 弹出框 */
+.order_change_model {
+	width: 5.5rem;
+	height: 3rem;
+	background: #FFFFFF;
+	position: fixed;
+	top: 4rem;
+	left: .9rem;
+	z-index: 999999;
+	border-radius: 0.1rem;
+	box-sizing: border-box;
+	padding: .5rem 0 .5rem 0;
+	margin: 0 auto;
+
+}
+
+.orderChange_moudel {
+	border-bottom: 1px solid #CBCBCB;
+	height: 1.5rem;
+	text-align: center;
+}
+
+.orderChange_moudel_btn div {
+	width: 50%;
+	text-align: center;
+	color: #0076FF;
+	font-size: .34rem;
+	line-height: 2;
+}
+
+.orderChange_moudel_btn div:nth-child(1) {
+	border-right: 1px solid #4D4D4D;
+}
+
+.success_img{
+	width: 3.7rem;
+	height: 2rem;
+	margin-left: 1.9rem;
+	margin-top: 3rem;
+}

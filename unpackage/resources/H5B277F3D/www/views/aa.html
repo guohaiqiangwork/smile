@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		<link rel="stylesheet" href="../css/pages/order.css" />
+	</head>
+
+	<body onselectstart="return false;" style="background-color: #FAFAFA;">
+		<header class="header_white title">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			我的订单
+		</header>
+		<div class="content mui-fullscreen">
+			<!-- tab -->
+			<div class="div_display header_tab">
+				<div class="nihao" data-id="">
+					全部
+					<div class="avue"></div>
+				</div>
+				<div class="nihao" data-id="1">
+					待付款
+					<div class=""></div>
+				</div>
+				<div class="nihao" data-id="2">
+					待发货
+					<div class=""></div>
+				</div>
+				<div class="nihao" data-id="3">
+					待收货
+					<div class=""></div>
+				</div>
+			</div>
+			<!-- 内容区域 -->
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll" id="productList" style="padding-bottom: 1.5rem;">
+
+
+
+				</div>
+
+			</div>
+			<!-- 删除提示框 -->
+			<div id="orderChange" style="display: none;" class="order_change_model">
+				<div class="orderChange_moudel">
+					<div class="font_size32 font_color33" style="margin-top: .3rem;">
+						确定删除此订单？
+					</div>
+					<div class="font_size24 font_size24" style="margin-top: .4rem;">
+						删除后如有售后问题可联系客服恢复
+					</div>
+				</div>
+				<div class="orderChange_moudel_btn div_display">
+					<div class="moudel-close">
+						取消
+					</div>
+					<div class="font_colorff div_backgroun_jb" style="border: none;">
+						确定
+					</div>
+				</div>
+			</div>
+
+			<!-- 空页面 -->
+			<div class="nothing" style="display: none;">
+				<img src="../img/userImg/no_order.png">
+				<p>您当前没有订单哦~</p>
+			</div>
+		</div>
+
+
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				mui(".mui-scroll-wrapper").pullRefresh({
+					container: '.mui-scroll',
+					up: {
+						height: 50, //可选.默认50.触发上拉加载拖动距离
+						contentrefresh: '加载中...',
+						contentnomore: '我也是有底线滴',
+						auto: false,
+						callback: function() {
+							alert('99')
+							var _this = this;
+							// database.current++;
+							setTimeout(function() {
+								_this.endPullupToRefresh(false);
+							}, 500)
+
+
+						}
+					},
+					down: {
+						height: 50,
+						auto: false,
+						contentdown: "下拉刷新",
+						contentover: "释放刷新",
+						contentrefresh: "刷新中...",
+						callback: function() {
+							// database.current = 1;
+							alert('2299')
+							var list = $('#container');
+							var reg = /(\d{3})\d{4}(\d{4})/;
+							list.html('');
+							plus.webview.currentWebview().reload(true);
+
+						}
+					}
+				});
+				keywords = {
+					pageNum: 1,
+					pageSize: 10,
+					data: {
+						status: '',
+						memberId: plus.storage.getItem('memberId') || '',
+						orderId: ''
+					}
+				}
+				getMyOrderList();
+			}
+
+			function getMyOrderList() {
+				// getMyOrder(mui, keywords, function(data) {
+				var data = {
+					"code": 200,
+					"data": {
+						"current": 1,
+						"pages": 1,
+						"records": [{
+								"accountAmount": "",
+								"aliPayOrderNo": "",
+								"buyerMessage": "快点给我邮寄",
+								"buyerNickname": "董贵鹏",
+								"buyerRate": "",
+								"cancelTime": "",
+								"cartId": "",
+								"closeTime": "2019-11-28 15:51:12",
+								"consignTime": "2019-11-29 11:11:04",
+								"createTime": "2019-11-27 12:58:38",
+								"deleted": 0,
+								"endTime": "2019-11-27 12:58:51",
+								"integral": "",
+								"isUseIntegral": 2,
+								"itemList": [{
+									"goodsId": "1",
+									"id": "1",
+									"num": 3,
+									"orderId": "1",
+									"picPath": "",
+									"price": 2,
+									"skuId": "1199567012935049217",
+									"skuName": "",
+									"title": "太好吃了",
+									"totalFee": 50
+								}, {
+									"goodsId": "1",
+									"id": "1",
+									"num": 2,
+									"orderId": "1",
+									"picPath": "",
+									"price": 5,
+									"skuId": "1199567012935049217",
+									"skuName": "",
+									"title": "太好吃了",
+									"totalFee": 50
+								}, {
+									"goodsId": "1",
+									"id": "1",
+									"num": 1,
+									"orderId": "1",
+									"picPath": "",
+									"price": 250,
+									"skuId": "1199567012935049217",
+									"skuName": "",
+									"title": "太好吃了",
+									"totalFee": 50
+								}],
+								"logisticsCode": "24234324324234",
+								"logisticsName": "京东物流",
+								"mchId": "",
+								"mchName": "",
+								"memberId": "1198772862274543617",
+								"orderAddress": {
+									"addressId": "",
+									"created": "2019-11-27 14:59:43",
+									"orderId": "1",
+									"receiverAddress": "黄河大街会的花园",
+									"receiverCity": "包头市",
+									"receiverDistrict": "九原区",
+									"receiverMobile": "15774722056",
+									"receiverName": "董贵鹏",
+									"receiverPhone": "15774722056",
+									"receiverState": "内蒙古自治区",
+									"receiverZip": "123456",
+									"updated": ""
+								},
+								"orderId": "1",
+								"payStatus": 1,
+								"payment": "12",
+								"paymentTime": "2019-11-27 12:58:46",
+								"paymentType": "",
+								"postFee": "1",
+								"remark": "订单支付超时，没有在规定的时间内支付，系统自动取消订单",
+								"serviceCharge": "",
+								"status": 5,
+								"totalPrice": "",
+								"updateTime": "2019-11-29 12:37:05",
+								"wxPayOrderNo": ""
+							},
+							{
+								"accountAmount": "",
+								"aliPayOrderNo": "",
+								"buyerMessage": "",
+								"buyerNickname": "董贵鹏",
+								"buyerRate": "",
+								"cancelTime": "",
+								"cartId": "",
+								"closeTime": "2019-11-29 09:37:50",
+								"consignTime": "",
+								"createTime": "2019-11-29 09:21:43",
+								"deleted": 0,
+								"endTime": "",
+								"integral": "",
+								"isUseIntegral": 2,
+								"itemList": [{
+									"goodsId": "1202054377708277761",
+									"id": "1200223279219003394",
+									"num": 2,
+									"orderId": "1200223279009288193",
+									"picPath": "",
+									"price": 321,
+									"skuId": "1200024479250903042",
+									"skuName": "",
+									"title": "555",
+									"totalFee": 642
+								}],
+								"logisticsCode": "",
+								"logisticsName": "",
+								"mchId": "",
+								"mchName": "",
+								"memberId": "1198772862274543617",
+								"orderAddress": {
+									"addressId": "",
+									"created": "",
+									"orderId": "1200223279009288193",
+									"receiverAddress": "八斤重",
+									"receiverCity": "北京市",
+									"receiverDistrict": "东城区",
+									"receiverMobile": "13754124425",
+									"receiverName": "（骨灰盒",
+									"receiverPhone": "13754124425",
+									"receiverState": "北京市",
+									"receiverZip": "",
+									"updated": ""
+								},
+								"orderId": "1200223279009288193",
+								"payStatus": 1,
+								"payment": "642",
+								"paymentTime": "",
+								"paymentType": "",
+								"postFee": "",
+								"remark": "订单支付超时，没有在规定的时间内支付，系统自动取消订单",
+								"serviceCharge": "",
+								"status": 5,
+								"totalPrice": "",
+								"updateTime": "2019-11-29 09:37:50",
+								"wxPayOrderNo": ""
+							}
+						],
+						"searchCount": true,
+						"size": 10,
+						"total": 6
+					},
+					"message": "请求成功",
+					"success": true
+				}
+				if (data.code == 200) {
+					var fragmentplanList = document.createDocumentFragment();
+					var fragmentplanListnihao = document.createDocumentFragment();
+					$.each(data.data.records, function(items) {
+						var orderLiTwo =
+							'<div class="product_moudel">' +
+							<!-- 头部标题栏 -->
+							'<div class="div_display product_moudel_border">' +
+							'<div class="width50 div_display">' +
+							'<div class=" product_moudel_title">' +
+							'<img src="../image/mu.jpg" style="width: 100%;">' +
+							'</div>' +
+							'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
+							'笑容' +
+							'</div>' +
+							'</div>' +
+							'<div class="width50 div_display" style="padding-left: 2rem;">' +
+							'<div class=" font_size28 font_color33 margin_top3">' +
+							'已完成' +
+							'</div>' +
+							'<div class=" margin_top3">' +
+							'<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
+							'<div class="newShoping" style="touch-action: none;" id="nihao">' +
+							// '<div class="">' +
+							// 	'<div class="product_number">' +
+							// 		'33+' +
+							// 	'</div>' +
+							// 	'<div class="product_img_w ">' +
+							// 		'<img src="../image/mu.jpg" style="width: 100%;height: 100%;">' +
+							// 	'</div>' +
+							// '</div>' +
+
+							'</div>' +
+							'</div>' +
+							'<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">' +
+							'<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>' +
+							'</div>' +
+							'<div class="div_display">' +
+							'<div class="order_btn_ff" style="margin-left: 5rem;">' +
+							'再次购买' +
+							'</div>' +
+							'<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">' +
+							'取消支付' +
+							'</div>' +
+							'<div class="order_btn_f4" style="display: none;">' +
+							'去支付' +
+							'</div>' +
+							'<div class="order_btn_ff" style="margin-left: 3rem;display: none;">' +
+							'查看物流' +
+							'</div>' +
+							'<div class="order_btn_ff" style="display: none;">' +
+							'确认收货' +
+							'</div>' +
+							'</div>' +
+							'</div>';
+						$(fragmentplanList).append(orderLiTwo);
+						$.each(data.data.records[items].itemList, function(item) {
+							if (data.data.records[items].itemList.length > 1) {
+								alert('多个')
+								var abc = '<div class="">' +
+									'<div class="product_number">' +
+									data.data.records[items].itemList[item].num +
+									'</div>' +
+									'<div class="product_img_w ">' +
+									'<img src="' + data.data.records[items].itemList[item].picPath +
+									'"  style="width: 100%;height: 100%;">' +
+									'</div>' +
+									'</div>' ;
+								// $(fragmentplanListnihao).append(abc);
+								$("#nihao", fragmentplanList).append(abc);
+								
+							} else {
+								alert('单个')
+								var orderLiOne =
+									'<div class="div_display" id="bodyList">' +
+									'<div class="product_imgList_leftd">' +
+									'<div class="product_img_wd ">' +
+									'<img src="' + data.data.records[items].itemList[item].picPath +
+									'" style="width: 100%;height: 100%;">' +
+									'</div>' +
+									'</div>' +
+									'<div class="product_imgList_rightd">' +
+									'<div class="font_size26 font_color33">' +
+									data.data.records[items].itemList[item].title +
+									'</div>' +
+									'<div class="font_size26 font_color99">' +
+									"规格:" + data.data.records[items].itemList[item].skuName +
+									'</div>' +
+									'<div class="font_size26 font_colorf4">' +
+									"¥" + data.data.records[items].itemList[item].price +
+									'</div>' +
+									'</div>' +
+									'<div class="product_rightd_number font_size28 font_color99">' +
+									"*" + data.data.records[items].itemList[item].num +
+									'</div>' +
+									'</div>' ;
+								// $(fragmentplanListnihao).append(orderLiOne);
+									$("#nihao", fragmentplanList).append(orderLiOne);
+								// $(fragmentplanList).append(orderLiOne);
+									$("#productList").append($(fragmentplanList));
+							}
+							
+						});
+					})
+					// if (fragmentplanListnihao) {
+						// $("#nihao", fragmentplanList).append(fragmentplanListnihao);
+					// }
+			
+				} else if (data.code == 401 || data.code == 1500) {
+					gotoLoginIn()
+				}
+
+				// })
+			};
+			//遮罩
+			var orderChange = mui.createMask(function() {
+				$(".order_change_model").css("display", "none");
+				return;
+			});
+			//去支付
+			$('.deleteOrder').on('tap', function() {
+				// 显示提示
+				orderChange.show();
+				$(".order_change_model").css("display", "block");
+			})
+			// 关闭
+			$("#orderChange .moudel-close").on("tap", function() {
+				$(".order_change_model").css("display", "none");
+				orderChange.close();
+			});
+			// 跳转详情页面
+			$('#bodyList').on('tap', function() {
+				$$.openWindow({
+					url: '../pages/orderDetails.html',
+					id: 'orderDetails',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+
+			$('.nihao').on('tap', function() {
+				alert($(this).attr("data-id"))
+				$(".header_tab").find("div").removeClass("avue")
+				$(this).children("div").addClass('avue')
+			})
+		})(jQuery, document, mui);
+	</script>
+
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/shopCart.css" />
+		<style>
+			.mui-numbox {
+			    position: relative;
+			    display: inline-block;
+			    overflow: hidden;
+			    width: 1.8rem;
+			    height: .45rem;
+			    padding: 0 !important;
+			    vertical-align: top;
+			    vertical-align: middle;
+			    border: none!important;
+			    border-radius: 3px;
+			    background-color: #F4F4F4;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+				background: linear-gradient(to right, #FF342D, #FF5882);
+				-webkit-background-clip: text;
+				color: transparent;
+			}
+		</style>
+		<script src="../js/rem_reset.js"></script>
+	</head>
+	<body onselectstart="return false;">
+		<div class="content">
+			<!-- 商品块 -->
+			<div class="" id="shopList">
+				<div class="shopCart_moudel div_display">
+					<div class="shopCart_moudel_left">
+						<div class="mui-checkbox" style="background-color: #0076FF;width: 1rem;">
+							<input name="commodity" type="checkbox" style="margin-top: 1rem;background-color: #2AC845;border-radius:10px;width: 0.4rem;height: 0.4rem;">
+						</div>
+					</div>
+					<div class="shopCart_moudel_right">
+						<div class="div_display">
+							<div class="shopCart_img">
+								<img src="../image/mu.jpg" class="shopCart_img_width">
+							</div>
+							<div class="shopCart_product">
+								<div class="shopCart_product_title">
+									原麦山丘－芋之心
+								</div>
+								<div class="shopCart_product_g">
+									规格: 450g/袋
+								</div>
+								<div class="div_display">
+									<div class="shopCart_price">
+										¥234.3
+									</div>
+									<div class="shopCart_number">
+										<div class="mui-numbox num-btn" data-numbox-step='1' data-numbox-min='0' data-numbox-max='99'>
+											<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+											<input class="mui-numbox-input" type="number" />
+											<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+			<!-- 失效商品 -->
+			<div class="" style="margin-bottom: 1.5rem;">
+				<div class="div_display" style="margin-top: .43rem;margin-left: .3rem;">
+					<div class="shopCart_Invalid">
+						失效
+					</div>
+					<div class="shopCart_Invalid_font">
+						失效商品
+					</div>
+				</div>
+				<div class="shopCart_moudel div_display" style="margin-top: .2rem;">
+					<div class="shopCart_moudel_left">
+						<div class="shopCart_Invalid" style="margin-top: 1rem;margin-left: .05rem;">
+							失效
+						</div>
+					</div>
+					<div class="shopCart_moudel_right">
+						<div class="div_display">
+							<div class="shopCart_img">
+								<img src="../image/mu.jpg" class="shopCart_img_width">
+							</div>
+							<div class="shopCart_product">
+								<div class="shopCart_product_title">
+									原麦山丘－芋之心
+								</div>
+								<div class="shopCart_product_g">
+									规格: 450g/袋
+								</div>
+								<div class="div_display">
+									<div class="shopCart_price">
+										¥234.3
+									</div>
+									<div class="shopCart_number">
+										<div class="mui-numbox num-btn" data-numbox-step='1' data-numbox-min='0' data-numbox-max='99'>
+											<!-- "-"按钮，点击可减小当前数值 -->
+											<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+											<input class="mui-numbox-input" type="number" />
+											<!-- "+"按钮，点击可增大当前数值 -->
+											<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- 底部操作栏结算 -->
+			<div class="div_display bootom_title">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input id="checkboxAll" value="Item 2" type="checkbox">
+					</div>
+				</div>
+				<div class="bootom_price">
+					合计：<span class="bootom_price_font"> ¥2342.324</span>
+					<div style="color: #999999;font-size: .18rem;margin-left: 1rem;">
+						（含运费）
+					</div>
+				</div>
+				<div class="bootom_right">
+					<div class="bootom_right_width">去结算(3)</div>
+				</div>
+			</div>
+
+			<!-- 编辑 -->
+			<div class="div_display bootom_title" style="display: none;">
+				<div class="bootom_left">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<label>全选</label>
+						<input name="checkbox2" value="Item 2" type="checkbox">
+					</div>
+				</div>
+
+				<div class="bootom_editor bootom_editor_border">
+					取消操作
+				</div>
+				<div class="bootom_editor bootom_editor_border1">
+					确认删除
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				$("#shopList").on("tap",".fff",function(){
+					console.log("222");
+				});
+				
+				// 购物车数据
+				var keywordData = [{
+					price: '20',
+					number: '2',
+					name: '原麦山丘－芋之心'
+				}, {
+					price: '5',
+					number: '2',
+					name: '麦之心'
+				}, {
+					price: '10',
+					number: '20',
+					name: '原芋之心'
+				}]
+				var fragmentplanList = document.createDocumentFragment();
+				$.each(keywordData, function(index) {
+					var orderLi =
+						'<div class="shopCart_moudel div_display">' +
+						'<div class="shopCart_moudel_left">' +
+						'<div class="mui-checkbox">' +
+						'<input name="commodity" id="commodity" value=' + keywordData[index] +
+						' type="checkbox" class="res" data-price=' + keywordData[index].price + ' data-index=' + [index] +
+						' style="margin-top: 1rem;padding-left: .2rem;">' +
+						'</div>' +
+						'</div>' +
+						'<div class="shopCart_moudel_right">' +
+						'<div class="div_display">' +
+						'<div class="shopCart_img">' +
+						'<img src="../image/mu.jpg" class="shopCart_img_width">' +
+						'</div>' +
+						'<div class="shopCart_product">' +
+						'<div class="shopCart_product_title">' +
+						keywordData[index].name +
+						'</div>' +
+						'<div class="shopCart_product_g">' +
+						'规格: 450g/袋' +
+						'</div>' +
+						'<div class="div_display">' +
+						'<div class="shopCart_price">' +
+						'¥234.3' +
+						'</div>' +
+						'<div class="shopCart_number" >' +
+						'<div class="mui-numbox num-btn" data-numbox-step="1" data-numbox-min="1" data-numbox-max="99" id="box ' +
+						index + '" >' +
+						<!-- "-"按钮，点击可减小当前数值 --> 																			
+						'<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>' +
+						'<input class="mui-numbox-input" type="number"  />' +
+						<!-- "+"按钮，点击可增大当前数值 -->
+						'<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'</div>';
+					$(fragmentplanList).append(orderLi);
+				});
+				$("#shopList").append($(fragmentplanList));
+				// 获取复选框的value 值
+				function getRadioRes(className) {
+					var rdsObj = document.getElementsByClassName(className); /*获取值*/
+					/*alert(rdsObj.length);测试一下找到几个节点*/
+					var checkVal = new Array();
+					var k = 0;
+					for (i = 0; i < rdsObj.length; i++) {
+						if (rdsObj[i].checked) {
+							checkVal[k] = rdsObj[i].value;
+							k++;
+						}
+					}
+					return checkVal;
+				}
+				// 全选
+				$("#checkboxAll").click(function() {
+					$('input[name="commodity"]').prop("checked", this.checked);
+					// var res = getRadioRes('res');
+					// res.forEach(e => {
+					// 	alert(keywordData[e])
+					// });
+
+					// $("#numberInput input").each(function () {
+					// 	 var dd = $$('#numberInput').numbox().getValue();
+					// 	 alert(dd)
+					// })
+					// $("#numberInput input").each(function () {
+					// 	var sum = 0
+					// 	var dd = mui('.mui-numbox').numbox().getValue();
+					// 	sum = sum +',' + dd;
+					// 	sum = sum.substr(1);
+					// 	alert(''+sum, '当前值: ', "确定");
+					// })
+				});
+				// 单选input[name='commodity']
+				$("#commodity").click(function() {
+					alert(99)
+					// var res = getRadioRes('res');
+					// res.forEach(e => {
+					// 	alert(e)
+					// });
+					alert($(this).attr("data-price"));
+					$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
+						false);
+				});
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>
+
+
+
+
+// $.each(data.data.records, function(index) {
+// var orderLiTitle =
+// '<div class="product_moudel div_backgroun_ff">' +
+	//
+	<!-- 标题 -->
+	// '<div class="div_display product_border">' +
+		// '<div class=" product_moudel_title">' +
+			// '<img src="../image/mu.jpg" style="width: 100%;">' +
+			// '</div>' +
+		// '<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">' +
+			// '笑容' +
+			// '</div>' +
+		// '<div class="deleteOrder">' +
+			// '删除' +
+			// '</div>' +
+		// '</div>';
+	// $(fragmentplanList).append(orderLiTitle);
+	// if (data.data.records[index].itemList.length > 1) {
+	// $.each(data.data.records[index].itemList, function(index) {
+	//
+	<!--  多个产品 -->
+	// var orderLiOne =
+	// '<div class="div_display" style="display: none;">'
+		// '<div class="product_imgList_left div_display">'
+			// '<div>'
+				// '<div class="product_number">' +
+					// +data.data.records[index].itemList[index].num +
+					// '</div>' +
+				// '<div class="product_img_w ">' +
+					// '<img src="' + data.data.records[index].itemList[index].picPath +
+							// 				'" style="width: 100%;height: 100%;">'
+					+
+					// '</div>' +
+				// '<div class=" img_w_m font_color66 font_size22 ">' +
+					// "¥" + data.data.records[index].itemList[index].price +
+					// '</div>' +
+				// '</div>' +
+			// '</div>' +
+		// '</div>';
+	// var orderLiTwo =
+	// '<div class="product_imgList_right font_size24 font_color33 goToCommodities">' +
+		// "共" + data.data.records[index].itemList.length + "种" +
+		// '<i class="fa fa-angle-right  font_colorcb" style="font-size: .32rem;margin-left: .03rem;"></i>' +
+		// '</div>';
+	// })
+	// } else {
+	//
+	<!-- 单个产品 -->
+	// $.each(data.data.records[index].itemList, function(items) {
+	// alert(JSON.stringify(data.data.records[index].itemList[items]))
+	// var orderLiThree =
+	// '<div class="div_display" id="bodyList">' +
+		// '<div class="product_imgList_leftd">' +
+			// '<div class="product_img_wd ">' +
+				// '<img src="' + data.data.records[index].itemList[items].picPath +
+							// 				'" style="width: 100%;height: 100%;">'
+				+
+				// '</div>' +
+			// '</div>' +
+		// '<div class="product_imgList_rightd">' +
+			// '<div class="font_size26 font_color33">' +
+				// data.data.records[index].itemList[items].title +
+
+				// '</div>' +
+			// '<div class="font_size26 font_color99">' +
+				// "规格:" + data.data.records[index].itemList[items].skuName +
+				// '</div>' +
+			// '<div class="font_size26 font_colorf4">' +
+				// "¥" + data.data.records[index].itemList[items].price +
+				// '</div>'
+			// '</div>'
+		// '<div class="product_rightd_number font_size28 font_color99">'
+			// "*" + data.data.records[index].itemList[items].num +
+			// '</div>' +
+		// '</div>' +
+	// '</div>';
+// // $('.product_moudel').append(orderLiThree)
+// $(fragmentplanList).append(orderLiThree)
+// })
+// }
+
+// if (data.data.records[index].itemList.length > 1) {
+// $(fragmentplanList).append(orderLiTitle + orderLiOne + orderLiTwo)
+// } else {
+
+// }
+
+
+
+<!-- 单个 -->
+
+$.each(data.data.records[items].itemList, function (item) {
+alert(item + '数据')
+var orderLiTwo =
+'<div class="product_moudel div_backgroun_ff">' +
+	'<div class="div_display product_border">' +
+		'<div class=" product_moudel_title">' +
+			'<img src="../image/mu.jpg" style="width: 100%;">' +
+			'</div>' +
+		'<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">' +
+			'笑容' +
+			'</div>' +
+		'<div class="deleteOrder">' +
+			'删除' +
+			'</div>' +
+		'</div>' +
+	'<div class="div_display" id="bodyList">' +
+		'<div class="product_imgList_leftd">' +
+			'<div class="product_img_wd ">' +
+				'<img src="' + data.data.records[items].itemList[item].picPath +
+												'" style="width: 100%;height: 100%;">'
+				+
+				'</div>' +
+			'</div>' +
+		'<div class="product_imgList_rightd">' +
+			'<div class="font_size26 font_color33">' +
+				data.data.records[items].itemList[item].title +
+				'</div>' +
+			'<div class="font_size26 font_color99">' +
+				"规格:" + data.data.records[items].itemList[item].skuName +
+				'</div>' +
+			'<div class="font_size26 font_colorf4">' +
+				"¥" + data.data.records[items].itemList[item].price +
+				'</div>' +
+			'</div>' +
+		'<div class="product_rightd_number font_size28 font_color99">' +
+			"*" + data.data.records[items].itemList[item].num +
+			'</div>' +
+		'</div>' +
+	'</div>';
+$(fragmentplanList).append(orderLiTwo)
+});
+
+
+
+<!-- 多个 -->
+
+
+$.each(data.data.records[items].itemList, function (item) {
+if (data.data.records[items].itemList.length > 1) {
+var orderLiOne =
+'<div class="product_moudel div_backgroun_ff">' +
+	'<div class="div_display product_border">' +
+		'<div class=" product_moudel_title">' +
+			'<img src="../image/mu.jpg" style="width: 100%;">' +
+			'</div>' +
+		'<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">' +
+			'笑容' +
+			'</div>' +
+		'<div class="deleteOrder">' +
+			'删除' +
+			'</div>' +
+		'</div>' +
+	'<div class="div_display">' +
+		'<div class="product_imgList_left div_display">' +
+			'<div>' +
+				'<div class="product_number">' +
+					data.data.records[items].itemList[item].num +
+					'</div>' +
+				'<div class="product_img_w ">' +
+					'<img src="' + data.data.records[items].itemList[item].picPath +
+			'" style="width: 100%;height: 100%;">' +
+					'</div>' +
+				'<div class=" img_w_m font_color66 font_size22 ">' +
+					"¥" + data.data.records[items].itemList[item].price +
+					'</div>' +
+				'</div>' +
+			'</div>' +
+		'<div class="product_imgList_right font_size24 font_color33 goToCommodities">' +
+			"共" + data.data.records[items].itemList.length + "种" +
+			'<i class="fa fa-angle-right  font_colorcb" style="font-size: .32rem;margin-left: .03rem;"></i>' +
+			'</div>' +
+		'</div>' +
+	'</div>';
+
+$(fragmentplanList).append(orderLiOne)
+}
+})
+
+
+<div class="product_moudel">
+	<!-- 头部标题栏 -->
+	<div class="div_display product_moudel_border">
+		<div class="width50 div_display">
+			<div class=" product_moudel_title">
+				<img src="../image/mu.jpg" style="width: 100%;">
+			</div>
+			<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">
+				笑容
+			</div>
+		</div>
+		<div class="width50 div_display" style="padding-left: 2rem;">
+			<div class=" font_size28 font_color33 margin_top3">
+				已完成
+			</div>
+			<div class=" margin_top3">
+				<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">
+			</div>
+		</div>
+	</div>
+	<!-- 图片区域 -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="newShoping" style="touch-action: none;">
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">
+		<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>
+	</div>
+	<div class="div_display">
+		<div class="order_btn_ff" style="margin-left: 5rem;">
+			再次购买
+		</div>
+		<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">
+			取消支付
+		</div>
+		<div class="order_btn_f4" style="display: none;">
+			去支付
+		</div>
+
+		<div class="order_btn_ff" style="margin-left: 3rem;display: none;">
+			查看物流
+		</div>
+		<div class="order_btn_ff" style="display: none;">
+			确认收货
+		</div>
+
+	</div>
+</div>
+
+<div class="product_moudel">
+	<!-- 头部标题栏 -->
+	<div class="div_display product_moudel_border">
+		<div class="width50 div_display">
+			<div class=" product_moudel_title">
+				<img src="../image/mu.jpg" style="width: 100%;">
+			</div>
+			<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">
+				笑容
+			</div>
+		</div>
+		<div class="width50 div_display" style="padding-left: 2rem;">
+			<div class=" font_size28 font_color33 margin_top3">
+				已完成
+			</div>
+			<div class=" margin_top3">
+				<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">
+			</div>
+		</div>
+	</div>
+	<!-- 图片区域 -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="newShoping" style="touch-action: none;">
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">
+		<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>
+	</div>
+	<div class="div_display">
+		<div class="order_btn_ff" style="margin-left: 5rem;">
+			再次购买
+		</div>
+		<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">
+			取消支付
+		</div>
+		<div class="order_btn_f4" style="display: none;">
+			去支付
+		</div>
+
+		<div class="order_btn_ff" style="margin-left: 3rem;display: none;">
+			查看物流
+		</div>
+		<div class="order_btn_ff" style="display: none;">
+			确认收货
+		</div>
+
+	</div>
+</div>
+<div class="product_moudel">
+	<!-- 头部标题栏 -->
+	<div class="div_display product_moudel_border">
+		<div class="width50 div_display">
+			<div class=" product_moudel_title">
+				<img src="../image/mu.jpg" style="width: 100%;">
+			</div>
+			<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">
+				笑容
+			</div>
+		</div>
+		<div class="width50 div_display" style="padding-left: 2rem;">
+			<div class=" font_size28 font_color33 margin_top3">
+				已完成
+			</div>
+			<div class=" margin_top3">
+				<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">
+			</div>
+		</div>
+	</div>
+	<!-- 图片区域 -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="newShoping" style="touch-action: none;">
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">
+		<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>
+	</div>
+	<div class="div_display">
+		<div class="order_btn_ff" style="margin-left: 5rem;">
+			再次购买
+		</div>
+		<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">
+			取消支付
+		</div>
+		<div class="order_btn_f4" style="display: none;">
+			去支付
+		</div>
+
+		<div class="order_btn_ff" style="margin-left: 3rem;display: none;">
+			查看物流
+		</div>
+		<div class="order_btn_ff" style="display: none;">
+			确认收货
+		</div>
+
+	</div>
+</div>
+<div class="product_moudel">
+	<!-- 头部标题栏 -->
+	<div class="div_display product_moudel_border">
+		<div class="width50 div_display">
+			<div class=" product_moudel_title">
+				<img src="../image/mu.jpg" style="width: 100%;">
+			</div>
+			<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">
+				笑容
+			</div>
+		</div>
+		<div class="width50 div_display" style="padding-left: 2rem;">
+			<div class=" font_size28 font_color33 margin_top3">
+				已完成
+			</div>
+			<div class=" margin_top3">
+				<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">
+			</div>
+		</div>
+	</div>
+	<!-- 图片区域 -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="newShoping" style="touch-action: none;">
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">
+		<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>
+	</div>
+	<div class="div_display">
+		<div class="order_btn_ff" style="margin-left: 5rem;">
+			再次购买
+		</div>
+		<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">
+			取消支付
+		</div>
+		<div class="order_btn_f4" style="display: none;">
+			去支付
+		</div>
+
+		<div class="order_btn_ff" style="margin-left: 3rem;display: none;">
+			查看物流
+		</div>
+		<div class="order_btn_ff" style="display: none;">
+			确认收货
+		</div>
+
+	</div>
+</div>
+<div class="product_moudel">
+	<!-- 头部标题栏 -->
+	<div class="div_display product_moudel_border">
+		<div class="width50 div_display">
+			<div class=" product_moudel_title">
+				<img src="../image/mu.jpg" style="width: 100%;">
+			</div>
+			<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">
+				笑容
+			</div>
+		</div>
+		<div class="width50 div_display" style="padding-left: 2rem;">
+			<div class=" font_size28 font_color33 margin_top3">
+				已完成
+			</div>
+			<div class=" margin_top3">
+				<img src="../image/bank/gsy.png" style="width: .31rem;height: .33rem;margin-left: .2rem;">
+			</div>
+		</div>
+	</div>
+	<!-- 图片区域 -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div class="newShoping" style="touch-action: none;">
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+			<div class="">
+				<div class="product_number">
+					33+
+				</div>
+				<div class="product_img_w ">
+					<img src="../image/mu.jpg" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text_right product_moudel_border font_size28 margin_top2 padding_right4">
+		<span class=" font_color99">共9种</span> <span class="font_color00">实付款：¥45.90</span>
+	</div>
+	<div class="div_display">
+		<div class="order_btn_ff" style="margin-left: 5rem;">
+			再次购买
+		</div>
+		<div class="order_btn_ff" style="margin-left: 3.4rem; display: none;">
+			取消支付
+		</div>
+		<div class="order_btn_f4" style="display: none;">
+			去支付
+		</div>
+
+		<div class="order_btn_ff" style="margin-left: 3rem;display: none;">
+			查看物流
+		</div>
+		<div class="order_btn_ff" style="display: none;">
+			确认收货
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+<div class="product_moudel div_backgroun_ff">
+	<div class="div_display product_border">
+		<div class=" product_moudel_title">
+			<img src="../image/mu.jpg" style="width: 100%;">
+		</div>
+		<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">
+			'笑容'
+		</div>
+		<div class="deleteOrder">
+			'删除'
+		</div>
+	</div>
+	<div class="div_display" id="bodyList">
+		<div class="product_imgList_leftd">
+			<div class="product_img_wd ">
+				<img src="
+	" style="width: 100%;height: 100%;">
+			</div>
+		</div>
+		<div class="product_imgList_rightd">
+			<div class="font_size26 font_color33">
+				safas
+			</div>
+			<div class="font_size26 font_color99">
+				"规格:423"
+			</div>
+			<div class="font_size26 font_colorf4">
+				"¥234"
+			</div>
+		</div>
+		<div class="product_rightd_number font_size28 font_color99">
+			"*2"
+		</div>
+	</div>
+
+</div>
+
+
+'<div class="product_moudel div_backgroun_ff">' +
+									'<div class="div_display product_border">' +
+									'<div class=" product_moudel_title">' +
+									'<img src="../image/mu.jpg" style="width: 100%;">' +
+									'</div>' +
+									'<div class="font_colorc1 font_size28" style="margin-top: .3rem;margin-left: .2rem;">' +
+									'笑容' +
+									'</div>' +
+									'<div class="deleteOrder">' +
+									'删除' +
+									'</div>' +
+									'</div>' +
+									'<div class="div_display" id="bodyList">' +
+									'<div class="product_imgList_leftd">' +
+									'<div class="product_img_wd ">' +
+									'<img src="' + data.data.records[items].itemList[item].picPath +
+									'" style="width: 100%;height: 100%;">' +
+									'</div>' +
+									'</div>' +
+									'<div class="product_imgList_rightd">' +
+									'<div class="font_size26 font_color33">' +
+									data.data.records[items].itemList[item].title +
+									'</div>' +
+									'<div class="font_size26 font_color99">' +
+									"规格:" + data.data.records[items].itemList[item].skuName +
+									'</div>' +
+									'<div class="font_size26 font_colorf4">' +
+									"¥" + data.data.records[items].itemList[item].price +
+									'</div>' +
+									'</div>' +
+									'<div class="product_rightd_number font_size28 font_color99">' +
+									"*" + data.data.records[items].itemList[item].num +
+									'</div>' +
+									'</div>' +
+									'</div>';

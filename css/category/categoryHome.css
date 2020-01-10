@@ -1,0 +1,70 @@
+/* 主分类 */
+.maiTAB {
+	font-size: .3rem;
+}
+
+#sonCountent{
+	margin-top: 0.5rem;
+	list-style:none;
+	float: left;
+	height: 2rem;
+	width: 1.8rem;
+	text-align: center;
+}
+
+#sonCountent img {
+	-background-color: #2AC845;
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+.mui-row.mui-fullscreen>[class*="mui-col-"] {
+	height: 100%;
+}
+
+.mui-col-xs-3,
+.mui-control-content {
+	overflow-y: auto;
+	height: 100%;
+}
+
+/* 主选项卡 */
+.mui-segmented-control .mui-control-item {
+	line-height: 50px;
+	width: 100%;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	color: #D42A1D;
+	border-left: 3px solid #FFFFFF;
+	background-color: #fff;
+}
+
+
+#segmentedControlContents{
+	border-left: 1px solid #c8c7cc;
+	background-color: #fff;
+}
+
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active .zfl_class{
+	height: 0.35rem;
+	width: 3px;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+	float: left;
+	margin-top: 0.33rem;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted.mui-segmented-control-vertical .mui-control-item, .mui-segmented-control.mui-segmented-control-inverted.mui-segmented-control-vertical .mui-control-item.mui-active {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+#segmentedControlContents {
+    border-left: 1px solid #FFFFFF;
+}
+
+.namePara,
+#namePara{
+	color: #666666;
+	font-size: 0.26rem;
+}

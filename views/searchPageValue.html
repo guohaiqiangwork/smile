@@ -1,0 +1,404 @@
+<!-- 搜索后来这个页面 -->
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<script src="../js/rem_reset.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../css/view/seavhPage.css"/>
+		
+		<link rel="stylesheet" href="../css/pages/shopCart.css" />
+		<style type="text/css">
+			body{
+				background-color: #FAFAFA;
+			}
+			
+			#titleAge{
+				text-align: center;
+				width: 6.9rem;
+				height: .7rem;
+				border: 1px solid #D7270D;
+				border-radius: .4rem;
+				margin-left: 0.8rem;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div id="searchPageValueTiele_id">
+			<div style="height: 10px;"></div>
+			<div style="height: 0.9rem;width: 100%;">
+				<i class="returnButtonClass" id="returnBut"><img src="../image/returnButton.png"></i>
+				<!-- 购物车图标 -->
+				<img class="shop_num_ioc-clsaa" src="../image/shopCard.png" style="width: 0.5rem;float: right;margin-right: 0.6rem;margin-top: 0.1rem;"/>
+				<!-- 购物车显示数量标致 -->
+				<div class="shop_num_ioc-clsaa" id="shop_num_ioc">
+					0
+				</div>
+				<div id="titleAge">
+					<i class="fa fa-search"></i>
+					<input id="searchInput" type="search" style="background-color: #FFFFFF;text-align: left;" />
+					<span id="qvx">取消</span>
+				</div>
+			</div>
+			
+			
+			<div id="titleList" style="display: none;">
+				<div style="touch-action: none;" id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<div style="height: 0.6rem;" id="tab_contral">
+						<a class="mui-control-item mui-active" id="zongheId">综合</a>
+						<a class="mui-control-item" id="volume_id"  style="border-left: 1px solid #D8D8D8;border-right: 1px solid #D8D8D8;">销量最高</a>
+						<a class="mui-control-item" id="priceId">
+							价格
+							<div id="priceIdTwo">
+								<i class="mrys fa fa-sort-up (alias)" style="float:right;height: 0.1rem;"></i>
+								<i class="mrys fa fa-sort-desc iocClass" style="float:right;height: 0.1rem;"></i>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- list -->
+		<div  class="bottomList" id="bottomListTwo">
+			
+		</div>
+		
+		<!-- 缺省页 -->
+		<div id="cartDefaultId" style="display: none;">
+			<div id="cartDefaultId_one">
+				<img src="../image/default/search.png" >
+			</div>
+			<div id="cartDefaultId_two">
+				<span>您没有搜索到相关宝贝哦~</span>
+			</div>
+			<!-- <div id="cartDefaultId_shree">
+				<div class="pay_go_index div_backgroun_jb gotoHomePage">
+					去首页逛逛
+				</div>
+			</div> -->
+		</div>
+		
+		
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/requestFun.js"></script>
+	<script src="../js/commonFun.js" type="text/javascript"></script>
+	
+	<script>
+		(function($, doc, $$) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+			
+			var code2 = "";
+			var priceSorted = "1";
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+				
+				var qvx = doc.getElementById("qvx");
+				qvx.onclick = function() {
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					var list = plus.webview.currentWebview().opener();　
+					mui.fire(list, 'refreshInput');
+				}
+				
+				// 获取购物车数量
+				getShoppingCart(mui, plus.storage.getItem('memberId'), function(data) {
+					//console.log("111111111111=="+ JSON.stringify(data))
+					if (data.code == 200) {
+						if(data.data > 99){
+							$('#shop_num_ioc').text(data.data + "+");
+						}else{
+							$('#shop_num_ioc').text(data.data);
+						}
+						
+					} else {
+						tipShow(data.message)
+					}
+				});
+				
+				// 去购物车
+				$('.shop_num_ioc-clsaa').on('tap', function() { // var ws = plus.webview.currentWebview();
+					toIndex(2);
+				});
+				
+				var searchInput = doc.getElementById("searchInput");
+				searchInput.value = _self.ioc_one;
+				if(_self.code){
+					code2 = _self.code;
+				}
+				//alert("最后的code2="+code2);
+				
+				/* 默认根据传过来的参数，搜索内容 */
+				/* 获取信息类别 */
+				var meberIdValue = "";
+				if(plus.storage.getItem('memberId')){
+					meberIdValue = plus.storage.getItem('memberId');
+				}else{
+					meberIdValue = "";
+				}
+				
+				/* 默认选中综合 加载lst */
+				var dataBase = {
+					code:code2,
+					pageNum:"1",
+					goodsName:_self.ioc_one,
+					priceSorted:"",
+					sell:"",
+					synthesize:"1",
+					meberId:meberIdValue
+				};
+				moreList(dataBase);
+				
+				
+				/* 监听键盘搜索按钮 */
+				doc.getElementById("searchInput").addEventListener("keypress", function(event) {
+					if (event.keyCode == "13") {
+						var toSearchCount = doc.getElementById("searchInput").value.replace(/\s*/g, "");
+						doc.activeElement.blur(); //收起虚拟键盘
+						toSearch(toSearchCount); //TODO 完成搜索事件
+						event.preventDefault(); // 阻止默认事件---阻止页面刷新
+					}
+				});
+				
+				//搜索事件
+				function toSearch(toSearchCount){ 
+					$("#tab_contral .mui-active").removeClass('mui-active');
+					tab_contral.querySelector('a:nth-child(1)').classList.add('mui-active');
+					
+					$("#priceIdTwo .iocClass").removeClass('iocClass');
+					priceIdTwo.querySelector('#priceIdTwo i:nth-child(2)').classList.add('iocClass');
+					
+					var dataBase = {
+						code:code2,
+						pageNum:"1",
+						goodsName:toSearchCount,
+						priceSorted:"",
+						sell:"",
+						synthesize:"1",
+						meberId:meberIdValue
+					};
+					moreList(dataBase);
+				}
+				
+				
+				// 去首页
+				$('.gotoHomePage').on('tap',function(){
+					
+					toIndex(0);
+					mui.currentWebview.close();
+					
+					/* $$.openWindow({
+						url: '../index.html',
+						id: 'index',
+						show: {
+							aniShow: "slide-in-right"
+						}
+					}); */
+				});
+				
+				/* 获取信息类别 公共方法*/
+				function moreList(dataBase){
+					getGoodsCondition(mui, dataBase, function(data) {
+						//console.log("11="+ JSON.stringify(data))
+					    if (data.code == 200) {
+							var bottomListTwo = document.getElementById("bottomListTwo");
+							var htmlThree = [];
+							var getGoodsConditionData = data.data;
+							if(getGoodsConditionData.length != 0){
+								//搜索框 
+								$("#titleAge").css("width","5.3rem");
+								$("#searchInput").css("width","3.7rem");
+								$(".shop_num_ioc-clsaa").css("display","block");
+								
+								$("#titleList").css("display","block");
+								$("#cartDefaultId").css("display","none");
+								
+								/* <i class="fa fa-shopping-cart" spId='+ getGoodsConditionData[i].pecificationId+' data-idCart='+ getGoodsConditionData[i].id+'> */
+								for(i=0;i< getGoodsConditionData.length;i++){
+									htmlThree.push('<div class="newShopingIDTwo">');
+									htmlThree.push('<div class="searchDetails" data-id='+getGoodsConditionData[i].id+' data-inventory='+getGoodsConditionData[i].inventory+' >');
+									htmlThree.push('<img src="'+getGoodsConditionData[i].pictureUrl+'">');
+									if (getGoodsConditionData[i].inventory == 0) {
+										htmlThree.push('<img class="soldOutThree" src="../image/Group%20.png">');
+									}
+									htmlThree.push('</div>');
+									htmlThree.push('<div class="searchDetails" data-inventory='+getGoodsConditionData[i].inventory+' data-id='+getGoodsConditionData[i].id+'>'+getGoodsConditionData[i].goodsName+'</div><div></div>');
+									htmlThree.push('<div><span class="searchDetails" data-inventory='+getGoodsConditionData[i].inventory+' data-id='+getGoodsConditionData[i].id+'>¥'+getGoodsConditionData[i].price+'</span><image class="fa-shopping-cart" style="width:0.46rem;height:0.46rem;float: right;" src="../image/5232.png" spId='+ getGoodsConditionData[i].pecificationId+' data-idCart='+ getGoodsConditionData[i].id+'></i></div></div>');
+								}
+								bottomListTwo.innerHTML = "";
+								bottomListTwo.innerHTML = htmlThree.join('');
+							}else{
+								//头部购物车图标
+								$(".shop_num_ioc-clsaa").css("display","none");
+								$("#titleAge").css("width","6.3rem");
+								$("#searchInput").css("width","4.7rem");
+								
+								$("#titleList").css("display","none");
+								//$("#titleAge").css("display","none");
+								$("#cartDefaultId").css("display","block");
+								
+								bottomListTwo.innerHTML = "";
+							}
+							
+						} else {
+						    tipShow(data.message);
+						}
+					});
+				};
+				
+				/* 跳转到详情页 */
+				$("#bottomListTwo").on("tap",".searchDetails",function(e){
+					var inventory = $(this).attr('data-inventory');
+					$$.openWindow({
+						url: 'details.html',
+						id:'details',
+						extras: {
+							"shopId": $(this).attr('data-id'),
+							"shopNum":inventory,
+						},
+				
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				});
+				
+				/* 加入购物车 */
+				$("#bottomListTwo").on("tap",".fa-shopping-cart",function(){
+					//spId就是后端返回的 pecificationId-----------
+					var spId = $(this).attr("spId");
+					var goodsId = $(this).attr("data-idCart");
+					//console.log("spId="+spId);
+					//console.log("goodsId="+goodsId);
+					var dataBaseCart = {
+						goodsId:goodsId,
+						pecificationId:spId,
+						userId:plus.storage.getItem('memberId'),
+					};
+					addShoppingCart(mui, dataBaseCart, function(data) {
+						if (data.code == 200) {
+							tipShow("购物车加入成功");
+						} else {
+							tipShow(data.message);
+						}
+					});
+				});
+				
+				
+				/* 关闭当前页 */
+				var returnBut = doc.getElementById("returnBut");
+				returnBut.onclick = function(){
+					plus.nativeUI.closeWaiting();
+					mui.back();
+					var list = plus.webview.currentWebview().opener();　
+					mui.fire(list, 'refreshInput');
+				};
+				
+				/* 价格筛选事件 */
+				var priceId = document.getElementById("priceId");
+				var tab_contral = document.getElementById("tab_contral");
+				priceId.onclick = function(){
+					//如果点击了三角按钮,添加价格加黑样式 mui-control-item
+					$("#tab_contral .mui-active").removeClass('mui-active');
+					tab_contral.querySelector('a:nth-child(3)').classList.add('mui-active');
+					
+					$("#priceIdTwo .iocClass").removeClass('iocClass');
+					if(priceSorted == 0){
+						priceSorted = 1;
+					}else{
+						priceSorted = 0;
+					}
+					//alert(priceSorted)
+					priceIdTwo.querySelector('#priceIdTwo i:nth-child('+(priceSorted+1)+')').classList.add('iocClass');
+					
+					/* 获取信息类别 */
+					var meberIdValue = "";
+					if(plus.storage.getItem('memberId')){
+						meberIdValue = plus.storage.getItem('memberId');
+					}else{
+						meberIdValue = "";
+					}
+					
+					var code3 = "";
+					if(_self.code){
+						code3 = _self.code;
+					}
+					
+					var dataBase = {
+						code:code3,
+						pageNum:"1",
+						goodsName:_self.ioc_one,
+						priceSorted:priceSorted,
+						sell:"",
+						synthesize:"",
+						meberId:meberIdValue
+					};
+					moreList(dataBase);
+				};
+				
+				
+				/* 综合筛选事件 */
+				$("#zongheId").on("tap",function(){
+					var code3 = "";
+					if(_self.code){
+						code3 = _self.code;
+					}
+					var dataBase = {
+						code:code3,
+						pageNum:1,
+						goodsName:_self.ioc_one,
+						priceSorted:"", //价格传空
+						sell:"",
+						synthesize:"1"
+					};
+					moreList(dataBase);
+				});
+				
+				/* 销量筛选事件 */
+				$("#volume_id").on("tap",function(){
+					var code3 = "";
+					if(_self.code){
+						code3 = _self.code;
+					}
+					var dataBase = {
+						code:code3,
+						pageNum:1,
+						goodsName:_self.ioc_one,
+						priceSorted:"", //价格传空
+						sell:"1",
+						synthesize:""
+					};
+					moreList(dataBase);
+				});
+				
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>
+

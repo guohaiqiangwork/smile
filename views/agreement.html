@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>invite_gift</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script src="../js/rem_reset.js"></script>
+	</head>
+
+	<body onselectstart="return false;">
+		<header class="header_white">
+			<i class="mui-action-back"><img src="../image/left@2x.png"></i>
+			笑容用户协议
+		</header>
+		<div class="content">
+			<div class="mui-content">
+				<div id="" style="background-color: #FFFFFF;padding: 3%;font-size: .32rem;">
+					辅导建立科技滴漏式咖啡机收到了克己复礼看离开就打算离开就分开了考六级离开肌肤老师打开肌肤离开的时间发脸上的肌肤脸上就分开了的时间发离开的时间发可怜的肌肤可怜时间的反馈脸上的肌肤考试啊付款了可怜肌肤可能肌肤呢都是借口就阿霜反馈卡卡考试的房间空间发挥开发了空间
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script>
+		;
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				indicators: false,
+			});
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+			}
+		})(jQuery, document, mui);
+	</script>
+
+</html>

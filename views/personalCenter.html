@@ -1,16 +1,448 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<title>my_setting</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="assets/css/mui.css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/mobileReset.css">
+		<link rel="stylesheet" href="../css/pages/mySetting.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/pages/personalCenter.css" />
+		<script src="../js/rem_reset.js"></script>
 	</head>
-	<body>
-		我的11
+
+	<body onselectstart="return false;">
+		<div style="background-color: #fff;">
+			<div class="header_top">
+				<!-- 默认背景 -->
+				<!-- <img class="imgBground" id="bgImg" src="../image/bjG.png"> -->
+				<img class="imgBground" id="bgImg">
+				<div style="position: absolute;top: .1rem;">
+					<div class="" id="useReal">
+						<div id="messageId">   
+							<div class="div_backgroun_jb header_title_leftT"></div>
+							<img src="../image/message2.png" class="header_title_leftI"><!-- news@2x.png -->
+						</div>
+						<div class="header_img_border">
+							<!-- 默认头像 -->
+							<!-- <img src="../image/log@2x.png" id="hederImg" class="width_height100"> -->
+							<img id="hederImg" class="width_height100">
+						</div>
+						<div class="header_img_font">
+							<!-- 刘易反 -->
+						</div>
+						<div class="whether_name">
+							已实名认证
+						</div>
+						<div class="whether_name_border"></div>
+					</div>
+					<div id="useLogin" style="text-align: center;color: #FFFFFF;padding-top: 2rem;padding-left: .3rem;display: none;">
+						登录/注册
+						<div class="whether_name_border" style="margin-top: 1.5rem;"></div>
+					</div>
+					<div class="header_money">
+						<div id="myWallet">
+							<div id="money">
+								0
+							</div>
+							<div style="margin-top: .2rem;font-size: .26rem;">
+								余额
+							</div>
+						</div>
+						<div id="goIntegral">
+							<div id="integral">
+								0
+							</div>
+							<div style="margin-top: .2rem;font-size: .26rem;">
+								待收佣金
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="personal_order_frame">
+				<div class="order_frame_title">
+					<div class="title_left"></div>
+					<div class="order_title_font">
+						我的订单
+					</div>
+					<div class="order_title_right goMyOrder" id="goMyOrder" data-id="1">
+						查看更多
+						<img  src="../image/fanhui@2x.png" style="height: 0.18rem;width: 0.106rem;margin-bottom: 0.017rem;"/>
+					</div>
+				</div>
+				<div id="" style="float: left;margin-top: .4rem;padding-bottom: .2rem;">
+					<div class="order_title goMyOrder" data-id="2">
+						<div class="order_frame_img">
+							<img src="../image/personalCenter/payment.png" class="width_height100">
+						</div>
+						<div class="order_frame_font">
+							待付款
+						</div> 
+					</div>
+					<div class="order_title goMyOrder" data-id="3">
+						<div class="order_frame_img">
+							<img src="../image/personalCenter/deliver.png" class="width_height100">
+						</div>
+						<div class="order_frame_font">
+							待发货
+						</div> 
+					</div> 
+					<div class="order_title goMyOrder" data-id="4">
+						<div class="order_frame_img">
+							<img src="../image/personalCenter/harvest.png" class="width_height100">
+						</div>
+						<div class="order_frame_font">
+							待收货
+						</div>
+					</div>
+					<div class="order_title goMyOrder" data-id="5">
+						<div class="order_frame_img">
+							<img src="../image/personalCenter/replacement.png" class="width_height100">
+						</div>
+						<div class="order_frame_font">
+							退换货
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="recomment_btn">
+				<img src="../image/recomment@2x.png" style="width: 7.1rem;height: 1.5rem;">
+			</div>
+
+			<div class="service_title_content">
+				<div class="service_title">
+					<div class="service_font">
+						<div class="title_left" style="float: left;"></div>
+						<div style="padding-left: .2rem;">我的服务 </div>
+					</div>
+				</div>
+				<div id="serviceModuer" style=" float: left;">
+					<div class="service_mouder" href="../pages/myAddress.html" data-id='myAddress'>
+						<div class="service_img">
+							<img src="../image/personalCenter/address.png" class="width_height100">
+						</div>
+						<div class="service_img_font">收货地址</div>
+					</div>
+					<div class="service_mouder" href="../pages/goodFriend.html" data-id='goodFriend'>
+						<div class="service_img">
+							<img style="width: 0.43rem;height: 0.43rem;" src="../image/personalCenter/frider.png" class="width_height100">
+						</div>
+						<div class="service_img_font">
+							我的好友
+						</div>
+					</div>
+					<div class="service_mouder" href="../pages/bankCard.html" data-id='bankCard'>
+						<div class="service_img">
+							<img src="../image/personalCenter/back.png" class="width_height100">
+						</div>
+						<div class="service_img_font">
+							银行卡
+						</div>
+					</div>
+					<div class="service_mouder" href="../pages/realName.html" data-id='realName'>
+						<div class="service_img">
+							<img src="../image/personalCenter/name.png" class="width_height100">
+						</div>
+						<div class="service_img_font">
+							实名认证
+						</div> 
+					</div>
+					<div class="service_mouder" href="../pages/setUp.html" data-id='setUp'>
+						<div class="service_img">
+							<img src="../image/personalCenter/set.png" class="width_height100">
+						</div>
+						<div class="service_img_font">
+							设置
+						</div>
+					</div>
+
+				</div>
+			</div>
+			
+			<!-- 蒙版  style="display: none;"-->
+			<div id="mengban_id" style="display: none;" class="mengban_class">
+				
+			</div>
+			
+		</div>
 	</body>
-	<script src="../js/app.js"></script>
+	<script src="../js/jquery-1.11.2.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/commonFun.js"></script>
+	<script src="../js/requestFun.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		(function($, doc, $$, undefined) {
+			$$.init();
+			var _self;
+			if (window.plus) {
+				plusReady();
+			} else {
+				doc.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.navigator.setFullscreen(false);
+				//强制竖屏
+				plus.screen.lockOrientation("portrait-primary");
+				//强制隐藏滚动条
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				_self = plus.webview.currentWebview();
+
+				getUser();
+				function getUser(){
+					getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
+						//alert("22="+ data.code);
+						if (data.code == 401 || data.code == 1500) {
+							//未登录状态
+							$('#useReal').css('display', 'none');
+							$('#useLogin').css('display', 'block');
+							$("#money").text("--");
+							$("#integral").text("--");
+							$("#mengban_id").css('display', 'block');
+						} else {
+							//登录
+							$("#mengban_id").css('display', 'none');
+						}
+					});
+				}
+				
+				/* 监听index点击 */
+				var num = 0;
+				window.addEventListener('refreshIndexCount', function(e) {
+					//alert("555")
+					if(num == 0){
+						// 获取个人信息
+						getUserMessage();
+						//getUser();
+						getMoney();
+						$("#mengban_id").css('display', 'none');
+						num = num + 1;
+					}else{
+						getMoney();
+					}
+				});
+				
+				//点击蒙蔽去登录页面
+				$("#mengban_id").on("tap",function(){
+					gotoLoginIn()
+				});
+				
+				
+				//监听消息返回刷新消息
+				window.addEventListener('refreshHomeNews', function(event) {
+					hasMessage(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							if (data.data) {
+								//有新消息,显示红点
+								$("#messageId").find("div").addClass("div_backgroun_jb");
+							} else {
+								//没有新消息,不显示红点
+								$("#messageId").find("div").removeClass("div_backgroun_jb");
+							}
+						} else {
+							tipShow(data.message);
+						}
+					});
+				});
+				
+				/* 查看是否有未读消息 */
+				if (plus.storage.getItem('memberId')) {
+					hasMessage(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							if (data.data) {
+								//有新消息,显示红点
+								$("#messageId").find("div").addClass("div_backgroun_jb");
+							} else {
+								//没有新消息,不显示红点
+								$("#messageId").find("div").removeClass("div_backgroun_jb");
+							}
+						} else {
+							tipShow(data.message);
+						}
+					});
+				};
+				
+				// 获取个人信息
+				getUserMessage();
+				// if (plus.storage.getItem('Token')) {
+				function getUserMessage(){
+					//alert("获取个人信息")
+					getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							if (!data.data.idcard) {
+								$('.whether_name').css('display', 'none')
+							}
+							if (data.data.avatar) {
+								$('#bgImg').attr('src', "");
+								$('#hederImg').attr('src', "");
+								$('#bgImg').attr('src', data.data.avatar);
+								$('#hederImg').attr('src', data.data.avatar);
+							}
+							$('.header_img_font').text("")
+							$('.header_img_font').text(data.data.nickname)
+							$('#useReal').css('display', 'block')
+							$('#useLogin').css('display', 'none')
+						} else if (data.code == 401 || data.code == 1500) {
+							//alert("需要登录");
+							//gotoLoginIn()
+						} else {
+							tipShow(data.message)
+							$("#code").val('')
+						}
+					});
+				}
+				
+				getMoney();
+				function getMoney(){
+					getUserMoney(mui, plus.storage.getItem('memberId'), function(data) {
+						if (data.code == 200) {
+							tipShow(data.message);
+							$("#money").text(data.data.balance);
+							$("#integral").text(data.data.integral);
+							$('#useReal').css('display', 'block');
+							$('#useLogin').css('display', 'none');
+						} else if (data.code == 401 || data.code == 1500) {
+							//alert("需要登录222");
+							//gotoLoginIn()
+						} else {
+							tipShow(data.message)
+						}
+					});
+				}
+				
+				// }
+			};
+
+
+			/* 子页面调用父页面方法 */
+			window.addEventListener('refreshMajorGuestCount', function(event) {
+				plusReady();
+			});
+
+
+			// 去关于美好同乘
+			$(".settingList .settingAbout").on("tap", function() {
+				$$.openWindow({
+					url: "aboutGood.html",
+					id: "aboutGood",
+					styles: {
+						statusbar: {
+							background: "#fff"
+						}
+					}
+				});
+			});
+			//页面跳转serviceModuer
+			$('.service_mouder').on('tap', function(e) {
+				// 获取路径
+				var urlRout = this.getAttribute('href');
+				// 获取页面ID
+				var urlId = $(this).attr("data-id");
+				if (urlRout && urlId) {
+					$$.openWindow({
+						url: urlRout,
+						id: urlId,
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				} else {
+					console.log('缺少页面路径')
+				}
+
+			});
+
+			// 去我的余额 
+			$('#myWallet').on('tap', function() {
+				if ($('#money').text() > 0) {
+					$$.openWindow({
+						url: '../pages/cashMoney.html',
+						id: 'cashMoney',
+						extras: {
+							myMoney: $("#money").text()
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				} else {
+					tipShow('余额不足')
+				}
+
+			})
+			// 去我的积分
+			$('#goIntegral').on('tap', function() {
+				return;
+				$$.openWindow({
+					url: '../pages/myIntegral.html',
+					id: 'myIntegral',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			// 去我的推荐
+			$('.recomment_btn').on('tap', function() {
+				$$.openWindow({
+					url: '../pages/myRecommend.html',
+					id: 'myRecommend',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			// 去消息页面
+			$('#messageId').on('tap', function() {
+				$$.openWindow({
+					url: '../pages/newsPage.html',
+					id: 'newsPage',
+					show: {
+						aniShow: "slide-in-right"
+					}
+				});
+			})
+			//去我的订单
+			$('.goMyOrder').on('tap', function() {
+				// $(this).attr('data-id'); 
+				if ($(this).attr('data-id') == 5) {
+					$$.openWindow({
+						url: '../pages/returnedGoods.html',
+						id: 'returnedGoods',
+						extras: {
+							orderType: $(this).attr('data-id')
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+				} else {
+					//alert($(this).attr('data-id'))
+					$$.openWindow({
+						url: '../pages/myOrder.html',
+						id: 'myOrder',
+						extras: {
+							orderType: $(this).attr('data-id'),
+							pageType:""
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
+
+				}
+
+			})
+		})(jQuery, document, mui);
+	</script>
 
 </html>
