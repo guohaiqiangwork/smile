@@ -70,7 +70,10 @@
 					<div class="div_display margin_top4">
 						<div class="spanThreeClass">0</div>
 						<!-- <div class="spanThreeF div_backgroun_jb margin_left2">分享可赚<span id="grossMargin"></span> </div> -->
-						<div class="fxzq_details" style="marring:0"><span class="fxzq_span">返</span><span id="grossMargin">￥0</span></div>
+						<div class="fxzq_details" style="marring:0;">
+							<span class="fxzq_span">赚</span>
+							<span id="grossMargin">￥0</span>
+						</div>
 					</div>
 					<div class="buttCla" id="buttCla_oneId">
 						<div class="buttCla_one">规格：</div>
@@ -268,8 +271,11 @@
 				// 获取商品详情
 				function getImage(shopId) {
 					getCommodityD(mui, shopId, function(data) {
-	
+						//console.log("111=="+data.data.grossMargin)
 						if (data.code == 200) {
+							if(data.data.grossMargin == 0){
+								$(".fxzq_details").css("display","none");
+							}
 							shareImg = data.data.pictureUrlList[0]; //分享图片
 							shareName = data.data.title;//分享产品名称
 							$(".spanOneClass").text(data.data.goodsName) // 商品名称

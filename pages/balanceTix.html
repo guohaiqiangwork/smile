@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>my_setting</title>
@@ -15,10 +16,12 @@
 		<link rel="stylesheet" href="../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" href="../css/passwordPopUp.css" />
 		<script src="../js/rem_reset.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="../css/pages/updateName.css" />
 	</head>
+
 	<body>
 		<header class="header_white title">
 			<i class="mui-action-back"><img src="../image/returnButton.png" style="width: .22rem;height: .38rem;"></i>
@@ -62,6 +65,25 @@
 		</div>
 
 
+		<!-- 密码提示框 -->
+		<div id="pay" style="display: none;" data-disable-auto-close='true' class="box mui-popover mui-popover-action mui-popover-middle closeModel">
+			<div id="password_div " style="height: 1rem;width:5.7rem float: left;border-bottom: 1px solid #EEEEEE;">
+				<img src="../image/close.png" alt="" class="mui-popover-close closeModel" style="width: 0.37rem;height: 0.37rem;">
+				<p class="title1">请输入支付密码</p>
+			</div>
+			<div class="type">提现</div>
+			<div class="number1"></div>
+			<div class="table">
+				<div><span class="blackpwd"></span></div>
+				<div><span class="blackpwd"></span></div>
+				<div><span class="blackpwd"></span></div>
+				<div><span class="blackpwd"></span></div>
+				<div><span class="blackpwd"></span></div>
+				<div><span class="blackpwd"></span></div>
+			</div>
+			<input style="text-indent: -999em;margin-left: -100%;width: 200%;opacity: 0;" type="tel" name='password' class="zfinput"
+			 maxlength="6">
+		</div>
 
 	</body>
 	<script src="../js/jquery-1.11.2.min.js"></script>
@@ -88,7 +110,9 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
-
+				var bankCard_Id;
+				var balbnce_money;
+				// mui('#pay').popover('show');
 				getBankFindAll(mui, plus.storage.getItem('memberId'), function(data) {
 					console.log("银行卡信息==" + JSON.stringify(data))
 					if (data.code == 200) {
@@ -171,22 +195,26 @@
 						}
 					});
 				});
-
-				/* 提现点击事件 */
-				$(".li_five").on("tap", function() {
-					var balbnce_money = $("#balbnce_money").val().replace(/\s*/g, "");
-					if (Number(balbnce_money) < 10) {
-						tipShow("提现金额必须大于10元");
-					} else {
-						if (!balbnce_money) {
-							tipShow("请输入提现金额");
-						} else {
-							if (balbnce_money > $("#li_four_money").text()) {
-								tipShow("提现金额超出余额了");
-								$("#balbnce_money").val("")
-							} else {
-								var bankCard_Id = $(this).siblings(".li_one").children(".li_one_div").children(".bankCardClass").attr(
-									"bankCard_Id");
+				/* 密码框事件 */
+				mui('#pay').on('tap', '.closeModel', function() {
+					mui('#pay').popover('hide');
+				});
+				$('.zfinput').bind('input propertychange', function() {
+					$('.table>div>.blackpwd').css('opacity', '0');
+					var length = $(this).val().length;
+					$('.table>div>.blackpwd').slice(0, length).css('opacity', '1');
+					if (length >= 6) {
+						var val = $('.zfinput').val(); //密码
+						$('.table>div>.blackpwd').css('opacity', '0');
+						$('.zfinput').val("");
+						//请求密码校验接口
+						var dataBaseTwo = {
+							memberId: plus.storage.getItem('memberId'),
+							password: val,
+						};
+						passwordCheck(mui, dataBaseTwo, function(data) {
+							if (data.code == 200) {
+								mui('#pay').popover('hide');
 								var dataBase = {
 									amount: balbnce_money,
 									bankId: bankCard_Id,
@@ -194,7 +222,8 @@
 								}
 								reflectBank(mui, dataBase, function(data) {
 									if (data.code == 200) {
-										var bankCIDD = data.data
+										var bankCIDD = data.data;
+										$("#balbnce_money").val('')
 										$$.openWindow({
 											url: 'carryResult.html',
 											id: 'carryResult',
@@ -209,9 +238,57 @@
 										tipShow(data.message);
 									}
 								});
+							} else {
+								tipShow(data.message);
+								$('.zfinput').val("");
 							}
-						}
+						});
 					}
+				});
+				/* 提现点击事件 */
+				$(".li_five").on("tap", function() {
+					balbnce_money = $("#balbnce_money").val().replace(/\s*/g, "");
+					if (!balbnce_money) {
+						tipShow("请输入提现金额");
+						return;
+					} else if (Number(balbnce_money) < 10) {
+						tipShow("提现金额必须大于10元");
+						return;
+					} else if (Number(balbnce_money) > $("#li_four_money").text()) {
+						console.log(balbnce_money + '仅')
+						console.log($("#li_four_money").text() + '到沙发上看')
+						tipShow("提现金额超出余额了");
+						$("#balbnce_money").val("");
+						return;
+					}
+					bankCard_Id = $(this).siblings(".li_one").children(".li_one_div").children(".bankCardClass").attr(
+						"bankCard_Id");
+					mui('#pay').popover('show');
+					$(".number1").text("￥" + balbnce_money);
+					// var bankCard_Id = $(this).siblings(".li_one").children(".li_one_div").children(".bankCardClass").attr(
+					// 	"bankCard_Id");
+					// var dataBase = {
+					// 	amount: balbnce_money,
+					// 	bankId: bankCard_Id,
+					// 	memberId: plus.storage.getItem('memberId'),
+					// }
+					// reflectBank(mui, dataBase, function(data) {
+					// 	if (data.code == 200) {
+					// 		var bankCIDD = data.data
+					// 		$$.openWindow({
+					// 			url: 'carryResult.html',
+					// 			id: 'carryResult',
+					// 			extras: {
+					// 				"bankCId": bankCIDD
+					// 			},
+					// 			show: {
+					// 				aniShow: "slide-in-right"
+					// 			}
+					// 		});
+					// 	} else {
+					// 		tipShow(data.message);
+					// 	}
+					// });
 				});
 
 				/* 全部提现点击事件 */

@@ -31,7 +31,7 @@ mui.plusReady(function() {
 		for (var i = 0; i < s.length; i++) {
 			if (s[i].serviceReady) {
 				if (~support_channel.indexOf(s[i].id)) {
-				
+
 				}
 			}
 		}
@@ -76,13 +76,10 @@ function getPayChannel(bc_channel) {
 }
 
 function doPay(payData, cbsuccess, cberror) {
-	//alert(JSON.stringify(payData));
 	if (payData.source == 'WX') {
-		var payUrl = 'http://192.168.1.17/aliPay/orderinfo33'
+		var payUrl = window.requserUrl + '/wxPay/unifiedOrder'
 	} else if (payData.source == 'ZFB') {
-		var payUrl = 'http://49.232.97.190:8080/aliPay/orderinfo'
-	}else{
-		var payUrl = 'http://192.168.1.17/aliPay/orderinfo'
+		var payUrl = window.requserUrl + '/aliPay/orderinfo'
 	}
 	if (w) return;
 	w = plus.nativeUI.showWaiting();
@@ -95,7 +92,6 @@ function doPay(payData, cbsuccess, cberror) {
 		},
 		dataType: 'json',
 		success: function(data) {
-			//alert(JSON.stringify(data))
 			w.close();
 			w = null;
 			var paySrc = '';
@@ -105,16 +101,22 @@ function doPay(payData, cbsuccess, cberror) {
 					if (payChannel.id === 'alipay') {
 						paySrc = data.data.orderInfo;
 					} else if (payChannel.id === 'wxpay') {
+						// paySrc = data.data;
+						var data = data.data;
 						var statement = {};
-						statement.appid = data.app_id;
-						statement.noncestr = data.nonce_str;
-						statement.package = data.package;
-						statement.partnerid = data.partner_id;
-						statement.prepayid = data.prepay_id;
-						statement.timestamp = parseInt(data.timestamp);
-						statement.sign = data.pay_sign;
-						paySrc = JSON.stringify(statement);
+						statement.appid = data.appId;
+						statement.noncestr = data.nonceStr;
+						statement.package = data.packageValue;
+						statement.partnerid = data.partnerId;
+						statement.prepayid = data.prepayId;
+						statement.timestamp = parseInt(data.timeStamp);
+						statement.sign = data.sign;
+						paySrc = statement;
 					}
+					console.log(JSON.stringify(payChannel) + '第一个')
+					console.log(JSON.stringify(paySrc) + '第2个')
+					console.log(JSON.stringify(cbsuccess) + '第3个')
+					console.log(JSON.stringify(cberror) + '第4个')
 					plus.payment.request(payChannel, paySrc, cbsuccess, cberror);
 				} else if (payData.channel == 'UN_WEB') {
 					//银联在线支付

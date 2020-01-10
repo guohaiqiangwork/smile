@@ -181,10 +181,10 @@ body {
 
 /* 新品发现 */
 #goToPay {
-	margin-top: .35rem;
+	-margin-top: .35rem;
 	background-color: #FFFFFF;
 	text-align: center;
-	line-height: 1rem;
+	line-height: 0.82rem;
 }
 
 #goToPay i {
@@ -309,6 +309,11 @@ body {
 	float: left;
 }
 
+#bottomAllList .newShopingIDTwo:nth-child(35) {
+	-background-color: red;
+	float: left;
+}
+
 .shopName{
 	margin-left: 0.1rem;
 }
@@ -319,6 +324,7 @@ body {
 .newShopingIDTwo div:nth-child(3) {
 	font-size: 0.2rem;
 	margin-left: 0.1rem;
+	color: #797979;
 }
 
 .newShopingIDTwo div:nth-child(4) span {
@@ -849,10 +855,11 @@ body {
 /* 详情页 分享赚钱标签 */
 .fxzq_details{
 	margin-left: 0.3rem;
-	width: 1.2rem;
+	width: 1.3rem;
 	height: 0.36rem;
-	line-height: 0.1rem;
-	background-color: #FF3C40;
+	line-height: 0.36rem;
+	-background-color: #FF3C40;
+	background: linear-gradient(to right, #FF342D, #FF5882);
 	border-radius: 0 0.36rem 0.36rem 0;
 	color: #FCFCFC;
 	line-height: 0.45rem;
@@ -864,7 +871,9 @@ body {
 }
 
 .fxzq_details span:nth-child(2){
-	margin-left: 0.05rem;
+	margin-left: auto;
+	margin-right: auto;
+	-margin-left: 0.15rem;
 	font-size: 0.22rem;
 	line-height: 0.36rem;
 }

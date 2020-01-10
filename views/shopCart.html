@@ -35,7 +35,12 @@
 				background: linear-gradient(to right, #FF342D, #FF5882);
 				-webkit-background-clip: text;
 				color: transparent;
+				
+				-border-radius: 50px;
+				-border-radius:50px solid #85afe1;
+				-box-shadow:inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.6);
 			}
+			
 		</style>
 		<script src="../js/rem_reset.js"></script>
 	</head>
@@ -250,6 +255,7 @@
 										'<input data-Params="0" name="commodity"'+
 										' type="checkbox" class="res" data-price=' + keywordData[i].price + ' data-index=' + [i] +
 										' style="margin-top: 0.8rem;padding-left: .3rem;">' +
+										'<div class="tyyy"></div>' +
 										'</div>' +
 										'</div>' +
 										'<div class="shopCart_moudel_right">' +
@@ -263,7 +269,7 @@
 										'<div class="shopCart_product_title">' +
 										keywordData[i].goodsName +
 										'</div>' +
-										'<div class="shopCart_product_g">' +
+										'<div class="shopCart_product_g" style="font-family: inherit;">' +
 										keywordData[i].pecificationName +
 										'</div>' +
 										'<div class="shopCart_price">￥' +
@@ -561,6 +567,7 @@
 				// 单选input[name='commodity']-----有效
 				var $checkbox = $("input[name='commodity']");
 				mui("#shopList").on('change', 'input', function() {
+					
 					//合计处的数量
 					var totalNum = parseInt($(".totalNum").text());
 					/* 从红点选项找到现在的商品数量--选中行数量 */

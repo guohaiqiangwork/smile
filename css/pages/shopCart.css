@@ -240,3 +240,17 @@
 .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
 	color:#CBCBCB;
 }
+
+/* 选中按钮投影 */
+/* .tyyy{
+	width: 0.3rem;
+	height: 0.15rem;
+	background-color: #F42300;
+	opacity: 0.1;
+	position: absolute;
+	top: 1.295rem;
+	left: 0.17rem;
+	-box-shadow: 1px 1px 10px #F42300;
+	border-radius: 1.5rem;
+	z-index: 1;
+} */

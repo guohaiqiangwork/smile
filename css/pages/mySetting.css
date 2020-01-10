@@ -1,4 +1,4 @@
-#returnTopPage_set img{
+#returnTopPage_set img {
 	width: 0.5rem;
 	float: left;
 	margin-top: .2rem;
@@ -22,6 +22,31 @@
 }
 
 .settingList li i {
+	float: right;
+	font-size: .5rem;
+	line-height: 1rem;
+	color: #A0A0A0;
+}
+
+.list_ul_li {
+	width: 6.8rem;
+	margin-left: .35rem;
+	margin-top: 1rem;
+	border: 1px solid #E9E9E9;
+	border-radius: .2rem;
+	padding-left: .3rem;
+	padding-right: .3rem;
+}
+
+.list_ul_li li {
+	width: 100%;
+	font-size: .32rem;
+	color: #1A202C;
+	line-height: 1rem;
+	border-bottom: 1px solid #E9E9E9;
+}
+
+.list_ul_li li i {
 	float: right;
 	font-size: .5rem;
 	line-height: 1rem;
@@ -91,10 +116,12 @@
 	font-size: .3rem;
 	margin-right: .3rem;
 }
-#payPassword div input{
+
+#payPassword div input {
 	margin-left: .32rem;
 	line-height: 1;
 }
+
 #payPassword div input:placeholder {
 	color: #A1A1A1;
 	font-size: .28rem;

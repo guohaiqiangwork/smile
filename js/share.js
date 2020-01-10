@@ -1,7 +1,6 @@
 function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 		var shareTitle = shareJson.title; //分享标题
 		var shareContent = shareJson.desc; //分享简介
-		// console.log("分享简介："+shareContent);
 		if (shareContent.length > 30) {
 			var shareContentReg = shareContent.substr(0, 30) + "...";
 		} else {
@@ -13,9 +12,9 @@ function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 			}
 		};
 		if (lineEndId && lineEndId[0] != 'lineEnd') {
-			msg.href = "http://www.bjxrkj.com" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
+			msg.href = requserUrlShard + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
 		} else {
-			msg.href = "http://www.bjxrkj.com" + "/web/appShare/goRegister?shareId=" + userId + ""; //分享地址
+			msg.href = requserUrlShard + "/web/appShare/goRegister?shareId=" + userId + ""; //分享地址
 		}
 		msg.title = shareTitle;
 		msg.content = shareContentReg;

@@ -62,3 +62,9 @@
 #segmentedControlContents {
     border-left: 1px solid #FFFFFF;
 }
+
+.namePara,
+#namePara{
+	color: #666666;
+	font-size: 0.26rem;
+}

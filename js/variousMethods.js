@@ -92,7 +92,7 @@
 					htmlThree.push('<div class="gotoDitails data-inventory=' + row.inventory + ' soldOutDiv" data-id='+row.id+'>');
 					htmlThree.push('<img src="'+row.pictureUrl+'">');
 					if(row.rebate != 0){
-						htmlThree.push('<div class="fxzq" style="marring:0"><span class="fxzq_span">返</span><span>￥'+row.rebate+'</span></div>');
+						htmlThree.push('<div class="fxzq" style="marring:0"><span class="fxzq_span">赚</span><span>￥'+row.rebate+'</span></div>');
 					}
 					
 					if (row.inventory == 0) {

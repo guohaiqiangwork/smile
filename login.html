@@ -16,7 +16,7 @@
 
 	<body onselectstart="return false;">
 		<div id="login">
-			<div class="returnKey mui-action-back"><img src="image/33@2x.png" style="width: .6rem;height: .6rem;"></div>
+			<div class="returnKey mui-action-back"><img src="image/33@2x2.png" style="width: .6rem;height: .6rem;"></div>
 			<div class="car_logo">
 				<img src="image/log@2x.png">
 			</div>
@@ -164,8 +164,10 @@
 							return;
 						}
 						var auth = auths[this.authId];
+						console.log(JSON.stringify(auth) + '史蒂芬霍金开')
 						auth.login(function() {
 							plus.nativeUI.toast("登录认证成功");
+							auth.userInfo = ''
 							auth.getUserInfo(function() {
 								var name = auth.userInfo.nickname || auth.userInfo.name;
 								// 存储微信openid
@@ -226,8 +228,8 @@
 									}
 								})
 
-
-
+								// 认证后清空数据
+								auth.logout(function(e) {}, function(e) {})
 							}, function(e) {
 								plus.nativeUI.toast("获取用户信息失败：" + e.message);
 							});

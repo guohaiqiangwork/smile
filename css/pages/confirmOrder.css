@@ -9,10 +9,10 @@
 
 .confirmOrder_model {
 	width: 7.1rem;
-	border: 1px solid #CBCBCB;
-	box-shadow: 0px 0px 2px 2px #CBCBCB;
+	-border: 1px solid #CBCBCB;
+	box-shadow: 0px 4px 0.28rem #CBCBCB;
 	margin-left: .2rem;
-	margin-top: 1rem;
+	margin-top: 1.1rem;
 	height: 2rem;
 	border-radius: .2rem;
 }
@@ -57,11 +57,12 @@
 .product_moudel {
 	width: 7.1rem;
 	/* border: 1px solid #CBCBCB; */
-	box-shadow: 0px 0px 1px 1px #CBCBCB;
+	-box-shadow: 0px 0px 1px 1px #CBCBCB;
 	margin-left: .2rem;
-	margin-top: .2rem;
+	margin-top: .22rem;
 	/* height: 3rem; */
 	border-radius: .2rem;
+	background-color: #FFFFFF;
 }
 
 /* .product_moudelTwo {
@@ -118,11 +119,12 @@
 	width: .45rem;
 	height: .26rem;
 	border-radius: .2rem;
-	border: 1px solid #F42300;
-	color: #F42300;
+	border: 1px solid #FF342D;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+	color: #FFFFFF;
 	font-size: .2rem;
 	text-align: center;
-	line-height: .26rem;
+	line-height: .25rem;
 	position: absolute;
 	margin-left: 1.1rem;
 	margin-top: .1rem;
@@ -151,9 +153,10 @@
 	width: 7.1rem;
 	margin-left: .2rem;
 	height: 1rem;
-	box-shadow: 0px 0px 1px 1px #CBCBCB;
+	-box-shadow: 0px 0px 1px 1px #CBCBCB;
 	margin-top: .2rem;
 	border-radius: .1rem;
+	background-color: #FFFFFF;
 }
 .invalid_product_left{
 	margin-left: .2rem;
@@ -167,13 +170,15 @@
 .product_money{
 	width: 7.1rem;
 	height: 2rem;
-	border: 1px solid #E9E9E9;
+	-border: 1px solid #E9E9E9;
 	border-radius: .1rem;
 	margin-left: .2rem;
 	margin-top: .2rem;
+	background-color: #FFFFFF;
 }
 .product_money_list{
-	border-bottom: 1px solid #E9E9E9;padding-bottom: .3rem;
+	-border-bottom: 1px solid #E9E9E9;
+	padding-bottom: .3rem;
 }
 .money_list_left{
 	margin-top: .3rem;
@@ -434,4 +439,9 @@
 
 #address_hint span:nth-child(1){
 	margin-left: 0.42rem;
+}
+
+.margin_top2{
+	color: #666666;
+	font-size: 0.28rem;
 }

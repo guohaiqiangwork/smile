@@ -12,7 +12,12 @@ http://192.168.1.8
 http://service.bjxrkj.com
 */
 
-window.requserUrl = 'http://service.bjxrkj.com'; //接口请求地址 http://192.168.3.5:8087/app 
+window.requserUrl = 'http://111.231.90.86:8080'; //测试环境 
+window.requserUrlShard = 'http://111.231.90.86:6060'; //分享测试
+
+
+// window.requserUrl = 'http://service.bjxrkj.com'; //正式环境
+// window.requserUrlShard = 'http://www.bjxrkj.com'; //正式测试
 /**
  * 正常登录获取验证码
  */

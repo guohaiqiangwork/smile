@@ -632,9 +632,9 @@ function shareMessage(share, ex, shareJson, shareKeyword, lineEndId) {
 		}
 	};
 	if (lineEndId && lineEndId[0] != 'lineEnd') {
-		msg.href = "http://www.bjxrkj.com/share" + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
+		msg.href = requserUrlShard + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
 	} else {
-		msg.href = "http://www.bjxrkj.com/share" + "/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
+		msg.href = requserUrlShard + "/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
 			""; //分享地址
 	}
 	msg.title = shareTitle;

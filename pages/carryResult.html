@@ -146,7 +146,8 @@
 			}
 			// 去首页
 			$('.btn_bottom').on('tap', function() {
-			plus.webview.getWebviewById('HBuilder').reload()
+				toIndex(0);
+			// plus.webview.getWebviewById('HBuilder').reload()
 				// mui.fire(plus.webview.getWebviewById('personalCenter'), "refreshMajorGuestCount", {
 
 				// });

@@ -32,16 +32,23 @@
 	text-align: center;
 }
 .product_moudel {
-	width: 7.1rem;
-	box-shadow: 0px 0px 1px 1px #CBCBCB;
-	margin-left: .2rem;
-	margin-top: .3rem;
-	height: 4rem;
-	border-radius: .2rem;
+    width: 7.1rem;
+    box-shadow: 1px 1px 1px #CBCBCB;
+    margin-left: .2rem;
+    margin-top: .3rem;
+    height: 4rem;
+    border-radius: .2rem;
+    background-color: #FFFFFF;
 }
 .product_moudel_border{
-	border-bottom: 1px solid #F0F0F0;
+	-border-bottom: 1px solid #F0F0F0;
 }
+.fgxClass{
+	border-bottom: 1px solid #F0F0F0;
+	width: 90%;
+	margin-left: 5%;
+}
+
 .product_border {
 	border-bottom: 1px solid #E9E9E9;
 	padding-bottom: .17rem;
@@ -82,14 +89,15 @@
 }
 
 .product_number {
-	width: .47rem;
-	height: .24rem;
+	width: .4rem;
+	height: .21rem;
 	border-radius: .2rem;
-	border: 1px solid #F42300;
-	color: #F42300;
+	border: 0px solid #FF5882;
+	background: linear-gradient(to right, #FF342D, #FF5882);
+	color: #FFFFFF;
 	font-size: .2rem;
 	text-align: center;
-	line-height: 1;
+	line-height: 0.25rem;
 	position: absolute;
 	margin-left: 1.2rem;
 	margin-top: .2rem;

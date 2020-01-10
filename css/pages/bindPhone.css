@@ -2,7 +2,8 @@
 	display: flex;
 	align-items: center;
 	padding: 0.18rem 0;
-	margin: 0 0.54rem;
+	-margin: 0 auto;
+	margin-left: 0.3rem;
 }
 
 .ipt-style input {
@@ -10,6 +11,7 @@
 	color: #BDBDBD;
 	border: none;
 	margin: 0;
+	width: 4rem;
 }
 
 .bind_btn {
@@ -33,16 +35,58 @@
 }
 
 .bindPhone_phone {
-	border-bottom: 1px solid #707070;
+	border-bottom: 1px solid #919190;
 	width: 80%;
-	margin-top: 1.2rem;
+	margin-top: 1.5rem;
 }
 
 .bindPhone_code {
-	border-bottom: 1px solid #707070;
+	border-bottom: 1px solid #919190;
 	width: 80%;
-	margin-top: .7rem;
+	-margin-top: .7rem;
 }
 .bindPhone_I{
 	width: .24rem;height: .35rem;
+}
+
+/* ------------------新版绑定手机号------------- */
+#login .returnKey {
+    width: 0.5rem;
+    height: 0.5rem;
+    position: fixed;
+    left: 0.6rem;
+    top: .5rem;
+    border-radius: 0;
+    background: 0;
+    font-size: 0;
+}
+
+#login {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: url("../../image/loginbg.png") top center no-repeat #F6F7F4;
+	background-size: 110% 100%;
+	background-attachment: fixed;
+	-text-align: center;
+}
+
+.bindPhone_phone img,
+.bindPhone_code img{
+	width: 0.3rem;
+	height: 0.43rem;
+	float: left;
+	margin-top: 0.2rem;
+}
+
+.bindPhone_phone input,
+.bindPhone_code input{
+	color: #FFFFFF;
+	font-size: 0.36rem;
+	position: relative;
+	bottom: 1px;
+	background: rgba(0, 0, 0, 0);
+	margin-top: 0.2rem;
 }

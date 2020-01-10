@@ -81,6 +81,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 灰色分割线条 -->
+		<div style="background-color: #fafafa; height: 0.2rem;width: 100%;"></div>
 
 		<!-- 新品发现 -->
 		<div>
@@ -104,11 +107,17 @@
 
 		</div>
 
+		<!-- 灰色分割线条 -->
+		<div style="background-color: #fafafa; height: 0.2rem;width: 100%;"></div>
+		
+		
 		<!-- 广告 -->
 		<div class="guangg">
 			<!-- <img id="imgPara" /> -->
 		</div>
-
+		
+		<!-- 灰色分割线条 -->
+		<div style="background-color: #fafafa; height: 0.2rem;width: 100%;"></div>
 
 		<!-- - 热门- -->
 		<div id="bottomAllList" style="background-color: #FCFCFC;">
@@ -192,6 +201,7 @@
 					//alert("222")
 					getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
 						if (data.code == 401 || data.code == 1500) {
+							//alert("44")
 							var loginSign = true;
 							mui.openWindow({
 								url: "../login.html",

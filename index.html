@@ -11,6 +11,7 @@
 		<style>
 			body {
 				background: white;
+				line-height: 18px;
 			}
 			
 			.mui-bar-tab .mui-tab-item.mui-active {
@@ -133,9 +134,9 @@
 					}, 100)
 
 					s.play(function() { //播放完成回调
-						alert("播放成功");
+						console.log("播放成功");
 					}, function(e) { //失败回调
-						alert("播放失败: " + e.message);
+						console.log("播放失败: " + e.message);
 					});
 				};
 
@@ -196,6 +197,7 @@
 					if (targetTab) {
 						getUserDetail(mui, plus.storage.getItem('memberId'), function(data) {
 							if (data.code == 401 || data.code == 1500) {
+								//alert("11");
 								var loginSign = true;
 								mui.openWindow({
 									url: "login.html",
