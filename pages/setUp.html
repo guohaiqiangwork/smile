@@ -11,6 +11,12 @@
 		<link rel="stylesheet" href="../css/common.css">
 		<link rel="stylesheet" href="../css/mobileReset.css">
 		<link rel="stylesheet" type="text/css" href="../css/pages/mySetting.css" />
+		<style type="text/css">
+			/* .mui-switch.mui-active {
+				border-color: #F42300;
+				background-color: #F42300;
+			} */
+		</style>
 		<script src="../js/rem_reset.js"></script>
 	</head>
 	<body onselectstart="return false;">
@@ -23,6 +29,12 @@
 				<ul>
 					<li class="settingPassword" href="../pages/pSetting.html" data-id='pSetting'><span>个人资料设置</span><i class="fa fa-angle-right"></i></li>
 					<li class="settingPassword" href="../pages/cashPassword.html" data-id='cashPassword'><span>提现密码</span><i class="fa fa-angle-right"></i></li>
+					<li class="switch" style="display: flex;">
+						<div style="width: 86%;">提示音</div>
+						<div class="mui-switch mui-switch-mini margin_top2" id="mySwitch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
 					<li class="settingDelete"><span>清理缓存</span><i class="fa fa-angle-right"></i></li>
 					<li id="service" data-id='aboutUs'><span>联系客服</span><i class="fa fa-angle-right"></i></li>
 					<li class="settingPassword" href="../pages/aboutUs.html" data-id='aboutUs'><span>关于我们</span><i class="fa fa-angle-right"></i></li>
@@ -76,7 +88,22 @@
 						}
 					});
 				});
-
+				// 是否关闭推送播放
+				var whetherPush = plus.storage.getItem('whetherPush');
+				if (whetherPush) {
+					$(".mui-switch").addClass("mui-active") //默认打开
+				} else {
+					$(".mui-switch").removeClass("mui-active");//默认关闭
+				}
+				document.getElementById("mySwitch").addEventListener("toggle", function(event) {
+					if (event.detail.isActive) {
+						console.log("你启动了开关");
+						plus.storage.setItem('whetherPush', true);
+					} else {
+						console.log("你关闭了开关");
+						plus.storage.setItem('whetherPush', false);
+					}
+				})
 				/* 联系客户 */
 				$("#service").on("tap", function() {
 					var phone = "18048334993";
@@ -84,7 +111,7 @@
 						var btnArray = ['拨打', '取消'];
 						var phone = "18048334993";
 						mui.confirm(phone, '提示', btnArray, function(e) {
-							if(e.index == 0){
+							if (e.index == 0) {
 								/* var Intent = plus.android.importClass("android.content.Intent");
 								var Uri = plus.android.importClass("android.net.Uri");
 								var main = plus.android.runtimeMainActivity();
@@ -92,9 +119,9 @@
 								var call = new Intent("android.intent.action.CALL", uri);
 								main.startActivity(call); */
 								//window.location.href = 'tel:123456789';
-								plus.device.dial(phone,false);
+								plus.device.dial(phone, false);
 							}
-							
+
 						});
 					} else {
 						var UIAPP = plus.ios.importClass("UIApplication");
@@ -112,32 +139,32 @@
 					var urlId = $(this).attr("data-id");
 					// 获取路径
 					var urlRout = this.getAttribute('href');
-				/* 	if (urlRout == "../pages/cashPassword.html") {
-						//判断是否有提现密码
-						isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
-							//console.log("判断是否有提现密码==" + JSON.stringify(data))
-							if (data.code == 500) {
-								$$.openWindow({
-									url: 'setPassword.html',
-									id: 'setPassword',
-									show: {
-										aniShow: "slide-in-right"
-									}
-								});
-							}
-						});
-					} else { */
-						if (urlRout && urlId) {
-							$$.openWindow({
-								url: urlRout,
-								id: urlId,
-								show: {
-									aniShow: "slide-in-right"
+					/* 	if (urlRout == "../pages/cashPassword.html") {
+							//判断是否有提现密码
+							isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
+								//console.log("判断是否有提现密码==" + JSON.stringify(data))
+								if (data.code == 500) {
+									$$.openWindow({
+										url: 'setPassword.html',
+										id: 'setPassword',
+										show: {
+											aniShow: "slide-in-right"
+										}
+									});
 								}
 							});
-						} else {
-							console.log('缺少页面路径')
-						}
+						} else { */
+					if (urlRout && urlId) {
+						$$.openWindow({
+							url: urlRout,
+							id: urlId,
+							show: {
+								aniShow: "slide-in-right"
+							}
+						});
+					} else {
+						console.log('缺少页面路径')
+					}
 					//}
 				});
 
