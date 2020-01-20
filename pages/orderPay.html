@@ -24,13 +24,13 @@
 			<span style="margin-right: 0.4rem;">支付订单</span>
 		</header>
 		<div class="content">
-			<div class="orderpay_time">
+			<div class="orderpay_time" style="font-family: sans-serif;">
 
 			</div>
 
 
 			<div class="orderpay_money font_color33">
-				需支付：<span style="color: #F42300;">¥</span> <span class="font_colorf4"></span><br />
+				需支付：<span style="color: #F42300;font-family: sans-serif;">¥</span> <span class="font_colorf4"></span><br />
 			</div>
 
 
@@ -86,9 +86,9 @@
 				<div id="password_div" style="height: 1rem;width: 1rem;float: left;">
 					<img src="../image/close.png" alt="" class="mui-popover-close" style="width: 0.37rem;height: 0.37rem;">
 				</div>
-				<p class="title">请输入支付密码</p>
+				<p class="title">请输入密码</p>
 				<p class="type">需支付</p>
-				<p class="number"></p>
+				<p class="number" style="font-family: sans-serif;"></p>
 				<div class="table">
 					<div><span class="blackpwd"></span></div>
 					<div><span class="blackpwd"></span></div>
@@ -133,11 +133,9 @@
 				});
 				_self = plus.webview.currentWebview();
 
-				$(".mui-table-view-radio").focus(function() {
-					document.activeElement.blur();
-				});
-
-				$(".font_colorf4").text(_self.payMoney);
+				$(".font_colorf4").text( _self.payMoney);
+				//alert("我是order接收="+ _self.orderNo);
+				//console.log("我是orderNo接收="+ _self.orderNo)
 				plus.storage.setItem("orderNo", _self.orderNo);
 				orderNo = _self.orderNo || "";
 				orderId = _self.orderId || "";
@@ -155,7 +153,10 @@
 							aniShow: "slide-in-right"
 						}
 					});
-
+					setTimeout(function(){
+					    mui.currentWebview.close(); 
+					},200);
+					
 					//给订单页面[发送监听事件
 					/* setInterval(function(){
 						var list = plus.webview.getWebviewById('myOrder');
@@ -193,14 +194,14 @@
 							password: val,
 						};
 						passwordCheck(mui, dataBaseTwo, function(data) {
+							//console.log("请求成功回调=="+ JSON.stringify(data));
 							if (data.code == 200) {
-								//console.log("请求成功回调=="+ JSON.stringify(data));
 								mui('#pay').popover('hide');
 								$('.goPayment').css("display", "block");
 								//成功后调支付接口
 								var dataBase = {
 									memberId: plus.storage.getItem('memberId'),
-									orderId: "",
+									orderId: _self.orderId || "",
 									orderNo: plus.storage.getItem("orderNo"),
 								};
 								un_webPay(mui, dataBase, function(data) {
@@ -214,18 +215,23 @@
 											extras: {
 												payParams: "成功",
 											},
+											createNew:true,
 											show: {
 												aniShow: "slide-in-right"
 											}
 										});
+										setTimeout(function(){
+										    mui.currentWebview.close(); 
+										},200);
 									} else {
 										$('.zfinput').val("");
 										//tipShow(data.message);
 									}
 								});
 							} else {
+								//alert(data.message);
+								tipShow(data.message);
 								$('.zfinput').val("");
-								//tipShow(data.message);
 							}
 						});
 					}
@@ -337,6 +343,7 @@
 				 *  cberror: 支付失败回调
 				 */
 				beecloud.payReq(payData, function(result) {
+					//alert("支付参数11")
 					/* 成功 */
 					$$.openWindow({
 						url: 'payResult.html',
@@ -344,11 +351,13 @@
 						extras: {
 							payParams: "成功",
 						},
+						createNew:true,
 						show: {
 							aniShow: "slide-in-right"
 						}
 					});
 				}, function(e) {
+					//alert("支付参数22")
 					console.log(JSON.stringify(e))
 					/* 失败 */
 					$$.openWindow({
@@ -357,6 +366,7 @@
 						extras: {
 							payParams: "失败",
 						},
+						createNew:true,
 						show: {
 							aniShow: "slide-in-right"
 						}

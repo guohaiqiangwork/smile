@@ -26,6 +26,7 @@
 	padding-right: .1rem;
 	background-color: #CCCCCC;
 	color: #FFFFFF;
+	font-size: 0.25rem;
 }
 
 .messageCount_divThree p{
@@ -47,7 +48,7 @@
 	/* 投影 */
 	-moz-box-shadow: 0px 1px 10px #000000;
 	-webkit-box-shadow: 0px 1px 10px #000000;
-	box-shadow: 1px 1px 4px #000000;
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 #messageCount div:nth-child(2) div{
@@ -102,7 +103,7 @@
 	border-radius: 2px;
 	
 	/* 投影 */
-	box-shadow: 1px 1px 4px #000000;
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 #messageDetailseCount ul{
@@ -144,4 +145,11 @@
 	border-bottom: 1px solid #EEEEEE;
 	width: 85%;
 	height: 0.2rem;
+}
+
+.newpage_cls{
+	width: 0.2735rem;
+	margin-right: 0.1rem;
+	position: relative;
+	top: 0.01rem;
 }

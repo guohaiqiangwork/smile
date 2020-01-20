@@ -57,10 +57,10 @@
 					</div>
 				</div>
 				<div class="orderChange_moudel_btn div_display">
-					<div class="moudel-close">
+					<div class="moudel-close" style="line-height: 0.67rem;">
 						取消
 					</div>
-					<div class="font_colorff div_backgroun_jb" style="border: none;">
+					<div class="font_colorff div_backgroun_jb" style="border: none;line-height: 0.67rem;">
 						确定
 					</div>
 				</div>
@@ -208,7 +208,7 @@
 				
 			}
 			$('#goIndex').on("tap", function() {
-				alert("9879")
+				console.log("9879")
 			})
 
 
@@ -216,7 +216,8 @@
 				//alert("999");
 				getMyOrder(mui, keywords, function(data) {
 					//console.log("111="+ JSON.stringify(keywords));
-					console.log("222="+ JSON.stringify(data));
+					 //console.log("222="+ JSON.stringify(data));
+					 
 					if (data.code == 200) {
 						if (keywords.pageNum == 1 && data.data.records.length == 0) {
 							$('.nothing').css('display', 'block')
@@ -227,21 +228,22 @@
 						var fragmentplanListnihao = document.createDocumentFragment();
 			
 						$.each(data.data.records, function(items) {
+							//console.log("333="+ data.data.records[items].orderNo); 
 							// 多个
 							if (data.data.records[items].itemList.length > 1) {
 								var orderLiTwo =
 									'<div class="product_moudel" id="bodyList" >' +
 									'<div class="div_display product_moudel_border">' +
-									'<div class="width50 div_display">' +
-									'<div class=" product_moudel_title">' +
+									'<div class="width70 div_display">' +
+									'<div class=" product_moudel_title" style="width:1.2rem">' +
 									'<img src="' + data.data.records[items].mchLogo +
 										'"  style="width: .8rem;height:.6rem">' +
 									'</div>' +
-									'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
-									 data.data.records[items].mchName + 
+									'<div class="font_colorc1 font_size28 margin_top3" style="padding-left:.2rem; white-space:nowrap;text-overflow:ellipsis;word-break:break-all;overflow:hidden;">' +
+									  data.data.records[items].mchName + 
 									'</div>' +
 									'</div>' +
-									'<div class="width50 div_display" style="padding-left: 2rem;">' +
+									'<div class="width30 div_display" style="padding-left: .2rem;">' +
 									'<div class=" font_size28 font_color33 margin_top3 font_colorf4">' +
 									(data.data.records[items].status == 1 ? "待付款" : data.data.records[items].status == 2 ? "待发货" : data.data.records[
 										items].status == 3 ? "待收货" : "") +
@@ -299,7 +301,7 @@
 										data.data.records[items].orderId + '">' +
 										'取消支付' +
 										'</div>' +
-										'<div class="order_btn_f4" data-money="' + data.data.records[items].totalPrice + '" data-id="' + data.data
+										'<div class="order_btn_f4" data-orderNo="' + data.data.records[items].orderNo + '"  data-money="' + data.data.records[items].totalPrice + '" data-id="' + data.data
 										.records[items].orderId + '" data-createTime="' + data.data.records[items].closeTime + '">' +
 										'去支付' +
 										'</div>';
@@ -330,16 +332,16 @@
 									var orderLiTwo =
 										'<div class="product_moudel">' +
 										'<div class="div_display product_moudel_border">' +
-										'<div class="width50 div_display">' +
-										'<div class=" product_moudel_title">' +
+										'<div class="width70 div_display">' +
+										'<div class=" product_moudel_title" style="width:1.2rem">' +
 										'<img src="' + data.data.records[items].mchLogo +
 											'"  style="width: .8rem;height:.6rem">' +
 										'</div>' +
-										'<div class="font_colorc1 font_size28 margin_top3" style="margin-left: .2rem;">' +
-										  data.data.records[items].mchName+
+										'<div class="font_colorc1 font_size28 margin_top3" style="padding-left:.2rem; white-space:nowrap;text-overflow:ellipsis;word-break:break-all;overflow:hidden;">' +
+										  data.data.records[items].mchName + 
 										'</div>' +
 										'</div>' +
-										'<div class="width50 div_display" style="padding-left: 2rem;">' +
+										'<div class="width30 div_display" style="padding-left: .2rem;">' +
 										'<div class=" font_size28 font_color33 margin_top3 font_colorf4" >' +
 										(data.data.records[items].status == 1 ? "待付款" : data.data.records[items].status == 2 ? "待发货" : data.data.records[
 											items].status == 3 ? "待收货" : "") +
@@ -352,6 +354,7 @@
 										'</div>' +
 										'</div>' +
 										'</div>' +
+										'<div class="fgxClass"></div>' +
 										'<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">' +
 										'<div class="div_display" id="bodyList">' +
 										'<div class="product_imgList_leftd">' +
@@ -372,7 +375,7 @@
 										'</div>' +
 										'</div>' +
 										'<div class="product_rightd_number font_size28 font_color99">' +
-										"*" + data.data.records[items].itemList[0].num +
+										"X" + data.data.records[items].itemList[0].num +
 										'</div>' +
 										'</div>' +
 										'</div>' +
@@ -400,7 +403,7 @@
 										data.data.records[items].orderId + '">' +
 										'取消支付' +
 										'</div>' +
-										'<div class="order_btn_f4" style="margin-top:2%" data-money="' + data.data.records[items].totalPrice + '" data-id="' + data.data
+										'<div class="order_btn_f4" data-orderNo="' + data.data.records[items].orderNo + '" style="margin-top:2%" data-money="' + data.data.records[items].totalPrice + '" data-id="' + data.data
 										.records[items].orderId + '" data-createTime="' + data.data.records[items].closeTime + '">' +
 										'去支付' +
 										'</div>';
@@ -458,7 +461,6 @@
 					orderId: deleOrderId
 				}
 				getDelete(mui, keywords, function(data) {
-					alert(JSON.stringify(data))
 					if (data.code == 200) {
 						tipShow('删除成功')
 						plus.webview.currentWebview().reload(true);
@@ -537,7 +539,16 @@
 						}
 					});
 				} else if ($(this).attr("data-type") == 'logistics') {
-					alert('物流')
+					$$.openWindow({
+						url: 'orderLogistics.html',
+						id: 'orderLogistics',
+						extras: {
+							orderId: $(this).attr("data-id"),
+						},
+						show: {
+							aniShow: "slide-in-right"
+						}
+					});
 				} else if ($(this).attr("data-type") == 'harvest') {
 					// 确认收货
 					getConfirmReceipt(mui, keyword, function(data) {
@@ -554,18 +565,21 @@
 			});
 			// 去支付
 			$("#productList").on("tap", ".order_btn_f4", function(){
+				//alert("333");
 				var keyword = {
 					orderId: $(this).attr("data-id")
 				}
-				console.log("orderId="+ $(this).attr("data-id"));
+				console.log("orderNo111="+ $(this).attr("data-orderNo"));
 				$$.openWindow({
 					url: '../pages/orderPay.html',
 					id: 'orderPay',
 					extras: {
 						payMoney: $(this).attr("data-money"),
 						orderId: $(this).attr("data-id"),
-						createTime:$(this).attr("data-createTime")
+						orderNo: $(this).attr("data-orderNo"),
+						createTime:$(this).attr("data-createTime"),
 					},
+					createNew:true,
 					show: {
 						aniShow: "slide-in-right"
 					}

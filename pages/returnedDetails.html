@@ -113,7 +113,7 @@
 					</div>
 				</div>
 				<div class="" id="list">
-					<div class="div_display detail_list_model">
+					<!-- <div class="div_display detail_list_model">
 						<div class="div_display returned_left">
 							<div class="padding_left2 r_d_check">
 								<div class="mui-checkbox">
@@ -143,7 +143,7 @@
 							</div>
 						</div>
 					</div>
-
+ -->
 				</div>
 
 				<!-- 金额 -->
@@ -370,6 +370,10 @@
 								doc.getElementById('Reason').innerText = '未收到货'
 								refundData.retReason = '未收到货'
 								$('#showUserPickerReason').css('display', 'none')
+								$('#showUserPicker').css('display', 'none')
+							}else if(data.data.records[0].attest == 2){
+								doc.getElementById('service').innerText = '换货 '
+								refundData.applyServer = '2'
 								$('#showUserPicker').css('display', 'none')
 							}
 						}

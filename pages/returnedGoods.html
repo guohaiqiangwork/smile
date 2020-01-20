@@ -336,7 +336,7 @@
 										'</div>' +
 										'</div>' +
 										'<div class="product_rightd_number font_size28 font_color99">' +
-										"*" + data.data.records[items].itemList[0].num +
+										"X " + data.data.records[items].itemList[0].num +
 										'</div>' +
 										'</div>' +
 										'</div>' +
@@ -455,13 +455,14 @@
 									});
 									// 判断是否展示物流单号
 									if (data.data.records[items].retStatus == 2) {
-										if (data.data.records[items].retNo) {
+						
+										if (data.data.records[items].logisticsCode) {
 											var btnTwo =
 												'<div class="font_color99 font_size24" style="margin-left:3.3rem;margin-top:.3rem">' +
-												"物流单号：" + data.data.records[items].retNo + '</div>';
+												"物流单号：" + data.data.records[items].logisticsCode + '</div>';
 										} else {
 											var btnTwo =
-												'<div class="return_btn" id="logistics" style="margin-left: 5rem;width:1.8rem;padding-top:.03rem" data-type="againBuy" data-id="' +
+												'<div class="return_btn" id="logistics" style="margin-left: 5rem;width:1.8rem;padding-top:.03rem;margin-top:.2rem" data-type="againBuy" data-id="' +
 												data.data.records[items].id + '">填写物流单号</div>' +
 												'</div>';
 										}

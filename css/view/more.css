@@ -80,9 +80,9 @@ body{
 	top: .2rem;
 }
 
-.soldOutThree{
+.soldOutThree2{
 	position: absolute;
-	top: 0.5rem;
+	
 }
 
 .header_title_rightI {
@@ -90,4 +90,41 @@ body{
 	top: 0.1rem;
 	width: .39rem;
 	height: .39rem;
+}
+
+/* 缺省页 */
+#classDefaultId_one img{
+	width: 2.2rem;
+	margin-top: 0.62rem;
+}
+#classDefaultId_one{
+	text-align: center;
+}
+#classDefaultId{
+	text-align: center;
+}
+
+#classDefaultId_two div{
+	font-size: 0.3rem;
+	color: #CCCCCC;
+}
+
+#classDefaultId_two div:nth-child(1){
+	margin-top: 0.68rem;
+}
+
+#classDefaultId_two div:nth-child(2){
+	margin-top: 0.1rem;
+}
+
+.classpay_go_index{
+	width: 5.8rem;
+	height: .8rem;
+	border-radius: .4rem;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: .28rem;
+	line-height: 3;
+	margin-left: .9rem;
+	margin-top: .9rem;
 }

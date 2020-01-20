@@ -223,8 +223,9 @@
 
 ._Bone_number {
 	font-size: .34rem;
-	float: left;
-	margin-left: 1.4rem;
+	-float: left;
+	float: right;
+	margin-right: .4rem;
 }
 
 ._Bone_name {

@@ -131,6 +131,7 @@
 				<div class="bottom_btn " id="addBankCard">
 					<span>添加银行卡</span>
 				</div>
+				
 				<!-- 删除提示 -->
 				<div id="orderChange" style="display: none;" class="order_change_model">
 					<div class="orderChange_moudel">
@@ -150,6 +151,7 @@
 				</div>
 
 			</div>
+			
 			<!-- 空白 -->
 			<div class="default" id="realNameONe" style="display: none;">
 				<div class="default_img">
@@ -269,33 +271,41 @@
 									console.log(JSON.stringify(data.data[index]))
 									switch (data.data[index].bankCode) {
 										case 'ICBC':
-											data.data[index].bankBColor = 'bank_bgColor_zgp'
-											data.data[index].imgUrl = '../image/bank/gsy.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_zgp'
+												data.data[index].imgUrl = '../image/bank/gsy.png';
+												break;
 										case 'ABC':
-											data.data[index].bankBColor = 'bank_bgColor_ny'
-											data.data[index].imgUrl = '../image/bank/nyy.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_ny'
+												data.data[index].imgUrl = '../image/bank/nyy.png';
+												break;
 										case 'CCB':
-											data.data[index].bankBColor = 'bank_bgColor_jj'
-											data.data[index].imgUrl = '../image/bank/jsy.png';
-											break;
-										case 'BC':
-											data.data[index].bankBColor = 'bank_bgColor_zgp'
-											data.data[index].imgUrl = '../image/bank/zgy.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_jj'
+												data.data[index].imgUrl = '../image/bank/jsy.png';
+												break;
+										case 'BOC':
+												data.data[index].bankBColor = 'bank_bgColor_zgp'
+												data.data[index].imgUrl = '../image/bank/zgy.png';
+												break;
 										case 'COMM':
-											data.data[index].bankBColor = 'bank_bgColor_jj'
-											data.data[index].imgUrl = '../image/bank/jty.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_jj'
+												data.data[index].imgUrl = '../image/bank/jty.png';
+												break;
+										case 'PSBC':
+												data.data[index].bankBColor = 'bank_bgColor_ny'
+												data.data[index].imgUrl = '../image/bank/yzy.png';
+												break;
 										case 'SPDB':
-											data.data[index].bankBColor = 'bank_bgColor_zgp'
-											data.data[index].imgUrl = '../image/bank/qty.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_zgp'
+												data.data[index].imgUrl = '../image/bank/qty.png';
+												break;
+										case 'CMB':
+												data.data[index].bankBColor = 'bank_bgColor_zgp'
+												data.data[index].imgUrl = '../image/bank/zsy.png';
+												break;
 										default:
-											data.data[index].bankBColor = 'bank_bgColor_zgp'
-											data.data[index].imgUrl = '../image/bank/qty.png';
-											break;
+												data.data[index].bankBColor = 'bank_bgColor_zgp'
+												data.data[index].imgUrl = '../image/bank/qty.png';
+												break;
 									}
 
 									var orderLi =
@@ -310,7 +320,7 @@
 										'<div class="_Bone_name">' +
 										data.data[index].bankName +
 										'</div>' +
-										'<div class="_Bone_number" style="font-family: inherit;">' +
+										'<div class="_Bone_number" style="font-family: sans-serif;">' +
 										bankCard +
 										'</div>' +
 										'</div>' +
@@ -329,6 +339,7 @@
 									$(fragmentplanList).append(orderLi);
 								});
 								$("#bankCard").append($(fragmentplanList));
+								$("#bankCard").append("<div style='height: 70px;width: 1rem;float: left;'></div>");
 								$('#bankCard').css('display', 'block');
 								$('#myBank').css('display', 'block');
 								$('#untying').css('display', 'block');
@@ -336,8 +347,8 @@
 							} else {
 								$('#realNameONe').css('display', 'block');
 								// $('#realNameTwo').css('display', 'block')
-								$('#bankCard').css('display', 'none')
-								$('#binBank').css('display', 'block')
+								$('#bankCard').css('display', 'none');
+								$('#binBank').css('display', 'block');
 							}
 						} else {
 							tipShow(data.message)

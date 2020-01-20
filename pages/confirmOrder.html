@@ -43,7 +43,7 @@
 							
 						</div>
 						<div class="product_imgList_right font_size24 font_color33 goToCommoditiesTwo two_divNumList" style="position: relative; top:-100px;left: 83%;">
-							<span id="spanListTotle"></span>
+							<span id="spanListTotle" style="font-family: sans-serif;"></span>
 							<i class="fa fa-angle-right  font_colorcb" style="font-size: .32rem;margin-left: .03rem;"></i>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 						失效商品清单
 					</div>
 					<div class="invalid_product_left goToCommodities">
-						<span id="spanXXshop"></span>
+						<span id="spanXXshop" style="font-family: sans-serif;"></span>
 						<span> <i class="fa fa-angle-right  font_colorcb"></i></span>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 						<div class="width50 money_list_left">
 							商品金额
 						</div>
-						<div class="width50 text_right money_list_right shopMoney">
+						<div class="width50 text_right money_list_right shopMoney" style="font-family: sans-serif;">
 
 						</div>
 					</div>
@@ -85,7 +85,7 @@
 					<!-- 合计 -->
 					<div class="div_display font_size28" style="margin-bottom: 2rem;">
 						<div class="width50"></div>
-						<div class="width50 font_color33 text_right money_list_rightZ Total">
+						<div class="width50 font_color33 text_right money_list_rightZ Total"  style="font-family: sans-serif;">
 					
 						</div>
 					</div>
@@ -115,7 +115,7 @@
 		<!-- 去支付 -->
 		<div class="div_display product_pay" style="background-color: #FFFFFF;">
 			<div class="font_size32 font_color33 product_pay_left">
-				还需支付：<span class="font_size40 font_colorf4 stillMoney"></span>
+				还需支付：<span class="font_size40 font_colorf4 stillMoney" style="font-family: sans-serif;"></span>
 			</div>
 		
 			<div class="product_pay_right">
@@ -374,7 +374,13 @@
 				doc.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
 					if (scroll.y < -100) {
 						$("#address_hint").css("display","block");
-						$("#address_count").html(address);
+						var addressval = "";
+						if(address.length >21){
+							addressval = address.substring(21, 0) + " ...";
+						}else{
+							addressval = address;
+						}
+						$("#address_count").html(addressval);
 					}else{
 						$("#address_hint").css("display","none");
 					}
@@ -413,10 +419,10 @@
 										'</div>' +
 										'<div class="product_imgList_rightd" style="float: left;">' +
 											'<div class="font_size32 font_color33">'+row.goodsName+'</div>' +
-											'<div class="font_size26 font_color99">规格: '+row.skuName+'</div>' +
-											'<div class="font_size26 font_colorf4">¥'+row.price+'</div>' +
+											'<div class="font_size26 font_color99" style="font-family: sans-serif;">规格: '+row.skuName+'</div>' +
+											'<div class="font_size26 font_colorf4" style="font-family: sans-serif;">¥'+row.price+'</div>' +
 										'</div>' +
-										'<div style="float: left;" class="product_rightd_number font_size28 font_color99">X '+row.num+'</div><div style="width: 100%;"></div>';
+										'<div style="float: left;font-family: sans-serif;" class="product_rightd_number font_size28 font_color99">X '+row.num+'</div><div style="width: 100%;"></div>';
 									
 									$(donmentParams).append(cartList);
 								});
@@ -432,11 +438,11 @@
 								for(i=0;i<4;i++){
 									var cartList =
 									 '<div>'+
-											'<div class="product_number">'+cartData[i].num+'</div>'+
+											'<div class="product_number" style="font-family: sans-serif;">'+cartData[i].num+'</div>'+
 											'<div class="product_img_w ">'+
 												'<img src="'+cartData[i].picPath+'" style="width: 100%;height: 100%;">'+
 											'</div>'+
-											'<div class=" img_w_m font_color66 font_size22 ">¥'+cartData[i].price+'</div>'+
+											'<div class=" img_w_m font_color66 font_size22" style="font-family: sans-serif;">¥'+cartData[i].price+'</div>'+
 										'</div>';
 									$(donmentParams).append(cartList);
 								}
@@ -500,13 +506,14 @@
 								orderNo:data.data.orderNo,
 								createTime:data.data.createTime,
 							},
+							createNew:true,
 							show: {
 								aniShow: "slide-in-right"
 							}
 						});
-						setTimeout(function(){  
+						/* setTimeout(function(){  
 						    mui.currentWebview.close();
-						},200)
+						},200) */
 					} else {
 						tipShow(data.message);
 					}
@@ -602,7 +609,10 @@
 								all[i].close();  
 							}  
 						} */ 
-											
+									
+						/* console.log("价格="+data.data.totalPrice);	
+						console.log("orderNo="+data.data.orderNo);	
+						console.log("createTime="+data.data.createTime); */	
 						//去支付页
 						$$.openWindow({
 							url: '../pages/orderPay.html',
@@ -612,13 +622,15 @@
 								orderNo:data.data.orderNo,
 								createTime:data.data.createTime,
 							},
+							createNew:true,
 							show: {
 								aniShow: "slide-in-right"
-							}
+							},
 						});
-						setTimeout(function(){  
+						//plus.webview.getWebviewById("orderPay.html").reload();
+						/* setTimeout(function(){  
 						    mui.currentWebview.close(); 
-						},200);
+						},200); */
 					} else {
 						tipShow(data.message);
 					}

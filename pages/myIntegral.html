@@ -211,7 +211,7 @@
 				/* 判断是否有提现密码 */
 				isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
 					if (data.code != 200) {
-						alert("没有密码");
+						console.log("没有密码");
 						
 						$$.openWindow({
 							url: 'setPassword.html',

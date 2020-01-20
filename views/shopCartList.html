@@ -302,18 +302,18 @@
 					
 				});
 				$checkbox.click(function() {
-					alert($(this).attr("data-price"));
+					console.log($(this).attr("data-price"));
 					$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
 						false);
 				});
 				// mui组件 监听加减
 				mui('.mui-numbox').on('tap', '.mui-numbox-btn-minus', function() {
-					alert($(this).attr("data-price"));
-					alert($(this).attr("data-number"));
+					console.log($(this).attr("data-price"));
+					console.log($(this).attr("data-number"));
 				});
 				mui('.mui-numbox').on('tap', '.mui-numbox-btn-plus', function() {
-					alert("222");
-					alert($(this).attr("data-price"));
+					console.log("222");
+					console.log($(this).attr("data-price"));
 				});
 				
 				/* 购物车数量 加 事件*/

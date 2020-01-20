@@ -75,9 +75,11 @@
 		    var htmlThree = [];
 			var dataBottomLis = data.data;
 			
-			
+			var jj;
 			for(j=0;j<dataBottomLis.length;j++){
+				jj = j+1;
 				htmlThree.push('<div class="mdss" id="mdsc">');
+				htmlThree.push('<div id="'+jj+'" class="target-fix"></div>');
 				htmlThree.push('<span class="hostClass" style="color: #707070;font-size:0.3rem">— '+ dataBottomLis[j].name +' —</span>');
 				htmlThree.push('</div>');
 				htmlThree.push('<div class="guanggTwo">');
@@ -105,11 +107,11 @@
 				//如果是奇数 在最后加个查看更多的图片
 				var num = dataBottomLis[j].goodsList.length;
 				//判断是奇数
-				if(num%2 !=0){
+				//if(num%2 !=0){
 					htmlThree.push('<div class="newShopingIDThree" code_id='+dataBottomLis[j].code+' name_id='+dataBottomLis[j].name+'>');
 					htmlThree.push('<div><img src="../image/selectgd.png"></div>');
 					htmlThree.push('</div>');
-				}
+				//}
 			}
 			
 		    bottomAllList.innerHTML = htmlThree.join('');

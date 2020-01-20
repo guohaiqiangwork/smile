@@ -48,7 +48,7 @@
 
 .cashMoney div:nth-child(1) h4 {
 	color: #FFB126;
-	margin-top: .2rem;
+	/* margin-top: .2rem; */
 }
 
 
@@ -69,7 +69,7 @@
 	color: #FFB839;
 	text-align: center;
 	/* line-height: 2.5; */
-	padding-top: .1rem;
+	padding-top: 4%;
 }
 
 #titleList {

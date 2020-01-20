@@ -31,15 +31,15 @@
 			</div>
 			<!-- 分享 -->
 			<div class="center_share" style="background-color: #FFFFFF;width: 7.5rem;height: 3rem;">
-				<div class="font_size26 font_color33  margin_top2" style="margin-left: 3rem;">
+				<div class="font_size26 font_color33  margin_top2" style="margin-left: 3.31rem;">
 					分享至
 				</div>
 				<div class="div_display">
-					<div class="margin_top5" style="margin-left: 2rem;" id="wxFX">
+					<div class="margin_top5" style="margin-left: 2.2rem;" id="wxFX">
 						<div class="">
 							<img src="../image/wxf.png" style="width: .6rem;height: .6rem;">
 						</div>
-						<div class="font_size24 font_color33" style="margin-left: -.1rem;">
+						<div class="font_size24 font_color33" style="margin-left: -.18rem;font-family: sans-serif;">
 							微信好友
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 						<div class="">
 							<img src="../image/qq.png" style="width: .6rem;height: .6rem;">
 						</div>
-						<div class="font_size24 font_color33" style="font-family: inherit;">
+						<div class="font_size24 font_color33" style="font-family: sans-serif;margin-left: -.1rem;">
 							QQ好友
 						</div>
 					</div>
@@ -107,13 +107,13 @@
 						if (data.code == 200) {
 							console.log(JSON.stringify(data))
 							var orderLiTwo =
-								'<div class="">' +
+								'<div style="height: 6.8rem;">' +
 								'<img src="' + data.data[0].detailsImg + '" class="width_height100">' +
 								'</div>' +
-								'<div class="">' +
+								'<div style="font-size: 18px;margin-left: 0.09rem;">' +
 								data.data[0].detailsTitle +
 								'</div>' +
-								'<div class="">' +
+								'<div style="margin-top: 0.2rem;font-size: 18px;">' +
 								data.data[0].detailsContent +
 								'</div>';
 							$("#imgList").append($(orderLiTwo));
@@ -198,10 +198,10 @@
 						plus.nativeUI.alert('请输入要分享的内容!');
 						return;
 					}
-					msg.title = '快来吧';
+					msg.title = '笑容期待您的加入';
 					msg.thumbs = ['../image/qq.png'];
 					msg.pictures = ['../image/qq.png'];
-					msg.href = 'http://www.baidu.com';
+					msg.href = requserUrlQQ;
 					sqq ? shareShare(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
 				});
 			

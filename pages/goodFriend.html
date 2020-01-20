@@ -117,7 +117,7 @@
 			<div class="btn_height">
 				<div class="div_backgroun_jb bottom_btn font_size26">
 					<span>活动累计已获得奖励</span> 
-					<span class="font_size36" style="color: #FFF184" id="totalPrice">￥</span>
+					<span class="font_size36" style="color: #FFF184;position: relative;top: 0.04rem;" id="totalPrice">￥0.00</span>
 				</div>
 			</div>
 
@@ -290,7 +290,7 @@
 					msg.title = '快来吧';
 					msg.thumbs = ['../image/qq.png'];
 					msg.pictures = ['../image/qq.png'];
-					msg.href = 'http://www.baidu.com';
+					msg.href = requserUrlQQ;
 					sqq ? shareShare(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
 				});
 

@@ -10,14 +10,20 @@
 /* 服务器  ：http://49.232.97.190:8080   
 http://192.168.1.8
 http://service.bjxrkj.com
+
+http://192.168.0.109
+http://111.231.90.86:8080
 */
 
-window.requserUrl = 'http://111.231.90.86:8080'; //测试环境 
-window.requserUrlShard = 'http://111.231.90.86:6060'; //分享测试
+//window.requserUrl = 'http://111.231.90.86:8080'; //测试环境
+//window.requserUrlShard = 'http://111.231.90.86:6060/'; //分享测试
+//window.requserUrlQQ =requserUrlShard + "apk/down/down.html";//qq分享路径
 
 
-// window.requserUrl = 'http://service.bjxrkj.com'; //正式环境
-// window.requserUrlShard = 'http://www.bjxrkj.com'; //正式测试
+window.requserUrl = 'http://service.bjxrkj.com'; //正式环境
+window.requserUrlShard = 'http://www.bjxrkj.com/'; //正式测试
+window.requserUrlQQ =requserUrlShard + "apk/down/down.html";//qq分享路径
+
 /**
  * 正常登录获取验证码
  */
@@ -386,6 +392,8 @@ function getUserList(mui, dataBase, callback) {
 
 /* 修改用户信息 */
 function updateName(mui, dataBase, callback) {
+	//alert("22="+ JSON.stringify(dataBase));
+	//console.log("11="+ JSON.stringify(dataBase));
 	mui.ajax(requserUrl + "/mb/updateMember", {
 		timeout: 20000,
 		type: 'post',
@@ -732,7 +740,7 @@ function selectSortC(mui, code_id, callback) {
 };
 /* 获取商品列表（分类中点击二级分类跳转页面后的商品列表，在这个页搜索页调用这个接口） */
 function getGoodsCondition(mui, dataBase, callback) {
-	console.log("11="+JSON.stringify(dataBase))
+	//console.log("11="+JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/goods/getGoodsCondition", {
 		timeout: 20000,
 		type: 'post',
@@ -1344,6 +1352,7 @@ function getTopList(mui, dataBase, callback) {
 
 // 余额支付
 function un_webPay(mui, dataBase, callback) {
+	console.log("余额支付11="+ JSON.stringify(dataBase));
 	mui.ajax(requserUrl + "/balance/pay", {
 		timeout: 20000,
 		type: 'post',
@@ -1490,7 +1499,6 @@ function getIsLapse(mui, dataBase, callback) {
 };
 //填写物流单号
 function getAddLogistics(mui, dataBase, callback) {
-	alert(JSON.stringify(dataBase))
 	mui.ajax(requserUrl + "/return/mb/addLogistics", {
 		timeout: 20000,
 		type: 'post',
@@ -1500,7 +1508,6 @@ function getAddLogistics(mui, dataBase, callback) {
 			'client': 'APP',
 		},
 		success: function(data) {
-			alert(JSON.stringify(data))
 			if (data.code == 200) {
 				callback && callback(data);
 			} else {
@@ -1679,6 +1686,74 @@ function getVersion(mui, dataBase, callback) {
 				callback && callback(data);
 				tipShow(data.message);
 			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+//修改当前铃声
+function setPhoneRingtone(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/mb/setPhoneRingtone", {
+		timeout: 20000,
+		type: 'post',
+		data: dataBase,
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+				//tipShow(data.message);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+//查询当前铃声状态
+function getPhoneRingtone(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/mb/getPhoneRingtone/" + dataBase, {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			if (data.code == 200) {
+				callback && callback(data);
+			} else {
+				callback && callback(data);
+			}
+		},
+		error: function() {
+			console.log("服务异常，请稍后重试！");
+		}
+	});
+};
+
+
+//验证是否登录
+function isLogin(mui, dataBase, callback) {
+	mui.ajax(requserUrl + "/wx/isLogin", {
+		timeout: 20000,
+		type: 'get',
+		headers: {
+			'Authorization': "Bearer" + " " + plus.storage.getItem('Token'),
+			'client': 'APP',
+		},
+		success: function(data) {
+			console.log("111=" + JSON.stringify(data))
+			callback && callback(data);
 		},
 		error: function() {
 			console.log("服务异常，请稍后重试！");

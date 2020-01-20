@@ -243,6 +243,7 @@ input::-webkit-input-placeholder {
 	/*-webkit-filter: grayscale(100%); */
 	border: solid 1px #ddd;
 	border-radius: 25px;
+	background-size: 62% 50%;
 }
 
 .oauth-area .oauth-btn:active {

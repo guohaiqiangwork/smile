@@ -70,6 +70,9 @@
 					scrollIndicator: 'none'
 				});
 				_self = plus.webview.currentWebview();
+				
+				$("#mySwitch").addClass("mui-active");
+				
 				// 清除缓存
 				$(".settingList .settingDelete").on("tap", function() {
 					plus.cache.calculate(function(size) {
@@ -96,13 +99,31 @@
 					$(".mui-switch").removeClass("mui-active");//默认关闭
 				}
 				document.getElementById("mySwitch").addEventListener("toggle", function(event) {
+					var dataBase = {};
 					if (event.detail.isActive) {
 						console.log("你启动了开关");
 						plus.storage.setItem('whetherPush', true);
+						
+						dataBase = {
+							id:plus.storage.getItem('memberId'),
+							isPhoneRingtone:"1",
+						};
 					} else {
 						console.log("你关闭了开关");
 						plus.storage.setItem('whetherPush', false);
+						dataBase = {
+							id:plus.storage.getItem('memberId'),
+							isPhoneRingtone:"0",
+						};
 					}
+					
+					setPhoneRingtone(mui, dataBase, function(data) {
+					    if (data.code == 200) {  
+							tipShow("修改成功");
+						} else {
+						    tipShow(data.message);
+						}
+					});
 				})
 				/* 联系客户 */
 				$("#service").on("tap", function() {

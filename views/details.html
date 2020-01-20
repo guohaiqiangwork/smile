@@ -148,9 +148,11 @@
 		<div class="bj_model_logistics">
 			<div id="fenxiangId" class="fenxiangCla">
 				<div style="border-bottom: solid 1px #D8D8D8;">
-					<span>分享到</span>
+					<span style="margin-left: 1.2rem;">分享到</span>
 					<!-- <i id="gb_id" class="fa fa-times"></i> -->
-					<img src="../colse.png" id="gb_id" style="width: .26rem;height: .26rem;margin-top: .4rem;">
+					<div id="gb_id" style="width: 0.5rem;height:1rem;float: right;margin-left: 0.2rem;">
+						<img src="../colse.png" style="width: .3rem;height: .3rem;margin-top: .3rem;">
+					</div>
 				</div>
 				<div class="div_display">
 					<div class="margin_top5" style="margin-left: 2rem;" id="wxFX">
@@ -453,7 +455,7 @@
 				/* 点击分享按钮事件 */
 				$("#gb_id").on("tap", function() {
 					$(".bj_model_logistics").css('display', 'none')
-					$(".fenxiangCla").css("display", "none");
+					//$(".fenxiangCla").css("display", "none");
 				})
 				var shares = {};
 				plus.share.getServices(function(s) {
@@ -568,10 +570,7 @@
 				// qq 分享
 				// 分享
 				function share(srv, msg, button) {
-					console.log('第一项' + JSON.stringify(srv));
-					console.log('第ER项' + JSON.stringify(srv));
-					console.log('第san项' + JSON.stringify(srv));
-					tipShow('分享操作：');
+					console.log('分享操作：');
 					if (!srv) {
 						outLine('无效的分享服务！');
 						return;
@@ -579,10 +578,10 @@
 					button && (msg.extra = button.extra);
 					// 发送分享
 					if (srv.authenticated) {
-						tipShow('---已授权---');
+						console.log('---已授权---');
 						doShare(srv, msg);
 					} else {
-						tipShow('---未授权---');
+						console.log('---未授权---');
 						srv.authorize(function() {
 							doShare(srv, msg);
 						}, function(e) {
@@ -592,7 +591,7 @@
 				}
 				// 发送分享
 				function doShare(srv, msg) {
-					tipShow(JSON.stringify(msg));
+					console.log(JSON.stringify(msg));
 					srv.send(msg, function() {
 						tipShow('分享到"' + srv.description + '"成功！');
 					}, function(e) {
@@ -601,9 +600,8 @@
 				}
 
 				$("#qqFX").on("tap", function() {
-					var url = "http://49.232.97.190/share" + "/index.html?shareId=" + shareKeyword.userId + "&prductId=" +
-						shareKeyword.productId +
-						"";
+					
+		
 					sqq = shares['qq'];
 					var msg = {
 						type: 'text'
@@ -612,10 +610,10 @@
 						plus.nativeUI.alert('请输入要分享的内容!');
 						return;
 					}
-					msg.title = '快来吧';
+					msg.title = '微信期待您的加入';
 					msg.thumbs = ['../image/qq.png'];
 					msg.pictures = ['../image/qq.png'];
-					msg.href = url;
+					msg.href = requserUrlQQ;
 					sqq ? share(sqq, msg) : plus.nativeUI.alert('当前环境不支持QQ分享操作!');
 				});
 

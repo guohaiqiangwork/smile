@@ -127,11 +127,19 @@
 			function getApplyRecordList() {
 				getApplyRecord(mui, keywords, function(data) {
 					console.log(JSON.stringify(data))
+					
 					if (data.code == 200) {
 						var fragmentplanListTwo = document.createDocumentFragment();
 						$.each(data.data.records, function(items) {
 							$.each(data.data.records[items].returnItemList, function(item) {
 								// alert(data.data.records[items].returnItemList[item].num)
+								if(data.data.records[items].paymentType ==1){
+									data.data.records[items].paymentType ='微信支付'
+								}else if(data.data.records[items].paymentType == 2){
+									data.data.records[items].paymentType ='支付宝支付'
+								}else if(data.data.records[items].paymentType == 3){
+									data.data.records[items].paymentType ='余额支付'
+								}
 								var detailList =
 									'<div class="model_product_Dup">' +
 									'<div class="margin_left3" style="width: 2rem;">' +
@@ -268,8 +276,7 @@
 									'退款路径:' +
 									'</div>' +
 									'<div class="margin_left2">' +
-									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付" 
-									 : "" +
+									data.data.records[items].paymentType +
 									'</div>' +
 									'</div>';
 								$('.model_product_Ddown').append(stateList);
@@ -299,6 +306,13 @@
 									'</div>' +
 									'<div class="div_display margin_top2">' +
 									'<div class="font_width700">' +
+									'未通过原因:' +
+									'</div>' +
+									'<div class="margin_left2">' +
+									data.data.records[items].remark + '</div>' +
+									'</div>'+
+									'<div class="div_display margin_top2">' +
+									'<div class="font_width700">' +
 									'退款时间:' +
 									'</div>' +
 									'<div class="margin_left2">' +
@@ -308,7 +322,7 @@
 									'<div class="font_width700">' +
 									'退款金额:' +
 									'</div>' +
-									'<div class="margin_left2">¥' +
+									'<div class="margin_left2">' +
 									data.data.records[items].actualAmount + '</div>' +
 									'</div>' +
 									'<div class="div_display margin_top2">' +
@@ -316,8 +330,7 @@
 									'退款路径:' +
 									'</div>' +
 									'<div class="margin_left2">' +
-									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付"
-									 : "" +
+									data.data.records[items].paymentType +
 									'</div>' +
 									'</div>';
 								$('.model_product_Ddown').append(stateList);
@@ -431,8 +444,7 @@
 									'退款路径:' +
 									'</div>' +
 									'<div class="margin_left2">' +
-									data.data.records[items].paymentType == 1 ? "微信支付" : data.data.records[items].paymentType == 2 ? "支付宝支付" : data.data.records[items].paymentType == 3 ? "余额支付"
-									 : "" +
+									data.data.records[items].paymentType +
 									'</div>' +
 									'</div>';
 								$('.model_product_Ddown').append(stateList);

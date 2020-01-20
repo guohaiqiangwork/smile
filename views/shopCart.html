@@ -96,13 +96,13 @@
 				</div>
 				<div class="bootom_price">
 					合计：<span class="bootom_price_font"> ¥ <span class="totalPrice">0.00</span> </span>
-					<div style="color: #999999;font-size: .18rem;margin-left: 1rem;">
+					<div style="color: #999999;font-size: .18rem;margin-left: 1rem;position: relative;top: -0.1rem;">
 						（含运费）
 					</div>
 				</div>
 				<div class="bootom_right">
 					<div class="bootom_right_width">去结算
-						<span class="totalNumF" style="display:none"> <span>（</span><span class="totalNum">0</span> <span>）</span></span>
+						<span class="totalNumF" style="display:none"> <span>（</span><span class="totalNum" style="font-family: sans-serif;">0</span> <span>）</span></span>
 					</div>
 				</div>
 			</div>
@@ -269,7 +269,7 @@
 										'<div class="shopCart_product_title">' +
 										keywordData[i].goodsName +
 										'</div>' +
-										'<div class="shopCart_product_g" style="font-family: inherit;">' +
+										'<div class="shopCart_product_g" style="font-family: sans-serif;">' +
 										keywordData[i].pecificationName +
 										'</div>' +
 										'<div class="shopCart_price">￥' +
@@ -279,12 +279,12 @@
 										'<div class="mui-numbox num-btn" data-numbox-step="1" data-numbox-min="1" data-numbox-max="99" id="box ' +
 										i + '" >' +
 										//"-"按钮，点击可减小当前数值																		
-										'<button id="minusId" class="mui-btn mui-numbox-btn-minus" type="button" data-price=' + keywordData[i].price +
+										'<button style="font-family: sans-serif;" id="minusId" class="mui-btn mui-numbox-btn-minus" type="button" data-price=' + keywordData[i].price +
 										' >-</button>' +
 										'<input onfocus="this.blur();" readonly="readonly" cartData_id=' + keywordData[i].id + ' cartData_pecificationId=' + keywordData[i].pecificationId + ' data-num=' + keywordData[i].num + ' class="mui-numbox-input" type="number" value="' + keywordData[i].num +
 										'" />' +
 										//"+"按钮，点击可增大当前数值
-										'<button id="addId" class="mui-btn mui-numbox-btn-plus" type="button" data-price=' + keywordData[i].price +
+										'<button style="font-family: sans-serif;" id="addId"   class="mui-btn mui-numbox-btn-plus" type="button" data-price=' + keywordData[i].price +
 										'>+</button>' +
 										'</div>' +
 										'</div>' +
@@ -341,7 +341,7 @@
 										'<div class="shopCart_product font_color99 font_size28">' +
 										'<div class="shopCart_product_title">'+keywordDataTwo[index].goodsName +
 										'</div>' +
-										'<div class="shopCart_product_g">'+keywordDataTwo[index].pecificationName +
+										'<div class="shopCart_product_g" style="font-family: sans-serif;">'+keywordDataTwo[index].pecificationName +
 										'</div>' +
 										'<div class="font_size32 font_color33 margin_top2">不好意思，该商品已售罄' +
 										'</div>' +
@@ -620,7 +620,7 @@
 					
 				});
 				$checkbox.click(function() {
-					alert($(this).attr("data-price"));
+					console.log($(this).attr("data-price"));
 					$("#checkboxAll").prop("checked", $checkbox.length == $("input[name='commodity']:checked").length ? true :
 						false);
 				});
@@ -636,7 +636,7 @@
 				
 				/* 购物车数量 加 事件*/
 				$("#shopList").on("tap",".mui-numbox-btn-plus",function(){
-					$("#addId").attr('disabled',true);
+					//$("#minusId").attr('disabled',true); 
 					var num = $(this).parent().children("input");
 					//当前行是否选中
 					var dataParams = $(this).parents(".shopCart_moudel_right").siblings(".shopCart_moudel_left").find("input").attr("data-Params");
@@ -669,7 +669,7 @@
 									$(".totalPrice").text(((totalPrice - 0) + (danPrice - 0)).toFixed(2));
 								}
 							}
-							$("#addId").attr('disabled',false);
+							//$("#minusId").attr('disabled',false);
 						} else {
 							params_one = "0";
 							tipShow(data.message);
@@ -679,7 +679,7 @@
 
 				/* 购物车数量 减 事件*/
 				$("#shopList").on("tap",".mui-numbox-btn-minus",function(){
-					$("#minusId").attr('disabled',true);
+					//$("#minusId").attr('disabled',true);
 					var num = $(this).parent().children("input");
 					var me = this;
 					if (parseInt(num.val()) > 1) {
@@ -712,7 +712,7 @@
 										$(".totalPrice").text(((totalPrice - 0) - Number(danPrice - 0)).toFixed(2));
 									}
 								}
-								$("#minusId").attr('disabled',false);
+								//$("#minusId").attr('disabled',false);
 							} else {
 								tipShow(data.message);
 							}
@@ -753,6 +753,7 @@
 								dataBassJSO: dataBassJSO,
 								cartId:cartId
 							},
+							createNew:true,
 							show: {
 								aniShow: "slide-in-right"
 							}

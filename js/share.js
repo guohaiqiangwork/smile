@@ -12,9 +12,9 @@ function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 			}
 		};
 		if (lineEndId && lineEndId[0] != 'lineEnd') {
-			msg.href = requserUrlShard + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
+			msg.href = requserUrlShard + "apk/down/down.html"; //分享地址
 		} else {
-			msg.href = requserUrlShard + "/web/appShare/goRegister?shareId=" + userId + ""; //分享地址
+			msg.href = requserUrlShard + "apk/down/down.html"; //分享地址
 		}
 		msg.title = shareTitle;
 		msg.content = shareContentReg;
@@ -34,7 +34,7 @@ function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 		// console.log('第一项' + JSON.stringify(srv));
 		// console.log('第ER项' + JSON.stringify(srv));
 		// console.log('第san项' + JSON.stringify(srv));
-		tipShow('分享操作：');
+		// tipShow('分享操作：');
 		if (!srv) {
 			outLine('无效的分享服务！');
 			return;
@@ -42,27 +42,27 @@ function shareMessageShare(share, ex, shareJson, userId, lineEndId) {
 		button && (msg.extra = button.extra);
 		// 发送分享
 		if (srv.authenticated) {
-			tipShow('---已授权---');
+			console.log('---已授权---');
 			doShare(srv, msg);
 		} else {
-			tipShow('---未授权---');
+			console.log('---未授权---');
 			srv.authorize(function() {
 				doShare(srv, msg);
 			}, function(e) {
-				tipShow('认证授权失败：' + JSON.stringify(e));
+				console.log('认证授权失败：' + JSON.stringify(e));
 			});
 		}
 	}
 	// 发送分享
 	function doShare(srv, msg) {
-		tipShow(JSON.stringify(msg));
+		console.log(JSON.stringify(msg));
 		srv.send(msg, function() {
-			tipShow('分享到"' + srv.description + '"成功！');
+			console.log('分享到"' + srv.description + '"成功！');
 			mui.fire(plus.webview.getWebviewById("index.html"));
 			setTimeout(function() {
 				toCurrentPage();
 			}, 5000);
 		}, function(e) {
-			tipShow('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
+			console.log('分享到"' + srv.description + '"失败: ' + JSON.stringify(e));
 		});
 	}

@@ -30,8 +30,8 @@
         }
 
         #notNetBox .netImg {
-            width: 1.9rem;
-            height: 2.0rem;
+            width: 2.2rem;
+            height: 2.2rem;
             margin: 3rem auto 0rem;
         }
 
@@ -39,30 +39,51 @@
             width: 100%;
             height: 100%;
         }
+		
+		#notNetBox div:nth-child(2){
+			margin-top: 0.4rem;
+		}
+		
+		#notNetBox div:nth-child(2),
+		#notNetBox div:nth-child(3){
+			font-size: 0.26rem;
+		}
 
-        #notNetBox span {
+       /* #notNetBox span {
             display: block;
             font-size: .3rem;
             color: #999999;
             margin-top: 1rem;
-        }
+        } */
 
+		/* 按钮 */
         #notNetBox .againNet {
-            width: 2.0rem;
+           /* width: 2.0rem;
             height: .7rem;
             line-height: .7rem;
             background-color: #008BD5;
             color: #fff;
             margin-top: 0.35rem;
-            font-size: .28rem;
+            font-size: .28rem; */
+			width: 5.7rem;
+			height: .82rem;
+			border-radius: .4rem;
+			text-align: center;
+			font-size: .28rem;
+			color: #FFFFFF;
+			margin-left: .3rem;
+			line-height: 3;
+			background: linear-gradient(to right, #FF342D, #FF5882);
+			margin-top: .5rem;
         }
     </style>
 </head>
 
 <body>
     <div id="notNetBox">
-        <div class="netImg"><img src="../img/notNet.png"></div>
-        <span>无网络</span>
+        <div class="netImg"><img src="../image/default/noWif.png"></div>
+        <div>无网络</div>
+		<div>请检查您的网络设置~</div>
         <button class="againNet">重新加载</button>
     </div>
 </body>

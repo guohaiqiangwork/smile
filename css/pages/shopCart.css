@@ -52,7 +52,9 @@
 	font-size: .26rem;
 	color: #F42300;
 	margin-top: .34rem;
-	font-weight: 800;
+	-font-weight: 500;
+	font-family: sans-serif;
+	-font-family: ;
 }
 
 .shopCart_number {
@@ -105,6 +107,7 @@
 .bootom_price_font {
 	font-size: .32rem;
 	color: #F42300;
+	font-family: sans-serif;
 }
 
 .bootom_right {
@@ -217,16 +220,20 @@
 
 /* 数量按钮 */
 .mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn] {
-	    background-color:transparent;
+	    -background-color:transparent;
 		/* 按钮颜色 */
 		color: #333333;
 		/* 按钮大小 */
 		font-size: 0.5rem;
+		background-color: #FFFFFF;
+		
 }
 
+/* 数量input显示框样式 */
 .mui-numbox .mui-input-numbox, .mui-numbox .mui-numbox-input {
 		border-right: solid 0px #ccc!important;
 		border-left: solid 0px #ccc!important;
+		background-color: #F4F4F4;
 }
 
 .mui-numbox {

@@ -348,7 +348,6 @@
 				if ($(this).attr("data-type") == 'againBuy') {
 					// 再次购买
 					getBuyAgain(mui, keyword, function(data) {
-						alert(JSON.stringify(data))
 						if (data.code == 200) {
 							if (data.data.length > 0) {
 								tipShow("部分商品失效，无法加入再次购买")
@@ -386,7 +385,7 @@
 						}
 					});
 				} else if ($(this).attr("data-type") == 'logistics') {
-					alert('物流')
+					console.log('物流')
 				} else if ($(this).attr("data-type") == 'harvest') {
 					// 确认收货
 					getConfirmReceipt(mui, keyword, function(data) {

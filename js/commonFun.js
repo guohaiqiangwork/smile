@@ -632,10 +632,11 @@ function shareMessage(share, ex, shareJson, shareKeyword, lineEndId) {
 		}
 	};
 	if (lineEndId && lineEndId[0] != 'lineEnd') {
-		msg.href = requserUrlShard + "/web/appShare/travalShare?orderId=" + lineEndId[0] + ""; //分享地址
+		msg.href = requserUrlShard + "share/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
+			""; //分享地址/
 	} else {
-		msg.href = requserUrlShard + "/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
-			""; //分享地址
+		msg.href = requserUrlShard + "share/index.html?shareId=" + shareKeyword.userId + "&prductId=" + shareKeyword.productId +
+			""; //分享地址/
 	}
 	msg.title = shareTitle;
 	msg.content = shareContentReg;

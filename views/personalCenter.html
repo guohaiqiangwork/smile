@@ -219,14 +219,16 @@
 				/* 监听index点击 */
 				var num = 0;
 				window.addEventListener('refreshIndexCount', function(e) {
+					//alert("555")
 					if(num == 0){
-						//alert("555")
 						// 获取个人信息
 						getUserMessage();
 						//getUser();
 						getMoney();
 						$("#mengban_id").css('display', 'none');
 						num = num + 1;
+					}else{
+						getMoney();
 					}
 				});
 				
@@ -304,7 +306,7 @@
 				function getMoney(){
 					getUserMoney(mui, plus.storage.getItem('memberId'), function(data) {
 						if (data.code == 200) {
-							tipShow(data.message);
+							console.log(data.message);
 							$("#money").text(data.data.balance);
 							$("#integral").text(data.data.integral);
 							$('#useReal').css('display', 'block');

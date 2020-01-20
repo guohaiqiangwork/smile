@@ -36,7 +36,7 @@
 				<div>
 					<h5 class=" font_size26 font_colorff">可用余额</h5>
 					<h4><span class="font_size32">¥</span> <span id="h4Cla" style="font-size: .7rem;"></span></h4>
-					<h3 class="font_size24 font_colorff">待收佣金: <span>¥</span> <span id="frozenMoney"></span></h3>
+					<h3 class="font_size24 font_colorff" style="font-weight: 500;">待收佣金: <span>¥</span> <span id="frozenMoney"></span></h3>
 				</div>
 				<div id="txClick">
 					<div>
@@ -85,9 +85,34 @@
 					</div>
 				</div>
 				<div class="content_model">
-					都放假了可是弹尽粮绝了空间的分三教九流肯德基粉色的肌肤及时的分了就睡觉v
-					街道上看风景看了空间打开了手机发就离开的时间发脸上的肌肤；到了放假啊路上风景老司机将送大家福利事件发生纠纷施蒂利克均想就看vhjskjcksjdvkjkldjflklkj
-					就分开了撒点击发觉得苏里科夫睡了放假啦上的风景就看了撒娇看就看撒的分 v 你快开机卡升级女款你的身份和扩散阿脸上的肌肤阿反馈就是离开v 那就撒谎分
+					<div>
+						一、提现相关操作
+					</div>
+					<p>
+						1.用户在笑容平台，进入账户余额-点击提现-填写提现金额，进入填写存管银行提现页面，正确填写交易密码后即可提现成功
+					</p>
+					<p>
+						2.用户账户有可用资金即可提现，两个小时内到账。
+					</p>
+					<p>
+						3. 温馨提示：笑容平台最大提现金额单笔≤ 8万
+					</p>
+					<div id="">
+						二、提现规则
+					</div>
+					<p>
+						1、单笔提现最小金额为10元
+					</p>
+					<p>
+						2、提现手续费根据提现金额进行扣除
+					</p>
+					<div id="">
+						三、冻结余额
+					</div>
+					<p>
+						“冻结余额”可能是因好友退款、退换货、导致交易账期延长造成余额暂时无法入账的款项，会随着交易状态改变等原因恢复可用
+					</p>
+
 				</div>
 			</div>
 		</div>
@@ -119,16 +144,16 @@
 				_self = plus.webview.currentWebview();
 				/* 给可用余额赋值 */
 				var h4Cla = doc.getElementById('h4Cla');
-				if(_self.myMoney.length < 9){
+				if (_self.myMoney.length < 9) {
 					h4Cla.innerText = _self.myMoney;
-				}else{
-					$('#h4Cla').css('fontSize','.24rem')
+				} else {
+					$('#h4Cla').css('fontSize', '.24rem')
 					h4Cla.innerText = _self.myMoney;
 				}
-				
+
 				// 查询冻结金额
-				getFreezeAmount(mui,plus.storage.getItem('memberId'),function(data){
-					if(data.code == 200){
+				getFreezeAmount(mui, plus.storage.getItem('memberId'), function(data) {
+					if (data.code == 200) {
 						$('#frozenMoney').text(data.data)
 					}
 				})
@@ -223,7 +248,7 @@
 									}
 								});
 								return null;
-							}else{
+							} else {
 								/* 查看是否绑定银行卡  ok*/
 								slectCheckBank(mui, plus.storage.getItem('memberId'), function(data) {
 									if (data.code != 200) {
@@ -235,7 +260,7 @@
 											}
 										});
 										return null;
-									}else{
+									} else {
 										/* 判断是否有提现密码 */
 										isSetPassword(mui, plus.storage.getItem('memberId'), function(data) {
 											console.log("判断是否有提现密码==" + JSON.stringify(data))
@@ -247,7 +272,7 @@
 														aniShow: "slide-in-right"
 													}
 												});
-											}else{
+											} else {
 												//都有去提现页面
 												$$.openWindow({
 													url: 'balanceTix.html',
@@ -260,7 +285,7 @@
 										});
 									}
 								});
-								
+
 							}
 						} else {
 							tipShow(data.message);

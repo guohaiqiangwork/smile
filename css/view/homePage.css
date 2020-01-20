@@ -314,6 +314,16 @@ body {
 	float: left;
 }
 
+#bottomAllList .newShopingIDTwo:nth-child(53) {
+	-background-color: red;
+	float: left;
+}
+
+#bottomAllList .newShopingIDTwo:nth-child(71) {
+        -background-color: red;
+        float: left;
+}
+
 .shopName{
 	margin-left: 0.1rem;
 }
@@ -782,7 +792,7 @@ body {
 }
 
 .header_title_centerI {
-	width: .88rem;
+	width: .64rem;
 	height: .64rem;
 }
 

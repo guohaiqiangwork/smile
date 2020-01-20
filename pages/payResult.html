@@ -72,6 +72,7 @@
 				});
 				_self = plus.webview.currentWebview();
 				var payParams = _self.payParams;
+				
 				//alert("支付信息="+payParams);
 				if(payParams == "成功"){
 					$(".paySucceed").css("display", "block");
@@ -86,6 +87,7 @@
 			// 去首页
 			$('.gotoHomePage').on('tap',function(){
 				toIndex(0);
+				mui.currentWebview.close(); 
 				/* $$.openWindow({
 					url: '../index.html',
 					id: 'index',

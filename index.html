@@ -20,6 +20,17 @@
 			.mui-bar-tab .mui-tab-item{
 				color: #0E1D32;
 			}
+			
+			.bj_model_logisticsx {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.4);
+				z-index: 999;
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -36,7 +47,7 @@
 					首页
 				</div>
 			</a>
-			<a id="category" class="mui-tab-item" data-id="category.html">
+			<!-- <a id="category" class="mui-tab-item" data-id="category.html">
 				<div id="typez" class="margin_top3 div_none">
 					<img src="image/tab/typez.png" class="img_width4">
 				</div>
@@ -46,7 +57,7 @@
 				<div class="font_size20">
 					分类
 				</div>
-			</a>
+			</a> -->
 			<a id="shopCart" class="mui-tab-item" data-id="shopCart.html">
 				<div id="shopz" class="margin_top3 div_none">
 					<img src="image/tab/shopz.png" class="img_width4">
@@ -71,6 +82,19 @@
 				</div>
 			</a>
 		</nav>
+		<!-- 协议提示框 -->
+		<div class="bj_model_logisticsx closeModel">
+			<div class="div_backgroun_ff model_cash">
+				<div class="div_display padding_top2">
+					
+				</div>
+				<div class="content_model">
+
+				</div>
+			</div>
+
+		</div>
+
 
 		<script src="js/mui.js"></script>
 		<script src="js/jquery-1.11.2.min.js"></script>
@@ -86,15 +110,15 @@
 			};
 			var self = null;
 			var activeTab = null;
-			
-			
+
+
 			mui.plusReady(function() {
 				/* ----------------个推监听事件------------------------ */
 				plus.push.addEventListener("click", function() {
 					if (plus.os.name == 'iOS') {
-						alert("iOS系统");
+						console.log("iOS系统");
 					} else {
-						alert("安卓系统");
+						console.log("安卓系统");
 					}
 					/* mui.toast(msg); */
 				}, false);
@@ -102,19 +126,35 @@
 				// 监听在线消息事件
 				plus.push.addEventListener("receive", function(msg) {
 					if (plus.os.name == 'iOS') {
-						alert("触发iOS系统");
-						alert("触发iOS系统=" + JSON.stringify(msg));
+						console.log("触发iOS系统");
+						console.log("触发iOS系统=" + JSON.stringify(msg));
 						//mui.toast("触发iOS系统=" + msg);
 					} else {
 						//alert("触发安卓系统");
 						//alert("触发安卓系统=" + JSON.stringify(msg));
 
-						//调用金币落地声
-						var payloadVal = eval("(" + msg.payload + ")");
-						if (payloadVal.type == 1) {
-							player();
-						};
-
+						//查询当前是否登录 isLogin
+						isLogin(mui, '', function(data) {
+							if (data.data == 1) {
+								//查询是否打开铃声开关
+								getPhoneRingtone(mui, plus.storage.getItem('memberId'), function(data) {
+									console.log(JSON.stringify(data));
+									if (data.data == 1) {
+										//alert("1")
+										//调用金币落地声
+										var payloadVal = eval("(" + msg.payload + ")");
+										if (payloadVal.type == 1) {
+											player();
+										};
+									} else {
+										//alert("0")
+										tipShow(data.message);
+									}
+								});
+							} else {
+								tipShow(data.message);
+							}
+						});
 					}
 
 					//提示框和提示框样式
@@ -177,9 +217,13 @@
 					//切换选项卡高亮
 					var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
 					if (gotab !== current) {
-						current.classList.remove('mui-active');
+						if (current.classList) {
+							current.classList.remove('mui-active');
+						}
+
 						gotab.classList.add('mui-active');
 					}
+
 				});
 
 				self = plus.webview.currentWebview();
@@ -316,10 +360,17 @@
 				});
 				//获取设备的唯一标识号
 				function getUUID() {
-					alert("UUID: " + plus.device.uuid);
+					console.log("UUID: " + plus.device.uuid);
 				}
 				// getUUID();
-
+				// 2.监听网络变化
+				document.addEventListener("netchange", function() {
+					// 加延迟 防止页面不能及时加载
+					var addNetTimer = setTimeout(function() {
+						clearTimeout(addNetTimer);
+						onNetChange();
+					}, 100);
+				}, false);
 				// 检查
 				var btn = ["确定升级", "取消"];
 				//获取app系统更新[是否手动点击获取更新]
@@ -392,7 +443,19 @@
 					});
 				}
 
-
+				// 判断是不是第一次进来
+				var agreementFlag = plus.storage.getItem('agreementFlag');
+				if (!agreementFlag) {
+					$('.bj_model_logisticsx').css('display', 'block')
+				}
+				window.addEventListener('uiuiou', function(e) {
+					var agreementFlag = plus.storage.getItem('agreementFlag');
+					if (!agreementFlag) {
+						$('.bj_model_logisticsx').css('display', 'block')
+					} else {
+						$('.bj_model_logisticsx').css('display', 'none')
+					}
+				});
 			});
 		</script>
 	</body>

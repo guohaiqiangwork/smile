@@ -40,6 +40,7 @@
 .whether_name {
 	width: 1.5rem;
 	height: .4rem;
+	line-height: 0.38rem;
 	border: 1px solid #FFFFFF;
 	border-radius: .2rem;
 	font-size: .24rem;

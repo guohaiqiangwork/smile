@@ -47,7 +47,7 @@
 				<li class="li_three">
 					<span>￥</span>
 					<span>
-						<input type="number" id="balbnce_money" />
+						<input type="number" id="balbnce_money"  style="font-size: .5rem;padding:0px;"/>
 					</span>
 				</li>
 				<li class="li_four">
@@ -69,7 +69,7 @@
 		<div id="pay" style="display: none;" data-disable-auto-close='true' class="box mui-popover mui-popover-action mui-popover-middle closeModel">
 			<div id="password_div " style="height: 1rem;width:5.7rem float: left;border-bottom: 1px solid #EEEEEE;">
 				<img src="../image/close.png" alt="" class="mui-popover-close closeModel" style="width: 0.37rem;height: 0.37rem;">
-				<p class="title1">请输入支付密码</p>
+				<p class="title1">请输入密码</p>
 			</div>
 			<div class="type">提现</div>
 			<div class="number1"></div>
@@ -123,35 +123,42 @@
 							console.log(JSON.stringify(data.data[0]))
 							switch (data.data[0].bankCode) {
 								case 'ICBC':
-									data.data[0].bankBColor = 'bank_bgColor_zgp'
-									data.data[0].imgUrl = '../image/bank/gsy.png';
-									break;
+										data.data[0].bankBColor = 'bank_bgColor_zgp'
+										data.data[0].imgUrl = '../image/bank/gsy.png';
+										break;
 								case 'ABC':
-									data.data[0].bankBColor = 'bank_bgColor_ny'
-									data.data[0].imgUrl = '../image/bank/nyy.png';
-									break;
-								case 'CBC':
-									data.data[0].bankBColor = 'bank_bgColor_jj'
-									data.data[0].imgUrl = '../image/bank/jsy.png';
-									break;
-								case 'BC':
-									data.data[0].bankBColor = 'bank_bgColor_zgp'
-									data.data[0].imgUrl = '../image/bank/zgy.png';
-									break;
+										data.data[0].bankBColor = 'bank_bgColor_ny'
+										data.data[0].imgUrl = '../image/bank/nyy.png';
+										break;
+								case 'CCB':
+										data.data[0].bankBColor = 'bank_bgColor_jj'
+										data.data[0].imgUrl = '../image/bank/jsy.png';
+										break;
+								case 'BOC':
+										data.data[0].bankBColor = 'bank_bgColor_zgp'
+										data.data[0].imgUrl = '../image/bank/zgy.png';
+										break;
 								case 'COMM':
-									data.data[0].bankBColor = 'bank_bgColor_jj'
-									data.data[0].imgUrl = '../image/bank/jty.png';
-									break;
+										data.data[0].bankBColor = 'bank_bgColor_jj'
+										data.data[0].imgUrl = '../image/bank/jty.png';
+										break;
+								case 'PSBC':
+										data.data[0].bankBColor = 'bank_bgColor_ny'
+										data.data[0].imgUrl = '../image/bank/yzy.png';
+										break;
 								case 'SPDB':
-									data.data[0].bankBColor = 'bank_bgColor_zgp'
-									data.data[0].imgUrl = '../image/bank/qty.png';
-									break;
+										data.data[0].bankBColor = 'bank_bgColor_zgp'
+										data.data[0].imgUrl = '../image/bank/qty.png';
+										break;
+								case 'CMB':
+										data.data[0].bankBColor = 'bank_bgColor_zgp'
+										data.data[0].imgUrl = '../image/bank/zsy.png';
+										break;
 								default:
-									data.data[0].bankBColor = 'bank_bgColor_zgp'
-									data.data[0].imgUrl = '../image/bank/qty.png';
-									break;
+										data.data[0].bankBColor = 'bank_bgColor_zgp'
+										data.data[0].imgUrl = '../image/bank/qty.png';
+										break;
 							}
-
 							var orderLi = '<div class="bankCardClass" bankCard_Id = ' + data.data[0].id +
 								' style="width: 3rem;height: 0.9rem;"><img src="' + data.data[0].imgUrl +
 								'" style="width: 0.27rem;"><span style="color: #303030;font-size: 0.24rem;">' + data.data[0].bankName + ' (' +
@@ -254,9 +261,10 @@
 					} else if (Number(balbnce_money) < 10) {
 						tipShow("提现金额必须大于10元");
 						return;
-					} else if (Number(balbnce_money) > $("#li_four_money").text()) {
-						console.log(balbnce_money + '仅')
-						console.log($("#li_four_money").text() + '到沙发上看')
+					}else if (Number(balbnce_money) > 80000) {
+						tipShow("单笔体现上限为80,000元");
+						return;
+					}  else if (Number(balbnce_money) > $("#li_four_money").text()) {
 						tipShow("提现金额超出余额了");
 						$("#balbnce_money").val("");
 						return;

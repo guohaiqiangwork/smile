@@ -3,8 +3,8 @@
     "id" : "H5B277F3D", /*应用的标识，创建应用时自动生成，勿手动修改*/
     "name" : "笑容", /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "1.0.5", /*应用版本名称*/
-        "code" : 2
+        "name" : "1.0.9", /*应用版本名称*/
+        "code" : 4
     },
     "description" : "", /*应用描述信息*/
     "icons" : {
@@ -38,9 +38,9 @@
         "Push" : {
             "description" : "管理推送消息插件"
         },
-        "OAuth" : {},
         "Payment" : {},
-        "Share" : {}
+        "Share" : {},
+        "OAuth" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -153,19 +153,19 @@
                 "ios" : {
                     "iphone" : {
                         "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35" : "qid.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40" : "qid.png",
-                        "portrait-896h@3x" : "qid.png",
-                        "landscape-896h@3x" : "qid.png",
-                        "portrait-896h@2x" : "qid.png",
-                        "landscape-896h@2x" : "qid.png",
-                        "iphonex" : "qid.png",
-                        "iphonexl" : "qid.png",
-                        "retina55" : "qid.png",
-                        "retina55l" : "qid.png",
-                        "retina47" : "qid.png",
-                        "retina47l" : "qid.png",
-                        "retina40l" : "qid.png"
+                        "retina35" : "image/statePage/640x960.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : "image/statePage/640x960.png",
+                        "portrait-896h@3x" : "image/statePage/1242×2688.png",
+                        "landscape-896h@3x" : "image/statePage/2688×1242.png",
+                        "portrait-896h@2x" : "image/statePage/828×1792.png",
+                        "landscape-896h@2x" : "image/statePage/1792×828.png",
+                        "iphonex" : "image/statePage/1125×2436.png",
+                        "iphonexl" : "image/statePage/2688×1242.png",
+                        "retina55" : "image/statePage/1242×2688.png",
+                        "retina55l" : "image/statePage/2688×1242.png",
+                        "retina47" : "image/statePage/750x13344.png",
+                        "retina47l" : "image/statePage/1334x750.png",
+                        "retina40l" : "image/statePage/1334x750.png"
                     },
                     "ipad" : {
                         "portrait" : "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -181,9 +181,9 @@
                 "android" : {
                     "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi" : "qid.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi" : "qid.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi" : "qid.png"
+                    "hdpi" : "image/statePage/480×762.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "image/statePage/720×1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "image/statePage/1080×1882.png"
                 }
             },
             "plugins" : {
@@ -215,10 +215,20 @@
                     "weixin" : {
                         "appid" : "wx2428d85ea06f622e",
                         "UniversalLinks" : ""
+                    },
+                    "qq" : {
+                        "appid" : "101843977"
                     }
                 }
             }
         },
-        "screenOrientation" : [ "portrait-primary", "portrait-secondary" ]
-    }
+        "screenOrientation" : [ "portrait-primary", "portrait-secondary" ],
+        "safearea" : {
+            "background" : "#fff",
+            "bottom" : {
+                "offset" : "auto"
+            }
+        }
+    },
+    "fullscreen" : false
 }
